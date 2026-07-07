@@ -91,10 +91,15 @@ export async function cerrarSesion() {
 }
 
 export async function obtenerSesion(): Promise<SesionMecenas | null> {
-  const jar = await cookies();
-  const token = jar.get(COOKIE_SESION)?.value;
-  if (!token) return null;
-  return verificarSesionToken(token);
+  try {
+    const jar = await cookies();
+    const token = jar.get(COOKIE_SESION)?.value;
+    if (!token) return null;
+    return verificarSesionToken(token);
+  } catch (error) {
+    console.error("[auth] no se pudo leer sesión:", error);
+    return null;
+  }
 }
 
 /** Mecenas activo (o con periodo vigente) ligado a la cookie de sesión. */

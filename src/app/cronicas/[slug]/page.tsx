@@ -11,12 +11,15 @@ import {
   obtenerCronica,
   requiereMecenas,
 } from "@/content/cronicas/registro";
-import { esMecenasActivo } from "@/lib/auth";
+import { obtenerSesion } from "@/lib/auth";
 import { sitio } from "@/lib/site.config";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+// Soft-gate de mecenas consulta cookie; evitar cache estático ambiguo.
+export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   // Las exclusivas consultan cookie + DB: se renderizan on-demand.
@@ -45,7 +48,9 @@ export default async function CronicaPage({ params }: Props) {
   if (!cronica || !cargador) notFound();
 
   const exclusivas = requiereMecenas(cronica);
-  const mecenas = exclusivas ? await esMecenasActivo() : true;
+  // Soft-gate: basta la cookie de sesión (emitida solo a mecenas activos).
+  // El estado en DB se revalida en /mecenas y en el magic link.
+  const mecenas = exclusivas ? Boolean(await obtenerSesion()) : true;
   const mostrarContenido = !exclusivas || mecenas;
 
   const Contenido = mostrarContenido ? (await cargador()).default : null;
