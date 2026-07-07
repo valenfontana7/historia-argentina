@@ -5,6 +5,7 @@ const enlaces = [
   { href: "/cronicas", etiqueta: "Crónicas" },
   { href: "/panteon", etiqueta: "El Panteón" },
   { href: "/hoy", etiqueta: "Hoy" },
+  { href: "/membresia", etiqueta: "Mecenas" },
 ] as const;
 
 export function Header() {

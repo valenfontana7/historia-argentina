@@ -1,5 +1,7 @@
 import type { ComponentType } from "react";
 
+export type AccesoCronica = "publico" | "mecenas" | "anticipo";
+
 export type CronicaMeta = {
   slug: string;
   titulo: string;
@@ -9,6 +11,7 @@ export type CronicaMeta = {
   duracion: string;
   descripcion: string;
   publicada: string;
+  acceso: AccesoCronica;
   /** Ficha del Panteón sugerida al final de la crónica */
   protagonista: { slug: string; etiqueta: string };
 };
@@ -25,6 +28,7 @@ export const cronicas: CronicaMeta[] = [
     descripcion:
       "La historia completa del cruce de los Andes: el plan continental de San Martín, la guerra de zapa, las seis rutas del Ejército de los Andes y la victoria de Chacabuco, contada como una experiencia visual interactiva.",
     publicada: "2026-07-07",
+    acceso: "publico",
     protagonista: { slug: "jose-de-san-martin", etiqueta: "La ficha de San Martín" },
   },
   {
@@ -38,7 +42,22 @@ export const cronicas: CronicaMeta[] = [
     descripcion:
       "La historia completa de las Invasiones Inglesas: la caída de Buenos Aires en 48 horas, la Reconquista de Liniers, el nacimiento de las milicias criollas y la guerra de las azoteas que humilló a Whitelocke, contada como una experiencia visual interactiva.",
     publicada: "2026-07-07",
+    acceso: "publico",
     protagonista: { slug: "santiago-de-liniers", etiqueta: "La ficha de Liniers" },
+  },
+  {
+    slug: "las-48-horas-de-mayo",
+    titulo: "Las 48 Horas de Mayo",
+    subtitulo:
+      "Del cabildo abierto a la Primera Junta: cómo una ciudad armada aprovechó la prisión de un rey para tomar el poder.",
+    kicker: "Exclusiva Mecenas · Mayo de 1810",
+    periodo: "22 — 25 de mayo de 1810",
+    duracion: "5 minutos",
+    descripcion:
+      "Una crónica exclusiva para mecenas sobre las cuarenta y ocho horas que terminaron con el virreinato en Buenos Aires: milicias, cabildo abierto y la continuidad secreta con las Invasiones Inglesas.",
+    publicada: "2026-07-07",
+    acceso: "mecenas",
+    protagonista: { slug: "mariano-moreno", etiqueta: "La ficha de Mariano Moreno" },
   },
 ];
 
@@ -46,8 +65,17 @@ export const cargadores: Record<string, () => Promise<{ default: ComponentType }
   "el-cruce-de-los-andes": () => import("@/content/cronicas/el-cruce-de-los-andes.mdx"),
   "la-ciudad-que-vencio-a-un-imperio": () =>
     import("@/content/cronicas/la-ciudad-que-vencio-a-un-imperio.mdx"),
+  "las-48-horas-de-mayo": () => import("@/content/cronicas/las-48-horas-de-mayo.mdx"),
 };
 
 export function obtenerCronica(slug: string): CronicaMeta | undefined {
   return cronicas.find((c) => c.slug === slug);
+}
+
+export function cronicasPublicas(): CronicaMeta[] {
+  return cronicas.filter((c) => c.acceso === "publico");
+}
+
+export function requiereMecenas(cronica: CronicaMeta): boolean {
+  return cronica.acceso === "mecenas" || cronica.acceso === "anticipo";
 }

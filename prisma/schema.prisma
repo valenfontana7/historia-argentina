@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Suscriptor {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+}
+
+enum PlanMecenas {
+  mensual
+  fundador
+}
+
+enum EstadoMecenas {
+  pendiente
+  activo
+  cancelado
+  vencido
+}
+
+model Mecenas {
+  id               String        @id @default(cuid())
+  email            String        @unique
+  plan             PlanMecenas
+  estado           EstadoMecenas @default(pendiente)
+  esFundador       Boolean       @default(false)
+  nombrePublico    String?
+  mostrarCredito   Boolean       @default(true)
+  mpPaymentId      String?
+  mpSubscriptionId String?
+  mpPreferenceId   String?
+  periodEnd        DateTime?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([email])
+  @@index([estado])
+  @@index([mpPaymentId])
+  @@index([mpSubscriptionId])
+}

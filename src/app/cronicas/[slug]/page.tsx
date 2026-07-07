@@ -2,7 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EscenaHero } from "@/components/scrolly/EscenaHero";
-import { cronicas, cargadores, obtenerCronica } from "@/content/cronicas/registro";
+import { CtaMecenas } from "@/components/membresia/CtaMecenas";
+import { SoftGate } from "@/components/membresia/SoftGate";
+import { BotonCompartir } from "@/components/BotonCompartir";
+import {
+  cronicas,
+  cargadores,
+  obtenerCronica,
+  requiereMecenas,
+} from "@/content/cronicas/registro";
+import { esMecenasActivo } from "@/lib/auth";
 import { sitio } from "@/lib/site.config";
 
 type Props = {
@@ -10,7 +19,8 @@ type Props = {
 };
 
 export function generateStaticParams() {
-  return cronicas.map((c) => ({ slug: c.slug }));
+  // Las exclusivas consultan cookie + DB: se renderizan on-demand.
+  return cronicas.filter((c) => c.acceso === "publico").map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -34,7 +44,11 @@ export default async function CronicaPage({ params }: Props) {
   const cargador = cargadores[slug];
   if (!cronica || !cargador) notFound();
 
-  const { default: Contenido } = await cargador();
+  const exclusivas = requiereMecenas(cronica);
+  const mecenas = exclusivas ? await esMecenasActivo() : true;
+  const mostrarContenido = !exclusivas || mecenas;
+
+  const Contenido = mostrarContenido ? (await cargador()).default : null;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -60,25 +74,40 @@ export default async function CronicaPage({ params }: Props) {
         subtitulo={cronica.subtitulo}
         meta={`${cronica.periodo} · Lectura: ${cronica.duracion}`}
       />
-      <Contenido />
-      <footer className="mx-auto max-w-2xl px-5 pb-28 pt-10 text-center">
-        <div className="filete mb-10" />
-        <p className="kicker">Seguí explorando</p>
-        <div className="mt-6 flex flex-wrap justify-center gap-4">
-          <Link
-            href={`/panteon/${cronica.protagonista.slug}`}
-            className="rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
-          >
-            {cronica.protagonista.etiqueta} →
-          </Link>
-          <Link
-            href="/cronicas"
-            className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
-          >
-            Todas las crónicas
-          </Link>
-        </div>
-      </footer>
+
+      {mostrarContenido && Contenido ? (
+        <>
+          <Contenido />
+          <div className="mx-auto max-w-2xl px-5 py-10">
+            <CtaMecenas />
+          </div>
+          <footer className="mx-auto max-w-2xl px-5 pb-28 pt-6 text-center">
+            <div className="filete mb-10" />
+            <p className="kicker">Seguí explorando</p>
+            <div className="mt-6 flex flex-wrap justify-center gap-4">
+              <Link
+                href={`/panteon/${cronica.protagonista.slug}`}
+                className="rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
+              >
+                {cronica.protagonista.etiqueta} →
+              </Link>
+              <BotonCompartir
+                titulo={cronica.titulo}
+                texto={cronica.subtitulo}
+                ruta={`/cronicas/${cronica.slug}`}
+              />
+              <Link
+                href="/cronicas"
+                className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
+              >
+                Todas las crónicas
+              </Link>
+            </div>
+          </footer>
+        </>
+      ) : (
+        <SoftGate titulo={cronica.titulo} />
+      )}
     </article>
   );
 }

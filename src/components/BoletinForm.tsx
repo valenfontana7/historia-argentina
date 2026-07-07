@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { suscribir, type EstadoSuscripcion } from "@/app/acciones";
 
@@ -32,12 +33,19 @@ export function BoletinForm() {
         </button>
       </form>
       {estado && (
-        <p
-          className={`mt-3 text-center text-sm ${estado.ok ? "text-oro-claro" : "text-carmesi"}`}
-          role="status"
-        >
-          {estado.mensaje}
-        </p>
+        <div className="mt-3 text-center" role="status">
+          <p className={`text-sm ${estado.ok ? "text-oro-claro" : "text-carmesi"}`}>
+            {estado.mensaje}
+          </p>
+          {estado.ok && estado.upsell && (
+            <p className="mt-2 text-sm text-tinta-suave">
+              ¿Querés el anticipo de nuevas crónicas?{" "}
+              <Link href="/membresia" className="text-oro-claro underline-offset-4 hover:underline">
+                Conocé Mecenas
+              </Link>
+            </p>
+          )}
+        </div>
       )}
     </div>
   );

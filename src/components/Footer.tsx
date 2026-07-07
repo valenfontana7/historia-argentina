@@ -25,6 +25,12 @@ export function Footer() {
             <Link href="/hoy" className="text-tinta-suave transition-colors hover:text-oro-claro">
               Un día como hoy
             </Link>
+            <Link href="/membresia" className="text-oro-claro transition-colors hover:text-oro">
+              Hacete mecenas
+            </Link>
+            <Link href="/membresia/acceder" className="text-tinta-suave transition-colors hover:text-oro-claro">
+              Ya soy mecenas
+            </Link>
             <Link href="/" className="text-tinta-suave transition-colors hover:text-oro-claro">
               Inicio
             </Link>
