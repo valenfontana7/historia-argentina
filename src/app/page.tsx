@@ -1,65 +1,165 @@
-import Image from "next/image";
+import Link from "next/link";
+import { HeroPortada } from "@/components/HeroPortada";
+import { PersonajeCard } from "@/components/PersonajeCard";
+import { BoletinForm } from "@/components/BoletinForm";
+import { Reveal } from "@/components/ui/Reveal";
+import { efemerideParaFecha } from "@/data/efemerides";
+import { personajes } from "@/data/personajes";
+import { cronicas } from "@/content/cronicas/registro";
+import { hoyEnArgentina } from "@/lib/fechas";
 
-export default function Home() {
+// La portada se regenera cada hora para mantener fresca la efeméride del día.
+export const revalidate = 3600;
+
+const destacados = [
+  "jose-de-san-martin",
+  "eva-peron",
+  "juan-manuel-de-rosas",
+  "domingo-faustino-sarmiento",
+  "manuel-belgrano",
+  "juana-azurduy",
+  "juan-domingo-peron",
+  "raul-alfonsin",
+];
+
+export default function HomePage() {
+  const { mes, dia } = hoyEnArgentina();
+  const efemeride = efemerideParaFecha(mes, dia);
+  const cronicaDestacada = cronicas[0];
+  const grilla = personajes.filter((p) => destacados.includes(p.slug));
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div>
+      <HeroPortada />
+
+      {/* Un día como hoy */}
+      <section className="border-y border-linea-suave bg-fondo-2">
+        <Link href={`/hoy/${efemeride.dia}`} className="group block">
+          <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-16 sm:flex-row sm:items-center">
+            <Reveal className="shrink-0">
+              <p className="kicker">Un día como hoy</p>
+              <p className="titulo-display mt-2 text-7xl font-semibold leading-none text-oro">
+                {efemeride.anio}
+              </p>
+              <p className="mt-2 text-xs uppercase tracking-[0.3em] text-tinta-tenue">
+                {efemeride.fecha}
+              </p>
+            </Reveal>
+            <Reveal delay={0.1} className="sm:border-l sm:border-linea sm:pl-10">
+              <h2 className="titulo-display max-w-xl text-3xl font-semibold leading-tight transition-colors group-hover:text-oro-claro">
+                {efemeride.titulo}
+              </h2>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-tinta-suave">
+                {efemeride.historia[0].slice(0, 180)}…
+              </p>
+              <p className="mt-4 text-xs uppercase tracking-[0.2em] text-oro transition-transform duration-300 group-hover:translate-x-1.5">
+                Leer la historia del día →
+              </p>
+            </Reveal>
+          </div>
+        </Link>
+      </section>
+
+      {/* Crónica destacada */}
+      <section className="mx-auto max-w-6xl px-5 py-24">
+        <Reveal>
+          <div className="flex items-center gap-6">
+            <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">
+              La crónica del mes
+            </h2>
+            <div className="filete w-full" />
+          </div>
+        </Reveal>
+        <Reveal className="mt-10">
+          <Link
+            href={`/cronicas/${cronicaDestacada.slug}`}
+            className="group relative block overflow-hidden rounded-sm border border-linea"
+          >
+            {/* Escena de montañas del hero, en miniatura */}
+            <div
+              className="relative px-8 py-20 sm:px-14 sm:py-28"
+              style={{
+                background:
+                  "linear-gradient(180deg, #05070d 0%, #0a1020 50%, #16202f 100%)",
+              }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              <svg
+                aria-hidden
+                className="absolute bottom-0 left-0 w-full opacity-80 transition-transform duration-700 group-hover:scale-[1.03]"
+                viewBox="0 0 1200 240"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 240 L0 170 L140 90 L280 160 L420 60 L580 165 L720 75 L880 170 L1030 100 L1200 175 L1200 240 Z"
+                  fill="#121826"
+                />
+                <path
+                  d="M0 240 L0 205 L180 140 L360 205 L540 120 L740 210 L920 140 L1100 215 L1200 180 L1200 240 Z"
+                  fill="#080a10"
+                />
+              </svg>
+              <div className="relative">
+                <p className="kicker">{cronicaDestacada.kicker}</p>
+                <h3 className="titulo-display mt-4 max-w-2xl text-4xl font-semibold leading-tight transition-colors group-hover:text-oro-claro sm:text-6xl">
+                  {cronicaDestacada.titulo}
+                </h3>
+                <p className="mt-5 max-w-xl leading-relaxed text-tinta-suave">
+                  {cronicaDestacada.subtitulo}
+                </p>
+                <p className="mt-8 inline-block rounded-full bg-oro px-7 py-3.5 text-sm font-semibold text-fondo transition-colors group-hover:bg-oro-claro">
+                  Vivir la historia →
+                </p>
+              </div>
+            </div>
+          </Link>
+        </Reveal>
+      </section>
+
+      {/* El Panteón */}
+      <section className="mx-auto max-w-6xl px-5 pb-24">
+        <Reveal>
+          <div className="flex items-center gap-6">
+            <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">
+              El Panteón
+            </h2>
+            <div className="filete w-full" />
+            <Link
+              href="/panteon"
+              className="shrink-0 text-xs uppercase tracking-[0.2em] text-tinta-suave transition-colors hover:text-oro-claro"
             >
-              Learning
-            </a>{" "}
-            center.
+              Ver todos →
+            </Link>
+          </div>
+          <p className="mt-4 max-w-2xl text-tinta-suave">
+            Héroes, tiranos, visionarios y derrotados: las vidas que hicieron
+            la Argentina, en fichas para perderse durante horas.
           </p>
+        </Reveal>
+        <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-4">
+          {grilla.map((personaje, i) => (
+            <Reveal key={personaje.slug} delay={(i % 4) * 0.07}>
+              <PersonajeCard personaje={personaje} />
+            </Reveal>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </section>
+
+      {/* Boletín */}
+      <section className="border-t border-linea-suave bg-fondo-2">
+        <Reveal className="mx-auto max-w-3xl px-5 py-24 text-center">
+          <p className="kicker">El boletín</p>
+          <h2 className="titulo-display mt-4 text-4xl font-semibold leading-tight">
+            Una historia argentina cada mañana.
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-tinta-suave">
+            La efeméride del día contada en 90 segundos, directo en tu casilla.
+            Gratis, sin spam, para siempre.
+          </p>
+          <div className="mt-8">
+            <BoletinForm />
+          </div>
+        </Reveal>
+      </section>
     </div>
   );
 }

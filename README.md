@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Argenta — Museo digital de historia argentina
 
-## Getting Started
+La historia argentina contada como nunca: crónicas cinematográficas que se
+navegan con el scroll, un panteón interactivo de personajes y una efeméride
+visual cada día.
 
-First, run the development server:
+**Producción:** https://historia-argentina-woad.vercel.app
+
+## Módulos
+
+| Módulo | Ruta | Qué es |
+| --- | --- | --- |
+| Crónicas | `/cronicas/[slug]` | Historias scrollytelling (MDX + GSAP): mapas animados, cifras vivas, comparadores |
+| El Panteón | `/panteon/[slug]` | Fichas de personajes: biografía, línea de vida, aliados y enemigos con links cruzados |
+| Hoy | `/hoy/[dia]` | Efeméride diaria con card Open Graph compartible y captura de email |
+
+## Stack
+
+- **Next.js 16** (App Router, SSG casi total; `/hoy` es dinámica para resolver la fecha del día)
+- **Tailwind CSS 4** (tokens propios en `src/app/globals.css`)
+- **GSAP + ScrollTrigger** para el scrollytelling de las crónicas
+- **Framer Motion** para micro-interacciones
+- **MDX** (`@next/mdx`) para el contenido de las crónicas
+
+## Desarrollo
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # build de producción
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Dónde vive el contenido
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Todo el contenido está en el repo, sin base de datos:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/data/personajes.ts` — fichas del Panteón
+- `src/data/efemerides.ts` — efemérides de "Hoy" (una entrada por día del año, ampliable)
+- `src/content/cronicas/*.mdx` — crónicas; se registran en `src/content/cronicas/registro.ts`
+- `src/lib/site.config.ts` — nombre de marca, lema y URL canónica (cambiarlo acá actualiza todo el sitio)
 
-## Learn More
+## Cómo agregar contenido
 
-To learn more about Next.js, take a look at the following resources:
+- **Nueva efeméride:** agregar una entrada en `src/data/efemerides.ts`. La página, la card OG y el sitemap se generan solos.
+- **Nuevo personaje:** agregar una entrada en `src/data/personajes.ts` (usar los slugs en `aliados`/`enemigos` para los links cruzados).
+- **Nueva crónica:** crear el `.mdx` en `src/content/cronicas/`, registrarlo en `registro.ts` y usar los componentes de `src/components/scrolly/` (`Capitulo`, `Prosa`, `CitaHistorica`, `DatoGigante`, `Comparador`, etc.).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Fase 2 (fuera del MVP)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Atlas del Tiempo, buscador de apellidos inmigrantes, envío real del boletín
+(Resend), cuentas de usuario con rachas y CMS.

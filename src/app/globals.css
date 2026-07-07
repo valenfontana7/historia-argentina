@@ -1,26 +1,131 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Paleta: museo nocturno, papel viejo y oro antiguo */
+  --fondo: #0c0a08;
+  --fondo-2: #141109;
+  --fondo-3: #1d1810;
+  --tinta: #ece4d4;
+  --tinta-suave: #a59a86;
+  --tinta-tenue: #8d8271;
+  --oro: #c6a15b;
+  --oro-claro: #e3c98f;
+  --celeste: #8fb8d8;
+  --carmesi: #b04a38;
+  --linea: rgba(236, 228, 212, 0.14);
+  --linea-suave: rgba(236, 228, 212, 0.07);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-fondo: var(--fondo);
+  --color-fondo-2: var(--fondo-2);
+  --color-fondo-3: var(--fondo-3);
+  --color-tinta: var(--tinta);
+  --color-tinta-suave: var(--tinta-suave);
+  --color-tinta-tenue: var(--tinta-tenue);
+  --color-oro: var(--oro);
+  --color-oro-claro: var(--oro-claro);
+  --color-celeste: var(--celeste);
+  --color-carmesi: var(--carmesi);
+  --color-linea: var(--linea);
+  --color-linea-suave: var(--linea-suave);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--oro);
+  color: var(--fondo);
+}
+
+/* Scrollbar discreta, acorde al fondo */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--tinta-tenue) transparent;
+}
+
+/* Grano de película sutil sobre todo el sitio */
+.grano::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Titulares display */
+.titulo-display {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* Etiqueta pequeña en mayúsculas (kicker) */
+.kicker {
+  font-size: 0.6875rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--oro);
+}
+
+/* Línea decorativa dorada */
+.filete {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--oro) 50%, transparent);
+  opacity: 0.5;
+}
+
+/* Prosa editorial de las crónicas y efemérides */
+.prosa {
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: var(--tinta);
+}
+.prosa p + p {
+  margin-top: 1.5em;
+}
+.prosa strong {
+  color: var(--oro-claro);
+  font-weight: 600;
+}
+.prosa em {
+  color: var(--tinta-suave);
+}
+
+/* Capitular para el primer párrafo de una historia */
+.capitular > p:first-of-type::first-letter {
+  font-family: var(--font-fraunces), Georgia, serif;
+  float: left;
+  font-size: 4.6em;
+  line-height: 0.78;
+  padding-right: 0.12em;
+  padding-top: 0.06em;
+  color: var(--oro);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
