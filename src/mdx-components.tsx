@@ -4,7 +4,9 @@ import { CitaHistorica } from "@/components/scrolly/CitaHistorica";
 import { DatoGigante, FilaDeDatos } from "@/components/scrolly/DatoGigante";
 import { Comparador } from "@/components/scrolly/Comparador";
 import { MapaCruce } from "@/components/scrolly/MapaCruce";
+import { MapaDefensa } from "@/components/scrolly/MapaDefensa";
 import { PlanNorte, PlanAndes } from "@/components/scrolly/EscenasCruce";
+import { InvasionPrimera, Reconquista } from "@/components/scrolly/EscenasInvasiones";
 import { Prosa } from "@/components/scrolly/Prosa";
 
 /**
@@ -19,8 +21,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     FilaDeDatos,
     Comparador,
     MapaCruce,
+    MapaDefensa,
     PlanNorte,
     PlanAndes,
+    InvasionPrimera,
+    Reconquista,
     Prosa,
     ...components,
   };

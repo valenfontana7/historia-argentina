@@ -66,10 +66,10 @@ export default async function CronicaPage({ params }: Props) {
         <p className="kicker">Seguí explorando</p>
         <div className="mt-6 flex flex-wrap justify-center gap-4">
           <Link
-            href="/panteon/jose-de-san-martin"
+            href={`/panteon/${cronica.protagonista.slug}`}
             className="rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
           >
-            La ficha de San Martín →
+            {cronica.protagonista.etiqueta} →
           </Link>
           <Link
             href="/cronicas"
