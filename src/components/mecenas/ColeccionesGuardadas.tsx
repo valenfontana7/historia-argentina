@@ -1,15 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
 import { obtenerFavoritos, type Favorito } from "@/lib/engagement/storage";
 
 export function ColeccionesGuardadas() {
-  const [favoritos, setFavoritos] = useState<Favorito[]>([]);
-
-  useEffect(() => {
-    setFavoritos(obtenerFavoritos());
-  }, []);
+  const favoritos = useStorageSnapshot(obtenerFavoritos, [] as Favorito[]);
 
   if (favoritos.length === 0) {
     return (

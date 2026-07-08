@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
+import { useEsCliente, useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
+import { notificarCambioStorage } from "@/lib/engagement/storage-events";
 
 const CLAVE = "argent:mecenas-checklist";
 
@@ -50,9 +52,14 @@ function leerHechos(): Set<string> {
   }
 }
 
+function idsHechosSnapshot(): string[] {
+  return [...leerHechos()].sort();
+}
+
 function guardarHechos(hechos: Set<string>) {
   try {
     localStorage.setItem(CLAVE, JSON.stringify([...hechos]));
+    notificarCambioStorage();
   } catch {
     // ignorar
   }
@@ -64,15 +71,11 @@ export function OnboardingMecenas({
 }: {
   cronicaHref: string;
 }) {
-  const [hechos, setHechos] = useState<Set<string>>(new Set());
-  const [listo, setListo] = useState(false);
+  const esCliente = useEsCliente();
+  const ids = useStorageSnapshot(idsHechosSnapshot, [] as string[]);
+  const hechos = useMemo(() => new Set(ids), [ids]);
 
-  useEffect(() => {
-    setHechos(leerHechos());
-    setListo(true);
-  }, []);
-
-  if (!listo) return null;
+  if (!esCliente) return null;
 
   const items = ITEMS.map((item) =>
     item.id === "cronica" ? { ...item, href: cronicaHref } : item,
@@ -84,7 +87,6 @@ export function OnboardingMecenas({
   const marcar = (id: string) => {
     const next = new Set(hechos);
     next.add(id);
-    setHechos(next);
     guardarHechos(next);
   };
 

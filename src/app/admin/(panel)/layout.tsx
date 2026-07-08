@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { AdminNav } from "@/components/admin/AdminNav";
 import {
   adminConfigurado,
-  destinoAdminSeguro,
   obtenerSesionAdmin,
 } from "@/lib/admin-auth";
 

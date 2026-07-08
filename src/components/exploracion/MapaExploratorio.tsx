@@ -11,7 +11,7 @@ import {
 import type { Epoca } from "@/components/ui/Retrato";
 import { nombresEpocas } from "@/data/personajes";
 import type { Lugar } from "@/data/lugares";
-import { esLugarPreview, LUGARES_PREVIEW_SLUGS } from "@/data/lugares-preview";
+import { esLugarPreview } from "@/data/lugares-preview";
 import { posicionLugarEnMapa, etiquetaEnMapa, nombreEnMapa } from "@/lib/cono-sur-ilustrado";
 
 export { LUGARES_PREVIEW_SLUGS } from "@/data/lugares-preview";

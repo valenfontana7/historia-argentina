@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useMemo } from "react";
+import { useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
 import {
   obtenerProgreso,
   obtenerRecientes,
@@ -10,35 +11,22 @@ import {
 } from "@/lib/engagement/storage";
 
 export function PortadaRetorno() {
-  const [recientes, setRecientes] = useState<PaginaReciente[]>([]);
-  const [progresoCronica, setProgresoCronica] = useState<{
-    href: string;
-    titulo: string;
-    porcentaje: number;
-  } | null>(null);
-  const [visible, setVisible] = useState(false);
+  const visitado = useStorageSnapshot(tieneVisitaOnboarding, false);
+  const leerRecientes = useCallback(
+    () => obtenerRecientes().slice(0, 3),
+    [],
+  );
+  const recientes = useStorageSnapshot(leerRecientes, [] as PaginaReciente[]);
 
-  useEffect(() => {
-    if (!tieneVisitaOnboarding()) return;
+  const progresoCronica = useMemo(() => {
+    const cronica = recientes.find((p) => p.tipo === "cronica");
+    if (!cronica) return null;
+    const pct = obtenerProgreso(cronica.href);
+    if (pct <= 0 || pct >= 100) return null;
+    return { href: cronica.href, titulo: cronica.titulo, porcentaje: pct };
+  }, [recientes]);
 
-    const paginas = obtenerRecientes().slice(0, 3);
-    setRecientes(paginas);
-    setVisible(paginas.length > 0);
-
-    const cronica = paginas.find((p) => p.tipo === "cronica");
-    if (cronica) {
-      const pct = obtenerProgreso(cronica.href);
-      if (pct > 0 && pct < 100) {
-        setProgresoCronica({
-          href: cronica.href,
-          titulo: cronica.titulo,
-          porcentaje: pct,
-        });
-      }
-    }
-  }, []);
-
-  if (!visible) return null;
+  if (!visitado || recientes.length === 0) return null;
 
   return (
     <section className="border-b border-linea-suave bg-fondo">

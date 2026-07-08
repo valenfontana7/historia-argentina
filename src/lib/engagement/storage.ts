@@ -1,3 +1,5 @@
+import { notificarCambioStorage } from "@/lib/engagement/storage-events";
+
 const CLAVE_RECIENTES = "argent:recientes";
 const CLAVE_PROGRESO = "argent:progreso";
 const CLAVE_FAVORITOS = "argent:favoritos";
@@ -38,6 +40,7 @@ function escribir(clave: string, valor: unknown): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.setItem(clave, JSON.stringify(valor));
+    notificarCambioStorage();
   } catch {
     // Quota exceeded u otro error: ignorar silenciosamente.
   }
@@ -91,6 +94,7 @@ export function marcarVisitaOnboarding(): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.setItem(CLAVE_VISITA, "1");
+    notificarCambioStorage();
   } catch {
     // ignorar
   }

@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import { useEsCliente } from "@/lib/engagement/client-storage-sync";
 
 type RevealProps = {
   children: ReactNode;
@@ -16,11 +17,7 @@ type RevealProps = {
  */
 export function Reveal({ children, delay = 0, className }: RevealProps) {
   const reducido = useReducedMotion();
-  const [montado, setMontado] = useState(false);
-
-  useEffect(() => {
-    setMontado(true);
-  }, []);
+  const montado = useEsCliente();
 
   if (!montado || reducido) {
     return <div className={className}>{children}</div>;

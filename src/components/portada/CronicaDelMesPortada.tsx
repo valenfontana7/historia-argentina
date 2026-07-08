@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
 import { tieneVisitaOnboarding } from "@/lib/engagement/storage";
 import type { CronicaMeta } from "@/content/cronicas/registro";
 
@@ -10,11 +10,7 @@ type Props = {
 };
 
 export function CronicaDelMesPortada({ cronica }: Props) {
-  const [mostrar, setMostrar] = useState(false);
-
-  useEffect(() => {
-    setMostrar(tieneVisitaOnboarding());
-  }, []);
+  const mostrar = useStorageSnapshot(tieneVisitaOnboarding, false);
 
   if (!mostrar) {
     return (

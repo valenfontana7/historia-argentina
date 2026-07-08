@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback } from "react";
+import { useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
 import { obtenerRecientes, type PaginaReciente } from "@/lib/engagement/storage";
 
 type Props = {
@@ -10,15 +11,14 @@ type Props = {
 };
 
 export function RecientementeVisitado({ excluirHref, limite = 6 }: Props) {
-  const [recientes, setRecientes] = useState<PaginaReciente[]>([]);
-
-  useEffect(() => {
-    setRecientes(
+  const leerRecientes = useCallback(
+    () =>
       obtenerRecientes()
         .filter((r) => r.href !== excluirHref)
         .slice(0, limite),
-    );
-  }, [excluirHref, limite]);
+    [excluirHref, limite],
+  );
+  const recientes = useStorageSnapshot(leerRecientes, [] as PaginaReciente[]);
 
   if (recientes.length === 0) return null;
 

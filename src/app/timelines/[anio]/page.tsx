@@ -25,7 +25,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { anio } = await params;
   const num = parseInt(anio, 10);
   if (Number.isNaN(num)) return {};
-  const periodo = periodoPorAnio(num);
   return construirMetadata({
     titulo: `Argentina en ${num} — timeline histórica`,
     descripcion: `Qué pasaba en Argentina en ${num}. Eventos, personajes y contexto de un año en la historia.`,

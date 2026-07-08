@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { alternarFavorito, esFavorito } from "@/lib/engagement/storage";
+import { useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
+import { alternarFavorito, obtenerFavoritos } from "@/lib/engagement/storage";
 import type { PaginaReciente } from "@/lib/engagement/storage";
 
 type Props = {
@@ -11,18 +11,14 @@ type Props = {
 };
 
 export function BotonFavorito({ href, titulo, tipo }: Props) {
-  const [activo, setActivo] = useState(false);
-
-  useEffect(() => {
-    setActivo(esFavorito(href));
-  }, [href]);
+  const favoritos = useStorageSnapshot(obtenerFavoritos, []);
+  const activo = favoritos.some((f) => f.href === href);
 
   return (
     <button
       type="button"
       onClick={() => {
-        const nuevo = alternarFavorito({ href, titulo, tipo });
-        setActivo(nuevo);
+        alternarFavorito({ href, titulo, tipo });
       }}
       className={`rounded-full border px-5 py-2.5 text-sm transition-colors ${
         activo

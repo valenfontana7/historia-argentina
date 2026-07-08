@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useCallback } from "react";
+import { useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
+import { notificarCambioStorage } from "@/lib/engagement/storage-events";
 import { obtenerProgreso } from "@/lib/engagement/storage";
 
 type Props = {
@@ -8,11 +10,11 @@ type Props = {
 };
 
 export function BarraProgresoLectura({ href }: Props) {
-  const [pct, setPct] = useState(0);
+  const leerProgreso = useCallback(() => obtenerProgreso(href), [href]);
+  const pct = useStorageSnapshot(leerProgreso, 0);
 
   useEffect(() => {
-    setPct(obtenerProgreso(href));
-    const id = setInterval(() => setPct(obtenerProgreso(href)), 2000);
+    const id = setInterval(() => notificarCambioStorage(), 2000);
     return () => clearInterval(id);
   }, [href]);
 
