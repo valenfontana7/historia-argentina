@@ -18,6 +18,22 @@ export type MembresiaSettingsData = {
 
 const SETTINGS_ID = "default";
 
+function settingsPorDefecto(): MembresiaSettingsData {
+  return {
+    mensualHabilitado: false,
+    fundadorHabilitado: false,
+    precioMensual: planes.mensual.precio,
+    precioFundador: planes.fundador.precio,
+    updatedAt: new Date(),
+  };
+}
+
+function esErrorSchemaPrisma(error: unknown): boolean {
+  if (typeof error !== "object" || error === null || !("code" in error)) return false;
+  const code = (error as { code: unknown }).code;
+  return typeof code === "string" && ["P2021", "P2022", "P2010"].includes(code);
+}
+
 function mapSettings(row: {
   mensualHabilitado: boolean;
   fundadorHabilitado: boolean;
@@ -45,19 +61,30 @@ export function planConPrecio(
 }
 
 export async function getMembresiaSettings(): Promise<MembresiaSettingsData> {
-  const row = await prisma.membresiaSettings.upsert({
-    where: { id: SETTINGS_ID },
-    create: {
-      id: SETTINGS_ID,
-      mensualHabilitado: false,
-      fundadorHabilitado: false,
-      precioMensual: planes.mensual.precio,
-      precioFundador: planes.fundador.precio,
-    },
-    update: {},
-  });
+  try {
+    const row = await prisma.membresiaSettings.upsert({
+      where: { id: SETTINGS_ID },
+      create: {
+        id: SETTINGS_ID,
+        mensualHabilitado: false,
+        fundadorHabilitado: false,
+        precioMensual: planes.mensual.precio,
+        precioFundador: planes.fundador.precio,
+      },
+      update: {},
+    });
 
-  return mapSettings(row);
+    return mapSettings(row);
+  } catch (error) {
+    if (esErrorSchemaPrisma(error)) {
+      console.error(
+        "[membresia-settings] Falta la tabla MembresiaSettings. Corré `prisma migrate deploy`.",
+        error,
+      );
+      return settingsPorDefecto();
+    }
+    throw error;
+  }
 }
 
 export async function updateMembresiaSettings(input: {
@@ -66,19 +93,28 @@ export async function updateMembresiaSettings(input: {
   precioMensual?: number;
   precioFundador?: number;
 }): Promise<MembresiaSettingsData> {
-  await getMembresiaSettings();
+  try {
+    await getMembresiaSettings();
 
-  const row = await prisma.membresiaSettings.update({
-    where: { id: SETTINGS_ID },
-    data: {
-      mensualHabilitado: input.mensualHabilitado,
-      fundadorHabilitado: input.fundadorHabilitado,
-      precioMensual: input.precioMensual,
-      precioFundador: input.precioFundador,
-    },
-  });
+    const row = await prisma.membresiaSettings.update({
+      where: { id: SETTINGS_ID },
+      data: {
+        mensualHabilitado: input.mensualHabilitado,
+        fundadorHabilitado: input.fundadorHabilitado,
+        precioMensual: input.precioMensual,
+        precioFundador: input.precioFundador,
+      },
+    });
 
-  return mapSettings(row);
+    return mapSettings(row);
+  } catch (error) {
+    if (esErrorSchemaPrisma(error)) {
+      throw new Error(
+        "La tabla MembresiaSettings no existe. Corré `prisma migrate deploy` en producción.",
+      );
+    }
+    throw error;
+  }
 }
 
 export async function planHabilitadoParaPublico(planId: PlanId): Promise<boolean> {

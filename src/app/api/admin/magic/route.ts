@@ -23,6 +23,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, mensaje });
     }
 
+    if (!process.env.AUTH_SECRET) {
+      return NextResponse.json(
+        {
+          ok: false,
+          mensaje: "Falta AUTH_SECRET en el servidor. Configuralo en Vercel y redeployá.",
+        },
+        { status: 503 },
+      );
+    }
+
     const token = await crearMagicToken(email);
     const envio = await enviarMagicLinkAdmin(email, token);
     if (!envio.ok) {

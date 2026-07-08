@@ -24,6 +24,14 @@ export async function GET(request: Request) {
     return NextResponse.redirect(new URL("/admin/acceder?error=expirado", baseUrl()));
   }
 
-  await establecerSesionAdmin(email);
+  try {
+    await establecerSesionAdmin(email);
+  } catch (error) {
+    console.error("[admin/verificar]", error);
+    return NextResponse.redirect(
+      new URL("/admin/acceder?error=config", baseUrl()),
+    );
+  }
+
   return NextResponse.redirect(new URL(next, baseUrl()));
 }

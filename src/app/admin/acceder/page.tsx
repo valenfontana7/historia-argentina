@@ -30,7 +30,9 @@ export default async function AdminAccederPage({ searchParams }: Props) {
       ? "El enlace expiró o no es válido. Pedí uno nuevo."
       : params.error === "token"
         ? "Falta el token de acceso."
-        : null;
+        : params.error === "config"
+          ? "Falta configurar AUTH_SECRET en el servidor. Contactá al administrador."
+          : null;
 
   return (
     <div className="py-20">

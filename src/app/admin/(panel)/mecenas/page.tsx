@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AdminMecenasPanel } from "@/components/admin/AdminMecenasPanel";
+import { requireAdminSesion } from "@/lib/admin-auth";
 import {
   emailsCreador,
   getMembresiaSettings,
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminMecenasPage() {
+  await requireAdminSesion();
   const settings = await getMembresiaSettings();
 
   return (

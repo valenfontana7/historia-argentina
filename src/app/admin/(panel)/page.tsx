@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { EstadoMecenas } from "@prisma/client";
 import { prisma } from "@/lib/db";
+import { requireAdminSesion } from "@/lib/admin-auth";
 import { formatearPrecio, planes } from "@/lib/membresia.config";
 import { getMembresiaSettings } from "@/lib/membresia-settings";
 import { sitio } from "@/lib/site.config";
 
 export default async function AdminDashboardPage() {
+  await requireAdminSesion();
+
   const [settings, mecenasActivos, mecenasPendientes, mecenasInactivos, suscriptores] =
     await Promise.all([
       getMembresiaSettings(),

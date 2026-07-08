@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { SignJWT, jwtVerify } from "jose";
 import { emailsCreador, esEmailCreador } from "@/lib/membresia-settings";
 
@@ -62,6 +63,15 @@ export async function obtenerSesionAdmin(): Promise<SesionAdmin | null> {
   } catch {
     return null;
   }
+}
+
+/** Evita queries del panel si no hay sesión (Next puede renderizar la page en paralelo al layout). */
+export async function requireAdminSesion(): Promise<SesionAdmin> {
+  const sesion = await obtenerSesionAdmin();
+  if (!sesion) {
+    redirect("/admin/acceder");
+  }
+  return sesion;
 }
 
 export async function sesionAdminValida(): Promise<boolean> {
