@@ -17,8 +17,9 @@ export function SoftGate({ titulo }: Props) {
         {titulo}
       </h2>
       <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-tinta-suave">
-        Esta crónica forma parte del archivo privado de quienes sostienen Argenta.
-        El resto del museo —incluidas dos crónicas épicas— sigue abierto y libre.
+        Esta crónica forma parte del archivo privado de quienes sostienen
+        Argent. El resto del museo —incluidas dos crónicas épicas— sigue abierto
+        y libre.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-4">
         <Link

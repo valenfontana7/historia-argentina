@@ -8,7 +8,7 @@ function clienteResend() {
 }
 
 function remitente() {
-  return process.env.RESEND_FROM ?? "Argenta <onboarding@resend.dev>";
+  return process.env.RESEND_FROM ?? "Argent <onboarding@resend.dev>";
 }
 
 function baseUrl() {
@@ -23,14 +23,14 @@ export async function enviarMagicLink(email: string, token: string) {
   const url = `${baseUrl()}/api/auth/verificar?token=${encodeURIComponent(token)}`;
   const html = `
     <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1510;">
-      <p style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px; color: #8a7050;">Argenta</p>
+      <p style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px; color: #8a7050;">Argent</p>
       <h1 style="font-size: 28px; font-weight: 500;">Tu acceso de mecenas</h1>
       <p style="line-height: 1.6; color: #4a4035;">
         Tocá el botón para entrar al área de mecenas. El enlace vence en 15 minutos.
       </p>
       <p style="margin: 28px 0;">
         <a href="${url}" style="background: #c6a15b; color: #0c0a08; text-decoration: none; padding: 12px 22px; border-radius: 999px; font-weight: 600;">
-          Entrar a Argenta
+          Entrar a Argent
         </a>
       </p>
       <p style="font-size: 12px; color: #8a7050; word-break: break-all;">${url}</p>
@@ -47,7 +47,7 @@ export async function enviarMagicLink(email: string, token: string) {
     {
       from: remitente(),
       to: [email],
-      subject: "Tu acceso de mecenas — Argenta",
+      subject: "Tu acceso de mecenas — Argent",
       html,
     },
     { idempotencyKey: `magic/${email}/${token.slice(0, 16)}` },
@@ -64,7 +64,7 @@ export async function enviarBienvenidaMecenas(email: string, plan: string) {
   const url = `${baseUrl()}/mecenas`;
   const html = `
     <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1510;">
-      <p style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px; color: #8a7050;">Argenta</p>
+      <p style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px; color: #8a7050;">Argent</p>
       <h1 style="font-size: 28px; font-weight: 500;">Bienvenido, mecenas</h1>
       <p style="line-height: 1.6; color: #4a4035;">
         Tu plan <strong>${plan}</strong> ya está activo. Gracias por sostener
@@ -91,7 +91,7 @@ export async function enviarBienvenidaMecenas(email: string, plan: string) {
     {
       from: remitente(),
       to: [email],
-      subject: "Bienvenido a Mecenas — Argenta",
+      subject: "Bienvenido a Mecenas — Argent",
       html,
     },
     { idempotencyKey: `bienvenida/${email}/${plan}` },

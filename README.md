@@ -1,51 +1,58 @@
-# Argenta — Museo digital de historia argentina
+# Argent — Museo digital de historia argentina
 
 La historia argentina contada como nunca: crónicas cinematográficas que se
 navegan con el scroll, un panteón interactivo de personajes y una efeméride
 visual cada día.
 
-**Producción:** https://historia-argentina-woad.vercel.app
+**Sitio:** https://museoargent.com.ar (dominio en trámite)  
+**Preview:** https://historia-argentina-woad.vercel.app
 
 ## Módulos
 
-| Módulo | Ruta | Qué es |
-| --- | --- | --- |
-| Crónicas | `/cronicas/[slug]` | Historias scrollytelling (MDX + GSAP): mapas animados, cifras vivas, comparadores |
-| El Panteón | `/panteon/[slug]` | Fichas de personajes: biografía, línea de vida, aliados y enemigos con links cruzados |
-| Hoy | `/hoy/[dia]` | Efeméride diaria con card Open Graph compartible y captura de email |
+| Módulo     | Ruta               | Qué es                                                                                |
+| ---------- | ------------------ | ------------------------------------------------------------------------------------- |
+| Crónicas   | `/cronicas/[slug]` | Historias scrollytelling (MDX + GSAP): mapas animados, cifras vivas, comparadores     |
+| El Panteón | `/panteon/[slug]`  | Fichas de personajes: biografía, línea de vida, aliados y enemigos con links cruzados |
+| Hoy        | `/hoy/[dia]`       | Efeméride diaria con card Open Graph compartible y captura de email                   |
+| Mecenas    | `/membresia`       | Membresía de apoyo: Checkout Pro (anual) y Suscripciones MP (mensual)                 |
+| Área privada | `/mecenas`       | Exclusivas y créditos para mecenas activos (magic link)                               |
 
 ## Stack
 
-- **Next.js 16** (App Router, SSG casi total; `/hoy` es dinámica para resolver la fecha del día)
-- **Tailwind CSS 4** (tokens propios en `src/app/globals.css`)
-- **GSAP + ScrollTrigger** para el scrollytelling de las crónicas
-- **Framer Motion** para micro-interacciones
-- **MDX** (`@next/mdx`) para el contenido de las crónicas
+- **Next.js 16** (App Router)
+- **Tailwind CSS 4** (tokens en `src/app/globals.css`)
+- **GSAP + ScrollTrigger** — scrollytelling
+- **MDX** — crónicas
+- **Prisma + Postgres** — suscriptores del boletín y mecenas
+- **MercadoPago** — pagos (Checkout Pro + PreApproval)
+- **Resend** — magic links y bienvenida
+- **Vercel** — hosting y deploy
 
 ## Desarrollo
 
 ```bash
+cp .env.example .env   # completar variables
 npm install
-npm run dev      # http://localhost:3000
-npm run build    # build de producción
+npm run dev            # http://localhost:3000
+npm run build          # prisma generate + migrate + next build
 ```
+
+## Documentación operativa
+
+- **[Membresía, MercadoPago, dominio y deploy](docs/MEMBRESIA-Y-OPERACIONES.md)** — guía completa de pagos, auth, env vars y checklist de lanzamiento
 
 ## Dónde vive el contenido
 
-Todo el contenido está en el repo, sin base de datos:
-
-- `src/data/personajes.ts` — fichas del Panteón
-- `src/data/efemerides.ts` — efemérides de "Hoy" (una entrada por día del año, ampliable)
-- `src/content/cronicas/*.mdx` — crónicas; se registran en `src/content/cronicas/registro.ts`
-- `src/lib/site.config.ts` — nombre de marca, lema y URL canónica (cambiarlo acá actualiza todo el sitio)
+- `src/data/personajes.ts` — El Panteón
+- `src/data/efemerides.ts` — efemérides de "Hoy"
+- `src/content/cronicas/*.mdx` — crónicas (`registro.ts` + flag `acceso`)
+- `src/lib/site.config.ts` — marca **Argent** y URL canónica
+- `src/lib/membresia.config.ts` — precios y planes Mecenas
+- `prisma/schema.prisma` — suscriptores y mecenas
 
 ## Cómo agregar contenido
 
-- **Nueva efeméride:** agregar una entrada en `src/data/efemerides.ts`. La página, la card OG y el sitemap se generan solos.
-- **Nuevo personaje:** agregar una entrada en `src/data/personajes.ts` (usar los slugs en `aliados`/`enemigos` para los links cruzados).
-- **Nueva crónica:** crear el `.mdx` en `src/content/cronicas/`, registrarlo en `registro.ts` y usar los componentes de `src/components/scrolly/` (`Capitulo`, `Prosa`, `CitaHistorica`, `DatoGigante`, `Comparador`, etc.).
-
-## Fase 2 (fuera del MVP)
-
-Atlas del Tiempo, buscador de apellidos inmigrantes, envío real del boletín
-(Resend), cuentas de usuario con rachas y CMS.
+- **Nueva efeméride:** entrada en `src/data/efemerides.ts`
+- **Nuevo personaje:** entrada en `src/data/personajes.ts`
+- **Nueva crónica:** `.mdx` en `src/content/cronicas/`, registrar en `registro.ts` con `acceso: "publico" | "mecenas" | "anticipo"`
+- **Componentes scrolly:** `Capitulo`, `Prosa`, `CitaHistorica`, `DatoGigante`, `Comparador`, `MapaDefensa`, etc. en `src/mdx-components.tsx`

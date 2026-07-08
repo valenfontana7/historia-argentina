@@ -3,6 +3,8 @@
  * Ajustar acá actualiza la página de precios y el checkout de MercadoPago.
  */
 
+import { sitio } from "@/lib/site.config";
+
 export type PlanId = "mensual" | "fundador";
 
 export type PlanMembresia = {
@@ -39,7 +41,7 @@ export const planes: Record<PlanId, PlanMembresia> = {
     periodo: "por año",
     destacado: true,
     descripcion:
-      "Los primeros que hacen posible Argenta. Tasa fundador y presencia destacada.",
+      "Los primeros que hacen posible Argent. Tasa fundador y presencia destacada.",
     beneficios: [
       "Todo lo del plan Mecenas",
       "Tasa de fundador por un año",
@@ -64,10 +66,12 @@ export function diasDePlan(plan: PlanId): number {
 /** Copy listo para el primer post de lanzamiento (IG / X / WhatsApp). */
 export const copyLanzamiento = `Abrimos Mecenas.
 
-Argenta es un museo digital de historia argentina: crónicas cinematográficas, un panteón vivo y una efeméride cada día. Todo eso sigue gratis.
+Argent es un museo digital de historia argentina: crónicas cinematográficas, un panteón vivo y una efeméride cada día. Todo eso sigue gratis.
 
 Si querés sostenerlo —y acceder a exclusivas, anticipos y la carta del mecenas— este es el momento de los fundadores.
 
-${typeof process !== "undefined" && process.env.NEXT_PUBLIC_SITE_URL
-  ? process.env.NEXT_PUBLIC_SITE_URL
-  : "https://historia-argentina-woad.vercel.app"}/membresia`;
+${
+  typeof process !== "undefined" && process.env.NEXT_PUBLIC_SITE_URL
+    ? process.env.NEXT_PUBLIC_SITE_URL
+    : sitio.url
+}/membresia`;

@@ -21,7 +21,9 @@ export default async function MecenasPage() {
   const mecenas = await obtenerMecenasActivo();
   if (!mecenas) redirect("/membresia/acceder?next=/mecenas");
 
-  const exclusivas = cronicas.filter((c) => c.acceso === "mecenas" || c.acceso === "anticipo");
+  const exclusivas = cronicas.filter(
+    (c) => c.acceso === "mecenas" || c.acceso === "anticipo",
+  );
   const creditos = await prisma.mecenas.findMany({
     where: { estado: EstadoMecenas.activo, mostrarCredito: true },
     orderBy: [{ esFundador: "desc" }, { createdAt: "asc" }],
@@ -60,19 +62,27 @@ export default async function MecenasPage() {
               href={`/cronicas/${c.slug}`}
               className="block rounded-sm border border-linea bg-fondo-2 p-6 transition-colors hover:border-oro/40"
             >
-              <p className="text-[0.65rem] uppercase tracking-[0.2em] text-oro">{c.kicker}</p>
-              <h3 className="titulo-display mt-2 text-xl font-semibold">{c.titulo}</h3>
+              <p className="text-[0.65rem] uppercase tracking-[0.2em] text-oro">
+                {c.kicker}
+              </p>
+              <h3 className="titulo-display mt-2 text-xl font-semibold">
+                {c.titulo}
+              </h3>
               <p className="mt-2 text-sm text-tinta-suave">{c.subtitulo}</p>
             </Link>
           ))}
           {exclusivas.length === 0 && (
-            <p className="text-sm text-tinta-suave">Pronto publicamos la primera exclusiva.</p>
+            <p className="text-sm text-tinta-suave">
+              Pronto publicamos la primera exclusiva.
+            </p>
           )}
         </div>
       </section>
 
       <section className="mt-14">
-        <h2 className="titulo-display text-2xl font-semibold">Mecenas que sostienen Argenta</h2>
+        <h2 className="titulo-display text-2xl font-semibold">
+          Mecenas que sostienen Argent
+        </h2>
         <p className="mt-2 text-sm text-tinta-suave">
           Quienes eligieron aparecer en los créditos públicos.
         </p>
@@ -97,7 +107,9 @@ export default async function MecenasPage() {
             );
           })}
           {creditos.length === 0 && (
-            <li className="text-sm text-tinta-tenue">Todavía no hay créditos públicos.</li>
+            <li className="text-sm text-tinta-tenue">
+              Todavía no hay créditos públicos.
+            </li>
           )}
         </ul>
       </section>

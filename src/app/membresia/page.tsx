@@ -7,7 +7,7 @@ import { sitio } from "@/lib/site.config";
 export const metadata: Metadata = {
   title: "Membresía Mecenas",
   description:
-    "Sostené Argenta y accedé a exclusivas, anticipos y la carta mensual del mecenas.",
+    "Sostené Argent y accedé a exclusivas, anticipos y la carta mensual del mecenas.",
 };
 
 const faqs = [
@@ -44,7 +44,10 @@ export default function MembresiaPage() {
         </p>
         <p className="mt-4 text-sm text-tinta-tenue">
           ¿Ya sos mecenas?{" "}
-          <Link href="/membresia/acceder" className="text-oro-claro underline-offset-4 hover:underline">
+          <Link
+            href="/membresia/acceder"
+            className="text-oro-claro underline-offset-4 hover:underline"
+          >
             Pedí tu enlace de acceso
           </Link>
         </p>
@@ -65,13 +68,17 @@ export default function MembresiaPage() {
                 Recomendado para el lanzamiento
               </p>
             )}
-            <h2 className="titulo-display text-2xl font-semibold">{plan.nombre}</h2>
+            <h2 className="titulo-display text-2xl font-semibold">
+              {plan.nombre}
+            </h2>
             <p className="mt-2 text-sm text-tinta-suave">{plan.descripcion}</p>
             <p className="mt-6">
               <span className="titulo-display text-4xl font-semibold text-oro">
                 {formatearPrecio(plan.precio)}
               </span>
-              <span className="ml-2 text-sm text-tinta-tenue">{plan.periodo}</span>
+              <span className="ml-2 text-sm text-tinta-tenue">
+                {plan.periodo}
+              </span>
             </p>
             <ul className="mt-6 space-y-2 text-left text-sm text-tinta-suave">
               {plan.beneficios.map((b) => (
@@ -85,7 +92,9 @@ export default function MembresiaPage() {
               plan={plan.id}
               destacado={plan.destacado}
               etiqueta={
-                plan.id === "fundador" ? "Ser fundador con MercadoPago" : "Suscribirme con MercadoPago"
+                plan.id === "fundador"
+                  ? "Ser fundador con MercadoPago"
+                  : "Suscribirme con MercadoPago"
               }
             />
           </div>
@@ -94,12 +103,16 @@ export default function MembresiaPage() {
 
       <section className="border-y border-linea-suave bg-fondo-2 py-16">
         <div className="mx-auto max-w-3xl px-5">
-          <h2 className="titulo-display text-center text-2xl font-semibold">Preguntas frecuentes</h2>
+          <h2 className="titulo-display text-center text-2xl font-semibold">
+            Preguntas frecuentes
+          </h2>
           <dl className="mt-10 space-y-8">
             {faqs.map((f) => (
               <div key={f.q}>
                 <dt className="font-medium text-oro-claro">{f.q}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-tinta-suave">{f.a}</dd>
+                <dd className="mt-2 text-sm leading-relaxed text-tinta-suave">
+                  {f.a}
+                </dd>
               </div>
             ))}
           </dl>

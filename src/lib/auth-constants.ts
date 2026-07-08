@@ -1,1 +1,1 @@
-export const COOKIE_SESION = "argenta_sesion";
+export const COOKIE_SESION = "argent_sesion";
