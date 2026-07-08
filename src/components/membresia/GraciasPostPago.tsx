@@ -7,6 +7,14 @@ type Props = {
   emailInicial?: string;
 };
 
+type ResultadoSync = {
+  ok: boolean;
+  estado?: string;
+  emailEnviado?: boolean;
+  errorEmail?: string;
+  mensaje?: string;
+};
+
 export function GraciasPostPago({ emailInicial }: Props) {
   const [estado, setEstado] = useState<
     "idle" | "sincronizando" | "activado" | "activo" | "pendiente" | "error"
@@ -24,13 +32,9 @@ export function GraciasPostPago({ emailInicial }: Props) {
         const res = await fetch("/api/mp/sincronizar", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: emailInicial }),
+          body: JSON.stringify({ email: emailInicial, reenviarEmail: true }),
         });
-        const data = (await res.json()) as {
-          ok: boolean;
-          estado?: string;
-          mensaje?: string;
-        };
+        const data = (await res.json()) as ResultadoSync;
 
         if (cancelado) return;
 
@@ -40,17 +44,29 @@ export function GraciasPostPago({ emailInicial }: Props) {
           return;
         }
 
+        if (data.errorEmail) {
+          setEstado("error");
+          setMensajeSync(
+            `Tu membresía está activa pero el email falló: ${data.errorEmail}`,
+          );
+          return;
+        }
+
         switch (data.estado) {
           case "activado":
             setEstado("activado");
             setMensajeSync(
-              "¡Listo! Te mandamos un email de confirmación con tu enlace de acceso.",
+              data.emailEnviado
+                ? "¡Listo! Te mandamos un email de confirmación con tu enlace de acceso."
+                : "Membresía activada. Pedí el enlace abajo si no llegó el email.",
             );
             break;
           case "activo":
             setEstado("activo");
             setMensajeSync(
-              "Tu membresía ya está activa. Si no llegó el email, pedilo abajo.",
+              data.emailEnviado
+                ? "Te reenviamos el email de confirmación con tu enlace de acceso."
+                : "Tu membresía ya está activa. Pedí el enlace abajo si no llegó el email.",
             );
             break;
           case "pendiente":
@@ -94,7 +110,7 @@ export function GraciasPostPago({ emailInicial }: Props) {
           {mensajeSync}
         </p>
       )}
-      <MagicLinkForm emailInicial={emailInicial} />
+      <MagicLinkForm emailInicial={emailInicial} sincronizarAntes />
     </div>
   );
 }

@@ -167,9 +167,13 @@ async function enviarEmailsPostPago(email: string, planNombre: string) {
     const confirmacion = await enviarConfirmacionMecenas(email, planNombre, token);
     if (!confirmacion.ok) {
       console.error("[mp] confirmación post-pago falló:", confirmacion.error);
+      return { ok: false as const, error: confirmacion.error };
     }
+    console.log("[mp] confirmación post-pago enviada a", email);
+    return { ok: true as const };
   } catch (error) {
     console.error("[mp] no se pudo enviar confirmación post-pago:", error);
+    return { ok: false as const, error: String(error) };
   }
 }
 
@@ -214,6 +218,8 @@ async function activarMecenas(opts: {
   if (debeEnviarEmail) {
     const planNombre = planes[opts.plan].nombre;
     await enviarEmailsPostPago(email, planNombre);
+  } else if (yaVigente) {
+    console.log("[mp] mecenas ya vigente, email omitido:", email);
   }
 
   return mecenas;
@@ -244,7 +250,10 @@ async function buscarPagoAprobado(reference: string): Promise<string | null> {
 /**
  * Fallback cuando el webhook tarda o no llega: consulta MP y activa + manda email.
  */
-export async function sincronizarMecenasPorEmail(email: string) {
+export async function sincronizarMecenasPorEmail(
+  email: string,
+  opts?: { reenviarEmail?: boolean },
+) {
   if (!emailValido(email)) {
     throw new Error("Email inválido.");
   }
@@ -255,14 +264,23 @@ export async function sincronizarMecenasPorEmail(email: string) {
   const emailNorm = email.toLowerCase().trim();
   const mecenas = await prisma.mecenas.findUnique({ where: { email: emailNorm } });
   if (!mecenas) {
-    return { ok: true as const, estado: "sin_registro" as const };
-  }
-
-  if (mecenasVigente(mecenas.estado, mecenas.periodEnd)) {
-    return { ok: true as const, estado: "activo" as const };
+    return { ok: true as const, estado: "sin_registro" as const, emailEnviado: false as const };
   }
 
   const plan: PlanId = mecenas.plan === PlanMecenas.fundador ? "fundador" : "mensual";
+
+  if (mecenasVigente(mecenas.estado, mecenas.periodEnd)) {
+    if (opts?.reenviarEmail) {
+      const envio = await enviarEmailsPostPago(emailNorm, planes[plan].nombre);
+      return {
+        ok: true as const,
+        estado: "activo" as const,
+        emailEnviado: envio.ok,
+        errorEmail: envio.ok ? undefined : envio.error,
+      };
+    }
+    return { ok: true as const, estado: "activo" as const, emailEnviado: false as const };
+  }
 
   if (mecenas.mpSubscriptionId) {
     const preapproval = new PreApproval(clienteMp());
@@ -273,9 +291,22 @@ export async function sincronizarMecenasPorEmail(email: string) {
         plan,
         subscriptionId: mecenas.mpSubscriptionId,
       });
-      return { ok: true as const, estado: "activado" as const };
+      return { ok: true as const, estado: "activado" as const, emailEnviado: true as const };
     }
-    return { ok: true as const, estado: "pendiente" as const };
+
+    // Suscripción: a veces el primer cobro aparece como payment antes que preapproval authorized
+    const paymentId = await buscarPagoAprobado(`${plan}:${emailNorm}`);
+    if (paymentId) {
+      await activarMecenas({
+        email: emailNorm,
+        plan,
+        paymentId,
+        subscriptionId: mecenas.mpSubscriptionId,
+      });
+      return { ok: true as const, estado: "activado" as const, emailEnviado: true as const };
+    }
+
+    return { ok: true as const, estado: "pendiente" as const, emailEnviado: false as const };
   }
 
   const reference = `${plan}:${emailNorm}`;
@@ -286,10 +317,10 @@ export async function sincronizarMecenasPorEmail(email: string) {
       plan,
       paymentId,
     });
-    return { ok: true as const, estado: "activado" as const };
+    return { ok: true as const, estado: "activado" as const, emailEnviado: true as const };
   }
 
-  return { ok: true as const, estado: "pendiente" as const };
+  return { ok: true as const, estado: "pendiente" as const, emailEnviado: false as const };
 }
 
 async function procesarPago(paymentId: string) {

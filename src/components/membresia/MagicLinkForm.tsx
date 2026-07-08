@@ -4,9 +4,11 @@ import { useState } from "react";
 
 type Props = {
   emailInicial?: string;
+  /** Sincroniza con MP y reenvía confirmación antes del magic link (página gracias). */
+  sincronizarAntes?: boolean;
 };
 
-export function MagicLinkForm({ emailInicial = "" }: Props) {
+export function MagicLinkForm({ emailInicial = "", sincronizarAntes = false }: Props) {
   const [email, setEmail] = useState(emailInicial);
   const [mensaje, setMensaje] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -18,6 +20,14 @@ export function MagicLinkForm({ emailInicial = "" }: Props) {
     setError(null);
     setPendiente(true);
     try {
+      if (sincronizarAntes) {
+        await fetch("/api/mp/sincronizar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+      }
+
       const res = await fetch("/api/auth/magic", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

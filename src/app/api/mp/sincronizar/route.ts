@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as { email?: string };
+    const body = (await request.json()) as { email?: string; reenviarEmail?: boolean };
     const email = String(body.email ?? "")
       .toLowerCase()
       .trim();
@@ -14,7 +14,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, mensaje: "Email requerido." }, { status: 400 });
     }
 
-    const resultado = await sincronizarMecenasPorEmail(email);
+    const resultado = await sincronizarMecenasPorEmail(email, {
+      reenviarEmail: body.reenviarEmail,
+    });
     return NextResponse.json(resultado);
   } catch (error) {
     console.error("[mp/sincronizar]", error);
