@@ -1,3 +1,4 @@
+import { createHash } from "crypto";
 import { Resend } from "resend";
 import { sitio } from "@/lib/site.config";
 
@@ -11,8 +12,38 @@ function remitente() {
   return process.env.RESEND_FROM ?? "Argent <onboarding@resend.dev>";
 }
 
+/** Traduce errores comunes de Resend a un mensaje accionable. */
+export function mensajeErrorEmail(error: string): string {
+  const e = error.toLowerCase();
+  if (e.includes("not verified") || e.includes("domain")) {
+    return "El remitente no está verificado en Resend. Verificá museoargent.com.ar en resend.com/domains y actualizá RESEND_FROM.";
+  }
+  if (e.includes("testing") || e.includes("onboarding@resend.dev")) {
+    return "Con onboarding@resend.dev solo podés enviar al email que verificaste en Resend, o cambiá RESEND_FROM a un dominio verificado.";
+  }
+  if (e.includes("invalid") && e.includes("from")) {
+    return "RESEND_FROM tiene un formato inválido. Usá: Argent <hola@museoargent.com.ar>";
+  }
+  if (e.includes("api key") || e.includes("unauthorized")) {
+    return "RESEND_API_KEY inválida o ausente en las variables de entorno.";
+  }
+  if (e.includes("idempotency")) {
+    return "Reintentá pedir el enlace en unos segundos.";
+  }
+  if (process.env.NODE_ENV === "development") {
+    return `Resend: ${error}`;
+  }
+  return "No pudimos enviar el email. Probá en unos minutos.";
+}
+
 function baseUrl() {
   return process.env.NEXT_PUBLIC_SITE_URL ?? sitio.url;
+}
+
+/** Clave única por token (no usar slice del JWT: el header es igual en todos). */
+function idempotencyDesdeToken(prefijo: string, email: string, token: string) {
+  const hash = createHash("sha256").update(token).digest("hex").slice(0, 24);
+  return `${prefijo}/${email}/${hash}`;
 }
 
 /**
@@ -50,7 +81,7 @@ export async function enviarMagicLink(email: string, token: string) {
       subject: "Tu acceso de mecenas — Argent",
       html,
     },
-    { idempotencyKey: `magic/${email}/${token.slice(0, 16)}` },
+    { idempotencyKey: idempotencyDesdeToken("magic", email, token) },
   );
 
   if (error) {
@@ -91,7 +122,7 @@ export async function enviarMagicLinkAdmin(email: string, token: string) {
       subject: "Acceso de creador — Argent",
       html,
     },
-    { idempotencyKey: `admin-magic/${email}/${token.slice(0, 16)}` },
+    { idempotencyKey: idempotencyDesdeToken("admin-magic", email, token) },
   );
 
   if (error) {
@@ -140,7 +171,7 @@ export async function enviarConfirmacionMecenas(
       subject: "Confirmación de suscripción — Argent",
       html,
     },
-    { idempotencyKey: `confirmacion/${email}/${token.slice(0, 16)}` },
+    { idempotencyKey: idempotencyDesdeToken("confirmacion", email, token) },
   );
 
   if (error) {

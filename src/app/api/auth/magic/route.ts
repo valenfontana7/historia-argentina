@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { EstadoMecenas } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { crearMagicToken } from "@/lib/auth";
-import { enviarMagicLink } from "@/lib/email";
+import { enviarMagicLink, mensajeErrorEmail } from "@/lib/email";
 
 export const runtime = "nodejs";
 
@@ -34,7 +34,10 @@ export async function POST(request: Request) {
     const envio = await enviarMagicLink(email, token);
     if (!envio.ok) {
       return NextResponse.json(
-        { ok: false, mensaje: "No pudimos enviar el email. Probá en unos minutos." },
+        {
+          ok: false,
+          mensaje: mensajeErrorEmail(envio.error ?? "Error desconocido"),
+        },
         { status: 502 },
       );
     }

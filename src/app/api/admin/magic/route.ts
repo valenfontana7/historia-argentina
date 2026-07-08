@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { crearMagicToken } from "@/lib/auth";
-import { enviarMagicLinkAdmin } from "@/lib/email";
+import { enviarMagicLinkAdmin, mensajeErrorEmail } from "@/lib/email";
 import { esEmailCreador } from "@/lib/membresia-settings";
 
 export const runtime = "nodejs";
@@ -27,7 +27,10 @@ export async function POST(request: Request) {
     const envio = await enviarMagicLinkAdmin(email, token);
     if (!envio.ok) {
       return NextResponse.json(
-        { ok: false, mensaje: "No pudimos enviar el email. Probá en unos minutos." },
+        {
+          ok: false,
+          mensaje: mensajeErrorEmail(envio.error ?? "Error desconocido"),
+        },
         { status: 502 },
       );
     }
