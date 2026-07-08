@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { EstadoMecenas } from "@prisma/client";
+import { ColeccionesGuardadas } from "@/components/mecenas/ColeccionesGuardadas";
+import { MapaHistorico } from "@/components/mecenas/MapaHistorico";
 import { obtenerMecenasActivo, obtenerSesion } from "@/lib/auth";
 import { cronicas } from "@/content/cronicas/registro";
 import { planes } from "@/lib/membresia.config";
 import { prisma } from "@/lib/db";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Área de mecenas",
   robots: { index: false },
 };
@@ -42,7 +43,7 @@ export default async function MecenasPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-28">
-      <p className="kicker">Tu membresía</p>
+      <p className="kicker">Tu museo personal</p>
       <h1 className="titulo-display mt-3 text-4xl font-semibold sm:text-5xl">
         Hola, mecenas
       </h1>
@@ -52,6 +53,56 @@ export default async function MecenasPage() {
         {mecenas.esFundador ? " · fundador" : ""}
       </p>
       <p className="mt-2 text-sm text-tinta-tenue">{mecenas.email}</p>
+
+      <section className="mt-14">
+        <h2 className="titulo-display text-2xl font-semibold">Tu experiencia</h2>
+        <p className="mt-2 text-sm text-tinta-suave">
+          Mecenas desbloquea cómo explorás, no qué leés.
+        </p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <Link
+            href="/mecenas/mapa"
+            className="rounded-sm border border-oro/30 bg-fondo-2 p-5 transition-colors hover:border-oro/50"
+          >
+            <p className="kicker text-oro">Mapa histórico</p>
+            <p className="mt-2 text-sm text-tinta-suave">
+              Lugares clave del relato, navegables e interactivos.
+            </p>
+          </Link>
+          <Link
+            href="/mecenas/carta"
+            className="rounded-sm border border-linea bg-fondo-2 p-5 transition-colors hover:border-oro/40"
+          >
+            <p className="kicker">Carta del mecenas</p>
+            <p className="mt-2 text-sm text-tinta-suave">
+              Novedades, roadmap y contexto editorial del mes.
+            </p>
+          </Link>
+          <Link
+            href="/explorar"
+            className="rounded-sm border border-linea bg-fondo-2 p-5 transition-colors hover:border-oro/40"
+          >
+            <p className="kicker">Explorar</p>
+            <p className="mt-2 text-sm text-tinta-suave">
+              Hub de descubrimiento con timeline y categorías.
+            </p>
+          </Link>
+          <Link
+            href="/timelines"
+            className="rounded-sm border border-linea bg-fondo-2 p-5 transition-colors hover:border-oro/40"
+          >
+            <p className="kicker text-oro">Timeline avanzada</p>
+            <p className="mt-2 text-sm text-tinta-suave">
+              Compará años, filtrá por categoría y explorá rangos completos.
+            </p>
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-14">
+        <h2 className="titulo-display text-2xl font-semibold">Tu colección</h2>
+        <ColeccionesGuardadas />
+      </section>
 
       <section className="mt-14">
         <h2 className="titulo-display text-2xl font-semibold">Exclusivas</h2>
@@ -71,11 +122,6 @@ export default async function MecenasPage() {
               <p className="mt-2 text-sm text-tinta-suave">{c.subtitulo}</p>
             </Link>
           ))}
-          {exclusivas.length === 0 && (
-            <p className="text-sm text-tinta-suave">
-              Pronto publicamos la primera exclusiva.
-            </p>
-          )}
         </div>
       </section>
 
@@ -83,9 +129,6 @@ export default async function MecenasPage() {
         <h2 className="titulo-display text-2xl font-semibold">
           Mecenas que sostienen Argent
         </h2>
-        <p className="mt-2 text-sm text-tinta-suave">
-          Quienes eligieron aparecer en los créditos públicos.
-        </p>
         <ul className="mt-6 flex flex-wrap gap-2">
           {creditos.map((c) => {
             const label =
@@ -106,11 +149,6 @@ export default async function MecenasPage() {
               </li>
             );
           })}
-          {creditos.length === 0 && (
-            <li className="text-sm text-tinta-tenue">
-              Todavía no hay créditos públicos.
-            </li>
-          )}
         </ul>
       </section>
 

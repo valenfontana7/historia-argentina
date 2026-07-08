@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { cronicas } from "@/content/cronicas/registro";
+import { construirMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Crónicas — Historias visuales de la historia argentina",
-  description:
+export const metadata: Metadata = construirMetadata({
+  titulo: "Crónicas — Historias visuales de la historia argentina",
+  descripcion:
     "Historias de la historia argentina contadas como experiencias visuales interactivas: mapas animados, datos y relatos que se navegan con el scroll.",
-};
+  ruta: "/cronicas",
+});
 
 export default function CronicasPage() {
   return (

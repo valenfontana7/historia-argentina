@@ -1,15 +1,26 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroPortada } from "@/components/HeroPortada";
+import { DescubrirAleatorio } from "@/components/exploracion/DescubrirAleatorio";
 import { PersonajeCard } from "@/components/PersonajeCard";
 import { BoletinForm } from "@/components/BoletinForm";
 import { Reveal } from "@/components/ui/Reveal";
 import { efemerideParaFecha } from "@/data/efemerides";
 import { personajes } from "@/data/personajes";
 import { cronicas } from "@/content/cronicas/registro";
+import { todosLosNodos } from "@/lib/grafo/queries";
 import { hoyEnArgentina } from "@/lib/fechas";
+import { construirMetadata } from "@/lib/seo/metadata";
+import { sitio } from "@/lib/site.config";
 
 // La portada se regenera cada hora para mantener fresca la efeméride del día.
 export const revalidate = 3600;
+
+export const metadata: Metadata = construirMetadata({
+  titulo: `${sitio.nombre} — ${sitio.lema}`,
+  descripcion: sitio.descripcion,
+  ruta: "/",
+});
 
 const destacados = [
   "jose-de-san-martin",
@@ -27,6 +38,7 @@ export default function HomePage() {
   const efemeride = efemerideParaFecha(mes, dia);
   const cronicaDestacada = cronicas[0];
   const grilla = personajes.filter((p) => destacados.includes(p.slug));
+  const nodosExploracion = todosLosNodos();
 
   return (
     <div>
@@ -113,6 +125,37 @@ export default function HomePage() {
             </div>
           </Link>
         </Reveal>
+      </section>
+
+      {/* Descubrí algo */}
+      <section className="border-y border-linea-suave bg-fondo-2">
+        <div className="mx-auto max-w-6xl px-5 py-20 text-center">
+          <Reveal>
+            <p className="kicker">Sin dead ends</p>
+            <h2 className="titulo-display mt-4 text-3xl font-semibold sm:text-4xl">
+              Descubrí algo inesperado
+            </h2>
+            <p className="mx-auto mt-4 max-w-lg text-sm text-tinta-suave">
+              Personajes, lugares, eventos y crónicas conectados en un grafo de
+              exploración. Dejate sorprender.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <DescubrirAleatorio nodos={nodosExploracion} />
+              <Link
+                href="/explorar"
+                className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
+              >
+                Explorar todo →
+              </Link>
+              <Link
+                href="/jugar"
+                className="rounded-full border border-oro/40 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
+              >
+                Quiz del día →
+              </Link>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       {/* El Panteón */}

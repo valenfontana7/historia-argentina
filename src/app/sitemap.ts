@@ -1,4 +1,8 @@
 import type { MetadataRoute } from "next";
+import { categorias } from "@/data/categorias";
+import { lugares } from "@/data/lugares";
+import { periodos } from "@/data/periodos";
+import { aniosConEventos } from "@/lib/grafo/queries";
 import { personajes } from "@/data/personajes";
 import { efemerides } from "@/data/efemerides";
 import { cronicasPublicas } from "@/content/cronicas/registro";
@@ -7,9 +11,17 @@ import { sitio } from "@/lib/site.config";
 export default function sitemap(): MetadataRoute.Sitemap {
   const fijas: MetadataRoute.Sitemap = [
     { url: sitio.url, changeFrequency: "daily", priority: 1 },
+    { url: `${sitio.url}/explorar`, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${sitio.url}/timelines`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${sitio.url}/timelines/comparar`, changeFrequency: "monthly", priority: 0.75 },
+    { url: `${sitio.url}/jugar`, changeFrequency: "daily", priority: 0.85 },
+    { url: `${sitio.url}/mapa`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${sitio.url}/cronicas`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${sitio.url}/panteon`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${sitio.url}/hoy`, changeFrequency: "daily", priority: 0.9 },
+    { url: `${sitio.url}/lugares`, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${sitio.url}/periodos`, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${sitio.url}/categorias`, changeFrequency: "weekly", priority: 0.85 },
     { url: `${sitio.url}/membresia`, changeFrequency: "weekly", priority: 0.8 },
   ];
 
@@ -31,5 +43,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...fijas, ...deCronicas, ...dePersonajes, ...deEfemerides];
+  const deLugares: MetadataRoute.Sitemap = lugares.map((l) => ({
+    url: `${sitio.url}/lugares/${l.slug}`,
+    changeFrequency: "monthly",
+    priority: 0.65,
+  }));
+
+  const dePeriodos: MetadataRoute.Sitemap = periodos.map((p) => ({
+    url: `${sitio.url}/periodos/${p.slug}`,
+    changeFrequency: "monthly",
+    priority: 0.65,
+  }));
+
+  const deCategorias: MetadataRoute.Sitemap = categorias.map((c) => ({
+    url: `${sitio.url}/categorias/${c.slug}`,
+    changeFrequency: "weekly",
+    priority: 0.6,
+  }));
+
+  const deTimelines: MetadataRoute.Sitemap = aniosConEventos().map((anio) => ({
+    url: `${sitio.url}/timelines/${anio}`,
+    changeFrequency: "yearly",
+    priority: 0.55,
+  }));
+
+  return [
+    ...fijas,
+    ...deCronicas,
+    ...dePersonajes,
+    ...deEfemerides,
+    ...deLugares,
+    ...dePeriodos,
+    ...deCategorias,
+    ...deTimelines,
+  ];
 }

@@ -25,11 +25,15 @@ export const planes: Record<PlanId, PlanMembresia> = {
     precio: 4990,
     moneda: "ARS",
     periodo: "por mes",
-    descripcion: "Sostené el museo mes a mes y accedé a todo lo exclusivo.",
+    descripcion:
+      "Convertí Argent en tu museo personal: mapas, colecciones y experiencias exclusivas.",
     beneficios: [
-      "Acceso anticipado a nuevas crónicas",
+      "Mapa histórico interactivo",
       "Crónicas y apéndices exclusivos",
       "Carta del mecenas cada mes",
+      "Colecciones y progreso guardados",
+      "Timeline avanzada por año",
+      "Sin publicidad",
       "Tu nombre en el muro de créditos",
     ],
   },
@@ -41,12 +45,13 @@ export const planes: Record<PlanId, PlanMembresia> = {
     periodo: "por año",
     destacado: true,
     descripcion:
-      "Los primeros que hacen posible Argent. Tasa fundador y presencia destacada.",
+      "Los primeros que hacen posible Argent. Tu museo personal, con presencia destacada.",
     beneficios: [
       "Todo lo del plan Mecenas",
       "Tasa de fundador por un año",
       "Nombre destacado en los créditos",
       "Voto anticipado sobre la próxima crónica",
+      "Acceso anticipado a nuevas experiencias",
     ],
   },
 };
@@ -68,7 +73,7 @@ export const copyLanzamiento = `Abrimos Mecenas.
 
 Argent es un museo digital de historia argentina: crónicas cinematográficas, un panteón vivo y una efeméride cada día. Todo eso sigue gratis.
 
-Si querés sostenerlo —y acceder a exclusivas, anticipos y la carta del mecenas— este es el momento de los fundadores.
+Si querés convertirlo en tu museo personal —mapas interactivos, colecciones, carta mensual y exclusivas— este es el momento de los fundadores.
 
 ${
   typeof process !== "undefined" && process.env.NEXT_PUBLIC_SITE_URL

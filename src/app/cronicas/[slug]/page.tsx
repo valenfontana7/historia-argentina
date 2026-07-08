@@ -2,9 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EscenaHero } from "@/components/scrolly/EscenaHero";
+import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
+import { EnlacesRelacionados } from "@/components/exploracion/EnlacesRelacionados";
 import { CtaMecenas } from "@/components/membresia/CtaMecenas";
 import { SoftGate } from "@/components/membresia/SoftGate";
+import { BarraProgresoLectura } from "@/components/engagement/BarraProgresoLectura";
+import { RegistrarVisita } from "@/components/engagement/RegistrarVisita";
 import { BotonCompartir } from "@/components/BotonCompartir";
+import { MigasDePan } from "@/components/seo/MigasDePan";
 import {
   cronicas,
   cargadores,
@@ -12,17 +17,18 @@ import {
   requiereMecenas,
 } from "@/content/cronicas/registro";
 import { obtenerSesion } from "@/lib/auth";
+import { obtenerNodo } from "@/lib/grafo/queries";
+import { construirMetadata } from "@/lib/seo/metadata";
+import { articuloJsonLd, migajasJsonLd } from "@/lib/seo/jsonld";
 import { sitio } from "@/lib/site.config";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// Soft-gate de mecenas consulta cookie; evitar cache estático ambiguo.
 export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
-  // Las exclusivas consultan cookie + DB: se renderizan on-demand.
   return cronicas.filter((c) => c.acceso === "publico").map((c) => ({ slug: c.slug }));
 }
 
@@ -30,15 +36,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const cronica = obtenerCronica(slug);
   if (!cronica) return {};
-  return {
-    title: cronica.titulo,
-    description: cronica.descripcion,
-    openGraph: {
-      title: cronica.titulo,
-      description: cronica.descripcion,
-      type: "article",
-    },
-  };
+  return construirMetadata({
+    titulo: cronica.titulo,
+    descripcion: cronica.descripcion,
+    ruta: `/cronicas/${slug}`,
+    tipo: "article",
+  });
 }
 
 export default async function CronicaPage({ params }: Props) {
@@ -48,27 +51,31 @@ export default async function CronicaPage({ params }: Props) {
   if (!cronica || !cargador) notFound();
 
   const exclusivas = requiereMecenas(cronica);
-  // Soft-gate: basta la cookie de sesión (emitida solo a mecenas activos).
-  // El estado en DB se revalida en /mecenas y en el magic link.
   const mecenas = exclusivas ? Boolean(await obtenerSesion()) : true;
   const mostrarContenido = !exclusivas || mecenas;
-
   const Contenido = mostrarContenido ? (await cargador()).default : null;
+  const nodo = obtenerNodo("cronica", slug);
+  const rutaCronica = `/cronicas/${cronica.slug}`;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: cronica.titulo,
-    description: cronica.descripcion,
-    datePublished: cronica.publicada,
-    inLanguage: "es",
-    author: { "@type": "Organization", name: sitio.nombre },
-    publisher: { "@type": "Organization", name: sitio.nombre },
-    mainEntityOfPage: `${sitio.url}/cronicas/${cronica.slug}`,
-  };
+  const migajas = [
+    { nombre: "Inicio", href: "/" },
+    { nombre: "Crónicas", href: "/cronicas" },
+    { nombre: cronica.titulo, href: rutaCronica },
+  ];
+
+  const jsonLd = [
+    articuloJsonLd({
+      titulo: cronica.titulo,
+      descripcion: cronica.descripcion,
+      url: `${sitio.url}${rutaCronica}`,
+    }),
+    migajasJsonLd(migajas),
+  ];
 
   return (
     <article>
+      <RegistrarVisita titulo={cronica.titulo} tipo="cronica" progreso={mostrarContenido} />
+      {mostrarContenido && <BarraProgresoLectura href={rutaCronica} />}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -86,10 +93,12 @@ export default async function CronicaPage({ params }: Props) {
           <div className="mx-auto max-w-2xl px-5 py-10">
             <CtaMecenas />
           </div>
-          <footer className="mx-auto max-w-2xl px-5 pb-28 pt-6 text-center">
+          <footer className="mx-auto max-w-6xl px-5 pb-28 pt-6">
             <div className="filete mb-10" />
-            <p className="kicker">Seguí explorando</p>
-            <div className="mt-6 flex flex-wrap justify-center gap-4">
+            <MigasDePan migajas={migajas} />
+            {nodo && <EnlacesRelacionados origen={nodo} limitePorTipo={4} />}
+            {nodo && <ContinuarExplorando origen={nodo} titulo="Seguí explorando" />}
+            <div className="mt-10 flex flex-wrap justify-center gap-4">
               <Link
                 href={`/panteon/${cronica.protagonista.slug}`}
                 className="rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
@@ -99,13 +108,20 @@ export default async function CronicaPage({ params }: Props) {
               <BotonCompartir
                 titulo={cronica.titulo}
                 texto={cronica.subtitulo}
-                ruta={`/cronicas/${cronica.slug}`}
+                ruta={rutaCronica}
+                utmCampaign="cronica"
               />
               <Link
                 href="/cronicas"
                 className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
               >
                 Todas las crónicas
+              </Link>
+              <Link
+                href="/explorar"
+                className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
+              >
+                Explorar más →
               </Link>
             </div>
           </footer>

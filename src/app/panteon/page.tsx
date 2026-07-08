@@ -3,12 +3,14 @@ import { PersonajeCard } from "@/components/PersonajeCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { personajes, nombresEpocas } from "@/data/personajes";
 import type { Epoca } from "@/components/ui/Retrato";
+import { construirMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "El Panteón — Los personajes de la historia argentina",
-  description:
+export const metadata: Metadata = construirMetadata({
+  titulo: "El Panteón — Los personajes de la historia argentina",
+  descripcion:
     "Los protagonistas de la historia argentina en fichas interactivas: biografías, líneas de vida, aliados, enemigos y frases célebres. De San Martín a Alfonsín.",
-};
+  ruta: "/panteon",
+});
 
 const ordenEpocas: Epoca[] = [
   "colonia",

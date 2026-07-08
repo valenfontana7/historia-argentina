@@ -16,6 +16,15 @@ export function Footer() {
             </p>
           </div>
           <nav className="grid grid-cols-2 gap-x-16 gap-y-3 text-sm">
+            <Link href="/explorar" className="text-tinta-suave transition-colors hover:text-oro-claro">
+              Explorar
+            </Link>
+            <Link href="/lugares" className="text-tinta-suave transition-colors hover:text-oro-claro">
+              Lugares
+            </Link>
+            <Link href="/periodos" className="text-tinta-suave transition-colors hover:text-oro-claro">
+              Períodos
+            </Link>
             <Link href="/cronicas" className="text-tinta-suave transition-colors hover:text-oro-claro">
               Crónicas
             </Link>

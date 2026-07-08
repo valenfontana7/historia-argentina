@@ -2,6 +2,9 @@ import Link from "next/link";
 import { sitio } from "@/lib/site.config";
 
 const enlaces = [
+  { href: "/explorar", etiqueta: "Explorar" },
+  { href: "/timelines", etiqueta: "Timeline" },
+  { href: "/jugar", etiqueta: "Jugar" },
   { href: "/cronicas", etiqueta: "Crónicas" },
   { href: "/panteon", etiqueta: "El Panteón" },
   { href: "/hoy", etiqueta: "Hoy" },

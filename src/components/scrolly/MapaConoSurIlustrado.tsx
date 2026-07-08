@@ -297,6 +297,9 @@ type MarcadorProps = {
   nombre: string;
   color?: string;
   etiqueta?: "izq" | "der" | "arriba" | "abajo";
+  /** Posición absoluta de la etiqueta; dibuja línea guía desde el punto. */
+  etiquetaX?: number;
+  etiquetaY?: number;
 };
 
 /** Ciudad: punto luminoso + anillo + etiqueta. */
@@ -306,6 +309,8 @@ export function MarcadorCiudad({
   nombre,
   color = "#c8d0e0",
   etiqueta = "der",
+  etiquetaX,
+  etiquetaY,
 }: MarcadorProps) {
   const offsets = {
     izq: { lx: x - 14, ly: y + 4, anchor: "end" as const },
@@ -313,10 +318,35 @@ export function MarcadorCiudad({
     arriba: { lx: x, ly: y - 12, anchor: "middle" as const },
     abajo: { lx: x, ly: y + 18, anchor: "middle" as const },
   };
-  const o = offsets[etiqueta];
+  const o =
+    etiquetaX !== undefined && etiquetaY !== undefined
+      ? {
+          lx: etiquetaX,
+          ly: etiquetaY,
+          anchor:
+            Math.abs(etiquetaX - x) >= Math.abs(etiquetaY - y)
+              ? etiquetaX < x
+                ? ("end" as const)
+                : ("start" as const)
+              : ("middle" as const),
+        }
+      : offsets[etiqueta];
+  const conGuia = etiquetaX !== undefined && etiquetaY !== undefined;
 
   return (
     <g>
+      {conGuia && (
+        <line
+          x1={x}
+          y1={y}
+          x2={o.lx}
+          y2={o.ly - 4}
+          stroke={color}
+          strokeWidth={0.8}
+          opacity={0.45}
+          strokeDasharray="2 3"
+        />
+      )}
       <circle cx={x} cy={y} r={12} fill={color} opacity="0.06" />
       <circle cx={x} cy={y} r={6} fill="#0a0d14" stroke={color} strokeWidth="1.5" />
       <circle cx={x} cy={y} r={2.2} fill={color} />

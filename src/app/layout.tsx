@@ -3,7 +3,8 @@ import { Fraunces, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { sitio } from "@/lib/site.config";
+import { metadataSitio } from "@/lib/seo/metadata";
+import { grafoSitioJsonLd } from "@/lib/seo/jsonld";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -17,29 +18,9 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(sitio.url),
-  title: {
-    default: `${sitio.nombre} — ${sitio.lema}`,
-    template: `%s — ${sitio.nombre}`,
-  },
-  description: sitio.descripcion,
-  openGraph: {
-    siteName: sitio.nombre,
-    locale: "es_AR",
-    type: "website",
-  },
-};
+export const metadata: Metadata = metadataSitio;
 
-const jsonLdSitio = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: sitio.nombre,
-  alternateName: sitio.lema,
-  description: sitio.descripcion,
-  url: sitio.url,
-  inLanguage: "es",
-};
+const jsonLdGlobal = grafoSitioJsonLd();
 
 export default function RootLayout({
   children,
@@ -54,7 +35,7 @@ export default function RootLayout({
       <body className="grano flex min-h-full flex-col">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSitio) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGlobal) }}
         />
         <Header />
         <main className="flex-1">{children}</main>

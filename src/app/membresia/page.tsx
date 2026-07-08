@@ -2,18 +2,25 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckoutForm } from "@/components/membresia/CheckoutForm";
 import { formatearPrecio, planes } from "@/lib/membresia.config";
+import { construirMetadata } from "@/lib/seo/metadata";
+import { faqJsonLd } from "@/lib/seo/jsonld";
 import { sitio } from "@/lib/site.config";
 
-export const metadata: Metadata = {
-  title: "Membresía Mecenas",
-  description:
-    "Sostené Argent y accedé a exclusivas, anticipos y la carta mensual del mecenas.",
-};
+export const metadata: Metadata = construirMetadata({
+  titulo: "Membresía Mecenas",
+  descripcion:
+    "Convertí Argent en tu museo personal: mapas interactivos, colecciones, timeline avanzada y exclusivas.",
+  ruta: "/membresia",
+});
 
 const faqs = [
   {
     q: "¿El museo sigue siendo gratis?",
-    a: "Sí. Las crónicas públicas, el Panteón y la efeméride diaria siguen abiertos. Mecenas desbloquea exclusivas y anticipos.",
+    a: "Sí. Crónicas públicas, el Panteón, lugares, períodos y la efeméride diaria siguen abiertos para todos. Mecenas desbloquea experiencias, no contenido básico.",
+  },
+  {
+    q: "¿Qué desbloquea Mecenas?",
+    a: "Mapa histórico interactivo, colecciones guardadas, timeline avanzada, carta mensual, crónicas exclusivas y navegación sin publicidad.",
   },
   {
     q: "¿Cómo pago?",
@@ -32,15 +39,23 @@ const faqs = [
 export default function MembresiaPage() {
   return (
     <div className="pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            faqJsonLd(faqs.map((f) => ({ pregunta: f.q, respuesta: f.a }))),
+          ),
+        }}
+      />
       <section className="mx-auto max-w-3xl px-5 pb-16 text-center">
         <p className="kicker">Mecenazgo cultural</p>
         <h1 className="titulo-display mt-4 text-4xl font-semibold leading-tight sm:text-6xl">
           Mecenas de {sitio.nombre}
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-tinta-suave">
-          No es un streaming barato: es sostener un museo digital que cuenta la
-          historia argentina con rigor visual. A cambio, anticipo, exclusivas y
-          crédito público.
+          No pagás por más artículos: pagás porque Argent se convierte en tu museo
+          personal. Mapas, colecciones, timeline avanzada y exclusivas — con el
+          rigor visual que ya conocés.
         </p>
         <p className="mt-4 text-sm text-tinta-tenue">
           ¿Ya sos mecenas?{" "}
