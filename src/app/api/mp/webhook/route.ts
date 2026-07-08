@@ -28,7 +28,7 @@ async function manejar(request: Request) {
   try {
     await procesarWebhook({ topic, id, type, dataId });
   } catch (error) {
-    console.error("[mp/webhook]", error);
+    console.error("[mp/webhook]", error, { topic, id, type, dataId });
     // MercadoPago reintenta si no es 200; devolvemos 200 para errores no retriables de parsing.
   }
 

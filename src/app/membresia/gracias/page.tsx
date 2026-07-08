@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MagicLinkForm } from "@/components/membresia/MagicLinkForm";
+import { GraciasPostPago } from "@/components/membresia/GraciasPostPago";
 
 export const metadata: Metadata = {
   title: "Gracias, mecenas",
   robots: { index: false },
 };
 
-export default function MembresiaGraciasPage() {
+type Props = {
+  searchParams: Promise<{ email?: string }>;
+};
+
+export default async function MembresiaGraciasPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const email = params.email?.toLowerCase().trim() ?? "";
+
   return (
     <div className="mx-auto max-w-xl px-5 pb-28 pt-32 text-center">
       <p className="kicker">Pago recibido</p>
@@ -15,13 +22,11 @@ export default function MembresiaGraciasPage() {
         Gracias por sostener Argent
       </h1>
       <p className="mt-6 text-base leading-relaxed text-tinta-suave">
-        En cuanto MercadoPago confirma el pago te mandamos un enlace mágico a tu
-        email. Si tarda unos minutos, podés pedirlo acá con el mismo correo del
+        Te mandamos un email de confirmación con tu enlace de acceso al área de
+        mecenas. Si tarda unos minutos, podés pedirlo acá con el mismo correo del
         pago.
       </p>
-      <div className="mt-10">
-        <MagicLinkForm />
-      </div>
+      <GraciasPostPago emailInicial={email || undefined} />
       <Link
         href="/mecenas"
         className="mt-10 inline-block text-sm text-oro-claro underline-offset-4 hover:underline"

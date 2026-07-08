@@ -7,7 +7,7 @@ import {
   puedeCheckoutPlan,
   precioCheckout,
 } from "@/lib/membresia-settings";
-import { enviarBienvenidaMecenas, enviarMagicLink } from "@/lib/email";
+import { enviarConfirmacionMecenas } from "@/lib/email";
 import { crearMagicToken } from "@/lib/auth";
 import { sitio } from "@/lib/site.config";
 
@@ -76,7 +76,7 @@ export async function crearCheckout(planId: PlanId, email: string) {
           currency_id: plan.moneda,
         },
         payer_email: emailNorm,
-        back_url: `${baseUrl()}/membresia/gracias`,
+        back_url: `${baseUrl()}/membresia/gracias?email=${encodeURIComponent(emailNorm)}`,
         status: "pending",
         external_reference: reference,
       },
@@ -110,9 +110,9 @@ export async function crearCheckout(planId: PlanId, email: string) {
       external_reference: reference,
       metadata: { plan: planId, email: emailNorm },
       back_urls: {
-        success: `${baseUrl()}/membresia/gracias`,
+        success: `${baseUrl()}/membresia/gracias?email=${encodeURIComponent(emailNorm)}`,
         failure: `${baseUrl()}/membresia?error=pago`,
-        pending: `${baseUrl()}/membresia/gracias`,
+        pending: `${baseUrl()}/membresia/gracias?email=${encodeURIComponent(emailNorm)}`,
       },
       auto_return: "approved",
       notification_url: `${baseUrl()}/api/mp/webhook`,
@@ -132,10 +132,45 @@ export async function crearCheckout(planId: PlanId, email: string) {
 
 function parseReference(ref?: string | null): { plan: PlanId; email: string } | null {
   if (!ref || !ref.includes(":")) return null;
-  const [plan, email] = ref.split(":");
+  const sep = ref.indexOf(":");
+  const plan = ref.slice(0, sep);
+  const email = ref.slice(sep + 1);
   if (plan !== "mensual" && plan !== "fundador") return null;
   if (!emailValido(email)) return null;
   return { plan, email: email.toLowerCase() };
+}
+
+function normalizarTipoWebhook(tipo: string): string | null {
+  const t = tipo.toLowerCase();
+  if (t === "payment" || t.startsWith("payment.")) return "payment";
+  if (
+    t === "preapproval" ||
+    t === "subscription" ||
+    t === "subscription_preapproval" ||
+    t.includes("preapproval") ||
+    t.startsWith("subscription.")
+  ) {
+    return "preapproval";
+  }
+  return null;
+}
+
+function mecenasVigente(estado: EstadoMecenas, periodEnd: Date | null): boolean {
+  if (estado !== EstadoMecenas.activo) return false;
+  if (!periodEnd) return true;
+  return periodEnd.getTime() > Date.now();
+}
+
+async function enviarEmailsPostPago(email: string, planNombre: string) {
+  try {
+    const token = await crearMagicToken(email);
+    const confirmacion = await enviarConfirmacionMecenas(email, planNombre, token);
+    if (!confirmacion.ok) {
+      console.error("[mp] confirmación post-pago falló:", confirmacion.error);
+    }
+  } catch (error) {
+    console.error("[mp] no se pudo enviar confirmación post-pago:", error);
+  }
 }
 
 async function activarMecenas(opts: {
@@ -143,14 +178,21 @@ async function activarMecenas(opts: {
   plan: PlanId;
   paymentId?: string;
   subscriptionId?: string;
+  enviarEmail?: boolean;
 }) {
+  const email = opts.email.toLowerCase().trim();
+  const existente = await prisma.mecenas.findUnique({ where: { email } });
+  const yaVigente =
+    existente &&
+    mecenasVigente(existente.estado, existente.periodEnd);
+
   const periodEnd = new Date();
   periodEnd.setDate(periodEnd.getDate() + diasDePlan(opts.plan));
 
   const mecenas = await prisma.mecenas.upsert({
-    where: { email: opts.email },
+    where: { email },
     create: {
-      email: opts.email,
+      email,
       plan: opts.plan === "fundador" ? PlanMecenas.fundador : PlanMecenas.mensual,
       estado: EstadoMecenas.activo,
       esFundador: opts.plan === "fundador",
@@ -168,17 +210,86 @@ async function activarMecenas(opts: {
     },
   });
 
-  const planNombre = planes[opts.plan].nombre;
-  await enviarBienvenidaMecenas(opts.email, planNombre);
-
-  try {
-    const token = await crearMagicToken(opts.email);
-    await enviarMagicLink(opts.email, token);
-  } catch (error) {
-    console.error("[mp] no se pudo enviar magic link tras el pago:", error);
+  const debeEnviarEmail = opts.enviarEmail !== false && !yaVigente;
+  if (debeEnviarEmail) {
+    const planNombre = planes[opts.plan].nombre;
+    await enviarEmailsPostPago(email, planNombre);
   }
 
   return mecenas;
+}
+
+async function buscarPagoAprobado(reference: string): Promise<string | null> {
+  const token = accessToken();
+  const url = new URL("https://api.mercadopago.com/v1/payments/search");
+  url.searchParams.set("external_reference", reference);
+  url.searchParams.set("sort", "date_created");
+  url.searchParams.set("criteria", "desc");
+
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) {
+    console.warn("[mp] búsqueda de pago falló:", res.status);
+    return null;
+  }
+
+  const data = (await res.json()) as {
+    results?: Array<{ id?: number | string; status?: string }>;
+  };
+  const aprobado = data.results?.find((p) => p.status === "approved");
+  return aprobado?.id != null ? String(aprobado.id) : null;
+}
+
+/**
+ * Fallback cuando el webhook tarda o no llega: consulta MP y activa + manda email.
+ */
+export async function sincronizarMecenasPorEmail(email: string) {
+  if (!emailValido(email)) {
+    throw new Error("Email inválido.");
+  }
+  if (!process.env.MP_ACCESS_TOKEN) {
+    throw new Error("MercadoPago no configurado.");
+  }
+
+  const emailNorm = email.toLowerCase().trim();
+  const mecenas = await prisma.mecenas.findUnique({ where: { email: emailNorm } });
+  if (!mecenas) {
+    return { ok: true as const, estado: "sin_registro" as const };
+  }
+
+  if (mecenasVigente(mecenas.estado, mecenas.periodEnd)) {
+    return { ok: true as const, estado: "activo" as const };
+  }
+
+  const plan: PlanId = mecenas.plan === PlanMecenas.fundador ? "fundador" : "mensual";
+
+  if (mecenas.mpSubscriptionId) {
+    const preapproval = new PreApproval(clienteMp());
+    const sub = await preapproval.get({ id: mecenas.mpSubscriptionId });
+    if (sub.status === "authorized" || sub.status === "active") {
+      await activarMecenas({
+        email: emailNorm,
+        plan,
+        subscriptionId: mecenas.mpSubscriptionId,
+      });
+      return { ok: true as const, estado: "activado" as const };
+    }
+    return { ok: true as const, estado: "pendiente" as const };
+  }
+
+  const reference = `${plan}:${emailNorm}`;
+  const paymentId = mecenas.mpPaymentId ?? (await buscarPagoAprobado(reference));
+  if (paymentId) {
+    await activarMecenas({
+      email: emailNorm,
+      plan,
+      paymentId,
+    });
+    return { ok: true as const, estado: "activado" as const };
+  }
+
+  return { ok: true as const, estado: "pendiente" as const };
 }
 
 async function procesarPago(paymentId: string) {
@@ -249,21 +360,19 @@ export async function procesarWebhook(input: {
   type?: string | null;
   dataId?: string | null;
 }) {
-  const tipo = input.topic ?? input.type;
+  const tipoRaw = input.topic ?? input.type;
   const id = input.id ?? input.dataId;
-  if (!tipo || !id) return { ok: true, skipped: true as const };
+  if (!tipoRaw || !id) return { ok: true, skipped: true as const };
+
+  const tipo = normalizarTipoWebhook(tipoRaw);
+  if (!tipo) {
+    console.log("[mp/webhook] topic ignorado:", tipoRaw);
+    return { ok: true, skipped: true as const };
+  }
 
   if (tipo === "payment") {
     return procesarPago(id);
   }
 
-  if (
-    tipo === "subscription_preapproval" ||
-    tipo === "subscription" ||
-    tipo === "preapproval"
-  ) {
-    return procesarPreapproval(id);
-  }
-
-  return { ok: true, skipped: true as const };
+  return procesarPreapproval(id);
 }

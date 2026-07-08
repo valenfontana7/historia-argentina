@@ -2,8 +2,12 @@
 
 import { useState } from "react";
 
-export function MagicLinkForm() {
-  const [email, setEmail] = useState("");
+type Props = {
+  emailInicial?: string;
+};
+
+export function MagicLinkForm({ emailInicial = "" }: Props) {
+  const [email, setEmail] = useState(emailInicial);
   const [mensaje, setMensaje] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pendiente, setPendiente] = useState(false);
