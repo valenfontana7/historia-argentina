@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function MembresiaGraciasPage() {
   return (
-    <div className="mx-auto max-w-xl px-5 py-28 text-center">
+    <div className="mx-auto max-w-xl px-5 pb-28 pt-32 text-center">
       <p className="kicker">Pago recibido</p>
       <h1 className="titulo-display mt-4 text-4xl font-semibold sm:text-5xl">
         Gracias por sostener Argent

@@ -64,7 +64,7 @@ export function Comparador({
         aria-valuemax={100}
         aria-label={`Comparar ${etiquetaIzquierda} con ${etiquetaDerecha}`}
         tabIndex={0}
-        className="relative aspect-[16/10] cursor-ew-resize touch-none select-none overflow-hidden rounded-sm border border-linea bg-[#0a0d14]"
+        className="relative aspect-[16/10] cursor-ew-resize touch-pan-y select-none overflow-hidden rounded-sm border border-linea bg-[#0a0d14]"
         onPointerDown={alPresionar}
         onPointerMove={(e) => arrastrando.current && mover(e.clientX)}
         onPointerUp={() => (arrastrando.current = false)}
@@ -92,7 +92,7 @@ export function Comparador({
 
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex justify-between gap-3 p-3">
           <span
-            className={`max-w-[46%] rounded-full px-3 py-1.5 text-[0.6rem] uppercase leading-snug tracking-[0.14em] backdrop-blur transition-colors sm:text-[0.65rem] sm:tracking-[0.18em] ${
+            className={`max-w-[46%] rounded-full px-3 py-1.5 text-xs uppercase leading-snug tracking-[0.14em] backdrop-blur transition-colors sm:text-[0.65rem] sm:tracking-[0.18em] ${
               viendoIzquierda
                 ? "bg-oro/20 text-oro-claro ring-1 ring-oro/50"
                 : "bg-fondo/80 text-tinta-tenue"
@@ -101,7 +101,7 @@ export function Comparador({
             {etiquetaIzquierda}
           </span>
           <span
-            className={`max-w-[46%] rounded-full px-3 py-1.5 text-right text-[0.6rem] uppercase leading-snug tracking-[0.14em] backdrop-blur transition-colors sm:text-[0.65rem] sm:tracking-[0.18em] ${
+            className={`max-w-[46%] rounded-full px-3 py-1.5 text-right text-xs uppercase leading-snug tracking-[0.14em] backdrop-blur transition-colors sm:text-[0.65rem] sm:tracking-[0.18em] ${
               viendoDerecha
                 ? "bg-oro/20 text-oro-claro ring-1 ring-oro/50"
                 : "bg-fondo/80 text-tinta-tenue"

@@ -20,7 +20,7 @@ export default async function MecenasMapaPage() {
   if (!mecenas) redirect("/membresia/acceder?next=/mecenas/mapa");
 
   return (
-    <div className="mx-auto max-w-4xl px-5 py-28">
+    <div className="mx-auto max-w-4xl px-5 pb-28 pt-32">
       <p className="kicker">Experiencia Mecenas</p>
       <h1 className="titulo-display mt-3 text-4xl font-semibold">Mapa histórico</h1>
       <p className="mt-4 max-w-xl text-tinta-suave">

@@ -48,3 +48,10 @@ model Mecenas {
   @@index([mpPaymentId])
   @@index([mpSubscriptionId])
 }
+
+model MembresiaSettings {
+  id                 String   @id @default("default")
+  mensualHabilitado  Boolean  @default(false)
+  fundadorHabilitado Boolean  @default(false)
+  updatedAt          DateTime @updatedAt
+}

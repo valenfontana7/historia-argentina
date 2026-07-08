@@ -117,7 +117,7 @@ export function MapaCruce() {
         </div>
 
         <div className="relative shrink-0 border-t border-linea-suave bg-fondo/90 px-4 py-5 backdrop-blur-md sm:px-8">
-          <div className="relative mx-auto min-h-[9.5rem] max-w-2xl">
+          <div className="relative mx-auto min-h-[7rem] max-h-[40vh] max-w-2xl overflow-y-auto sm:min-h-[9.5rem] sm:max-h-none">
             {rutas.map((ruta, i) => (
               <div
                 key={ruta.nombre}
@@ -128,7 +128,7 @@ export function MapaCruce() {
                   Columna {i + 1} de {rutas.length}
                 </p>
                 <h3
-                  className="titulo-display mt-1.5 text-xl font-semibold sm:text-2xl"
+                  className="titulo-display mt-1.5 text-lg font-semibold sm:text-xl lg:text-2xl"
                   style={{ color: ruta.principal ? "var(--oro)" : "var(--celeste)" }}
                 >
                   {ruta.nombre}

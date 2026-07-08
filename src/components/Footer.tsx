@@ -15,7 +15,7 @@ export function Footer() {
               merece: visual, rigurosa y libre.
             </p>
           </div>
-          <nav className="grid grid-cols-2 gap-x-16 gap-y-3 text-sm">
+          <nav className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm sm:gap-x-16">
             <Link href="/explorar" className="text-tinta-suave transition-colors hover:text-oro-claro">
               Explorar
             </Link>

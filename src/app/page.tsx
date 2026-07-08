@@ -50,7 +50,7 @@ export default function HomePage() {
           <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-16 sm:flex-row sm:items-center">
             <Reveal className="shrink-0">
               <p className="kicker">Un día como hoy</p>
-              <p className="titulo-display mt-2 text-7xl font-semibold leading-none text-oro">
+              <p className="titulo-display mt-2 text-5xl font-semibold leading-none text-oro sm:text-7xl">
                 {efemeride.anio}
               </p>
               <p className="mt-2 text-xs uppercase tracking-[0.3em] text-tinta-tenue">
@@ -75,7 +75,7 @@ export default function HomePage() {
       {/* Crónica destacada */}
       <section className="mx-auto max-w-6xl px-5 py-24">
         <Reveal>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
             <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">
               La crónica del mes
             </h2>
@@ -161,14 +161,14 @@ export default function HomePage() {
       {/* El Panteón */}
       <section className="mx-auto max-w-6xl px-5 pb-24">
         <Reveal>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
             <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">
               El Panteón
             </h2>
             <div className="filete w-full" />
             <Link
               href="/panteon"
-              className="shrink-0 text-xs uppercase tracking-[0.2em] text-tinta-suave transition-colors hover:text-oro-claro"
+              className="shrink-0 text-xs uppercase tracking-[0.2em] text-tinta-suave transition-colors hover:text-oro-claro sm:ml-0"
             >
               Ver todos →
             </Link>
@@ -178,7 +178,7 @@ export default function HomePage() {
             la Argentina, en fichas para perderse durante horas.
           </p>
         </Reveal>
-        <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 min-[400px]:grid-cols-2 sm:grid-cols-4">
           {grilla.map((personaje, i) => (
             <Reveal key={personaje.slug} delay={(i % 4) * 0.07}>
               <PersonajeCard personaje={personaje} />

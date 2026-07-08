@@ -19,7 +19,7 @@ export default async function CartaMecenasPage() {
   if (!mecenas) redirect("/membresia/acceder?next=/mecenas/carta");
 
   return (
-    <article className="mx-auto max-w-2xl px-5 py-28">
+    <article className="mx-auto max-w-2xl px-5 pb-28 pt-32">
       <p className="kicker">Carta del mecenas · Julio 2026</p>
       <h1 className="titulo-display mt-4 text-4xl font-semibold">
         Tu museo personal

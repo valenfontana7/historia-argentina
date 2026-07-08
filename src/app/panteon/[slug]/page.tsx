@@ -204,7 +204,7 @@ export default async function PersonajePage({ params }: Props) {
                     <li key={a.slug}>
                       <Link
                         href={`/panteon/${a.slug}`}
-                        className="group flex items-baseline justify-between gap-4 border-b border-linea-suave pb-3"
+                        className="group flex flex-col gap-1 border-b border-linea-suave pb-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
                       >
                         <span className="text-tinta transition-colors group-hover:text-oro-claro">
                           {a.nombre}
@@ -228,7 +228,7 @@ export default async function PersonajePage({ params }: Props) {
                     <li key={e.slug}>
                       <Link
                         href={`/panteon/${e.slug}`}
-                        className="group flex items-baseline justify-between gap-4 border-b border-linea-suave pb-3"
+                        className="group flex flex-col gap-1 border-b border-linea-suave pb-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
                       >
                         <span className="text-tinta transition-colors group-hover:text-carmesi">
                           {e.nombre}
@@ -247,7 +247,7 @@ export default async function PersonajePage({ params }: Props) {
 
         <section className="mt-24">
           <Reveal>
-            <div className="flex items-center gap-6">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
               <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">
                 Línea de vida
               </h2>
@@ -309,14 +309,14 @@ export default async function PersonajePage({ params }: Props) {
 
         <section className="mt-28">
           <Reveal>
-            <div className="flex items-center gap-6">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
               <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">
                 De la misma época
               </h2>
               <div className="filete w-full" />
             </div>
           </Reveal>
-          <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-4">
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 min-[400px]:grid-cols-2 sm:grid-cols-4">
             {personajes
               .filter((p) => p.epoca === personaje.epoca && p.slug !== personaje.slug)
               .slice(0, 4)

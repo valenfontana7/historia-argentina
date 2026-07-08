@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckoutForm } from "@/components/membresia/CheckoutForm";
-import { formatearPrecio, planes } from "@/lib/membresia.config";
+import { formatearPrecio } from "@/lib/membresia.config";
+import { planesVisiblesPublico } from "@/lib/membresia-settings";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { faqJsonLd } from "@/lib/seo/jsonld";
 import { sitio } from "@/lib/site.config";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = construirMetadata({
   titulo: "Membresía Mecenas",
@@ -36,9 +39,11 @@ const faqs = [
   },
 ];
 
-export default function MembresiaPage() {
+export default async function MembresiaPage() {
+  const planesPublicos = await planesVisiblesPublico();
+
   return (
-    <div className="pt-24">
+    <div className="pt-32">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -69,51 +74,67 @@ export default function MembresiaPage() {
       </section>
 
       <section className="mx-auto grid max-w-5xl gap-6 px-5 pb-20 md:grid-cols-2">
-        {([planes.mensual, planes.fundador] as const).map((plan) => (
-          <div
-            key={plan.id}
-            className={`rounded-sm border p-8 ${
-              plan.destacado
-                ? "border-oro/50 bg-gradient-to-b from-[#1a160f] to-fondo-2"
-                : "border-linea bg-fondo-2"
-            }`}
-          >
-            {plan.destacado && (
-              <p className="mb-3 text-[0.65rem] uppercase tracking-[0.22em] text-oro">
-                Recomendado para el lanzamiento
-              </p>
-            )}
-            <h2 className="titulo-display text-2xl font-semibold">
-              {plan.nombre}
-            </h2>
-            <p className="mt-2 text-sm text-tinta-suave">{plan.descripcion}</p>
-            <p className="mt-6">
-              <span className="titulo-display text-4xl font-semibold text-oro">
-                {formatearPrecio(plan.precio)}
-              </span>
-              <span className="ml-2 text-sm text-tinta-tenue">
-                {plan.periodo}
-              </span>
+        {planesPublicos.length === 0 ? (
+          <div className="rounded-sm border border-linea bg-fondo-2 p-10 text-center md:col-span-2">
+            <h2 className="titulo-display text-2xl font-semibold">Mecenas próximamente</h2>
+            <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-tinta-suave">
+              Estamos preparando la apertura de la membresía. Si ya sos mecenas, podés
+              pedir tu enlace de acceso abajo.
             </p>
-            <ul className="mt-6 space-y-2 text-left text-sm text-tinta-suave">
-              {plan.beneficios.map((b) => (
-                <li key={b} className="flex gap-2">
-                  <span className="text-oro">✦</span>
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
-            <CheckoutForm
-              plan={plan.id}
-              destacado={plan.destacado}
-              etiqueta={
-                plan.id === "fundador"
-                  ? "Ser fundador con MercadoPago"
-                  : "Suscribirme con MercadoPago"
-              }
-            />
+            <Link
+              href="/membresia/acceder"
+              className="mt-6 inline-block text-sm text-oro-claro underline-offset-4 hover:underline"
+            >
+              Ya soy mecenas →
+            </Link>
           </div>
-        ))}
+        ) : (
+          planesPublicos.map((plan) => (
+            <div
+              key={plan.id}
+              className={`rounded-sm border p-8 ${
+                plan.destacado
+                  ? "border-oro/50 bg-gradient-to-b from-[#1a160f] to-fondo-2"
+                  : "border-linea bg-fondo-2"
+              }`}
+            >
+              {plan.destacado && (
+                <p className="mb-3 text-[0.65rem] uppercase tracking-[0.22em] text-oro">
+                  Recomendado para el lanzamiento
+                </p>
+              )}
+              <h2 className="titulo-display text-2xl font-semibold">
+                {plan.nombre}
+              </h2>
+              <p className="mt-2 text-sm text-tinta-suave">{plan.descripcion}</p>
+              <p className="mt-6">
+                <span className="titulo-display text-4xl font-semibold text-oro">
+                  {formatearPrecio(plan.precio)}
+                </span>
+                <span className="ml-2 text-sm text-tinta-tenue">
+                  {plan.periodo}
+                </span>
+              </p>
+              <ul className="mt-6 space-y-2 text-left text-sm text-tinta-suave">
+                {plan.beneficios.map((b) => (
+                  <li key={b} className="flex gap-2">
+                    <span className="text-oro">✦</span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+              <CheckoutForm
+                plan={plan.id}
+                destacado={plan.destacado}
+                etiqueta={
+                  plan.id === "fundador"
+                    ? "Ser fundador con MercadoPago"
+                    : "Suscribirme con MercadoPago"
+                }
+              />
+            </div>
+          ))
+        )}
       </section>
 
       <section className="border-y border-linea-suave bg-fondo-2 py-16">

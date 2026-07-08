@@ -41,14 +41,14 @@ export default function PanteonPage() {
         return (
           <section key={epoca} className="mt-20">
             <Reveal>
-              <div className="flex items-center gap-6">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
                 <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">
                   {nombresEpocas[epoca]}
                 </h2>
                 <div className="filete w-full" />
               </div>
             </Reveal>
-            <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 min-[400px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
               {grupo.map((personaje, i) => (
                 <Reveal key={personaje.slug} delay={(i % 4) * 0.07}>
                   <PersonajeCard personaje={personaje} />

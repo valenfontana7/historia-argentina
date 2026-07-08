@@ -59,7 +59,7 @@ export default async function TimelineAnioPage({ params }: Props) {
         <MigasDePan migajas={migajas} />
         <Reveal>
           <p className="kicker">Línea del tiempo</p>
-          <h1 className="titulo-display mt-4 text-6xl font-semibold text-oro sm:text-7xl">
+          <h1 className="titulo-display mt-4 text-5xl font-semibold text-oro sm:text-6xl lg:text-7xl">
             {num}
           </h1>
           {periodo && (

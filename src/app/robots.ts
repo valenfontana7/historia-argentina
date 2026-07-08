@@ -3,6 +3,7 @@ import { sitio } from "@/lib/site.config";
 
 const rutasPrivadas = [
   "/api/",
+  "/admin/",
   "/mecenas/",
   "/membresia/acceder",
   "/membresia/gracias",

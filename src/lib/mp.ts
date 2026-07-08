@@ -2,6 +2,11 @@ import { MercadoPagoConfig, Preference, PreApproval, Payment } from "mercadopago
 import { EstadoMecenas, PlanMecenas } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { diasDePlan, planes, type PlanId } from "@/lib/membresia.config";
+import {
+  PlanNoDisponibleError,
+  puedeCheckoutPlan,
+  precioCheckout,
+} from "@/lib/membresia-settings";
 import { enviarBienvenidaMecenas, enviarMagicLink } from "@/lib/email";
 import { crearMagicToken } from "@/lib/auth";
 import { sitio } from "@/lib/site.config";
@@ -39,6 +44,12 @@ export async function crearCheckout(planId: PlanId, email: string) {
   const emailNorm = email.toLowerCase().trim();
   const reference = `${planId}:${emailNorm}`;
 
+  if (!(await puedeCheckoutPlan(planId, emailNorm))) {
+    throw new PlanNoDisponibleError();
+  }
+
+  const precio = precioCheckout(planId, emailNorm);
+
   await prisma.mecenas.upsert({
     where: { email: emailNorm },
     create: {
@@ -61,7 +72,7 @@ export async function crearCheckout(planId: PlanId, email: string) {
         auto_recurring: {
           frequency: 1,
           frequency_type: "months",
-          transaction_amount: plan.precio,
+          transaction_amount: precio,
           currency_id: plan.moneda,
         },
         payer_email: emailNorm,
@@ -91,7 +102,7 @@ export async function crearCheckout(planId: PlanId, email: string) {
           title: `${plan.nombre} — ${sitio.nombre}`,
           description: plan.descripcion,
           quantity: 1,
-          unit_price: plan.precio,
+          unit_price: precio,
           currency_id: plan.moneda,
         },
       ],

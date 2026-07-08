@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   BaseMapaConoSur,
   BrújulaDecorativa,
@@ -51,6 +51,15 @@ export function MapaExploratorio({ lugares, completo = false }: Props) {
   const router = useRouter();
   const [periodoFiltro, setPeriodoFiltro] = useState<Epoca | "">("");
   const [hover, setHover] = useState<string | null>(null);
+  const [esMobile, setEsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const actualizar = () => setEsMobile(mq.matches);
+    actualizar();
+    mq.addEventListener("change", actualizar);
+    return () => mq.removeEventListener("change", actualizar);
+  }, []);
 
   const conCoords = useMemo(
     () => lugares.filter((l) => l.lat !== undefined && l.lon !== undefined),
@@ -128,7 +137,7 @@ export function MapaExploratorio({ lugares, completo = false }: Props) {
           <button
             type="button"
             onClick={() => setPeriodoFiltro("")}
-            className={`rounded-full px-4 py-1.5 text-xs transition-colors ${
+            className={`min-h-11 rounded-full px-4 py-2.5 text-xs transition-colors sm:py-1.5 sm:text-sm ${
               periodoFiltro === ""
                 ? "border border-oro/50 bg-oro/10 text-oro-claro"
                 : "border border-linea text-tinta-suave hover:border-oro/30"
@@ -141,7 +150,7 @@ export function MapaExploratorio({ lugares, completo = false }: Props) {
               key={e}
               type="button"
               onClick={() => setPeriodoFiltro(e)}
-              className={`rounded-full px-4 py-1.5 text-xs transition-colors ${
+              className={`min-h-11 rounded-full px-4 py-2.5 text-xs transition-colors sm:py-1.5 sm:text-sm ${
                 periodoFiltro === e
                   ? "border border-oro/50 bg-oro/10 text-oro-claro"
                   : "border border-linea text-tinta-suave hover:border-oro/30"
@@ -173,7 +182,7 @@ export function MapaExploratorio({ lugares, completo = false }: Props) {
             const activo = hover === p.lugar.slug;
             const clickable = completo && !p.bloqueado;
             const color = p.bloqueado ? "#5a6478" : "#c6a15b";
-            const mostrarEtiqueta = activo || (!completo && !p.bloqueado);
+            const mostrarEtiqueta = esMobile || activo || (!completo && !p.bloqueado);
 
             return (
               <g
@@ -193,6 +202,15 @@ export function MapaExploratorio({ lugares, completo = false }: Props) {
                 role={clickable ? "link" : undefined}
                 tabIndex={clickable ? 0 : undefined}
               >
+                {clickable && (
+                  <circle
+                    cx={p.x}
+                    cy={p.y}
+                    r={16}
+                    fill="transparent"
+                    aria-hidden
+                  />
+                )}
                 {mostrarEtiqueta ? (
                   <MarcadorCiudad
                     x={p.x}

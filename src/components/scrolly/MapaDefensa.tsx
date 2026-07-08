@@ -184,7 +184,7 @@ export function MapaDefensa() {
         </div>
 
         <div className="relative shrink-0 border-t border-linea-suave bg-fondo/90 px-4 py-5 backdrop-blur-md sm:px-8">
-          <div className="relative mx-auto min-h-[9.5rem] max-w-2xl">
+          <div className="relative mx-auto min-h-[7rem] max-h-[40vh] max-w-2xl overflow-y-auto sm:min-h-[9.5rem] sm:max-h-none">
             {etapas.map((etapa, i) => (
               <div
                 key={etapa.nombre}
@@ -194,7 +194,7 @@ export function MapaDefensa() {
                 <p className="text-[0.65rem] uppercase tracking-[0.24em] text-tinta-tenue">
                   Etapa {i + 1} de {etapas.length} · {etapa.fecha}
                 </p>
-                <h3 className="titulo-display mt-1.5 text-xl font-semibold text-oro sm:text-2xl">
+                <h3 className="titulo-display mt-1.5 text-lg font-semibold text-oro sm:text-xl lg:text-2xl">
                   {etapa.nombre}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-tinta-suave sm:text-[0.9375rem]">

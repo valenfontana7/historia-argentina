@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type BotonCompartirProps = {
   titulo: string;
@@ -18,6 +18,16 @@ export function BotonCompartir({
 }: BotonCompartirProps) {
   const [copiado, setCopiado] = useState(false);
   const [menuAbierto, setMenuAbierto] = useState(false);
+  const [abrirArriba, setAbrirArriba] = useState(false);
+  const contenedor = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!menuAbierto || !contenedor.current) return;
+
+    const rect = contenedor.current.getBoundingClientRect();
+    const espacioAbajo = window.innerHeight - rect.bottom;
+    setAbrirArriba(espacioAbajo < 160);
+  }, [menuAbierto]);
 
   const urlConUtm = () => {
     const base = `${window.location.origin}${ruta}`;
@@ -48,29 +58,33 @@ export function BotonCompartir({
   };
 
   return (
-    <div className="relative inline-flex flex-wrap justify-center gap-2">
+    <div ref={contenedor} className="relative inline-flex w-full flex-wrap justify-center gap-2 sm:w-auto">
       <button
         type="button"
         onClick={compartirNativo}
-        className="rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
+        className="w-full rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10 sm:w-auto"
       >
         {copiado ? "Enlace copiado ✓" : "Compartir esta historia"}
       </button>
       <button
         type="button"
         onClick={() => setMenuAbierto((v) => !v)}
-        className="rounded-full border border-linea px-4 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
+        className="w-full rounded-full border border-linea px-4 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro sm:w-auto"
         aria-expanded={menuAbierto}
         aria-haspopup="true"
       >
         Más ↓
       </button>
       {menuAbierto && (
-        <div className="absolute top-full z-10 mt-2 flex min-w-[180px] flex-col rounded-sm border border-linea bg-fondo-2 py-1 shadow-lg">
+        <div
+          className={`absolute z-10 flex w-full min-w-[180px] flex-col rounded-sm border border-linea bg-fondo-2 py-1 shadow-lg sm:w-auto ${
+            abrirArriba ? "bottom-full mb-2" : "top-full mt-2"
+          } left-0 sm:left-auto`}
+        >
           <button
             type="button"
             onClick={whatsapp}
-            className="px-4 py-2.5 text-left text-sm text-tinta-suave transition-colors hover:bg-fondo-3 hover:text-oro-claro"
+            className="min-h-11 px-4 py-2.5 text-left text-sm text-tinta-suave transition-colors hover:bg-fondo-3 hover:text-oro-claro"
           >
             WhatsApp
           </button>
@@ -82,7 +96,7 @@ export function BotonCompartir({
               setMenuAbierto(false);
               setTimeout(() => setCopiado(false), 2500);
             }}
-            className="px-4 py-2.5 text-left text-sm text-tinta-suave transition-colors hover:bg-fondo-3 hover:text-oro-claro"
+            className="min-h-11 px-4 py-2.5 text-left text-sm text-tinta-suave transition-colors hover:bg-fondo-3 hover:text-oro-claro"
           >
             Copiar enlace
           </button>

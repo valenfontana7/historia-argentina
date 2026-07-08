@@ -56,7 +56,7 @@ export default function PeriodosPage() {
                     {periodo.descripcion}
                   </p>
                 </div>
-                <span className="shrink-0 text-oro opacity-0 transition-opacity group-hover:opacity-100">
+                <span className="shrink-0 text-oro opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
                   Explorar →
                 </span>
               </Link>

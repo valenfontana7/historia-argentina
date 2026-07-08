@@ -25,7 +25,7 @@ export function PersonajeCard({ personaje }: PersonajeCardProps) {
       </div>
       <div className="mt-4">
         <p className="kicker">{personaje.titulo}</p>
-        <h3 className="titulo-display mt-1.5 text-xl font-semibold leading-tight text-tinta transition-colors group-hover:text-oro-claro">
+        <h3 className="titulo-display mt-1.5 text-lg font-semibold leading-tight text-tinta transition-colors group-hover:text-oro-claro sm:text-xl">
           {personaje.nombre}
         </h3>
         <p className="mt-1 text-sm text-tinta-tenue">{personaje.rol}</p>

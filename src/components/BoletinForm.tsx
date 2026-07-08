@@ -12,7 +12,7 @@ export function BoletinForm() {
 
   return (
     <div>
-      <form action={accion} className="mx-auto flex max-w-md gap-2">
+      <form action={accion} className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row sm:gap-2">
         <label htmlFor="boletin-email" className="sr-only">
           Tu email
         </label>
@@ -27,7 +27,7 @@ export function BoletinForm() {
         <button
           type="submit"
           disabled={pendiente}
-          className="shrink-0 rounded-full bg-oro px-6 py-3 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro disabled:opacity-60"
+          className="w-full shrink-0 rounded-full bg-oro px-6 py-3 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro disabled:opacity-60 sm:w-auto"
         >
           {pendiente ? "..." : "Suscribirme"}
         </button>

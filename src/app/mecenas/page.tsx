@@ -42,7 +42,7 @@ export default async function MecenasPage() {
     : null;
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-28">
+    <div className="mx-auto max-w-3xl px-5 pb-28 pt-32">
       <p className="kicker">Tu museo personal</p>
       <h1 className="titulo-display mt-3 text-4xl font-semibold sm:text-5xl">
         Hola, mecenas

@@ -30,7 +30,7 @@ export function TimelineExplorer({ anioInicial = 1810 }: Props) {
     <div className="rounded-sm border border-linea bg-fondo-2 p-6 sm:p-8">
       <div className="flex items-baseline justify-between gap-4">
         <p className="kicker">Explorador temporal</p>
-        <p className="titulo-display text-4xl font-semibold text-oro">{anio}</p>
+        <p className="titulo-display text-3xl font-semibold text-oro sm:text-4xl">{anio}</p>
       </div>
 
       {preview.periodo && (
@@ -59,10 +59,12 @@ export function TimelineExplorer({ anioInicial = 1810 }: Props) {
                 type="button"
                 title={`${h.anio} — ${h.label}`}
                 onClick={() => actualizar(h.anio)}
-                className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-oro/40 transition-colors hover:bg-oro"
+                className="absolute top-1/2 flex min-h-11 min-w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
                 style={{ left: `${hp}%` }}
                 aria-label={`Ir a ${h.anio}, ${h.label}`}
-              />
+              >
+                <span className="h-3 w-3 rounded-full bg-oro/40 transition-colors hover:bg-oro" />
+              </button>
             );
           })}
         </div>
@@ -85,6 +87,26 @@ export function TimelineExplorer({ anioInicial = 1810 }: Props) {
         <div className="mt-3 flex justify-between text-xs text-tinta-tenue">
           <span>{ANIO_MIN}</span>
           <span>{ANIO_MAX}</span>
+        </div>
+      </div>
+
+      <div className="mt-4 block sm:hidden">
+        <p className="kicker text-[0.65rem]">Hitos clave</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {HITOS_TIMELINE.map((h) => (
+            <button
+              key={h.anio}
+              type="button"
+              onClick={() => actualizar(h.anio)}
+              className={`min-h-11 rounded-full border px-3 py-2 text-xs transition-colors ${
+                anio === h.anio
+                  ? "border-oro/50 bg-oro/10 text-oro-claro"
+                  : "border-linea text-tinta-suave hover:border-oro/30"
+              }`}
+            >
+              {h.anio}
+            </button>
+          ))}
         </div>
       </div>
 

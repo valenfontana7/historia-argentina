@@ -21,7 +21,7 @@ export default async function AccederPage({ searchParams }: Props) {
         : null;
 
   return (
-    <div className="mx-auto max-w-xl px-5 py-28 text-center">
+    <div className="mx-auto max-w-xl px-5 pb-28 pt-32 text-center">
       <p className="kicker">Área de mecenas</p>
       <h1 className="titulo-display mt-4 text-4xl font-semibold">Entrar sin contraseña</h1>
       <p className="mt-5 text-base leading-relaxed text-tinta-suave">

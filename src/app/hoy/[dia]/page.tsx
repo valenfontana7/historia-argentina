@@ -96,7 +96,7 @@ export default async function EfemeridePage({ params }: Props) {
             efemeride.categoria
           )}
         </p>
-        <p className="titulo-display mt-8 text-center text-[5.5rem] font-semibold leading-none text-oro sm:text-[7rem]">
+        <p className="titulo-display mt-8 text-center text-5xl font-semibold leading-none text-oro sm:text-[5.5rem] lg:text-[7rem]">
           {efemeride.anio}
         </p>
         <p className="mt-3 text-center text-sm uppercase tracking-[0.3em] text-tinta-suave">
@@ -175,20 +175,20 @@ export default async function EfemeridePage({ params }: Props) {
 
       {navegacion && (
         <Reveal className="mt-16">
-          <div className="grid grid-cols-2 gap-4 border-t border-linea-suave pt-8">
+          <div className="grid grid-cols-1 gap-4 border-t border-linea-suave pt-8 sm:grid-cols-2">
             <Link href={`/hoy/${navegacion.anterior.dia}`} className="group">
               <p className="text-xs uppercase tracking-[0.2em] text-tinta-tenue">
                 ← {navegacion.anterior.fecha}
               </p>
-              <p className="mt-2 text-sm leading-snug text-tinta-suave transition-colors group-hover:text-oro-claro">
+              <p className="mt-2 line-clamp-2 text-sm leading-snug text-tinta-suave transition-colors group-hover:text-oro-claro">
                 {navegacion.anterior.titulo}
               </p>
             </Link>
-            <Link href={`/hoy/${navegacion.siguiente.dia}`} className="group text-right">
+            <Link href={`/hoy/${navegacion.siguiente.dia}`} className="group sm:text-right">
               <p className="text-xs uppercase tracking-[0.2em] text-tinta-tenue">
                 {navegacion.siguiente.fecha} →
               </p>
-              <p className="mt-2 text-sm leading-snug text-tinta-suave transition-colors group-hover:text-oro-claro">
+              <p className="mt-2 line-clamp-2 text-sm leading-snug text-tinta-suave transition-colors group-hover:text-oro-claro">
                 {navegacion.siguiente.titulo}
               </p>
             </Link>
