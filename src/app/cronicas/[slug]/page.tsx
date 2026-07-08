@@ -26,7 +26,7 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return cronicas.filter((c) => c.acceso === "publico").map((c) => ({ slug: c.slug }));

@@ -20,17 +20,12 @@ export function CronicaDelMesPortada({ cronica }: Props) {
     return (
       <section className="mx-auto max-w-6xl px-5 py-12">
         <p className="text-center text-sm text-tinta-tenue">
+          También podés empezar por{" "}
           <Link
             href={`/cronicas/${cronica.slug}`}
             className="text-oro-claro underline-offset-4 hover:underline"
           >
-            También podés empezar por{" "}
-            <Link
-              href={`/cronicas/${cronica.slug}`}
-              className="text-oro-claro underline-offset-4 hover:underline"
-            >
-              esta crónica del mes
-            </Link>
+            esta crónica del mes
           </Link>
         </p>
       </section>

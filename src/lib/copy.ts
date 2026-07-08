@@ -27,7 +27,16 @@ export const BENEFICIOS_PLAN_MENSUAL = [
   "Mapa histórico completo con filtros por época",
   "Línea de tiempo para comparar años",
   "Tu nombre en el muro de quienes sostienen Argent",
-  "Leer sin interrupciones",
+] as const;
+
+/** Comparación lado a lado para la landing de membresía. */
+export const COMPARATIVA_MEMBRESIA = [
+  { aspecto: "Crónicas", gratis: "2 públicas", mecenas: "2 públicas + 2 exclusivas" },
+  { aspecto: "Recorridos", gratis: "5 recorridos", mecenas: "5 + 2 especiales" },
+  { aspecto: "Mapa", gratis: "7 lugares destacados", mecenas: "Mapa completo + filtros" },
+  { aspecto: "Línea de tiempo", gratis: "Explorar por año", mecenas: "Comparar años y rangos" },
+  { aspecto: "Panteón e historia del día", gratis: "Todo gratis", mecenas: "Todo gratis" },
+  { aspecto: "Carta y créditos", gratis: "—", mecenas: "Carta mensual + tu nombre" },
 ] as const;
 
 export const BENEFICIOS_PLAN_FUNDADOR = [

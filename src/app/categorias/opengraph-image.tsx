@@ -4,7 +4,6 @@ import { sitio } from "@/lib/site.config";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/** OG por defecto del sitio. */
 export default function Image() {
   return new ImageResponse(
     (
@@ -14,9 +13,9 @@ export default function Image() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(160deg, #05070d 0%, #0b0e18 55%, #0c0a08 100%)",
+          padding: 72,
+          background: "linear-gradient(160deg, #05070d 0%, #12141c 55%, #0c0a08 100%)",
           color: "#ece4d4",
           fontFamily: "serif",
         }}
@@ -25,27 +24,18 @@ export default function Image() {
           style={{
             display: "flex",
             fontSize: 28,
-            letterSpacing: 12,
+            letterSpacing: 10,
             textTransform: "uppercase",
             color: "#c6a15b",
           }}
         >
-          {sitio.lema}
+          Temas
         </div>
-        <div style={{ display: "flex", fontSize: 130, fontWeight: 700, marginTop: 24 }}>
-          {sitio.nombre}
+        <div style={{ display: "flex", marginTop: 24, fontSize: 72, fontWeight: 700 }}>
+          Categorías
         </div>
-        <div
-          style={{
-            display: "flex",
-            marginTop: 28,
-            fontSize: 32,
-            color: "#a59a86",
-            maxWidth: 900,
-            textAlign: "center",
-          }}
-        >
-          {"Crónicas, personajes y la historia del día."}
+        <div style={{ display: "flex", marginTop: 20, fontSize: 28, color: "#a59a86" }}>
+          {sitio.nombre} · Independencia, política, cultura y más
         </div>
       </div>
     ),

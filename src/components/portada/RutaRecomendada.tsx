@@ -16,7 +16,6 @@ type Ruta = {
 };
 
 type Props = {
-  esMecenas: boolean;
   cronicaDestacadaSlug: string;
 };
 
@@ -41,28 +40,50 @@ function rutaPorDefecto(esMecenas: boolean, cronicaDestacadaSlug: string): Ruta 
   };
 }
 
-export function RutaRecomendada({ esMecenas, cronicaDestacadaSlug }: Props) {
+export function RutaRecomendada({ cronicaDestacadaSlug }: Props) {
+  const [esMecenas, setEsMecenas] = useState(false);
   const [ruta, setRuta] = useState<Ruta>(() =>
-    rutaPorDefecto(esMecenas, cronicaDestacadaSlug),
+    rutaPorDefecto(false, cronicaDestacadaSlug),
   );
 
   useEffect(() => {
-    if (esMecenas) {
-      setRuta(rutaPorDefecto(true, cronicaDestacadaSlug));
-      return;
+    let cancelado = false;
+
+    async function resolver() {
+      let mecenas = false;
+      try {
+        const res = await fetch("/api/auth/estado");
+        const data = (await res.json()) as { mecenas?: boolean };
+        mecenas = Boolean(data.mecenas);
+      } catch {
+        mecenas = false;
+      }
+      if (cancelado) return;
+
+      setEsMecenas(mecenas);
+      if (mecenas) {
+        setRuta(rutaPorDefecto(true, cronicaDestacadaSlug));
+        return;
+      }
+      if (tieneVisitaOnboarding()) {
+        setRuta({
+          href: "/hoy",
+          kicker: "Volvé por acá",
+          titulo: "La historia de hoy",
+          descripcion:
+            "Cada día hay una historia argentina para leer. Si hoy aún no tiene la nuestra, te mostramos otra parecida.",
+          cta: "Leer la historia del día →",
+        });
+        return;
+      }
+      setRuta(rutaPorDefecto(false, cronicaDestacadaSlug));
     }
 
-    if (tieneVisitaOnboarding()) {
-      setRuta({
-        href: "/hoy",
-        kicker: "Volvé por acá",
-        titulo: "La historia de hoy",
-        descripcion:
-          "Cada día hay una historia argentina para leer. Si hoy aún no tiene la nuestra, te mostramos otra parecida.",
-        cta: "Leer la historia del día →",
-      });
-    }
-  }, [esMecenas, cronicaDestacadaSlug]);
+    void resolver();
+    return () => {
+      cancelado = true;
+    };
+  }, [cronicaDestacadaSlug]);
 
   const alClic = () => {
     if (!esMecenas) marcarVisitaOnboarding();

@@ -32,14 +32,11 @@ export function Footer({ esMecenas }: Props) {
             <Link href="/timelines" className="text-tinta-suave transition-colors hover:text-oro-claro">
               Timeline
             </Link>
-            <Link href="/mapa" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              Mapa
+            <Link href="/lugares" className="text-tinta-suave transition-colors hover:text-oro-claro">
+              Mapa y lugares
             </Link>
             <Link href="/categorias" className="text-tinta-suave transition-colors hover:text-oro-claro">
               Categorías
-            </Link>
-            <Link href="/lugares" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              Lugares
             </Link>
             <Link href="/periodos" className="text-tinta-suave transition-colors hover:text-oro-claro">
               Períodos

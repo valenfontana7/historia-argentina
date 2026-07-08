@@ -54,6 +54,14 @@ export function formatearPrecio(precio: number, moneda: "ARS" = "ARS") {
   }).format(precio);
 }
 
+/** Ahorro del plan fundador vs 12 meses del plan mensual. */
+export function ahorroFundador(): { monto: number; porcentaje: number } {
+  const doceMeses = planes.mensual.precio * 12;
+  const monto = doceMeses - planes.fundador.precio;
+  const porcentaje = Math.round((monto / doceMeses) * 100);
+  return { monto, porcentaje };
+}
+
 export function diasDePlan(plan: PlanId): number {
   return plan === "fundador" ? 365 : 30;
 }

@@ -44,8 +44,8 @@ export function BoletinForm({ esMecenas = false }: Props) {
           {estado.ok && (
             <>
               <p className="mt-2 text-xs text-tinta-tenue">
-                Todavía no enviamos emails. Te avisamos cuando empiece. Mientras
-                tanto, podés leer la historia del día.
+                Te avisamos cuando salga el boletín. Mientras tanto, podés leer
+                la historia del día.
               </p>
               {estado.upsell && !esMecenas && (
                 <p className="mt-2 text-sm text-tinta-suave">

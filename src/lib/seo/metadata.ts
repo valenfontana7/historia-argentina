@@ -30,7 +30,6 @@ const RUTAS_OG_PROPIA = new Set([
   "/cronicas",
   "/timelines",
   "/lugares",
-  "/mapa",
   "/periodos",
   "/categorias",
 ]);
@@ -129,7 +128,10 @@ export const metadataSitio: Metadata = {
     images: [`${sitio.url}/opengraph-image`],
   },
   icons: {
-    icon: [{ url: "/icon", type: "image/png", sizes: "48x48" }],
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon", type: "image/png", sizes: "96x96" },
+    ],
     apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
   },
   manifest: "/manifest.webmanifest",

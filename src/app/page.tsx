@@ -3,7 +3,6 @@ import Link from "next/link";
 import { HeroPortada } from "@/components/HeroPortada";
 import { AvisoEfemerideSugerida } from "@/components/exploracion/AvisoEfemerideSugerida";
 import { PersonajeCard } from "@/components/PersonajeCard";
-import { BoletinForm } from "@/components/BoletinForm";
 import { RutaRecomendada } from "@/components/portada/RutaRecomendada";
 import { CronicaDelMesPortada } from "@/components/portada/CronicaDelMesPortada";
 import { PortadaRetorno } from "@/components/portada/PortadaRetorno";
@@ -15,7 +14,6 @@ import {
 import { personajes } from "@/data/personajes";
 import { cronicas } from "@/content/cronicas/registro";
 import { hoyEnArgentina } from "@/lib/fechas";
-import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { sitio } from "@/lib/site.config";
 
@@ -44,7 +42,6 @@ function cronicaDelMes() {
 }
 
 export default async function HomePage() {
-  const esMecenas = await puedeVerContenidoMecenas();
   const { mes, dia } = hoyEnArgentina();
   const { efemeride, esExacta } = resolverEfemerideParaFecha(mes, dia);
   const fechaHoy = formatearFechaCalendario(mes, dia);
@@ -56,12 +53,13 @@ export default async function HomePage() {
 
   return (
     <div>
-      <HeroPortada />
-
-      <RutaRecomendada
-        esMecenas={esMecenas}
-        cronicaDestacadaSlug={cronicaDestacada.slug}
+      <HeroPortada
+        cronicaSlug={cronicaDestacada.slug}
+        hoyHref={hrefHoy}
+        hoyTitulo={efemeride.titulo}
       />
+
+      <RutaRecomendada cronicaDestacadaSlug={cronicaDestacada.slug} />
 
       <PortadaRetorno />
 
@@ -107,31 +105,37 @@ export default async function HomePage() {
       <CronicaDelMesPortada cronica={cronicaDestacada} />
 
       <section className="border-y border-linea-suave bg-fondo-2">
-        <div className="mx-auto max-w-6xl px-5 py-16 text-center">
+        <div className="mx-auto max-w-6xl px-5 py-14 text-center">
           <Reveal>
-            <p className="kicker">Recorridos curados</p>
-            <h2 className="titulo-display mt-4 text-3xl font-semibold sm:text-4xl">
-              Historias con un hilo conductor
-            </h2>
-            <p className="mx-auto mt-4 max-w-lg text-sm text-tinta-suave">
-              Rutas que conectan personajes, eventos y crónicas en
-              secuencia — sin ruleta, sin perderte.
-            </p>
-            <Link
-              href="/recorridos"
-              className="mt-8 inline-block rounded-full border border-oro/40 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
-            >
-              Ver recorridos →
-            </Link>
+            <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-10">
+              <Link
+                href="/recorridos"
+                className="text-sm text-oro-claro underline-offset-4 transition-colors hover:underline"
+              >
+                Recorridos paso a paso →
+              </Link>
+              <Link
+                href="/panteon"
+                className="text-sm text-oro-claro underline-offset-4 transition-colors hover:underline"
+              >
+                El Panteón →
+              </Link>
+              <Link
+                href="/explorar"
+                className="text-sm text-oro-claro underline-offset-4 transition-colors hover:underline"
+              >
+                Explorar el museo →
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-24 pt-16">
+      <section className="mx-auto max-w-6xl px-5 pb-24 pt-10">
         <Reveal>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
             <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">
-              El Panteón
+              Rostros del museo
             </h2>
             <div className="filete w-full" />
             <Link
@@ -141,34 +145,14 @@ export default async function HomePage() {
               Ver todos →
             </Link>
           </div>
-          <p className="mt-4 max-w-2xl text-tinta-suave">
-            Héroes, tiranos, visionarios y derrotados: las vidas que hicieron
-            la Argentina.
-          </p>
         </Reveal>
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 min-[400px]:grid-cols-2 sm:grid-cols-4">
-          {grilla.map((personaje, i) => (
+        <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
+          {grilla.slice(0, 4).map((personaje, i) => (
             <Reveal key={personaje.slug} delay={(i % 4) * 0.07}>
               <PersonajeCard personaje={personaje} />
             </Reveal>
           ))}
         </div>
-      </section>
-
-      <section className="border-t border-linea-suave bg-fondo-2">
-        <Reveal className="mx-auto max-w-3xl px-5 py-24 text-center">
-          <p className="kicker">El boletín</p>
-          <h2 className="titulo-display mt-4 text-4xl font-semibold leading-tight">
-            Avisame cuando salga el boletín
-          </h2>
-          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-tinta-suave">
-            Estamos armando un email con historias argentinas. Dejá tu correo y
-            te avisamos cuando empiece a salir.
-          </p>
-          <div className="mt-8">
-            <BoletinForm esMecenas={esMecenas} />
-          </div>
-        </Reveal>
       </section>
     </div>
   );

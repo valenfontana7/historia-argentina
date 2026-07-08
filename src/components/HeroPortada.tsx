@@ -1,18 +1,73 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
+import { animate, useReducedMotion } from "framer-motion";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { marcarVisitaOnboarding } from "@/lib/engagement/storage";
 
-const aparicion = {
-  initial: { opacity: 0, y: 34 },
-  animate: { opacity: 1, y: 0 },
+type Props = {
+  cronicaSlug: string;
+  hoyHref: string;
+  hoyTitulo: string;
 };
 
 /** Portada del sitio: cielo nocturno, sol de mayo insinuado y titular editorial. */
-export function HeroPortada() {
+export function HeroPortada({ cronicaSlug, hoyHref, hoyTitulo }: Props) {
   const reducido = useReducedMotion();
+  const rootRef = useRef<HTMLElement>(null);
+  const [esMecenas, setEsMecenas] = useState(false);
+
+  // Post-hidratación: anima en el DOM sin estilos initial de SSR (evita #418).
+  useLayoutEffect(() => {
+    if (reducido) return;
+    const root = rootRef.current;
+    if (!root) return;
+
+    const nodos = root.querySelectorAll<HTMLElement>("[data-hero-anim]");
+    const controles = Array.from(nodos).map((nodo, i) => {
+      nodo.style.opacity = "0";
+      nodo.style.transform = "translateY(34px)";
+      return animate(
+        nodo,
+        { opacity: 1, y: 0 },
+        {
+          duration: 0.9,
+          delay: 0.1 + i * 0.15,
+          ease: [0.16, 1, 0.3, 1],
+        },
+      );
+    });
+
+    return () => {
+      for (const c of controles) c.stop();
+    };
+  }, [reducido]);
+
+  useEffect(() => {
+    let cancelado = false;
+    fetch("/api/auth/estado")
+      .then((r) => r.json())
+      .then((data: { mecenas?: boolean }) => {
+        if (!cancelado) setEsMecenas(Boolean(data.mecenas));
+      })
+      .catch(() => {});
+    return () => {
+      cancelado = true;
+    };
+  }, []);
+
+  const cronicaHref = esMecenas ? "/mecenas" : `/cronicas/${cronicaSlug}`;
+  const cronicaCta = esMecenas ? "Ir a tu museo →" : "Empezar la crónica →";
+
+  const alEmpezar = () => {
+    if (!esMecenas) marcarVisitaOnboarding();
+  };
 
   return (
-    <section className="relative flex min-h-svh items-center justify-center overflow-hidden">
+    <section
+      ref={rootRef}
+      className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden"
+    >
       <div
         className="absolute inset-0"
         style={{
@@ -59,29 +114,57 @@ export function HeroPortada() {
         <circle cx={200} cy={200} r={64} fill="none" stroke="var(--oro)" strokeWidth={3} />
       </svg>
 
-      <div className="relative z-10 mx-auto max-w-4xl px-5 py-32 text-center">
-        <motion.p
-          className="kicker"
-          {...(reducido ? {} : aparicion)}
-          transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        >
+      <div className="relative z-10 mx-auto max-w-4xl px-5 pb-24 pt-32 text-center">
+        <p className="kicker" data-hero-anim>
           Un museo digital de historia argentina
-        </motion.p>
-        <motion.h1
+        </p>
+        <h1
           className="titulo-display mt-7 text-5xl font-semibold leading-[1.04] sm:text-7xl"
-          {...(reducido ? {} : { initial: { y: 34 }, animate: { y: 0 } })}
-          transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          data-hero-anim
         >
           La historia argentina, fácil de entender.
-        </motion.h1>
-        <motion.p
+        </h1>
+        <p
           className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-tinta-suave sm:text-xl"
-          {...(reducido ? {} : aparicion)}
-          transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          data-hero-anim
         >
           Leé crónicas con imágenes y mapas, conocé personajes del Panteón y
           descubrí qué pasó un día como hoy. Todo gratis para empezar.
-        </motion.p>
+        </p>
+
+        <div
+          className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
+          data-hero-anim
+        >
+          <Link
+            href={cronicaHref}
+            onClick={alEmpezar}
+            className="inline-block w-full rounded-full bg-oro px-8 py-3.5 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro sm:w-auto"
+          >
+            {cronicaCta}
+          </Link>
+          <Link
+            href={hoyHref}
+            className="inline-block w-full rounded-full border border-oro/40 px-8 py-3.5 text-sm text-oro-claro transition-colors hover:bg-oro/10 sm:w-auto"
+          >
+            Qué pasó hoy
+          </Link>
+        </div>
+
+        <div
+          className="mx-auto mt-10 max-w-lg border-t border-linea-suave pt-6"
+          data-hero-anim
+        >
+          <p className="text-[0.65rem] uppercase tracking-[0.25em] text-tinta-tenue">
+            Hoy en el museo
+          </p>
+          <Link
+            href={hoyHref}
+            className="mt-2 block text-sm leading-snug text-tinta-suave transition-colors hover:text-oro-claro"
+          >
+            {hoyTitulo} →
+          </Link>
+        </div>
       </div>
 
       <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-center">

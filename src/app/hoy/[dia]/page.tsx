@@ -19,6 +19,7 @@ import {
   efemerides,
   formatearFechaCalendario,
   obtenerEfemeride,
+  resolverEfemerideParaFecha,
   vecinas,
 } from "@/data/efemerides";
 import { narrativaDeEfemeride } from "@/data/efemerides-narrativa";
@@ -63,6 +64,11 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
   const fechaHoy = formatearFechaCalendario(mes, diaHoy);
   const esSugerida = sugerida === "1";
   const narrativa = narrativaDeEfemeride(dia);
+  const { efemeride: efemerideHoy, esExacta: hoyExacta } =
+    resolverEfemerideParaFecha(mes, diaHoy);
+  const hrefDiaActual = hoyExacta
+    ? `/hoy/${efemerideHoy.dia}`
+    : `/hoy/${efemerideHoy.dia}?sugerida=1`;
 
   const navegacion = vecinas(dia);
   const personajesRelacionados = obtenerVarios(efemeride.relacionados);
@@ -75,7 +81,7 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
 
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Hoy", href: "/hoy" },
+    { nombre: "Hoy", href: hrefDiaActual },
     ...(catSlug
       ? [{ nombre: efemeride.categoria, href: `/categorias/${catSlug}` }]
       : []),

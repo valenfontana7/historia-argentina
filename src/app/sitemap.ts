@@ -15,7 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${sitio.url}/explorar`, changeFrequency: "weekly", priority: 0.95 },
     { url: `${sitio.url}/recorridos`, changeFrequency: "weekly", priority: 0.92 },
     { url: `${sitio.url}/timelines`, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${sitio.url}/mapa`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${sitio.url}/cronicas`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${sitio.url}/panteon`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${sitio.url}/hoy`, changeFrequency: "daily", priority: 0.9 },

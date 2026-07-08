@@ -38,7 +38,8 @@ export default function ExplorarPage() {
             Explorar
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-tinta-suave">
-            Elegí un camino o tocá «Sorprendeme». Siempre hay algo más para ver.
+            Elegí un camino o tocá «Descubrir algo al azar». Siempre hay algo más
+            para ver.
           </p>
           <div className="mt-8">
             <DescubrirAleatorio nodos={nodos} />
@@ -54,10 +55,9 @@ export default function ExplorarPage() {
               { href: "/cronicas", titulo: "Crónicas", desc: "Historias cinematográficas" },
               { href: "/panteon", titulo: "El Panteón", desc: "Personajes del relato" },
               { href: "/hoy", titulo: "Hoy", desc: "Efeméride del día" },
-              { href: "/lugares", titulo: "Lugares", desc: "Geografía histórica" },
+              { href: "/lugares", titulo: "Mapa y lugares", desc: "Geografía histórica exploratoria" },
               { href: "/timelines", titulo: "Timeline", desc: "Explorador temporal interactivo" },
               { href: "/recorridos", titulo: "Recorridos", desc: "Rutas curadas con hilo conductor" },
-              { href: "/mapa", titulo: "Mapa", desc: "Cono Sur exploratorio" },
             ].map((item) => (
               <Link
                 key={item.href}

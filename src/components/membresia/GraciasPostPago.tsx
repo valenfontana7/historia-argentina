@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MagicLinkForm } from "@/components/membresia/MagicLinkForm";
@@ -17,12 +18,19 @@ type ResultadoSync = {
   sesion?: boolean;
 };
 
+type Fase =
+  | "sin-email"
+  | "confirmando"
+  | "listo"
+  | "pedir-enlace"
+  | "esperando-pago"
+  | "error";
+
 export function GraciasPostPago({ emailInicial }: Props) {
   const router = useRouter();
-  const [estado, setEstado] = useState<
-    "idle" | "sincronizando" | "activado" | "activo" | "pendiente" | "error"
-  >("idle");
-  const [mensajeSync, setMensajeSync] = useState<string | null>(null);
+  const [fase, setFase] = useState<Fase>(emailInicial ? "confirmando" : "sin-email");
+  const [mensaje, setMensaje] = useState<string | null>(null);
+  const [tieneSesion, setTieneSesion] = useState(false);
 
   useEffect(() => {
     if (!emailInicial) return;
@@ -30,7 +38,7 @@ export function GraciasPostPago({ emailInicial }: Props) {
     let cancelado = false;
 
     async function sincronizar() {
-      setEstado("sincronizando");
+      setFase("confirmando");
       try {
         const res = await fetch("/api/mp/sincronizar", {
           method: "POST",
@@ -46,59 +54,45 @@ export function GraciasPostPago({ emailInicial }: Props) {
         if (cancelado) return;
 
         if (!data.ok) {
-          setEstado("error");
-          setMensajeSync(data.mensaje ?? "No pudimos confirmar el pago.");
+          setFase("error");
+          setMensaje(data.mensaje ?? "No pudimos confirmar el pago.");
           return;
         }
 
         if (data.sesion && (data.estado === "activado" || data.estado === "activo")) {
-          setEstado(data.estado === "activado" ? "activado" : "activo");
-          setMensajeSync("¡Listo! Te llevamos a tu museo…");
+          setTieneSesion(true);
+          setFase("listo");
+          setMensaje("¡Listo! Te llevamos a tu museo…");
           router.replace("/mecenas");
           return;
         }
 
-        if (data.errorEmail) {
-          setEstado("error");
-          setMensajeSync(
-            `Tu membresía ya está activa, pero no llegó el email. Pedí el enlace abajo.`,
+        if (data.estado === "activado" || data.estado === "activo") {
+          setFase("pedir-enlace");
+          setMensaje(
+            data.errorEmail
+              ? "Tu membresía está activa, pero no llegó el email. Pedí el enlace abajo."
+              : "Tu membresía está activa. Pedí un enlace para entrar a tu museo.",
           );
           return;
         }
 
-        switch (data.estado) {
-          case "activado":
-            setEstado("activado");
-            setMensajeSync(
-              data.emailEnviado
-                ? "¡Gracias! Si no entraste solo, pedí el enlace abajo."
-                : "¡Gracias! Pedí el enlace abajo para entrar.",
-            );
-            break;
-          case "activo":
-            setEstado("activo");
-            setMensajeSync(
-              data.emailEnviado
-                ? "Tu membresía ya está activa. Pedí el enlace abajo si hace falta."
-                : "Tu membresía ya está activa. Pedí el enlace abajo.",
-            );
-            break;
-          case "pendiente":
-            setEstado("pendiente");
-            setMensajeSync(
-              "Todavía estamos confirmando el pago. Revisá tu email en unos minutos o pedí el enlace abajo.",
-            );
-            break;
-          default:
-            setEstado("pendiente");
-            setMensajeSync(
-              "No encontramos el pago todavía. Probá de nuevo en unos minutos con el mismo email.",
-            );
+        if (data.estado === "pendiente") {
+          setFase("esperando-pago");
+          setMensaje(
+            "Todavía estamos confirmando el pago. En unos minutos pedí el enlace con el mismo email.",
+          );
+          return;
         }
+
+        setFase("esperando-pago");
+        setMensaje(
+          "Todavía no encontramos el pago. Esperá un momento y pedí el enlace con el mismo email.",
+        );
       } catch {
         if (!cancelado) {
-          setEstado("error");
-          setMensajeSync("No pudimos conectar. Probá de nuevo.");
+          setFase("error");
+          setMensaje("No pudimos conectar. Probá de nuevo en unos segundos.");
         }
       }
     }
@@ -109,22 +103,57 @@ export function GraciasPostPago({ emailInicial }: Props) {
     };
   }, [emailInicial, router]);
 
+  const mostrarFormulario =
+    fase === "sin-email" ||
+    fase === "pedir-enlace" ||
+    fase === "esperando-pago" ||
+    fase === "error";
+
   return (
-    <div className="mt-10 space-y-4">
-      {emailInicial && estado === "sincronizando" && (
-        <p className="text-sm text-tinta-suave" role="status">
-          Estamos confirmando tu pago…
-        </p>
+    <div className="mt-10 space-y-6">
+      {fase === "confirmando" && (
+        <div className="rounded-sm border border-oro/30 bg-fondo-2 px-6 py-5" role="status">
+          <p className="text-sm font-medium text-oro-claro">Confirmando tu pago…</p>
+          <p className="mt-2 text-sm text-tinta-suave">
+            Esto suele tardar unos segundos. No cierres esta ventana.
+          </p>
+        </div>
       )}
-      {mensajeSync && (
+
+      {fase === "listo" && (
+        <div className="rounded-sm border border-oro/40 bg-fondo-2 px-6 py-5" role="status">
+          <p className="text-sm font-medium text-oro-claro">{mensaje}</p>
+        </div>
+      )}
+
+      {mensaje && fase !== "listo" && fase !== "confirmando" && (
         <p
-          className={`text-sm ${estado === "error" ? "text-carmesi" : "text-oro-claro"}`}
+          className={`text-sm ${fase === "error" ? "text-carmesi" : "text-oro-claro"}`}
           role="status"
         >
-          {mensajeSync}
+          {mensaje}
         </p>
       )}
-      <MagicLinkForm emailInicial={emailInicial} sincronizarAntes />
+
+      {mostrarFormulario && (
+        <div className="rounded-sm border border-linea bg-fondo-2 px-6 py-6">
+          <p className="mb-4 text-sm text-tinta-suave">
+            {fase === "sin-email"
+              ? "Escribí el email con el que pagaste para recibir el enlace de acceso."
+              : "Pedí un enlace de acceso a tu email."}
+          </p>
+          <MagicLinkForm emailInicial={emailInicial} sincronizarAntes />
+        </div>
+      )}
+
+      {tieneSesion && (
+        <Link
+          href="/mecenas"
+          className="inline-block text-sm text-oro-claro underline-offset-4 hover:underline"
+        >
+          Ir a tu museo →
+        </Link>
+      )}
     </div>
   );
 }

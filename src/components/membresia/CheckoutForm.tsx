@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ACCESO_EMAIL } from "@/lib/copy";
 import type { PlanId } from "@/lib/membresia.config";
 
 type Props = {
@@ -50,6 +51,9 @@ export function CheckoutForm({ plan, etiqueta, destacado = false }: Props) {
           className="mt-2 w-full rounded-full border border-linea bg-fondo px-5 py-3 text-sm normal-case tracking-normal text-tinta placeholder:text-tinta-tenue focus:border-oro/60 focus:outline-none"
         />
       </label>
+      <p className="text-left text-xs leading-relaxed text-tinta-tenue">
+        Usá el mismo email para entrar después del pago. {ACCESO_EMAIL}
+      </p>
       <button
         type="submit"
         disabled={pendiente}

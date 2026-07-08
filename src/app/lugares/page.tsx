@@ -42,13 +42,8 @@ export default async function LugaresPage() {
             Lugares
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-tinta-suave">
-            Cada rincón del país guarda un capítulo. Explorá los escenarios donde
-            se escribió la historia argentina.
-          </p>
-          <p className="mt-4">
-            <Link href="/mapa" className="text-sm text-oro-claro hover:text-oro">
-              Ver mapa exploratorio →
-            </Link>
+            Cada rincón del país guarda un capítulo. Explorá el mapa y las
+            fichas de los escenarios donde se escribió la historia argentina.
           </p>
           <div className="filete mt-10 w-32" />
         </Reveal>

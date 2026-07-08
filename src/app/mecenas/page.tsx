@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { EstadoMecenas } from "@prisma/client";
 import { ColeccionesGuardadas } from "@/components/mecenas/ColeccionesGuardadas";
+import { OnboardingMecenas } from "@/components/mecenas/OnboardingMecenas";
+import {
+  MuralMecenas,
+  obtenerCreditosMecenas,
+} from "@/components/membresia/MuralMecenas";
 import { obtenerMecenasActivo, obtenerSesion } from "@/lib/auth";
 import { cronicas } from "@/content/cronicas/registro";
 import { planes } from "@/lib/membresia.config";
-import { prisma } from "@/lib/db";
 
 export const metadata = {
   title: "Tu museo — Mecenas",
@@ -25,12 +28,7 @@ export default async function MecenasPage() {
     (c) => c.acceso === "mecenas" || c.acceso === "anticipo",
   );
   const exposicion = exclusivas[0] ?? cronicas[0];
-  const creditos = await prisma.mecenas.findMany({
-    where: { estado: EstadoMecenas.activo, mostrarCredito: true },
-    orderBy: [{ esFundador: "desc" }, { createdAt: "asc" }],
-    take: 48,
-    select: { email: true, nombrePublico: true, esFundador: true },
-  });
+  const creditos = await obtenerCreditosMecenas(48);
 
   const plan = planes[mecenas.plan];
   const vigenteHasta = mecenas.periodEnd
@@ -62,6 +60,8 @@ export default async function MecenasPage() {
       </header>
 
       <div className="mx-auto max-w-3xl px-5">
+        <OnboardingMecenas cronicaHref={`/cronicas/${exposicion.slug}`} />
+
         <section className="mt-16">
           <p className="kicker">Crónica destacada</p>
           <Link
@@ -112,7 +112,7 @@ export default async function MecenasPage() {
 
         <section className="mt-16 grid gap-4 sm:grid-cols-2">
           <Link
-            href="/mecenas/mapa"
+            href="/lugares"
             className="rounded-sm border border-oro/40 bg-fondo-2 p-6 transition-colors hover:border-oro/60"
           >
             <p className="kicker text-oro">Mapa histórico</p>
@@ -159,31 +159,7 @@ export default async function MecenasPage() {
         </section>
 
         <section className="mt-20 border-t border-linea-suave pt-16">
-          <p className="kicker text-center">Mural de mecenas</p>
-          <h2 className="titulo-display mt-4 text-center text-2xl font-semibold">
-            Quienes sostienen Argent
-          </h2>
-          <ul className="mt-10 flex flex-wrap justify-center gap-2">
-            {creditos.map((c) => {
-              const label =
-                c.nombrePublico?.trim() ||
-                c.email.split("@")[0]?.replace(/[._]/g, " ") ||
-                "Mecenas";
-              return (
-                <li
-                  key={c.email}
-                  className={`rounded-full border px-3 py-1 text-xs capitalize ${
-                    c.esFundador
-                      ? "border-oro/40 text-oro-claro"
-                      : "border-linea text-tinta-suave"
-                  }`}
-                >
-                  {label}
-                  {c.esFundador ? " · fundador" : ""}
-                </li>
-              );
-            })}
-          </ul>
+          <MuralMecenas creditos={creditos} />
         </section>
 
         <div className="mt-16 flex flex-wrap justify-center gap-4 border-t border-linea-suave pt-12">

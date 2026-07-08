@@ -16,6 +16,8 @@ const nextConfig: NextConfig = {
     return [
       { source: "/jugar", destination: "/hoy", permanent: true },
       { source: "/timelines/comparar", destination: "/timelines", permanent: true },
+      { source: "/mapa", destination: "/lugares", permanent: true },
+      { source: "/mecenas/mapa", destination: "/lugares", permanent: true },
     ];
   },
 };

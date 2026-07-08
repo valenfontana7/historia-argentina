@@ -55,7 +55,7 @@ export default async function CartaMecenasPage() {
       </Reveal>
       <div className="mt-10 flex flex-wrap gap-4">
         <Link
-          href="/mecenas/mapa"
+          href="/lugares"
           className="rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro hover:bg-oro/10"
         >
           Abrir el mapa completo →

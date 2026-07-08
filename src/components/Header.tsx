@@ -7,9 +7,9 @@ import { sitio } from "@/lib/site.config";
 const ENLACES_BASE = [
   { href: "/explorar", etiqueta: "Explorar" },
   { href: "/recorridos", etiqueta: "Recorridos" },
-  { href: "/timelines", etiqueta: "Timeline" },
   { href: "/cronicas", etiqueta: "Crónicas" },
   { href: "/panteon", etiqueta: "El Panteón" },
+  { href: "/lugares", etiqueta: "Mapa" },
   { href: "/hoy", etiqueta: "Hoy" },
 ] as const;
 

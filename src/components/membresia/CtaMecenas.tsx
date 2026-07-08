@@ -1,13 +1,30 @@
+"use client";
+
 import Link from "next/link";
-import { puedeVerContenidoMecenas } from "@/lib/auth";
+import { useEffect, useState } from "react";
 
 type Props = {
   compacto?: boolean;
 };
 
-/** Bloque de conversión: sostiene el museo sin paywallar el contenido libre. */
-export async function CtaMecenas({ compacto = false }: Props) {
-  if (await puedeVerContenidoMecenas()) return null;
+/** Bloque de conversión: se oculta solo si hay sesión mecenas (check en cliente). */
+export function CtaMecenas({ compacto = false }: Props) {
+  const [oculto, setOculto] = useState(false);
+
+  useEffect(() => {
+    let cancelado = false;
+    fetch("/api/auth/estado")
+      .then((r) => r.json())
+      .then((data: { mecenas?: boolean }) => {
+        if (!cancelado && data.mecenas) setOculto(true);
+      })
+      .catch(() => {});
+    return () => {
+      cancelado = true;
+    };
+  }, []);
+
+  if (oculto) return null;
 
   return (
     <aside
