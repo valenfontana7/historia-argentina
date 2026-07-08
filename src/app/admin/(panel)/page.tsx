@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { EstadoMecenas } from "@prisma/client";
 import { prisma } from "@/lib/db";
-import { planes } from "@/lib/membresia.config";
+import { formatearPrecio, planes } from "@/lib/membresia.config";
 import { getMembresiaSettings } from "@/lib/membresia-settings";
 import { sitio } from "@/lib/site.config";
 
@@ -57,10 +57,14 @@ export default async function AdminDashboardPage() {
           <PlanEstado
             nombre={planes.mensual.nombre}
             habilitado={settings.mensualHabilitado}
+            precio={formatearPrecio(settings.precioMensual)}
+            periodo={planes.mensual.periodo}
           />
           <PlanEstado
             nombre={planes.fundador.nombre}
             habilitado={settings.fundadorHabilitado}
+            precio={formatearPrecio(settings.precioFundador)}
+            periodo={planes.fundador.periodo}
           />
         </ul>
       </section>
@@ -86,12 +90,27 @@ function StatCard({ titulo, valor }: { titulo: string; valor: number }) {
   );
 }
 
-function PlanEstado({ nombre, habilitado }: { nombre: string; habilitado: boolean }) {
+function PlanEstado({
+  nombre,
+  habilitado,
+  precio,
+  periodo,
+}: {
+  nombre: string;
+  habilitado: boolean;
+  precio: string;
+  periodo: string;
+}) {
   return (
     <li className="flex items-center justify-between gap-4 border-b border-linea-suave pb-3 last:border-0 last:pb-0">
-      <span className="text-tinta">{nombre}</span>
+      <div>
+        <span className="text-tinta">{nombre}</span>
+        <span className="ml-2 text-tinta-tenue">
+          {precio} {periodo}
+        </span>
+      </div>
       <span
-        className={`text-xs uppercase tracking-[0.16em] ${
+        className={`shrink-0 text-xs uppercase tracking-[0.16em] ${
           habilitado ? "text-oro-claro" : "text-tinta-tenue"
         }`}
       >

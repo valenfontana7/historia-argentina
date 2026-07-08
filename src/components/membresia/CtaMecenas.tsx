@@ -1,11 +1,14 @@
 import Link from "next/link";
+import { puedeVerContenidoMecenas } from "@/lib/auth";
 
 type Props = {
   compacto?: boolean;
 };
 
-/** Bloque de conversión: sostiene el museo sin paywallear el contenido libre. */
-export function CtaMecenas({ compacto = false }: Props) {
+/** Bloque de conversión: sostiene el museo sin paywallar el contenido libre. */
+export async function CtaMecenas({ compacto = false }: Props) {
+  if (await puedeVerContenidoMecenas()) return null;
+
   return (
     <aside
       className={`mx-auto max-w-2xl rounded-sm border border-oro/30 bg-gradient-to-br from-[#16120c] to-fondo-2 px-6 ${

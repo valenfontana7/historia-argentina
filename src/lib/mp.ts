@@ -48,7 +48,7 @@ export async function crearCheckout(planId: PlanId, email: string) {
     throw new PlanNoDisponibleError();
   }
 
-  const precio = precioCheckout(planId, emailNorm);
+  const precio = await precioCheckout(planId, emailNorm);
 
   await prisma.mecenas.upsert({
     where: { email: emailNorm },

@@ -1,16 +1,70 @@
 <Capitulo
   numero="I"
-  titulo="Una ciudad sin rey"
-  bajada="25 de mayo de 1810. No fue una magia: fueron cuarenta y ocho horas de presión, cálculo y miedo."
+  titulo="La herencia de las azoteas"
+  bajada="Mayo no nació en un vacío. Tres años antes, esta misma ciudad había aprendido a gobernarse con fusiles criollos."
 />
 
 <Prosa capitular>
-  El 18 de mayo de 1810, un bergantín inglés entró al puerto de Buenos Aires con una noticia que nadie pudo seguir ignorando: **Fernando VII estaba preso** y el Consejo de Regencia de Cádiz pretendía hablar en su nombre. Para la élite porteña, el problema ya no era abstracto. Sin rey, ¿quién gobernaba el Río de la Plata?
+  Si leíste la crónica de las Invasiones Inglesas, ya conocés el secreto que los manuales escolares suelen omitir: **Buenos Aires destituyó a su virrey en 1807**, armó ocho mil milicianos y derrotó al ejército más poderoso del mundo **sin un solo soldado enviado desde España**.
 
-  Cisneros —el último virrey— intentó controlar el relato. El Cabildo buscó una fórmula intermedia. Los revolucionarios del Club de la Anónima y de la tertulia de la jabonería de Vieytes entendieron otra cosa: la vacancia del trono era la única ventana que iban a tener en años.
-
-  Entre el **22 y el 25 de mayo** la ciudad se convirtió en un tablero de presión permanente. Milicianos en la Plaza, pasquines, rumor y una pregunta que no podía esperar: ¿seguía el poder en manos de un virrey nombrado por una corona que ya no existía?
+  En mayo de 1810 esa memoria todavía olía a pólvora. Los **Patricios** de Cornelio Saavedra no eran un adorno festivo: eran el regimiento más numeroso de la ciudad, nacido en la humillación de 1806 y endurecido en las azoteas de 1807. Cuando el 18 de mayo llegó la noticia de que **Fernando VII estaba preso** y que el Consejo de Regencia de Cádiz pretendía hablar en su nombre, la pregunta no era filosófica. Era práctica: si no había rey reconocido, ¿por qué seguía un virrey nombrado por una corona que ya no existía?
 </Prosa>
+
+<FilaDeDatos>
+  <DatoGigante valor={1807} etiqueta="año en que la ciudad destituyó a un virrey" />
+  <DatoGigante valor={8000} sufijo="+" etiqueta="milicianos que ya sabían vencer solos" />
+  <DatoGigante valor={48} etiqueta="horas para convertir la duda en poder" />
+</FilaDeDatos>
+
+<CitaHistorica
+  texto="No hay rey ni jefe alguno en España; la autoridad de Cisneros ha cesado."
+  autor="Petición de vecinos al Cabildo"
+  contexto="Buenos Aires, 22 de mayo de 1810"
+/>
+
+<Capitulo
+  numero="II"
+  titulo="Una ciudad sin rey"
+  bajada="18 de mayo de 1810. Un bergantín inglés trae la grieta que nadie pudo cerrar."
+/>
+
+<Prosa>
+  El virrey **Baltasar Hidalgo de Cisneros** intentó controlar el relato. Convocó al Cabildo, buscó fórmulas intermedias, apeló a la lealtad y al miedo. Pero la élite porteña ya no creía en intermedios: el monopolio comercial peninsular les había enseñado que Madrid siempre elegía a Madrid.
+
+  En la **jabonería de Vieytes** y en el **Club de la Anónima** —tertulias donde se mezclaban comerciantes, letrados y oficiales de milicias— circulaba otra lectura. **Mariano Moreno**, **Juan José Castelli**, **Manuel Belgrano**: no eran una turba; eran un círculo que leía a Rousseau y odiaba el privilegio. Entendieron que la vacancia del trono era la única ventana que iban a tener en años. Si no entraban ahora, España volvería a cerrarla con bayonetas.
+
+  Entre el **22 y el 25 de mayo** la ciudad se convirtió en un tablero de presión permanente. Milicianos en la Plaza, pasquines pegados en esquinas, voces que pedían saber «de qué se trata». La Revolución no empezó con un discurso: empezó con **gente armada que ya no obedecía por inercia**.
+</Prosa>
+
+<Comparador
+  izquierda={<MayoVirreinato />}
+  derecha={<MayoJunta />}
+  etiquetaIzquierda="24 de mayo · Junta con Cisneros"
+  etiquetaDerecha="25 de mayo · Primera Junta"
+  inicio="izquierda"
+/>
+
+<Capitulo
+  numero="III"
+  titulo="El cabildo abierto"
+  bajada="No votó «la gente»: votó una ciudad que ya había probado su fuerza en las calles."
+/>
+
+<Prosa>
+  El cabildo abierto del **22 de mayo** reunió a unos **doscientos vecinos** con derecho a voz. No era democracia moderna: era la forma colonial de legitimar decisiones graves. Pero entre esos doscientos estaban los mismos cuerpos que habían defendido las azoteas: Patricios, Arribeños, Húsares, Pardos y Morenos. Sin ellos, el cabildo habría sido teatro. Con ellos, se volvió **ultimátum**.
+
+  Las horas siguientes fueron un tira y afloja de actas, peticiones y silencios calculados. Cisneros firmó lo que pudo. Los revolucionarios dejaron que el Cabildo gastara su autoridad formal mientras la Plaza acumulaba cuerpos. El voto no inventó el poder nuevo: **confirmó un poder que ya estaba en las armas**.
+
+  El 24 se proclamó una Junta presidida por el propio virrey. Fue el arreglo perfecto para salvar las apariencias y enterrar el cambio. La Plaza no lo aceptó. La noche del 24 al 25 terminó de romper el pacto. Al mediodía del 25, nueve vocales —Saavedra, Moreno, Belgrano, Castelli, Azcuénaga, Matheu, Alberti, Paso y Larrea— ocuparon el Fuerte. El virreinato, en la práctica, había terminado.
+</Prosa>
+
+<Capitulo
+  numero="IV"
+  titulo="Cuarenta y ocho horas en la Plaza"
+  bajada="Seguí el scroll: cada hora es un movimiento en el tablero. Del rumor al Fuerte."
+/>
+
+<MapaMayo />
 
 <CitaHistorica
   texto="El pueblo quiere saber de qué se trata."
@@ -19,35 +73,41 @@
 />
 
 <Capitulo
-  numero="II"
-  titulo="El cabildo abierto"
-  bajada="No votó «la gente»: votó una ciudad armada que ya había expulsado a un imperio."
+  numero="V"
+  titulo="Los nueve del mediodía"
+  bajada="La Primera Junta no era un gobierno completo. Era una apuesta contra todo pronóstico."
 />
 
 <Prosa>
-  El cabildo abierto del **22 de mayo** reunió a unos doscientos vecinos con derecho a voz. Entre ellos estaban los mismos batallones criollos nacidos en las Invasiones Inglesas: los **Patricios** de Saavedra, los Arribeños, los exactos cuerpos que tres años antes habían defendido las azoteas contra Whitelocke.
+  Nueve hombres en un Fuerte sin murallas no equivalían a un Estado. No tenían flota, ni caja fuerte imperial, ni ejército profesional. Tenían algo más raro: **la costumbre reciente de decidir solos** y un continente entero que todavía no sabía si los seguiría o los aplastaría.
 
-  Esa continuidad no es decorativa. Sin milicias propias, el cabildo habría sido teatro. Con milicias propias, se volvió ultimatum. El voto no inventó la Revolución: **confirmó un poder que ya estaba en las armas**.
+  **Saavedra** aportaba las bayonetas. **Moreno** el programa —libre comercio, educación, prensa libre— que asustaba a los conservadores. **Belgrano** el prestigio jurídico. **Castelli** la voz que no negociaba con Cisneros. Eran perfiles incompatibles en tiempos normales; en mayo de 1810, la urgencia los pegó con alfileres.
 
-  El 24 se improvisó una Junta presidida por Cisneros. La Plaza no lo aceptó. La noche del 24 al 25 terminó de romper el arreglo. Al mediodía del 25, la Primera Junta —Saavedra, Moreno, Belgrano, Castelli, Azcuénaga, Matheu, Alberti, Paso y Larrea— ocupó el Fuerte. El virreinato, en la práctica, había terminado.
+  La proclamación hablaba de «el pueblo», y eso era en parte retórica. El pueblo que importaba ese mediodía eran los vecinos armados del casco urbano, los comerciantes criollos y un pequeño círculo letrado. Pero esa estrechez no anula la magnitud: por primera vez, el poder dejó de pedirse prestado a España.
 </Prosa>
 
 <FilaDeDatos>
-  <DatoGigante valor={48} etiqueta="horas entre el cabildo abierto y la Primera Junta" />
   <DatoGigante valor={9} etiqueta="vocales formaron la Primera Junta" />
+  <DatoGigante valor={200} prefijo="~" etiqueta="vecinos en el cabildo abierto" />
   <DatoGigante valor={1810} etiqueta="el año en que el poder cambió de dueño" />
 </FilaDeDatos>
 
 <Capitulo
-  numero="III"
+  numero="VI"
   titulo="Lo que no entró al bronce"
-  bajada="Mayo no fue un título escolar. Fue una apuesta impropia de una colonia sin flota ni fábrica de armamentos."
+  bajada="Mayo no fue un título escolar. Fue el primer paso de una guerra larga que aún no tenía nombre."
 />
 
 <Prosa>
-  La proclamación sobre «el pueblo» ocultaba una verdad más incómoda: el pueblo que importaba, ese mediodía, eran los vecinos armados del casco urbano, los comerciantes criollos y un pequeño círculo letrado que leía a los ilustrados y odiaba el monopolio peninsular.
+  En Córdoba, Montevideo, Asunción y el Alto Perú la noticia llegaría tarde y mal interpretada. La Primera Junta tendría que **conquistar su propia legitimidad** provincia por provincia. Belgrano marcharía al Paraguay; Castelli al norte; años después, San Martín cruzaría los Andes desde Mendoza. Todo eso nació de una mañana en la Plaza.
 
-  Pero esa estrechez no anula la magnitud. Por primera vez, el poder dejó de pedirse prestado a España. El resto —la guerra en el norte, Belgrano en el Paraguay, San Martín en Mendoza, la larga pelea por una constitución— nació de esa mañana.
+  Los manuales reducen Mayo a una fecha patriótica. Visto desde las cuarenta y ocho horas, es otra cosa: el instante en que una colonia sin fábrica de cañones decidió que prefería **gobernarse con el riesgo de fracasar** antes que esperar un rey fantasma tras el océano.
 
-  Si llegaste hasta acá es porque sostenés este museo. Mayo, visto desde las 48 horas, deja de ser un feriado: es el momento en que una ciudad sin murallas decidió que prefería gobernarse antes que esperar un rey fantasma.
+  Las Invasiones enseñaron que Buenos Aires podía defenderse. Mayo enseñó que podía **nombrarse a sí misma**. Esa es la continuidad que esta crónica exclusiva cierra —y la razón por la que el 25 de mayo deja de ser un feriado y se vuelve un problema político todavía abierto.
 </Prosa>
+
+<CitaHistorica
+  texto="La felicidad de América es nuestra obra, y su libertad nuestra recompensa."
+  autor="Mariano Moreno"
+  contexto="Representación de los hacendados, 1809"
+/>

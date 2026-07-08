@@ -53,5 +53,7 @@ model MembresiaSettings {
   id                 String   @id @default("default")
   mensualHabilitado  Boolean  @default(false)
   fundadorHabilitado Boolean  @default(false)
+  precioMensual      Int      @default(4990)
+  precioFundador     Int      @default(39990)
   updatedAt          DateTime @updatedAt
 }

@@ -21,7 +21,7 @@ type Props = {
 export default async function AdminPanelLayout({ children }: Props) {
   if (!adminConfigurado()) {
     return (
-      <div className="pt-24 pb-20">
+      <div className="py-20">
         <p className="px-5 text-center text-sm text-carmesi" role="alert">
           Falta configurar{" "}
           <code>MECENAS_CREATOR_EMAILS</code> en las variables de entorno.
@@ -36,7 +36,7 @@ export default async function AdminPanelLayout({ children }: Props) {
   }
 
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen">
       <AdminNav email={sesion.email} />
       <div className="mx-auto max-w-5xl px-5 py-10">{children}</div>
     </div>

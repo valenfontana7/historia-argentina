@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { sesionAdminValida } from "@/lib/admin-auth";
-import { getMembresiaSettings, updateMembresiaSettings } from "@/lib/membresia-settings";
+import {
+  getMembresiaSettings,
+  precioValido,
+  updateMembresiaSettings,
+} from "@/lib/membresia-settings";
 
 export const runtime = "nodejs";
 
@@ -21,11 +25,15 @@ export async function PATCH(request: Request) {
   const body = (await request.json()) as {
     mensualHabilitado?: boolean;
     fundadorHabilitado?: boolean;
+    precioMensual?: number;
+    precioFundador?: number;
   };
 
   const patch: {
     mensualHabilitado?: boolean;
     fundadorHabilitado?: boolean;
+    precioMensual?: number;
+    precioFundador?: number;
   } = {};
 
   if (typeof body.mensualHabilitado === "boolean") {
@@ -33,6 +41,24 @@ export async function PATCH(request: Request) {
   }
   if (typeof body.fundadorHabilitado === "boolean") {
     patch.fundadorHabilitado = body.fundadorHabilitado;
+  }
+  if (body.precioMensual !== undefined) {
+    if (!precioValido(body.precioMensual)) {
+      return NextResponse.json(
+        { ok: false, mensaje: "Precio mensual inválido (entero ≥ 100 ARS)." },
+        { status: 400 },
+      );
+    }
+    patch.precioMensual = body.precioMensual;
+  }
+  if (body.precioFundador !== undefined) {
+    if (!precioValido(body.precioFundador)) {
+      return NextResponse.json(
+        { ok: false, mensaje: "Precio fundador inválido (entero ≥ 100 ARS)." },
+        { status: 400 },
+      );
+    }
+    patch.precioFundador = body.precioFundador;
   }
 
   if (Object.keys(patch).length === 0) {

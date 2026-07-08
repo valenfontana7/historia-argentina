@@ -33,7 +33,7 @@ export default async function AdminAccederPage({ searchParams }: Props) {
         : null;
 
   return (
-    <div className="pt-24 pb-20">
+    <div className="py-20">
       <section className="mx-auto max-w-3xl px-5 text-center">
         <p className="kicker">Solo creador</p>
         <h1 className="titulo-display mt-4 text-3xl font-semibold sm:text-4xl">

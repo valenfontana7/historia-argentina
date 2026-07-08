@@ -5,8 +5,10 @@ import { DatoGigante, FilaDeDatos } from "@/components/scrolly/DatoGigante";
 import { Comparador } from "@/components/scrolly/Comparador";
 import { MapaCruce } from "@/components/scrolly/MapaCruce";
 import { MapaDefensa } from "@/components/scrolly/MapaDefensa";
+import { MapaMayo } from "@/components/scrolly/MapaMayo";
 import { PlanNorte, PlanAndes } from "@/components/scrolly/EscenasCruce";
 import { InvasionPrimera, Reconquista } from "@/components/scrolly/EscenasInvasiones";
+import { MayoVirreinato, MayoJunta } from "@/components/scrolly/EscenasMayo";
 import { Prosa } from "@/components/scrolly/Prosa";
 
 /**
@@ -22,10 +24,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     Comparador,
     MapaCruce,
     MapaDefensa,
+    MapaMayo,
     PlanNorte,
     PlanAndes,
     InvasionPrimera,
     Reconquista,
+    MayoVirreinato,
+    MayoJunta,
     Prosa,
     ...components,
   };

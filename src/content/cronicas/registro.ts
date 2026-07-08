@@ -52,7 +52,7 @@ export const cronicas: CronicaMeta[] = [
       "Del cabildo abierto a la Primera Junta: cómo una ciudad armada aprovechó la prisión de un rey para tomar el poder.",
     kicker: "Exclusiva Mecenas · Mayo de 1810",
     periodo: "22 — 25 de mayo de 1810",
-    duracion: "5 minutos",
+    duracion: "8 minutos",
     descripcion:
       "Una crónica exclusiva para mecenas sobre las cuarenta y ocho horas que terminaron con el virreinato en Buenos Aires: milicias, cabildo abierto y la continuidad secreta con las Invasiones Inglesas.",
     publicada: "2026-07-07",

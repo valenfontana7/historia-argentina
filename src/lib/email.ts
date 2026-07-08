@@ -1,5 +1,6 @@
 import { createHash } from "crypto";
 import { Resend } from "resend";
+import { renderEmailPlantilla } from "@/lib/email-template";
 import { sitio } from "@/lib/site.config";
 
 function clienteResend() {
@@ -53,21 +54,16 @@ function idempotencyDesdeToken(prefijo: string, email: string, token: string) {
 export async function enviarMagicLink(email: string, token: string, next?: string) {
   const destino = next && next.startsWith("/") && !next.startsWith("//") ? next : "/mecenas";
   const url = `${baseUrl()}/api/auth/verificar?token=${encodeURIComponent(token)}&next=${encodeURIComponent(destino)}`;
-  const html = `
-    <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1510;">
-      <p style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px; color: #8a7050;">Argent</p>
-      <h1 style="font-size: 28px; font-weight: 500;">Tu acceso de mecenas</h1>
-      <p style="line-height: 1.6; color: #4a4035;">
-        Tocá el botón para entrar al área de mecenas. El enlace vence en 15 minutos.
-      </p>
-      <p style="margin: 28px 0;">
-        <a href="${url}" style="background: #c6a15b; color: #0c0a08; text-decoration: none; padding: 12px 22px; border-radius: 999px; font-weight: 600;">
-          Entrar a Argent
-        </a>
-      </p>
-      <p style="font-size: 12px; color: #8a7050; word-break: break-all;">${url}</p>
-    </div>
-  `;
+  const html = renderEmailPlantilla({
+    preheader: "Tu enlace de acceso al área de mecenas vence en 15 minutos.",
+    titulo: "Tu acceso de mecenas",
+    cuerpo: `
+      <p style="margin: 0 0 16px;">Tocá el botón para entrar al área exclusiva de mecenas.</p>
+      <p style="margin: 0;">El enlace es de un solo uso y vence en <strong style="color: #ece4d4;">15 minutos</strong>.</p>
+    `,
+    cta: { url, texto: "Entrar a Argent" },
+    pie: `Si el botón no funciona, copiá este enlace en el navegador:<br /><a href="${url}" style="color: #c6a15b; text-decoration: none;">${url}</a>`,
+  });
 
   const resend = clienteResend();
   if (!resend) {
@@ -94,21 +90,16 @@ export async function enviarMagicLink(email: string, token: string, next?: strin
 
 export async function enviarMagicLinkAdmin(email: string, token: string) {
   const url = `${baseUrl()}/api/admin/verificar?token=${encodeURIComponent(token)}&next=${encodeURIComponent("/admin")}`;
-  const html = `
-    <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1510;">
-      <p style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px; color: #8a7050;">Argent</p>
-      <h1 style="font-size: 28px; font-weight: 500;">Acceso de creador</h1>
-      <p style="line-height: 1.6; color: #4a4035;">
-        Tocá el botón para entrar al panel de administración. El enlace vence en 15 minutos.
-      </p>
-      <p style="margin: 28px 0;">
-        <a href="${url}" style="background: #c6a15b; color: #0c0a08; text-decoration: none; padding: 12px 22px; border-radius: 999px; font-weight: 600;">
-          Entrar al admin
-        </a>
-      </p>
-      <p style="font-size: 12px; color: #8a7050; word-break: break-all;">${url}</p>
-    </div>
-  `;
+  const html = renderEmailPlantilla({
+    preheader: "Acceso al panel de administración de Argent.",
+    titulo: "Acceso de creador",
+    cuerpo: `
+      <p style="margin: 0 0 16px;">Tocá el botón para entrar al panel de administración.</p>
+      <p style="margin: 0;">Este enlace es personal, de un solo uso, y vence en <strong style="color: #ece4d4;">15 minutos</strong>.</p>
+    `,
+    cta: { url, texto: "Entrar al admin" },
+    pie: `Enlace alternativo:<br /><a href="${url}" style="color: #c6a15b; text-decoration: none;">${url}</a>`,
+  });
 
   const resend = clienteResend();
   if (!resend) {
@@ -139,25 +130,22 @@ export async function enviarConfirmacionMecenas(
   token: string,
 ) {
   const url = `${baseUrl()}/api/auth/verificar?token=${encodeURIComponent(token)}`;
-  const html = `
-    <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1510;">
-      <p style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px; color: #8a7050;">Argent</p>
-      <h1 style="font-size: 28px; font-weight: 500;">Tu suscripción está activa</h1>
-      <p style="line-height: 1.6; color: #4a4035;">
-        Confirmamos tu plan <strong>${plan}</strong>. Gracias por sostener
-        el museo digital de historia argentina.
+  const html = renderEmailPlantilla({
+    preheader: `Tu plan ${plan} ya está activo. Gracias por sostener Argent.`,
+    titulo: "Tu suscripción está activa",
+    cuerpo: `
+      <p style="margin: 0 0 16px;">
+        Confirmamos tu plan <strong style="color: #e3c98f;">${plan}</strong>.
+        Gracias por sostener el museo digital de historia argentina.
       </p>
-      <p style="line-height: 1.6; color: #4a4035;">
-        Tocá el botón para entrar al área de mecenas. El enlace vence en 15 minutos.
+      <p style="margin: 0;">
+        Tocá el botón para entrar al área de mecenas. El enlace vence en
+        <strong style="color: #ece4d4;">15 minutos</strong>.
       </p>
-      <p style="margin: 28px 0;">
-        <a href="${url}" style="background: #c6a15b; color: #0c0a08; text-decoration: none; padding: 12px 22px; border-radius: 999px; font-weight: 600;">
-          Entrar a Argent
-        </a>
-      </p>
-      <p style="font-size: 12px; color: #8a7050; word-break: break-all;">${url}</p>
-    </div>
-  `;
+    `,
+    cta: { url, texto: "Entrar a Argent" },
+    pie: `Enlace alternativo:<br /><a href="${url}" style="color: #c6a15b; text-decoration: none;">${url}</a>`,
+  });
 
   const resend = clienteResend();
   if (!resend) {
@@ -184,24 +172,21 @@ export async function enviarConfirmacionMecenas(
 
 export async function enviarBienvenidaMecenas(email: string, plan: string) {
   const url = `${baseUrl()}/mecenas`;
-  const html = `
-    <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1510;">
-      <p style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px; color: #8a7050;">Argent</p>
-      <h1 style="font-size: 28px; font-weight: 500;">Bienvenido, mecenas</h1>
-      <p style="line-height: 1.6; color: #4a4035;">
-        Tu plan <strong>${plan}</strong> ya está activo. Gracias por sostener
-        el museo digital de historia argentina.
+  const html = renderEmailPlantilla({
+    preheader: "Bienvenido al área exclusiva de mecenas de Argent.",
+    titulo: "Bienvenido, mecenas",
+    cuerpo: `
+      <p style="margin: 0 0 16px;">
+        Tu plan <strong style="color: #e3c98f;">${plan}</strong> ya está activo.
+        Gracias por sostener el museo digital de historia argentina.
       </p>
-      <p style="line-height: 1.6; color: #4a4035;">
-        En tu área de mecenas encontrás las exclusivas y el anticipo de nuevas crónicas.
+      <p style="margin: 0;">
+        En tu área de mecenas encontrás las exclusivas, el anticipo de nuevas crónicas
+        y la carta mensual del museo.
       </p>
-      <p style="margin: 28px 0;">
-        <a href="${url}" style="background: #c6a15b; color: #0c0a08; text-decoration: none; padding: 12px 22px; border-radius: 999px; font-weight: 600;">
-          Ir al área de mecenas
-        </a>
-      </p>
-    </div>
-  `;
+    `,
+    cta: { url, texto: "Ir al área de mecenas" },
+  });
 
   const resend = clienteResend();
   if (!resend) {

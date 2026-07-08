@@ -22,7 +22,7 @@ export default async function AdminMecenasPage() {
         <p className="kicker">Membresía</p>
         <h1 className="titulo-display mt-2 text-3xl font-semibold">Planes Mecenas</h1>
         <p className="mt-2 max-w-xl text-sm text-tinta-suave">
-          Activá o desactivá los planes para el público y probá el checkout real en
+          Activá o desactivá los planes, editá precios y probá el checkout real en
           MercadoPago a precio de creador.
         </p>
       </div>
