@@ -16,7 +16,7 @@ import {
   obtenerCronica,
   requiereMecenas,
 } from "@/content/cronicas/registro";
-import { obtenerSesion } from "@/lib/auth";
+import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { obtenerNodo } from "@/lib/grafo/queries";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { articuloJsonLd, migajasJsonLd } from "@/lib/seo/jsonld";
@@ -51,7 +51,7 @@ export default async function CronicaPage({ params }: Props) {
   if (!cronica || !cargador) notFound();
 
   const exclusivas = requiereMecenas(cronica);
-  const mecenas = exclusivas ? Boolean(await obtenerSesion()) : true;
+  const mecenas = exclusivas ? await puedeVerContenidoMecenas() : true;
   const mostrarContenido = !exclusivas || mecenas;
   const Contenido = mostrarContenido ? (await cargador()).default : null;
   const nodo = obtenerNodo("cronica", slug);
@@ -127,7 +127,7 @@ export default async function CronicaPage({ params }: Props) {
           </footer>
         </>
       ) : (
-        <SoftGate titulo={cronica.titulo} />
+        <SoftGate titulo={cronica.titulo} volverA={`/cronicas/${cronica.slug}`} />
       )}
     </article>
   );

@@ -1,8 +1,10 @@
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import { EstadoMecenas } from "@prisma/client";
-import { COOKIE_SESION } from "@/lib/auth-constants";
+import { obtenerSesionAdmin } from "@/lib/admin-auth";
+import { COOKIE_SESION, opcionesCookieSesion } from "@/lib/auth-constants";
 import { prisma } from "@/lib/db";
+
 const MAGIC_TTL = "15m";
 const SESSION_TTL = "30d";
 
@@ -76,13 +78,7 @@ export async function verificarSesionToken(token: string): Promise<SesionMecenas
 export async function establecerSesion(sesion: SesionMecenas) {
   const token = await crearSesionToken(sesion);
   const jar = await cookies();
-  jar.set(COOKIE_SESION, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 30,
-  });
+  jar.set(COOKIE_SESION, token, opcionesCookieSesion(60 * 60 * 24 * 30));
 }
 
 export async function cerrarSesion() {
@@ -127,6 +123,42 @@ export async function obtenerMecenasActivo() {
 
 export async function esMecenasActivo(): Promise<boolean> {
   return Boolean(await obtenerMecenasActivo());
+}
+
+function mecenasDbVigente(mecenas: {
+  estado: EstadoMecenas;
+  periodEnd: Date | null;
+}): boolean {
+  if (mecenas.estado !== EstadoMecenas.activo) return false;
+  if (mecenas.periodEnd && mecenas.periodEnd.getTime() < Date.now()) return false;
+  return true;
+}
+
+/**
+ * Acceso a exclusivas: sesión mecenas activa, o admin creador con membresía activa
+ * (sincroniza cookie de mecenas en ese caso).
+ */
+export async function puedeVerContenidoMecenas(): Promise<boolean> {
+  if (await esMecenasActivo()) return true;
+
+  try {
+    const admin = await obtenerSesionAdmin();
+    if (!admin) return false;
+
+    const mecenas = await prisma.mecenas.findUnique({ where: { email: admin.email } });
+    if (!mecenas || !mecenasDbVigente(mecenas)) return false;
+
+    await establecerSesion({
+      email: mecenas.email,
+      mecenasId: mecenas.id,
+      plan: mecenas.plan,
+      esFundador: mecenas.esFundador,
+    });
+    return true;
+  } catch (error) {
+    console.error("[auth] puente admin→mecenas falló:", error);
+    return false;
+  }
 }
 
 export { COOKIE_SESION };

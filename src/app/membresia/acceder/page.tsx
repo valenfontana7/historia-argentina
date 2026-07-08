@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; next?: string }>;
 };
 
 export default async function AccederPage({ searchParams }: Props) {
-  const { error } = await searchParams;
+  const { error, next } = await searchParams;
   const aviso =
     error === "expirado"
       ? "Ese enlace expiró. Pedí uno nuevo."
@@ -29,7 +29,7 @@ export default async function AccederPage({ searchParams }: Props) {
       </p>
       {aviso && <p className="mt-4 text-sm text-carmesi">{aviso}</p>}
       <div className="mt-10">
-        <MagicLinkForm />
+        <MagicLinkForm next={next} />
       </div>
       <p className="mt-10 text-sm text-tinta-tenue">
         ¿Todavía no sos mecenas?{" "}

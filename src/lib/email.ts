@@ -50,8 +50,9 @@ function idempotencyDesdeToken(prefijo: string, email: string, token: string) {
  * Envía el magic link. Si no hay RESEND_API_KEY, lo imprime en consola
  * (útil en desarrollo) y no falla.
  */
-export async function enviarMagicLink(email: string, token: string) {
-  const url = `${baseUrl()}/api/auth/verificar?token=${encodeURIComponent(token)}`;
+export async function enviarMagicLink(email: string, token: string, next?: string) {
+  const destino = next && next.startsWith("/") && !next.startsWith("//") ? next : "/mecenas";
+  const url = `${baseUrl()}/api/auth/verificar?token=${encodeURIComponent(token)}&next=${encodeURIComponent(destino)}`;
   const html = `
     <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1510;">
       <p style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px; color: #8a7050;">Argent</p>

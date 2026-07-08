@@ -2,10 +2,15 @@ import Link from "next/link";
 
 type Props = {
   titulo: string;
+  volverA?: string;
 };
 
 /** Reja suave: hero visible, el cuerpo queda detrás del CTA de membresía. */
-export function SoftGate({ titulo }: Props) {
+export function SoftGate({ titulo, volverA }: Props) {
+  const accederHref = volverA
+    ? `/membresia/acceder?next=${encodeURIComponent(volverA)}`
+    : "/membresia/acceder";
+
   return (
     <div className="relative mx-auto max-w-2xl px-5 py-20 text-center">
       <div
@@ -17,22 +22,21 @@ export function SoftGate({ titulo }: Props) {
         {titulo}
       </h2>
       <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-tinta-suave">
-        Esta crónica forma parte del archivo privado de quienes sostienen
-        Argent. El resto del museo —incluidas dos crónicas épicas— sigue abierto
-        y libre.
+        Si ya sos mecenas, entrá con el magic link de tu email. Pagá la membresía
+        solo si todavía no la tenés activa.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-4">
         <Link
-          href="/membresia"
+          href={accederHref}
           className="rounded-full bg-oro px-6 py-3 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro"
         >
-          Hacete mecenas
+          Entrar como mecenas
         </Link>
         <Link
-          href="/membresia/acceder"
+          href="/membresia"
           className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
         >
-          Ya soy mecenas — entrar
+          Ver planes
         </Link>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import { emailsCreador, esEmailCreador } from "@/lib/membresia-settings";
 
-export const COOKIE_ADMIN = "argent_admin";
+import { COOKIE_ADMIN, opcionesCookieSesion } from "@/lib/auth-constants";
 const ADMIN_TTL = "7d";
 
 export type SesionAdmin = {
@@ -45,13 +45,7 @@ export async function verificarAdminToken(token: string): Promise<SesionAdmin | 
 export async function establecerSesionAdmin(email: string) {
   const token = await crearAdminToken(email);
   const jar = await cookies();
-  jar.set(COOKIE_ADMIN, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
-  });
+  jar.set(COOKIE_ADMIN, token, opcionesCookieSesion(60 * 60 * 24 * 7));
 }
 
 export async function cerrarSesionAdmin() {

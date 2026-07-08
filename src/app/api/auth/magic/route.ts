@@ -8,10 +8,14 @@ export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as { email?: string };
+    const body = (await request.json()) as { email?: string; next?: string };
     const email = String(body.email ?? "")
       .toLowerCase()
       .trim();
+    const next =
+      body.next && body.next.startsWith("/") && !body.next.startsWith("//")
+        ? body.next
+        : undefined;
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       return NextResponse.json({ ok: false, mensaje: "Email inválido." }, { status: 400 });
@@ -31,7 +35,7 @@ export async function POST(request: Request) {
     }
 
     const token = await crearMagicToken(email);
-    const envio = await enviarMagicLink(email, token);
+    const envio = await enviarMagicLink(email, token, next);
     if (!envio.ok) {
       return NextResponse.json(
         {
