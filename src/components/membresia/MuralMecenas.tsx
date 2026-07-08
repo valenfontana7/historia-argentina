@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { EstadoMecenas } from "@prisma/client";
-import { prisma } from "@/lib/db";
+import { esErrorDbDegradado, prisma } from "@/lib/db";
 
 type Credito = {
   email: string;
@@ -9,12 +9,20 @@ type Credito = {
 };
 
 export async function obtenerCreditosMecenas(take = 48): Promise<Credito[]> {
-  return prisma.mecenas.findMany({
-    where: { estado: EstadoMecenas.activo, mostrarCredito: true },
-    orderBy: [{ esFundador: "desc" }, { createdAt: "asc" }],
-    take,
-    select: { email: true, nombrePublico: true, esFundador: true },
-  });
+  try {
+    return await prisma.mecenas.findMany({
+      where: { estado: EstadoMecenas.activo, mostrarCredito: true },
+      orderBy: [{ esFundador: "desc" }, { createdAt: "asc" }],
+      take,
+      select: { email: true, nombrePublico: true, esFundador: true },
+    });
+  } catch (error) {
+    if (esErrorDbDegradado(error)) {
+      console.error("[mural-mecenas] No se pudieron cargar créditos:", error);
+      return [];
+    }
+    throw error;
+  }
 }
 
 function etiqueta(c: Credito): string {

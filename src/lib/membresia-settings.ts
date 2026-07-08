@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/db";
+import { prisma, esErrorDbDegradado } from "@/lib/db";
 import { planes, type PlanId, type PlanMembresia } from "@/lib/membresia.config";
 
 export class PlanNoDisponibleError extends Error {
@@ -29,9 +29,7 @@ function settingsPorDefecto(): MembresiaSettingsData {
 }
 
 function esErrorSchemaPrisma(error: unknown): boolean {
-  if (typeof error !== "object" || error === null || !("code" in error)) return false;
-  const code = (error as { code: unknown }).code;
-  return typeof code === "string" && ["P2021", "P2022", "P2010"].includes(code);
+  return esErrorDbDegradado(error);
 }
 
 function mapSettings(row: {
