@@ -91,11 +91,6 @@ export function AdminMecenasPanel({
     }
   }
 
-  async function cerrarSesion() {
-    await fetch("/api/admin/logout", { method: "POST" });
-    window.location.reload();
-  }
-
   const filas: { plan: PlanId; habilitado: boolean }[] = [
     { plan: "mensual", habilitado: settings.mensualHabilitado },
     { plan: "fundador", habilitado: settings.fundadorHabilitado },
@@ -191,16 +186,6 @@ export function AdminMecenasPanel({
           {error}
         </p>
       )}
-
-      <div className="text-center">
-        <button
-          type="button"
-          onClick={cerrarSesion}
-          className="text-sm text-tinta-tenue underline-offset-4 hover:text-tinta-suave hover:underline"
-        >
-          Cerrar sesión admin
-        </button>
-      </div>
     </div>
   );
 }

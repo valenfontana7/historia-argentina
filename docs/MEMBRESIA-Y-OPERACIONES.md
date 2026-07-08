@@ -130,9 +130,15 @@ Las crónicas exclusivas usan **soft-gate** en la página (hero visible, cuerpo 
 
 ---
 
-## Admin de planes
+## Admin
 
-Panel secreto para el creador: **`/admin/mecenas`**
+Panel para el creador en **`/admin`** (magic link, sin contraseñas).
+
+| Ruta | Descripción |
+| ---- | ----------- |
+| `/admin/acceder` | Pedir magic link (solo emails en `MECENAS_CREATOR_EMAILS`) |
+| `/admin` | Dashboard: stats, estado de planes, accesos rápidos |
+| `/admin/mecenas` | Activar/desactivar planes y probar checkout a $1 |
 
 | Función | Descripción |
 | ------- | ----------- |
@@ -143,19 +149,21 @@ Panel secreto para el creador: **`/admin/mecenas`**
 
 ### Flujo recomendado
 
-1. Configurar en Vercel: `ADMIN_SECRET`, `MECENAS_CREATOR_EMAILS`, `MECENAS_CREATOR_PRECIO=1`.
-2. Entrar a `/admin/mecenas` con el secreto.
-3. Dejar planes **apagados** mientras probás con «Probar checkout».
-4. Verificar webhook → mecenas activo → magic link.
-5. **Activar** el/los plan(es) para el público cuando estés listo.
+1. Configurar en Vercel: `MECENAS_CREATOR_EMAILS`, `MECENAS_CREATOR_PRECIO=1`, `RESEND_API_KEY`.
+2. Ir a `/admin/acceder` → magic link al email de creador.
+3. Dashboard en `/admin` → **Mecenas** para toggles.
+4. Dejar planes **apagados** mientras probás con «Probar checkout».
+5. Verificar webhook → mecenas activo → magic link de mecenas.
+6. **Activar** el/los plan(es) para el público cuando estés listo.
 
 ### Seguridad
 
-- Protegido por `ADMIN_SECRET` + cookie httpOnly `argent_admin` (JWT 7 días).
-- Precio reducido **solo** si el email del checkout coincide con `MECENAS_CREATOR_EMAILS` (validación server-side).
+- Auth: magic link solo si el email está en `MECENAS_CREATOR_EMAILS`.
+- Cookie httpOnly `argent_admin` (JWT 7 días, firmado con `AUTH_SECRET`).
+- Precio reducido **solo** si el email del checkout coincide con `MECENAS_CREATOR_EMAILS`.
 - `/admin/` excluido de robots.
 
-Código: [`src/lib/membresia-settings.ts`](../src/lib/membresia-settings.ts), [`src/lib/admin-auth.ts`](../src/lib/admin-auth.ts), [`src/app/admin/mecenas/page.tsx`](../src/app/admin/mecenas/page.tsx)
+Código: [`src/lib/admin-auth.ts`](../src/lib/admin-auth.ts), [`src/app/admin/(panel)/page.tsx`](../src/app/admin/(panel)/page.tsx), [`src/app/admin/(panel)/mecenas/page.tsx`](../src/app/admin/(panel)/mecenas/page.tsx)
 
 ---
 
@@ -163,7 +171,8 @@ Código: [`src/lib/membresia-settings.ts`](../src/lib/membresia-settings.ts), [`
 
 | Evento | Función | Asunto |
 | ------ | ------- | ------ |
-| Magic link | `enviarMagicLink` | Tu acceso de mecenas — Argent |
+| Magic link mecenas | `enviarMagicLink` | Tu acceso de mecenas — Argent |
+| Magic link admin | `enviarMagicLinkAdmin` | Acceso de creador — Argent |
 | Post-pago | `enviarBienvenidaMecenas` | Bienvenido a Mecenas — Argent |
 
 Código: [`src/lib/email.ts`](../src/lib/email.ts)
@@ -205,8 +214,7 @@ Copiá [`.env.example`](../.env.example) a `.env` local.
 | `AUTH_SECRET` | Sí | Firma JWT de sesión, magic links y admin |
 | `NEXT_PUBLIC_SITE_URL` | Sí | Links operativos (MP, emails). Sin barra final |
 | `MP_ACCESS_TOKEN` | Para cobrar | Access Token de MercadoPago |
-| `ADMIN_SECRET` | Para admin | Contraseña de `/admin/mecenas` |
-| `MECENAS_CREATOR_EMAILS` | Para pruebas | Emails que pagan precio reducido en MP |
+| `MECENAS_CREATOR_EMAILS` | Para admin y pruebas | Emails de creador (auth admin + precio $1 en MP) |
 | `MECENAS_CREATOR_PRECIO` | Opcional | Monto ARS para creador (default `1`) |
 | `RESEND_API_KEY` | Para emails reales | API key de Resend |
 | `RESEND_FROM` | Opcional | Remitente verificado |
@@ -225,7 +233,7 @@ Configurar en **Project → Settings → Environment Variables**:
 - `AUTH_SECRET`
 - `NEXT_PUBLIC_SITE_URL` → por ahora el `*.vercel.app`; luego `https://museoargent.com.ar`
 - `MP_ACCESS_TOKEN`
-- `ADMIN_SECRET`, `MECENAS_CREATOR_EMAILS`, `MECENAS_CREATOR_PRECIO`
+- `MECENAS_CREATOR_EMAILS`, `MECENAS_CREATOR_PRECIO`
 - `RESEND_API_KEY` y `RESEND_FROM` cuando estén listos
 
 ---
@@ -253,7 +261,9 @@ Checklist cuando compres el dominio:
 | Ruta | Acceso | Descripción |
 | ---- | ------ | ----------- |
 | `/membresia` | Público | Planes habilitados, precios, FAQ, checkout |
-| `/admin/mecenas` | Admin (`ADMIN_SECRET`) | Activar/desactivar planes, probar checkout $1 |
+| `/admin` | Creador (magic link) | Dashboard, stats, accesos rápidos |
+| `/admin/mecenas` | Creador | Activar/desactivar planes, probar checkout $1 |
+| `/admin/acceder` | Público | Login admin por magic link |
 | `/membresia/gracias` | Público | Post-pago; pedir magic link |
 | `/membresia/acceder` | Público | Login por magic link |
 | `/mecenas` | Mecenas activo | Exclusivas, créditos, estado del plan |
@@ -324,7 +334,8 @@ git push origin master   # dispara build + migrate en Vercel
 - [ ] Pago de prueba mensual → suscripción autorizada
 - [ ] Magic link llega al email (Resend configurado)
 - [ ] Exclusiva visible en `/mecenas` tras login
-- [ ] `ADMIN_SECRET` y `MECENAS_CREATOR_EMAILS` en Vercel
+- [ ] `MECENAS_CREATOR_EMAILS` en Vercel
+- [ ] Magic link admin desde `/admin/acceder`
 - [ ] Checkout de prueba a $1 desde `/admin/mecenas`
 - [ ] Activar plan(es) en admin antes del lanzamiento público
 - [ ] Dominio propio conectado (cuando esté listo)

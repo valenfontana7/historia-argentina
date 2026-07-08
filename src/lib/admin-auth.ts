@@ -1,8 +1,13 @@
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
+import { emailsCreador, esEmailCreador } from "@/lib/membresia-settings";
 
 export const COOKIE_ADMIN = "argent_admin";
 const ADMIN_TTL = "7d";
+
+export type SesionAdmin = {
+  email: string;
+};
 
 function secreto(): Uint8Array {
   const valor = process.env.AUTH_SECRET;
@@ -13,29 +18,32 @@ function secreto(): Uint8Array {
 }
 
 export function adminConfigurado(): boolean {
-  return Boolean(process.env.ADMIN_SECRET?.trim());
+  return emailsCreador().length > 0;
 }
 
-export async function crearAdminToken(): Promise<string> {
-  return new SignJWT({ tipo: "admin" })
+export async function crearAdminToken(email: string): Promise<string> {
+  return new SignJWT({ tipo: "admin", email: email.toLowerCase().trim() })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(ADMIN_TTL)
     .sign(secreto());
 }
 
-export async function verificarAdminToken(token: string): Promise<boolean> {
-  if (!process.env.AUTH_SECRET) return false;
+export async function verificarAdminToken(token: string): Promise<SesionAdmin | null> {
+  if (!process.env.AUTH_SECRET) return null;
   try {
     const { payload } = await jwtVerify(token, secreto());
-    return payload.tipo === "admin";
+    if (payload.tipo !== "admin" || typeof payload.email !== "string") return null;
+    const email = payload.email.toLowerCase().trim();
+    if (!esEmailCreador(email)) return null;
+    return { email };
   } catch {
-    return false;
+    return null;
   }
 }
 
-export async function establecerSesionAdmin() {
-  const token = await crearAdminToken();
+export async function establecerSesionAdmin(email: string) {
+  const token = await crearAdminToken(email);
   const jar = await cookies();
   jar.set(COOKIE_ADMIN, token, {
     httpOnly: true,
@@ -51,19 +59,25 @@ export async function cerrarSesionAdmin() {
   jar.delete(COOKIE_ADMIN);
 }
 
-export async function sesionAdminValida(): Promise<boolean> {
+export async function obtenerSesionAdmin(): Promise<SesionAdmin | null> {
   try {
     const jar = await cookies();
     const token = jar.get(COOKIE_ADMIN)?.value;
-    if (!token) return false;
+    if (!token) return null;
     return verificarAdminToken(token);
   } catch {
-    return false;
+    return null;
   }
 }
 
-export function verificarAdminSecreto(secretoIngresado: string): boolean {
-  const esperado = process.env.ADMIN_SECRET?.trim();
-  if (!esperado) return false;
-  return secretoIngresado.trim() === esperado;
+export async function sesionAdminValida(): Promise<boolean> {
+  return Boolean(await obtenerSesionAdmin());
+}
+
+/** Solo permite redirects internos bajo /admin. */
+export function destinoAdminSeguro(next: string | null | undefined): string {
+  if (!next || !next.startsWith("/admin") || next.startsWith("//")) {
+    return "/admin";
+  }
+  return next;
 }

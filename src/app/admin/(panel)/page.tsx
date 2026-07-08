@@ -1,0 +1,125 @@
+import Link from "next/link";
+import { EstadoMecenas } from "@prisma/client";
+import { prisma } from "@/lib/db";
+import { planes } from "@/lib/membresia.config";
+import { getMembresiaSettings } from "@/lib/membresia-settings";
+import { sitio } from "@/lib/site.config";
+
+export default async function AdminDashboardPage() {
+  const [settings, mecenasActivos, mecenasPendientes, mecenasInactivos, suscriptores] =
+    await Promise.all([
+      getMembresiaSettings(),
+      prisma.mecenas.count({ where: { estado: EstadoMecenas.activo } }),
+      prisma.mecenas.count({ where: { estado: EstadoMecenas.pendiente } }),
+      prisma.mecenas.count({
+        where: {
+          estado: { in: [EstadoMecenas.cancelado, EstadoMecenas.vencido] },
+        },
+      }),
+      prisma.suscriptor.count(),
+    ]);
+
+  return (
+    <div className="space-y-10">
+      <div>
+        <h1 className="titulo-display text-3xl font-semibold">Panel de admin</h1>
+        <p className="mt-2 text-sm text-tinta-suave">
+          Resumen de Argent — membresía, boletín y estado de planes.
+        </p>
+      </div>
+
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard titulo="Mecenas activos" valor={mecenasActivos} />
+        <StatCard titulo="Pagos pendientes" valor={mecenasPendientes} />
+        <StatCard titulo="Cancelados / vencidos" valor={mecenasInactivos} />
+        <StatCard titulo="Suscriptores boletín" valor={suscriptores} />
+      </section>
+
+      <section className="rounded-sm border border-linea bg-fondo-2 p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="titulo-display text-xl font-semibold">Planes Mecenas</h2>
+            <p className="mt-2 text-sm text-tinta-suave">
+              Lo que ven los visitantes en{" "}
+              <Link href="/membresia" className="text-oro-claro hover:underline">
+                /membresia
+              </Link>
+            </p>
+          </div>
+          <Link
+            href="/admin/mecenas"
+            className="inline-flex rounded-full border border-oro/50 px-5 py-2 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10"
+          >
+            Gestionar planes
+          </Link>
+        </div>
+        <ul className="mt-6 space-y-3 text-sm">
+          <PlanEstado
+            nombre={planes.mensual.nombre}
+            habilitado={settings.mensualHabilitado}
+          />
+          <PlanEstado
+            nombre={planes.fundador.nombre}
+            habilitado={settings.fundadorHabilitado}
+          />
+        </ul>
+      </section>
+
+      <section className="rounded-sm border border-linea bg-fondo-2 p-6">
+        <h2 className="titulo-display text-xl font-semibold">Accesos rápidos</h2>
+        <ul className="mt-4 flex flex-wrap gap-3 text-sm">
+          <QuickLink href="/membresia" label="Página de membresía" />
+          <QuickLink href="/mecenas" label="Área de mecenas" />
+          <QuickLink href={sitio.url} label="Sitio público" externo />
+        </ul>
+      </section>
+    </div>
+  );
+}
+
+function StatCard({ titulo, valor }: { titulo: string; valor: number }) {
+  return (
+    <div className="rounded-sm border border-linea bg-fondo-2 p-5">
+      <p className="text-xs uppercase tracking-[0.18em] text-tinta-tenue">{titulo}</p>
+      <p className="titulo-display mt-2 text-3xl font-semibold text-oro">{valor}</p>
+    </div>
+  );
+}
+
+function PlanEstado({ nombre, habilitado }: { nombre: string; habilitado: boolean }) {
+  return (
+    <li className="flex items-center justify-between gap-4 border-b border-linea-suave pb-3 last:border-0 last:pb-0">
+      <span className="text-tinta">{nombre}</span>
+      <span
+        className={`text-xs uppercase tracking-[0.16em] ${
+          habilitado ? "text-oro-claro" : "text-tinta-tenue"
+        }`}
+      >
+        {habilitado ? "Activo para el público" : "Apagado"}
+      </span>
+    </li>
+  );
+}
+
+function QuickLink({
+  href,
+  label,
+  externo = false,
+}: {
+  href: string;
+  label: string;
+  externo?: boolean;
+}) {
+  return (
+    <li>
+      <Link
+        href={href}
+        target={externo ? "_blank" : undefined}
+        rel={externo ? "noopener noreferrer" : undefined}
+        className="rounded-full border border-linea px-4 py-2 text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
+      >
+        {label}
+      </Link>
+    </li>
+  );
+}
