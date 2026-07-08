@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroPortada } from "@/components/HeroPortada";
-import { DescubrirAleatorio } from "@/components/exploracion/DescubrirAleatorio";
+import { AvisoEfemerideSugerida } from "@/components/exploracion/AvisoEfemerideSugerida";
 import { PersonajeCard } from "@/components/PersonajeCard";
 import { BoletinForm } from "@/components/BoletinForm";
+import { RutaRecomendada } from "@/components/portada/RutaRecomendada";
 import { Reveal } from "@/components/ui/Reveal";
-import { efemerideParaFecha } from "@/data/efemerides";
+import {
+  formatearFechaCalendario,
+  resolverEfemerideParaFecha,
+} from "@/data/efemerides";
 import { personajes } from "@/data/personajes";
 import { cronicas } from "@/content/cronicas/registro";
-import { todosLosNodos } from "@/lib/grafo/queries";
 import { hoyEnArgentina } from "@/lib/fechas";
 import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { sitio } from "@/lib/site.config";
 
-// La portada se regenera cada hora para mantener fresca la efeméride del día.
 export const revalidate = 3600;
 
 export const metadata: Metadata = construirMetadata({
@@ -34,47 +36,70 @@ const destacados = [
   "raul-alfonsin",
 ];
 
+function cronicaDelMes() {
+  const mes = new Date().getMonth();
+  return cronicas[mes % cronicas.length] ?? cronicas[0];
+}
+
 export default async function HomePage() {
   const esMecenas = await puedeVerContenidoMecenas();
   const { mes, dia } = hoyEnArgentina();
-  const efemeride = efemerideParaFecha(mes, dia);
-  const cronicaDestacada = cronicas[0];
+  const { efemeride, esExacta } = resolverEfemerideParaFecha(mes, dia);
+  const fechaHoy = formatearFechaCalendario(mes, dia);
+  const cronicaDestacada = cronicaDelMes();
   const grilla = personajes.filter((p) => destacados.includes(p.slug));
-  const nodosExploracion = todosLosNodos();
+  const hrefHoy = esExacta
+    ? `/hoy/${efemeride.dia}`
+    : `/hoy/${efemeride.dia}?sugerida=1`;
 
   return (
     <div>
       <HeroPortada />
 
-      {/* Un día como hoy */}
-      <section className="border-y border-linea-suave bg-fondo-2">
-        <Link href={`/hoy/${efemeride.dia}`} className="group block">
-          <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-16 sm:flex-row sm:items-center">
-            <Reveal className="shrink-0">
-              <p className="kicker">Un día como hoy</p>
-              <p className="titulo-display mt-2 text-5xl font-semibold leading-none text-oro sm:text-7xl">
-                {efemeride.anio}
-              </p>
-              <p className="mt-2 text-xs uppercase tracking-[0.3em] text-tinta-tenue">
-                {efemeride.fecha}
-              </p>
-            </Reveal>
-            <Reveal delay={0.1} className="sm:border-l sm:border-linea sm:pl-10">
-              <h2 className="titulo-display max-w-xl text-3xl font-semibold leading-tight transition-colors group-hover:text-oro-claro">
-                {efemeride.titulo}
-              </h2>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-tinta-suave">
-                {efemeride.historia[0].slice(0, 180)}…
-              </p>
-              <p className="mt-4 text-xs uppercase tracking-[0.2em] text-oro transition-transform duration-300 group-hover:translate-x-1.5">
-                Leer la historia del día →
-              </p>
-            </Reveal>
-          </div>
-        </Link>
+      <RutaRecomendada
+        esMecenas={esMecenas}
+        cronicaDestacadaSlug={cronicaDestacada.slug}
+      />
+
+      <section className="border-y border-linea-suave bg-fondo">
+        <div className="mx-auto max-w-6xl px-5 py-16">
+          {!esExacta && (
+            <div className="mb-8">
+              <AvisoEfemerideSugerida
+                fechaConsultada={fechaHoy}
+                fechaEfemeride={efemeride.fecha}
+              />
+            </div>
+          )}
+          <Link href={hrefHoy} className="group block">
+            <div className="flex flex-col gap-8 sm:flex-row sm:items-center">
+              <Reveal className="shrink-0">
+                <p className="kicker">
+                  {esExacta ? "Un día como hoy" : "Del archivo · rotación editorial"}
+                </p>
+                <p className="titulo-display mt-2 text-5xl font-semibold leading-none text-oro sm:text-7xl">
+                  {efemeride.anio}
+                </p>
+                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-tinta-tenue">
+                  {efemeride.fecha}
+                </p>
+              </Reveal>
+              <Reveal delay={0.1} className="sm:border-l sm:border-linea sm:pl-10">
+                <h2 className="titulo-display max-w-xl text-3xl font-semibold leading-tight transition-colors group-hover:text-oro-claro">
+                  {efemeride.titulo}
+                </h2>
+                <p className="mt-3 max-w-xl text-sm leading-relaxed text-tinta-suave">
+                  {efemeride.historia[0].slice(0, 180)}…
+                </p>
+                <p className="mt-4 text-xs uppercase tracking-[0.2em] text-oro transition-transform duration-300 group-hover:translate-x-1.5">
+                  Leer la historia →
+                </p>
+              </Reveal>
+            </div>
+          </Link>
+        </div>
       </section>
 
-      {/* Crónica destacada */}
       <section className="mx-auto max-w-6xl px-5 py-24">
         <Reveal>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
@@ -89,7 +114,6 @@ export default async function HomePage() {
             href={`/cronicas/${cronicaDestacada.slug}`}
             className="group relative block overflow-hidden rounded-sm border border-linea"
           >
-            {/* Escena de montañas del hero, en miniatura */}
             <div
               className="relative px-8 py-20 sm:px-14 sm:py-28"
               style={{
@@ -129,39 +153,28 @@ export default async function HomePage() {
         </Reveal>
       </section>
 
-      {/* Descubrí algo */}
       <section className="border-y border-linea-suave bg-fondo-2">
-        <div className="mx-auto max-w-6xl px-5 py-20 text-center">
+        <div className="mx-auto max-w-6xl px-5 py-16 text-center">
           <Reveal>
-            <p className="kicker">Sin dead ends</p>
+            <p className="kicker">Recorridos curados</p>
             <h2 className="titulo-display mt-4 text-3xl font-semibold sm:text-4xl">
-              Descubrí algo inesperado
+              Historias con un hilo conductor
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-sm text-tinta-suave">
-              Personajes, lugares, eventos y crónicas conectados en un grafo de
-              exploración. Dejate sorprender.
+              Rutas editoriales que conectan personajes, eventos y crónicas en
+              secuencia — sin ruleta, sin perderte.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <DescubrirAleatorio nodos={nodosExploracion} />
-              <Link
-                href="/explorar"
-                className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
-              >
-                Explorar todo →
-              </Link>
-              <Link
-                href="/jugar"
-                className="rounded-full border border-oro/40 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
-              >
-                Quiz del día →
-              </Link>
-            </div>
+            <Link
+              href="/recorridos"
+              className="mt-8 inline-block rounded-full border border-oro/40 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
+            >
+              Ver recorridos →
+            </Link>
           </Reveal>
         </div>
       </section>
 
-      {/* El Panteón */}
-      <section className="mx-auto max-w-6xl px-5 pb-24">
+      <section className="mx-auto max-w-6xl px-5 pb-24 pt-16">
         <Reveal>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
             <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">
@@ -177,7 +190,7 @@ export default async function HomePage() {
           </div>
           <p className="mt-4 max-w-2xl text-tinta-suave">
             Héroes, tiranos, visionarios y derrotados: las vidas que hicieron
-            la Argentina, en fichas para perderse durante horas.
+            la Argentina.
           </p>
         </Reveal>
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 min-[400px]:grid-cols-2 sm:grid-cols-4">
@@ -189,16 +202,16 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Boletín */}
       <section className="border-t border-linea-suave bg-fondo-2">
         <Reveal className="mx-auto max-w-3xl px-5 py-24 text-center">
           <p className="kicker">El boletín</p>
           <h2 className="titulo-display mt-4 text-4xl font-semibold leading-tight">
-            Una historia argentina cada mañana.
+            Lista de espera del boletín
           </h2>
           <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-tinta-suave">
-            La efeméride del día contada en 90 segundos, directo en tu casilla.
-            Gratis, sin spam, para siempre.
+            Estamos preparando el envío diario de historias del archivo argentino.
+            Dejá tu email y te avisamos cuando arranque — con rotación honesta
+            mientras el calendario no cubre los 365 días.
           </p>
           <div className="mt-8">
             <BoletinForm esMecenas={esMecenas} />

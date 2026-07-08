@@ -28,7 +28,7 @@ export default async function MecenasMapaPage() {
         personajes, eventos y relaciones del grafo.
       </p>
       <div className="mt-10">
-        <MapaExploratorio lugares={lugares} completo />
+        <MapaExploratorio lugares={lugares} completo esMecenas />
       </div>
       <p className="mt-8">
         <Link href="/mecenas" className="text-sm text-oro-claro hover:text-oro">

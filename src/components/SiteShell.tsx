@@ -20,7 +20,9 @@ export function SiteShell({ children, esMecenas }: Props) {
   return (
     <>
       <Header esMecenas={esMecenas} />
-      <main className="flex-1">{children}</main>
+      <main id="contenido-principal" className="flex-1">
+        {children}
+      </main>
       <Footer esMecenas={esMecenas} />
     </>
   );

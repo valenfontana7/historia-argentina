@@ -1,3 +1,8 @@
+export type CitaEfemeride = {
+  texto: string;
+  atribucion?: string;
+};
+
 export type Efemeride = {
   /** Slug de la URL permanente, ej: "9-de-julio" */
   dia: string;
@@ -9,7 +14,40 @@ export type Efemeride = {
   categoria: string;
   historia: string[];
   relacionados: string[];
+  /** Gancho de apertura (una línea de impacto). */
+  hook?: string;
+  /** Giro narrativo o consecuencia inesperada. */
+  giro?: string;
+  /** Cita histórica opcional para cerrar el arco. */
+  cita?: CitaEfemeride;
 };
+
+export type ResultadoEfemerideFecha = {
+  efemeride: Efemeride;
+  /** true si hay entrada exacta para mes/día consultados. */
+  esExacta: boolean;
+};
+
+const NOMBRES_MES = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
+] as const;
+
+/** Etiqueta legible para una fecha de calendario (sin año histórico). */
+export function formatearFechaCalendario(mes: number, numero: number): string {
+  const nombre = NOMBRES_MES[mes - 1] ?? "mes";
+  return `${numero} de ${nombre}`;
+}
 
 export const efemerides: Efemeride[] = [
   {
@@ -932,14 +970,30 @@ export function vecinas(dia: string): { anterior: Efemeride; siguiente: Efemerid
 }
 
 /**
- * Efeméride para una fecha dada (mes y día). Si ese día no tiene
- * entrada todavía, devuelve la próxima disponible en el calendario.
+ * Resuelve la efeméride para una fecha de calendario.
+ * Si no hay entrada exacta, devuelve una rotación editorial determinística del archivo.
  */
-export function efemerideParaFecha(mes: number, numero: number): Efemeride {
+function indiceRotacionArchivo(mes: number, numero: number): number {
+  const semilla = mes * 31 + numero;
+  return semilla % ordenadas.length;
+}
+
+export function resolverEfemerideParaFecha(
+  mes: number,
+  numero: number,
+): ResultadoEfemerideFecha {
   const exacta = ordenadas.find((e) => e.mes === mes && e.numero === numero);
-  if (exacta) return exacta;
-  const proxima = ordenadas.find(
-    (e) => e.mes > mes || (e.mes === mes && e.numero > numero),
-  );
-  return proxima ?? ordenadas[0];
+  if (exacta) return { efemeride: exacta, esExacta: true };
+  const rotada = ordenadas[indiceRotacionArchivo(mes, numero)];
+  return { efemeride: rotada, esExacta: false };
+}
+
+/** Atajo: solo la efeméride (con fallback al archivo). */
+export function efemerideParaFecha(mes: number, numero: number): Efemeride {
+  return resolverEfemerideParaFecha(mes, numero).efemeride;
+}
+
+/** Cantidad de días del año con efeméride propia en el archivo. */
+export function diasConEfemerideEnArchivo(): number {
+  return ordenadas.length;
 }

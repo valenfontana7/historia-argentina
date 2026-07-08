@@ -23,8 +23,4 @@ export const sitio = {
     "línea del tiempo argentina",
     "educación historia",
   ],
-  redes: {
-    instagram: "https://instagram.com",
-    twitter: "https://x.com",
-  },
 } as const;

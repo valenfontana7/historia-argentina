@@ -57,7 +57,7 @@ export default function ExplorarPage() {
               { href: "/hoy", titulo: "Hoy", desc: "Efeméride del día" },
               { href: "/lugares", titulo: "Lugares", desc: "Geografía histórica" },
               { href: "/timelines", titulo: "Timeline", desc: "Explorador temporal interactivo" },
-              { href: "/jugar", titulo: "Jugar", desc: "Quiz diario de efemérides" },
+              { href: "/recorridos", titulo: "Recorridos", desc: "Rutas curadas con hilo conductor" },
               { href: "/mapa", titulo: "Mapa", desc: "Cono Sur exploratorio" },
             ].map((item) => (
               <Link

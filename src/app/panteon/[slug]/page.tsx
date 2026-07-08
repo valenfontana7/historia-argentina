@@ -7,7 +7,9 @@ import { PosicionEnTimeline } from "@/components/exploracion/PosicionEnTimeline"
 import { BotonFavorito } from "@/components/engagement/BotonFavorito";
 import { RegistrarVisita } from "@/components/engagement/RegistrarVisita";
 import { RecientementeVisitado } from "@/components/engagement/RecientementeVisitado";
+import { BotonCompartir } from "@/components/BotonCompartir";
 import { PersonajeCard } from "@/components/PersonajeCard";
+import { MomentoDefinitorio } from "@/components/panteon/MomentoDefinitorio";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Retrato } from "@/components/ui/Retrato";
 import { LineaDeVida } from "@/components/ui/LineaDeVida";
@@ -28,6 +30,7 @@ import {
 import { rutaDeNodo } from "@/lib/grafo/rutas";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd, personaJsonLd } from "@/lib/seo/jsonld";
+import { momentoDePersonaje } from "@/lib/personaje-momento";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -65,6 +68,7 @@ export default async function PersonajePage({ params }: Props) {
   const lugarMuerte = personaje.muerte
     ? slugDeLugarPorTexto(personaje.muerte.lugar)
     : undefined;
+  const momento = momentoDePersonaje(personaje);
 
   const migajas = [
     { nombre: "Inicio", href: "/" },
@@ -161,18 +165,28 @@ export default async function PersonajePage({ params }: Props) {
                   </div>
                 )}
               </dl>
-              <div className="mt-6">
+              <div className="mt-6 flex flex-wrap items-center gap-4">
                 <BotonFavorito
                   href={`/panteon/${slug}`}
                   titulo={personaje.nombre}
                   tipo="persona"
+                />
+                <BotonCompartir
+                  titulo={`${personaje.nombre} — ${personaje.titulo}`}
+                  texto={personaje.resumen}
+                  ruta={`/panteon/${slug}`}
+                  utmCampaign="panteon"
                 />
               </div>
             </Reveal>
           </div>
         </div>
 
-        {personaje.frase && (
+        {momento && (
+          <MomentoDefinitorio nombre={personaje.nombre} momento={momento} />
+        )}
+
+        {personaje.frase && !momento?.cita && (
           <Reveal className="mt-24">
             <blockquote className="mx-auto max-w-3xl text-center">
               <p className="titulo-display text-3xl font-medium italic leading-snug text-oro-claro sm:text-4xl">
@@ -328,7 +342,7 @@ export default async function PersonajePage({ params }: Props) {
           </div>
         </section>
 
-        {nodo && <ContinuarExplorando origen={nodo} estrategia="misma-epoca" />}
+        {nodo && <ContinuarExplorando origen={nodo} estrategia="relacionados" />}
         <RecientementeVisitado excluirHref={`/panteon/${slug}`} />
       </div>
     </article>

@@ -32,6 +32,12 @@ export default function RootLayout({
       className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="grano flex min-h-full flex-col">
+        <a
+          href="#contenido-principal"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-oro focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-fondo"
+        >
+          Saltar al contenido
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGlobal) }}

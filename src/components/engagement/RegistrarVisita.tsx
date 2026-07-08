@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   agregarReciente,
   guardarProgreso,
+  marcarVisitaOnboarding,
   type PaginaReciente,
 } from "@/lib/engagement/storage";
 
@@ -31,6 +32,7 @@ export function RegistrarVisita({ titulo, tipo = "otro", progreso = false }: Pro
       if (total <= 0) return;
       const pct = Math.round((window.scrollY / total) * 100);
       guardarProgreso(pathname, pct);
+      if (pct >= 50) marcarVisitaOnboarding();
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });

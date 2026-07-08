@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
 import { EnlacesRelacionados } from "@/components/exploracion/EnlacesRelacionados";
+import { BotonCompartir } from "@/components/BotonCompartir";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import { lugares, obtenerLugar } from "@/data/lugares";
@@ -64,6 +65,14 @@ export default async function LugarPage({ params }: Props) {
             {lugar.nombre}
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-tinta-suave">{lugar.descripcion}</p>
+          <div className="mt-6">
+            <BotonCompartir
+              titulo={lugar.nombre}
+              texto={lugar.descripcion}
+              ruta={`/lugares/${slug}`}
+              utmCampaign="lugar"
+            />
+          </div>
         </Reveal>
 
         <Reveal className="mt-14">

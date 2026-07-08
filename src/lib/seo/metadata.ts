@@ -29,7 +29,6 @@ const RUTAS_OG_PROPIA = new Set([
   "/panteon",
   "/cronicas",
   "/timelines",
-  "/jugar",
   "/lugares",
   "/mapa",
   "/periodos",

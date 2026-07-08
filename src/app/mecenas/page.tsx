@@ -159,12 +159,14 @@ export default async function MecenasPage() {
         >
           Ver todas las crónicas
         </Link>
-        <Link
-          href="/api/auth/cerrar"
-          className="rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-tenue hover:text-tinta-suave"
-        >
-          Cerrar sesión
-        </Link>
+        <form action="/api/auth/cerrar" method="POST">
+          <button
+            type="submit"
+            className="rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-tenue hover:text-tinta-suave"
+          >
+            Cerrar sesión
+          </button>
+        </form>
       </div>
     </div>
   );

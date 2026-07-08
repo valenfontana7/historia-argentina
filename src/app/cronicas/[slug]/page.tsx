@@ -36,11 +36,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const cronica = obtenerCronica(slug);
   if (!cronica) return {};
+  const exclusiva = requiereMecenas(cronica);
   return construirMetadata({
     titulo: cronica.titulo,
     descripcion: cronica.descripcion,
     ruta: `/cronicas/${slug}`,
     tipo: "article",
+    noindex: exclusiva,
   });
 }
 
@@ -131,7 +133,17 @@ export default async function CronicaPage({ params }: Props) {
           </footer>
         </>
       ) : (
-        <SoftGate titulo={cronica.titulo} volverA={`/cronicas/${cronica.slug}`} />
+        <SoftGate
+          titulo={cronica.titulo}
+          volverA={`/cronicas/${cronica.slug}`}
+          duracion={cronica.duracion}
+          teaser={cronica.subtitulo}
+          datoTeaser={
+            cronica.slug === "las-48-horas-de-mayo"
+              ? "48 horas que cambiaron el virreinato"
+              : undefined
+          }
+        />
       )}
     </article>
   );

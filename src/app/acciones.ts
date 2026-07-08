@@ -9,8 +9,8 @@ export type EstadoSuscripcion = {
 };
 
 /**
- * Captura de email para el boletín diario.
- * Persiste en Postgres; el envío automatizado es fase 2.
+ * Captura de email para el boletín.
+ * Persiste en Postgres; el envío automatizado está en lista de espera.
  */
 export async function suscribir(
   _estadoAnterior: EstadoSuscripcion | null,
@@ -41,7 +41,7 @@ export async function suscribir(
 
   return {
     ok: true,
-    mensaje: "¡Listo! Cada mañana, una historia argentina en tu casilla.",
+    mensaje: "¡Listo! Te sumamos a la lista de espera del boletín.",
     upsell: true,
   };
 }

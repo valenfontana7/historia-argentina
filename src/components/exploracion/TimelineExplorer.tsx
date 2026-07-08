@@ -160,12 +160,6 @@ export function TimelineExplorer({ anioInicial = 1810 }: Props) {
         >
           Ver {anio} completo →
         </Link>
-        <Link
-          href="/timelines/comparar"
-          className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
-        >
-          Comparar siglos
-        </Link>
       </div>
     </div>
   );

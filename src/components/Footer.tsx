@@ -19,9 +19,24 @@ export function Footer({ esMecenas }: Props) {
               merece: visual, rigurosa y libre.
             </p>
           </div>
-          <nav className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm sm:gap-x-16">
+          <nav
+            className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm sm:grid-cols-3 sm:gap-x-12"
+            aria-label="Mapa del museo"
+          >
             <Link href="/explorar" className="text-tinta-suave transition-colors hover:text-oro-claro">
               Explorar
+            </Link>
+            <Link href="/recorridos" className="text-tinta-suave transition-colors hover:text-oro-claro">
+              Recorridos
+            </Link>
+            <Link href="/timelines" className="text-tinta-suave transition-colors hover:text-oro-claro">
+              Timeline
+            </Link>
+            <Link href="/mapa" className="text-tinta-suave transition-colors hover:text-oro-claro">
+              Mapa
+            </Link>
+            <Link href="/categorias" className="text-tinta-suave transition-colors hover:text-oro-claro">
+              Categorías
             </Link>
             <Link href="/lugares" className="text-tinta-suave transition-colors hover:text-oro-claro">
               Lugares

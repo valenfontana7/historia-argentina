@@ -3,10 +3,22 @@ import Link from "next/link";
 type Props = {
   titulo: string;
   volverA?: string;
+  /** Duración estimada de lectura (ej. "8 minutos"). */
+  duracion?: string;
+  /** Dato de impacto para teaser. */
+  datoTeaser?: string;
+  /** Primera línea del subtítulo o hook. */
+  teaser?: string;
 };
 
 /** Reja suave: hero visible, el cuerpo queda detrás del CTA de membresía. */
-export function SoftGate({ titulo, volverA }: Props) {
+export function SoftGate({
+  titulo,
+  volverA,
+  duracion,
+  datoTeaser,
+  teaser,
+}: Props) {
   const accederHref = volverA
     ? `/membresia/acceder?next=${encodeURIComponent(volverA)}`
     : "/membresia/acceder";
@@ -21,7 +33,22 @@ export function SoftGate({ titulo, volverA }: Props) {
       <h2 className="titulo-display mt-4 text-3xl font-semibold sm:text-4xl">
         {titulo}
       </h2>
-      <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-tinta-suave">
+      {teaser && (
+        <p className="mx-auto mt-5 max-w-md text-base italic leading-relaxed text-oro-claro">
+          {teaser}
+        </p>
+      )}
+      {datoTeaser && (
+        <p className="titulo-display mx-auto mt-8 max-w-sm text-4xl font-semibold text-oro">
+          {datoTeaser}
+        </p>
+      )}
+      {duracion && (
+        <p className="mt-4 text-xs uppercase tracking-[0.2em] text-tinta-tenue">
+          {duracion} de historia que no está en ningún manual
+        </p>
+      )}
+      <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-tinta-suave">
         Si ya sos mecenas, entrá con el magic link de tu email. Pagá la membresía
         solo si todavía no la tenés activa.
       </p>

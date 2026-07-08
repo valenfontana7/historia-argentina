@@ -14,18 +14,18 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = construirMetadata({
   titulo: "Membresía Mecenas",
   descripcion:
-    "Convertí Argent en tu museo personal: mapas interactivos, colecciones, timeline avanzada y exclusivas.",
+    "Sostené Argent y desbloqueá la capa narrativa exclusiva: crónicas inmersivas, 2 recorridos premium, mapa completo y carta editorial.",
   ruta: "/membresia",
 });
 
 const faqs = [
   {
     q: "¿El museo sigue siendo gratis?",
-    a: "Sí. Crónicas públicas, el Panteón, lugares, períodos y la efeméride diaria siguen abiertos para todos. Mecenas desbloquea experiencias, no contenido básico.",
+    a: "Sí. Crónicas públicas, el Panteón, lugares, períodos, 5 recorridos base y la efeméride del archivo siguen abiertos para todos. Mecenas desbloquea narrativa exclusiva y exploración avanzada.",
   },
   {
-    q: "¿Qué desbloquea Mecenas?",
-    a: "Mapa histórico interactivo, colecciones guardadas, timeline avanzada, carta mensual, crónicas exclusivas y navegación sin publicidad.",
+    q: "¿Qué desbloquea Mecenas hoy?",
+    a: "Crónicas exclusivas mensuales, dos recorridos premium (Democracia y memoria; San Martín continental), carta editorial, mapa completo con filtros por época, timeline avanzada y navegación sin publicidad.",
   },
   {
     q: "¿Cómo pago?",
@@ -62,9 +62,10 @@ export default async function MembresiaPage() {
           Mecenas de {sitio.nombre}
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-tinta-suave">
-          No pagás por más artículos: pagás porque Argent se convierte en tu museo
-          personal. Mapas, colecciones, timeline avanzada y exclusivas — con el
-          rigor visual que ya conocés.
+          No pagás por más artículos: pagás por la capa narrativa exclusiva de
+          Argent. Crónicas inmersivas mensuales, dos recorridos premium, mapa
+          completo con filtros y carta editorial — con el rigor visual que ya
+          conocés.
         </p>
         <p className="mt-4 text-sm text-tinta-tenue">
           ¿Ya sos mecenas?{" "}

@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import { EstadoMecenas } from "@prisma/client";
 import { obtenerSesionAdmin } from "@/lib/admin-auth";
-import { COOKIE_SESION, opcionesCookieSesion } from "@/lib/auth-constants";
+import { COOKIE_BLOQUEO_AUTO_MECENAS, COOKIE_SESION, opcionesBorrarCookie, opcionesCookieSesion } from "@/lib/auth-constants";
 import { prisma } from "@/lib/db";
 
 const MAGIC_TTL = "15m";
@@ -79,11 +79,14 @@ export async function establecerSesion(sesion: SesionMecenas) {
   const token = await crearSesionToken(sesion);
   const jar = await cookies();
   jar.set(COOKIE_SESION, token, opcionesCookieSesion(60 * 60 * 24 * 30));
+  jar.set(COOKIE_BLOQUEO_AUTO_MECENAS, "", opcionesBorrarCookie());
 }
 
 export async function cerrarSesion() {
   const jar = await cookies();
-  jar.delete(COOKIE_SESION);
+  const borrar = opcionesBorrarCookie();
+  jar.set(COOKIE_SESION, "", borrar);
+  jar.set(COOKIE_BLOQUEO_AUTO_MECENAS, "1", opcionesCookieSesion(60 * 60 * 24 * 30));
 }
 
 export async function obtenerSesion(): Promise<SesionMecenas | null> {
@@ -142,6 +145,9 @@ export async function puedeVerContenidoMecenas(): Promise<boolean> {
   if (await esMecenasActivo()) return true;
 
   try {
+    const jar = await cookies();
+    if (jar.get(COOKIE_BLOQUEO_AUTO_MECENAS)?.value === "1") return false;
+
     const admin = await obtenerSesionAdmin();
     if (!admin) return false;
 

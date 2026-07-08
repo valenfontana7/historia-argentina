@@ -5,6 +5,8 @@ import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorand
 import { ContextoTemporal } from "@/components/exploracion/ContextoTemporal";
 import { PosicionEnTimeline } from "@/components/exploracion/PosicionEnTimeline";
 import { SabiasQue } from "@/components/exploracion/SabiasQue";
+import { AvisoEfemerideSugerida } from "@/components/exploracion/AvisoEfemerideSugerida";
+import { EfemerideNarrativa } from "@/components/exploracion/EfemerideNarrativa";
 import { BotonFavorito } from "@/components/engagement/BotonFavorito";
 import { RegistrarVisita } from "@/components/engagement/RegistrarVisita";
 import { RecientementeVisitado } from "@/components/engagement/RecientementeVisitado";
@@ -13,15 +15,23 @@ import { Reveal } from "@/components/ui/Reveal";
 import { BotonCompartir } from "@/components/BotonCompartir";
 import { BoletinForm } from "@/components/BoletinForm";
 import { slugDeCategoria } from "@/data/categorias";
-import { efemerides, obtenerEfemeride, vecinas } from "@/data/efemerides";
+import {
+  efemerides,
+  formatearFechaCalendario,
+  obtenerEfemeride,
+  vecinas,
+} from "@/data/efemerides";
+import { narrativaDeEfemeride } from "@/data/efemerides-narrativa";
 import { obtenerVarios } from "@/data/personajes";
 import { cronicas } from "@/content/cronicas/registro";
 import { obtenerNodo } from "@/lib/grafo/queries";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { eventoJsonLd, migajasJsonLd } from "@/lib/seo/jsonld";
+import { hoyEnArgentina } from "@/lib/fechas";
 
 type Props = {
   params: Promise<{ dia: string }>;
+  searchParams: Promise<{ sugerida?: string }>;
 };
 
 export function generateStaticParams() {
@@ -40,10 +50,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default async function EfemeridePage({ params }: Props) {
+export default async function EfemeridePage({ params, searchParams }: Props) {
   const { dia } = await params;
+  const { sugerida } = await searchParams;
   const efemeride = obtenerEfemeride(dia);
   if (!efemeride) notFound();
+
+  const { mes, dia: diaHoy } = hoyEnArgentina();
+  const fechaHoy = formatearFechaCalendario(mes, diaHoy);
+  const esSugerida = sugerida === "1";
+  const narrativa = narrativaDeEfemeride(dia);
 
   const navegacion = vecinas(dia);
   const personajesRelacionados = obtenerVarios(efemeride.relacionados);
@@ -85,15 +101,32 @@ export default async function EfemeridePage({ params }: Props) {
 
       <MigasDePan migajas={migajas} />
 
+      {esSugerida && (
+        <Reveal className="mb-10">
+          <AvisoEfemerideSugerida
+            fechaConsultada={fechaHoy}
+            fechaEfemeride={efemeride.fecha}
+          />
+        </Reveal>
+      )}
+
       <Reveal>
         <p className="kicker text-center">
-          Un día como hoy ·{" "}
-          {catSlug ? (
-            <Link href={`/categorias/${catSlug}`} className="hover:text-oro-claro">
-              {efemeride.categoria}
-            </Link>
+          {esSugerida ? (
+            <>
+              Del archivo · <span className="text-tinta">{efemeride.fecha}</span>
+            </>
           ) : (
-            efemeride.categoria
+            <>
+              Un día como hoy ·{" "}
+              {catSlug ? (
+                <Link href={`/categorias/${catSlug}`} className="hover:text-oro-claro">
+                  {efemeride.categoria}
+                </Link>
+              ) : (
+                efemeride.categoria
+              )}
+            </>
           )}
         </p>
         <p className="titulo-display mt-8 text-center text-5xl font-semibold leading-none text-oro sm:text-[5.5rem] lg:text-[7rem]">
@@ -113,11 +146,22 @@ export default async function EfemeridePage({ params }: Props) {
       </Reveal>
 
       <Reveal className="mt-14">
-        <div className="prosa capitular">
-          {efemeride.historia.map((parrafo, i) => (
-            <p key={i}>{parrafo}</p>
-          ))}
-        </div>
+        {narrativa ? (
+          <>
+            <EfemerideNarrativa narrativa={narrativa} />
+            <div className="prosa mt-10">
+              {efemeride.historia.map((parrafo, i) => (
+                <p key={i}>{parrafo}</p>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className="prosa capitular">
+            {efemeride.historia.map((parrafo, i) => (
+              <p key={i}>{parrafo}</p>
+            ))}
+          </div>
+        )}
       </Reveal>
 
       {nodo && <PosicionEnTimeline anio={efemeride.anio} />}
@@ -166,10 +210,10 @@ export default async function EfemeridePage({ params }: Props) {
           utmCampaign="efemeride"
         />
         <Link
-          href="/jugar"
+          href="/recorridos"
           className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
         >
-          Probá el quiz de hoy →
+          Seguir un recorrido →
         </Link>
       </Reveal>
 
@@ -206,11 +250,12 @@ export default async function EfemeridePage({ params }: Props) {
 
       <Reveal className="mt-20 rounded-sm border border-linea bg-fondo-2 p-8 text-center sm:p-10">
         <p className="titulo-display text-2xl font-semibold">
-          Una historia argentina cada mañana
+          Lista de espera del boletín
         </p>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-tinta-suave">
-          La efeméride del día, contada en 90 segundos, directo en tu casilla.
-          Gratis, sin spam, para siempre.
+          Estamos preparando el envío diario. Dejá tu email y te avisamos cuando
+          arranque — con rotación honesta del archivo mientras no cubrimos los
+          365 días.
         </p>
         <div className="mt-6">
           <BoletinForm />

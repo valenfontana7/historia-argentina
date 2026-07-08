@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      { source: "/jugar", destination: "/hoy", permanent: true },
+      { source: "/timelines/comparar", destination: "/timelines", permanent: true },
+    ];
+  },
 };
 
 const withMDX = createMDX({});

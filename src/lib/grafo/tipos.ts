@@ -34,6 +34,7 @@ export type FiltroRelacion = {
 };
 
 export type EstrategiaDescubrir =
+  | "relacionados"
   | "sorpresa"
   | "misma-epoca"
   | "misma-categoria"

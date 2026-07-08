@@ -1,12 +1,15 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
-import { efemerideParaFecha } from "@/data/efemerides";
+import { resolverEfemerideParaFecha } from "@/data/efemerides";
 import { hoyEnArgentina } from "@/lib/fechas";
 
-// La fecha "de hoy" se resuelve en cada request, no en el build.
 export const dynamic = "force-dynamic";
 
 export default function HoyPage() {
   const { mes, dia } = hoyEnArgentina();
-  const efemeride = efemerideParaFecha(mes, dia);
-  redirect(`/hoy/${efemeride.dia}`);
+  const { efemeride, esExacta } = resolverEfemerideParaFecha(mes, dia);
+  const destino = esExacta
+    ? `/hoy/${efemeride.dia}`
+    : `/hoy/${efemeride.dia}?sugerida=1`;
+  redirect(destino);
 }

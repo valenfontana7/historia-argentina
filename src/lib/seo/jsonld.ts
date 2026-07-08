@@ -135,7 +135,6 @@ export function nodoOrganizacion(): object {
     description: sitio.descripcion,
     url: sitio.url,
     logo: `${sitio.url}/icon`,
-    sameAs: Object.values(sitio.redes),
   };
 }
 

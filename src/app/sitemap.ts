@@ -6,15 +6,15 @@ import { aniosConEventos } from "@/lib/grafo/queries";
 import { personajes } from "@/data/personajes";
 import { efemerides } from "@/data/efemerides";
 import { cronicasPublicas } from "@/content/cronicas/registro";
+import { recorridos } from "@/data/recorridos";
 import { sitio } from "@/lib/site.config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const fijas: MetadataRoute.Sitemap = [
     { url: sitio.url, changeFrequency: "daily", priority: 1 },
     { url: `${sitio.url}/explorar`, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${sitio.url}/recorridos`, changeFrequency: "weekly", priority: 0.92 },
     { url: `${sitio.url}/timelines`, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${sitio.url}/timelines/comparar`, changeFrequency: "monthly", priority: 0.75 },
-    { url: `${sitio.url}/jugar`, changeFrequency: "daily", priority: 0.85 },
     { url: `${sitio.url}/mapa`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${sitio.url}/cronicas`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${sitio.url}/panteon`, changeFrequency: "weekly", priority: 0.9 },
@@ -67,9 +67,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.55,
   }));
 
+  const deRecorridos: MetadataRoute.Sitemap = recorridos.map((r) => ({
+    url: `${sitio.url}/recorridos/${r.slug}`,
+    changeFrequency: "monthly",
+    priority: 0.75,
+  }));
+
   return [
     ...fijas,
     ...deCronicas,
+    ...deRecorridos,
     ...dePersonajes,
     ...deEfemerides,
     ...deLugares,

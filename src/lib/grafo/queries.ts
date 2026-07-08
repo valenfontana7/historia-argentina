@@ -210,7 +210,7 @@ function hashSimple(texto: string): number {
 
 export function descubrir(
   origen: NodoEntidad | EntidadRef,
-  estrategia: EstrategiaDescubrir = "sorpresa",
+  estrategia: EstrategiaDescubrir = "relacionados",
   limite = 6,
 ): NodoEntidad[] {
   const nodo =
@@ -223,6 +223,9 @@ export function descubrir(
   let candidatos: NodoEntidad[] = [];
 
   switch (estrategia) {
+    case "relacionados":
+      candidatos = relacionados(nodo, { limite: limite * 2 });
+      break;
     case "misma-epoca":
       if (nodo.periodo) {
         candidatos = todosLosNodos().filter(
@@ -268,6 +271,10 @@ export function descubrir(
     candidatos = todosLosNodos().filter(
       (n) => refKey(nodoRef(n)) !== refKey(origenRef),
     );
+  }
+
+  if (estrategia === "relacionados") {
+    return candidatos.slice(0, limite);
   }
 
   const seed = hashSimple(`${nodo.tipo}:${nodo.slug}:${estrategia}`);

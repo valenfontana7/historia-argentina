@@ -2,6 +2,7 @@ const CLAVE_RECIENTES = "argent:recientes";
 const CLAVE_PROGRESO = "argent:progreso";
 const CLAVE_FAVORITOS = "argent:favoritos";
 const CLAVE_QUIZ_STREAK = "argent:quiz-streak";
+const CLAVE_VISITA = "argent_visita";
 
 export type QuizStreak = {
   racha: number;
@@ -84,6 +85,24 @@ export function esFavorito(href: string): boolean {
 
 export function obtenerFavoritos(): Favorito[] {
   return leer<Favorito[]>(CLAVE_FAVORITOS, []);
+}
+
+export function marcarVisitaOnboarding(): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(CLAVE_VISITA, "1");
+  } catch {
+    // ignorar
+  }
+}
+
+export function tieneVisitaOnboarding(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return localStorage.getItem(CLAVE_VISITA) === "1";
+  } catch {
+    return false;
+  }
 }
 
 function diaIso(fecha: Date): string {

@@ -26,15 +26,15 @@ export const planes: Record<PlanId, PlanMembresia> = {
     moneda: "ARS",
     periodo: "por mes",
     descripcion:
-      "Convertí Argent en tu museo personal: mapas, colecciones y experiencias exclusivas.",
+      "La capa narrativa exclusiva de Argent: crónicas inmersivas, recorridos premium y exploración avanzada.",
     beneficios: [
-      "Mapa histórico interactivo",
-      "Crónicas y apéndices exclusivos",
-      "Carta del mecenas cada mes",
-      "Colecciones y progreso guardados",
-      "Timeline avanzada por año",
-      "Sin publicidad",
+      "Crónicas exclusivas cada mes",
+      "2 recorridos premium (Democracia y San Martín continental)",
+      "Carta editorial mensual del mecenas",
+      "Mapa histórico completo con filtros por época",
+      "Timeline con capa avanzada para mecenas",
       "Tu nombre en el muro de créditos",
+      "Sin publicidad",
     ],
   },
   fundador: {
@@ -45,13 +45,13 @@ export const planes: Record<PlanId, PlanMembresia> = {
     periodo: "por año",
     destacado: true,
     descripcion:
-      "Los primeros que hacen posible Argent. Tu museo personal, con presencia destacada.",
+      "Los primeros que hacen posible Argent. Narrativa exclusiva + voz en la próxima crónica.",
     beneficios: [
       "Todo lo del plan Mecenas",
       "Tasa de fundador por un año",
-      "Nombre destacado en los créditos",
       "Voto anticipado sobre la próxima crónica",
-      "Acceso anticipado a nuevas experiencias",
+      "Nombre destacado en los créditos",
+      "Acceso anticipado a nuevas crónicas",
     ],
   },
 };
@@ -71,9 +71,9 @@ export function diasDePlan(plan: PlanId): number {
 /** Copy listo para el primer post de lanzamiento (IG / X / WhatsApp). */
 export const copyLanzamiento = `Abrimos Mecenas.
 
-Argent es un museo digital de historia argentina: crónicas cinematográficas, un panteón vivo y una efeméride cada día. Todo eso sigue gratis.
+Argent es un museo digital de historia argentina: crónicas cinematográficas, un panteón vivo y un archivo de efemérides. Todo eso sigue gratis.
 
-Si querés convertirlo en tu museo personal —mapas interactivos, colecciones, carta mensual y exclusivas— este es el momento de los fundadores.
+Si querés la capa narrativa exclusiva —crónicas mensuales, recorridos premium, mapa completo y carta editorial— este es el momento de los fundadores.
 
 ${
   typeof process !== "undefined" && process.env.NEXT_PUBLIC_SITE_URL

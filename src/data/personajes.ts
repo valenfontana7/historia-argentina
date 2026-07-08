@@ -18,6 +18,13 @@ export type Personaje = {
   aliados: string[];
   enemigos: string[];
   frase?: { texto: string; contexto: string };
+  /** Momento definitorio destacado en la ficha (opcional; si falta, se deriva). */
+  momento?: {
+    anio: number;
+    linea: string;
+    cita?: string;
+    contextoCita?: string;
+  };
 };
 
 export const nombresEpocas: Record<Epoca, string> = {
@@ -60,6 +67,12 @@ export const personajes: Personaje[] = [
       texto: "Serás lo que debas ser, y si no, no serás nada.",
       contexto: "Máxima que solía repetir, convertida en lema de su vida pública.",
     },
+    momento: {
+      anio: 1817,
+      linea: "Cruza los Andes con más de 5.000 hombres — la operación que validó su plan continental.",
+      cita: "Serás lo que debas ser, y si no, no serás nada.",
+      contextoCita: "Máxima de José de San Martín",
+    },
   },
   {
     slug: "manuel-belgrano",
@@ -92,6 +105,10 @@ export const personajes: Personaje[] = [
       texto: "Mucho me falta para ser un verdadero padre de la patria; me contentaría con ser un buen hijo de ella.",
       contexto: "Respuesta a quienes lo llamaban padre de la patria.",
     },
+    momento: {
+      anio: 1812,
+      linea: "Iza por primera vez la bandera celeste y blanca a orillas del Paraná, en plena guerra del Norte.",
+    },
   },
   {
     slug: "mariano-moreno",
@@ -121,6 +138,12 @@ export const personajes: Personaje[] = [
     frase: {
       texto: "Si los pueblos no se ilustran, si no se vulgarizan sus derechos, quizá cambiaremos de tiranos, pero nunca destruiremos la tiranía.",
       contexto: "Gazeta de Buenos Ayres, 1810.",
+    },
+    momento: {
+      anio: 1810,
+      linea: "Como secretario de la Primera Junta funda la Gazeta y la Biblioteca Pública en semanas de fuego revolucionario.",
+      cita: "Si los pueblos no se ilustran, si no se vulgarizan sus derechos, quizá cambiaremos de tiranos, pero nunca destruiremos la tiranía.",
+      contextoCita: "Gazeta de Buenos Ayres, 1810",
     },
   },
   {
@@ -208,6 +231,10 @@ export const personajes: Personaje[] = [
     ],
     aliados: [],
     enemigos: ["juan-jose-castelli", "mariano-moreno"],
+    momento: {
+      anio: 1807,
+      linea: "Dirige la defensa de Buenos Aires contra la segunda invasión inglesa — y demuestra que el virreinato puede autogobernarse.",
+    },
   },
   {
     slug: "martin-miguel-de-guemes",
@@ -263,6 +290,10 @@ export const personajes: Personaje[] = [
     ],
     aliados: ["manuel-belgrano", "martin-miguel-de-guemes"],
     enemigos: [],
+    momento: {
+      anio: 1816,
+      linea: "Ascendida a teniente coronela tras arrebatar un estandarte realista; Belgrano le regala su propio sable.",
+    },
   },
   {
     slug: "mariquita-sanchez-de-thompson",
@@ -374,6 +405,10 @@ export const personajes: Personaje[] = [
       texto: "No soy amigo ni enemigo de nadie: soy federal.",
       contexto: "Atribuida, síntesis de su estilo político.",
     },
+    momento: {
+      anio: 1852,
+      linea: "Derrotado en Caseros por Urquiza, parte al exilio esa misma noche — y cierra dos décadas de rosismo.",
+    },
   },
   {
     slug: "juan-facundo-quiroga",
@@ -425,6 +460,10 @@ export const personajes: Personaje[] = [
     ],
     aliados: ["juan-bautista-alberdi"],
     enemigos: ["juan-manuel-de-rosas", "bartolome-mitre"],
+    momento: {
+      anio: 1852,
+      linea: "Vence a Rosas en Caseros y abre el camino a la Constitución de 1853.",
+    },
   },
   {
     slug: "juan-bautista-alberdi",
@@ -485,6 +524,12 @@ export const personajes: Personaje[] = [
     frase: {
       texto: "Las ideas no se matan.",
       contexto: "Versión de la frase que escribió en francés al partir al exilio en 1840.",
+    },
+    momento: {
+      anio: 1845,
+      linea: "Publica el Facundo en el exilio chileno — el libro que inventó la dicotomía civilización o barbarie.",
+      cita: "Las ideas no se matan.",
+      contextoCita: "Carta al exilio, 1840",
     },
   },
   {
@@ -566,6 +611,10 @@ export const personajes: Personaje[] = [
     ],
     aliados: [],
     enemigos: ["julio-argentino-roca"],
+    momento: {
+      anio: 1930,
+      linea: "Derrocado por el primer golpe de Estado de la historia argentina — y cae la democracia que él había inaugurado en 1916.",
+    },
   },
   {
     slug: "juan-domingo-peron",
@@ -594,6 +643,10 @@ export const personajes: Personaje[] = [
     ],
     aliados: ["eva-peron"],
     enemigos: [],
+    momento: {
+      anio: 1945,
+      linea: "El 17 de octubre, una movilización obrera exige y logra su liberación — fecha fundacional del peronismo.",
+    },
   },
   {
     slug: "eva-peron",
@@ -624,6 +677,12 @@ export const personajes: Personaje[] = [
       texto: "Donde existe una necesidad, nace un derecho.",
       contexto: "Principio rector de la Fundación Eva Perón.",
     },
+    momento: {
+      anio: 1947,
+      linea: "Impulsa la ley de voto femenino — y abre la política argentina a millones de mujeres.",
+      cita: "Donde existe una necesidad, nace un derecho.",
+      contextoCita: "Fundación Eva Perón",
+    },
   },
   {
     slug: "raul-alfonsin",
@@ -653,6 +712,12 @@ export const personajes: Personaje[] = [
     frase: {
       texto: "Con la democracia se come, se cura y se educa.",
       contexto: "Consigna central de su campaña presidencial de 1983.",
+    },
+    momento: {
+      anio: 1985,
+      linea: "El Juicio a las Juntas condena a los excomandantes de la dictadura — un hito mundial de derechos humanos.",
+      cita: "Con la democracia se come, se cura y se educa.",
+      contextoCita: "10 de diciembre de 1983",
     },
   },
 ];

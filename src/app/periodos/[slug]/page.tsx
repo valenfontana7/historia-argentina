@@ -9,6 +9,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { personajes } from "@/data/personajes";
 import { obtenerPeriodo, periodos } from "@/data/periodos";
 import { obtenerNodo } from "@/lib/grafo/queries";
+import { enlaceDeHitoPeriodo } from "@/lib/periodo-enlaces";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 
@@ -72,11 +73,23 @@ export default async function PeriodoPage({ params }: Props) {
         <Reveal className="mt-14">
           <p className="kicker">Hitos de la época</p>
           <ul className="mt-5 space-y-2">
-            {periodo.eventosDestacados.map((evento) => (
-              <li key={evento} className="text-sm text-tinta-suave">
-                {evento}
-              </li>
-            ))}
+            {periodo.eventosDestacados.map((evento) => {
+              const enlace = enlaceDeHitoPeriodo(evento);
+              return (
+                <li key={evento}>
+                  {enlace ? (
+                    <Link
+                      href={enlace.href}
+                      className="text-sm text-tinta-suave transition-colors hover:text-oro-claro"
+                    >
+                      {enlace.etiqueta} →
+                    </Link>
+                  ) : (
+                    <span className="text-sm text-tinta-suave">{evento}</span>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </Reveal>
 

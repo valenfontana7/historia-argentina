@@ -27,29 +27,31 @@ export default async function CartaMecenasPage() {
       <Reveal className="mt-10">
         <div className="prosa capitular border border-linea bg-fondo-2 p-8 sm:p-10">
           <p>
-            Gracias por sostener Argent. Este mes estrenamos la capa de exploración:
-            lugares, períodos, categorías y un grafo que conecta personajes con
-            eventos y crónicas.
+            Gracias por sostener Argent. Este mes consolidamos lo que Mecenas
+            desbloquea hoy: mapa histórico completo con filtros por época, dos
+            recorridos premium y la carta que estás leyendo.
           </p>
           <p>
-            Tu membresía no desbloquea más contenido: desbloquea una forma distinta
-            de recorrerlo. El mapa histórico, las colecciones guardadas y esta carta
-            mensual son parte de esa experiencia.
+            El museo público sigue abierto — panteón, lugares, cinco recorridos
+            base y el archivo de efemérides. Tu membresía agrega profundidad
+            narrativa: crónicas exclusivas, rutas curatoriales reservadas y
+            herramientas de exploración sin distracciones.
           </p>
           <p>
-            Próximamente: timeline avanzada con filtros, narraciones de audio en
-            crónicas selectas y comparadores de siglos. Si sos fundador, tu voto
-            sobre la próxima crónica llegará antes que a nadie.
+            En el roadmap honesto de fundadores: más crónicas inmersivas cada
+            mes, audio en piezas selectas y ampliación del calendario de
+            efemérides. Si sos fundador, tu voto sobre la próxima crónica llegará
+            antes que a nadie.
           </p>
           <p className="text-oro-claro">— El equipo de Argent</p>
         </div>
       </Reveal>
       <div className="mt-10 flex flex-wrap gap-4">
         <Link
-          href="/explorar"
+          href="/mecenas/mapa"
           className="rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro hover:bg-oro/10"
         >
-          Explorar el museo →
+          Abrir el mapa completo →
         </Link>
         <Link href="/mecenas" className="text-sm text-tinta-suave hover:text-oro-claro">
           ← Área de mecenas
