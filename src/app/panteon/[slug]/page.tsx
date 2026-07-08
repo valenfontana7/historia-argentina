@@ -29,6 +29,7 @@ import {
 } from "@/lib/grafo/queries";
 import { rutaDeNodo } from "@/lib/grafo/rutas";
 import { construirMetadata } from "@/lib/seo/metadata";
+import { sitio } from "@/lib/site.config";
 import { migajasJsonLd, personaJsonLd } from "@/lib/seo/jsonld";
 import { momentoDePersonaje } from "@/lib/personaje-momento";
 
@@ -49,6 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     descripcion: personaje.resumen,
     ruta: `/panteon/${slug}`,
     tipo: "article",
+    imagen: `${sitio.url}/panteon/${slug}/opengraph-image`,
   });
 }
 

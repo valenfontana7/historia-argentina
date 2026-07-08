@@ -9,6 +9,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { lugares, obtenerLugar } from "@/data/lugares";
 import { obtenerNodo } from "@/lib/grafo/queries";
 import { construirMetadata } from "@/lib/seo/metadata";
+import { sitio } from "@/lib/site.config";
 import { lugarJsonLd, migajasJsonLd } from "@/lib/seo/jsonld";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -26,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     descripcion: lugar.descripcion,
     ruta: `/lugares/${slug}`,
     tipo: "article",
+    imagen: `${sitio.url}/lugares/${slug}/opengraph-image`,
   });
 }
 

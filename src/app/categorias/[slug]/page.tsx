@@ -9,6 +9,7 @@ import { efemerides } from "@/data/efemerides";
 import { obtenerVarios } from "@/data/personajes";
 import { obtenerNodo } from "@/lib/grafo/queries";
 import { construirMetadata } from "@/lib/seo/metadata";
+import { sitio } from "@/lib/site.config";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -26,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     descripcion: cat.descripcion,
     ruta: `/categorias/${slug}`,
     tipo: "article",
+    imagen: `${sitio.url}/categorias/${slug}/opengraph-image`,
   });
 }
 

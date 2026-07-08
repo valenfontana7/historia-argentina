@@ -11,17 +11,10 @@ import {
 import type { Epoca } from "@/components/ui/Retrato";
 import { nombresEpocas } from "@/data/personajes";
 import type { Lugar } from "@/data/lugares";
+import { esLugarPreview, LUGARES_PREVIEW_SLUGS } from "@/data/lugares-preview";
 import { posicionLugarEnMapa, etiquetaEnMapa, nombreEnMapa } from "@/lib/cono-sur-ilustrado";
 
-const PREVIEW_SLUGS = [
-  "buenos-aires",
-  "tucuman",
-  "rosario",
-  "cordoba",
-  "yapeyu",
-  "san-lorenzo",
-  "caseros",
-] as const;
+export { LUGARES_PREVIEW_SLUGS } from "@/data/lugares-preview";
 
 type Props = {
   lugares: Lugar[];
@@ -71,9 +64,7 @@ export function MapaExploratorio({ lugares, completo = false, esMecenas = false 
   const visibles = useMemo(() => {
     let lista = conCoords;
     if (!mapaCompleto) {
-      lista = lista.filter((l) =>
-        (PREVIEW_SLUGS as readonly string[]).includes(l.slug),
-      );
+      lista = lista.filter((l) => esLugarPreview(l.slug));
     }
     if (periodoFiltro) {
       lista = lista.filter((l) => l.periodo === periodoFiltro);
@@ -83,9 +74,7 @@ export function MapaExploratorio({ lugares, completo = false, esMecenas = false 
 
   const bloqueados = useMemo(() => {
     if (mapaCompleto) return [];
-    return conCoords.filter(
-      (l) => !(PREVIEW_SLUGS as readonly string[]).includes(l.slug),
-    );
+    return conCoords.filter((l) => !esLugarPreview(l.slug));
   }, [conCoords, mapaCompleto]);
 
   const puntos = useMemo(() => {

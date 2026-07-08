@@ -38,10 +38,17 @@ export default async function CartaMecenasPage() {
             herramientas de exploración sin distracciones.
           </p>
           <p>
-            En el roadmap honesto de fundadores: más crónicas inmersivas cada
-            mes, audio en piezas selectas y ampliación del calendario de
-            efemérides. Si sos fundador, tu voto sobre la próxima crónica llegará
-            antes que a nadie.
+            Hoy el archivo tiene 2 crónicas públicas y 2 exclusivas para
+            mecenas. El pipeline editorial apunta a una pieza nueva cada 6–8
+            semanas — sin prometer un volumen que todavía no existe.
+          </p>
+          <p>
+            En el roadmap de fundadores: audio en piezas selectas, ampliación del
+            calendario de efemérides y tu voto sobre la próxima crónica en{" "}
+            <Link href="/mecenas/voto" className="text-oro-claro hover:text-oro">
+              /mecenas/voto
+            </Link>
+            .
           </p>
           <p className="text-oro-claro">— El equipo de Argent</p>
         </div>

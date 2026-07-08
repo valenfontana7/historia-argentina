@@ -28,13 +28,13 @@ export const planes: Record<PlanId, PlanMembresia> = {
     descripcion:
       "La capa narrativa exclusiva de Argent: crónicas inmersivas, recorridos premium y exploración avanzada.",
     beneficios: [
-      "Crónicas exclusivas cada mes",
+      "2 crónicas exclusivas hoy (nueva cada 6–8 semanas)",
       "2 recorridos premium (Democracia y San Martín continental)",
       "Carta editorial mensual del mecenas",
       "Mapa histórico completo con filtros por época",
       "Timeline con capa avanzada para mecenas",
       "Tu nombre en el muro de créditos",
-      "Sin publicidad",
+      "Exploración inmersiva sin interrupciones",
     ],
   },
   fundador: {
@@ -49,9 +49,9 @@ export const planes: Record<PlanId, PlanMembresia> = {
     beneficios: [
       "Todo lo del plan Mecenas",
       "Tasa de fundador por un año",
-      "Voto anticipado sobre la próxima crónica",
+      "Voto anticipado sobre la próxima crónica (en /mecenas/voto)",
       "Nombre destacado en los créditos",
-      "Acceso anticipado a nuevas crónicas",
+      "Acceso anticipado a nuevas crónicas del pipeline",
     ],
   },
 };

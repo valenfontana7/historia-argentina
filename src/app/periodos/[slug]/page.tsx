@@ -11,6 +11,7 @@ import { obtenerPeriodo, periodos } from "@/data/periodos";
 import { obtenerNodo } from "@/lib/grafo/queries";
 import { enlaceDeHitoPeriodo } from "@/lib/periodo-enlaces";
 import { construirMetadata } from "@/lib/seo/metadata";
+import { sitio } from "@/lib/site.config";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -28,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     descripcion: periodo.descripcion,
     ruta: `/periodos/${slug}`,
     tipo: "article",
+    imagen: `${sitio.url}/periodos/${slug}/opengraph-image`,
   });
 }
 

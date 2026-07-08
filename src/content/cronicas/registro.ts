@@ -59,6 +59,20 @@ export const cronicas: CronicaMeta[] = [
     acceso: "mecenas",
     protagonista: { slug: "mariano-moreno", etiqueta: "La ficha de Mariano Moreno" },
   },
+  {
+    slug: "el-exodo-jujeno",
+    titulo: "El Éxodo Jujeño",
+    subtitulo:
+      "Belgrano quema la tierra, evacúa una ciudad entera y convierte la geografía en arma contra el ejército realista.",
+    kicker: "Exclusiva Mecenas · Julio de 1812",
+    periodo: "Julio — Agosto de 1812",
+    duracion: "6 minutos",
+    descripcion:
+      "Crónica exclusiva sobre la evacuación de Jujuy: la decisión más dura de Belgrano antes de la batalla de Tucumán, contada como experiencia inmersiva.",
+    publicada: "2026-07-08",
+    acceso: "mecenas",
+    protagonista: { slug: "manuel-belgrano", etiqueta: "La ficha de Belgrano" },
+  },
 ];
 
 export const cargadores: Record<string, () => Promise<{ default: ComponentType }>> = {
@@ -66,6 +80,7 @@ export const cargadores: Record<string, () => Promise<{ default: ComponentType }
   "la-ciudad-que-vencio-a-un-imperio": () =>
     import("@/content/cronicas/la-ciudad-que-vencio-a-un-imperio.mdx"),
   "las-48-horas-de-mayo": () => import("@/content/cronicas/las-48-horas-de-mayo.mdx"),
+  "el-exodo-jujeno": () => import("@/content/cronicas/el-exodo-jujeno.mdx"),
 };
 
 export function obtenerCronica(slug: string): CronicaMeta | undefined {

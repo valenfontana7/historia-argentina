@@ -20,32 +20,39 @@ type Props = {
   cronicaDestacadaSlug: string;
 };
 
+function rutaPorDefecto(esMecenas: boolean, cronicaDestacadaSlug: string): Ruta {
+  if (esMecenas) {
+    return {
+      href: "/mecenas",
+      kicker: "Tu museo",
+      titulo: "Retomá donde lo dejaste",
+      descripcion:
+        "Crónicas exclusivas, recorridos premium y tu área de mecenas te esperan.",
+      cta: "Entrar a tu museo →",
+    };
+  }
+  return {
+    href: `/cronicas/${cronicaDestacadaSlug}`,
+    kicker: "Empezá acá",
+    titulo: "Viví una crónica inmersiva",
+    descripcion:
+      "La mejor forma de conocer Argent: una historia contada con scroll, mapas y citas — como un documental.",
+    cta: "Empezar la crónica →",
+  };
+}
+
 export function RutaRecomendada({ esMecenas, cronicaDestacadaSlug }: Props) {
-  const [ruta, setRuta] = useState<Ruta | null>(null);
+  const [ruta, setRuta] = useState<Ruta>(() =>
+    rutaPorDefecto(esMecenas, cronicaDestacadaSlug),
+  );
 
   useEffect(() => {
     if (esMecenas) {
-      setRuta({
-        href: "/mecenas",
-        kicker: "Tu museo",
-        titulo: "Retomá donde lo dejaste",
-        descripcion:
-          "Crónicas exclusivas, recorridos premium y tu área de mecenas te esperan.",
-        cta: "Entrar a tu museo →",
-      });
+      setRuta(rutaPorDefecto(true, cronicaDestacadaSlug));
       return;
     }
 
-    if (!tieneVisitaOnboarding()) {
-      setRuta({
-        href: `/cronicas/${cronicaDestacadaSlug}`,
-        kicker: "Empezá acá",
-        titulo: "Viví una crónica inmersiva",
-        descripcion:
-          "La mejor forma de conocer Argent: una historia contada con scroll, mapas y citas — como un documental.",
-        cta: "Empezar la crónica →",
-      });
-    } else {
+    if (tieneVisitaOnboarding()) {
       setRuta({
         href: "/hoy",
         kicker: "Volvé por acá",
@@ -56,8 +63,6 @@ export function RutaRecomendada({ esMecenas, cronicaDestacadaSlug }: Props) {
       });
     }
   }, [esMecenas, cronicaDestacadaSlug]);
-
-  if (!ruta) return null;
 
   const alClic = () => {
     if (!esMecenas) marcarVisitaOnboarding();

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MagicLinkForm } from "@/components/membresia/MagicLinkForm";
 
@@ -13,9 +14,11 @@ type ResultadoSync = {
   emailEnviado?: boolean;
   errorEmail?: string;
   mensaje?: string;
+  sesion?: boolean;
 };
 
 export function GraciasPostPago({ emailInicial }: Props) {
+  const router = useRouter();
   const [estado, setEstado] = useState<
     "idle" | "sincronizando" | "activado" | "activo" | "pendiente" | "error"
   >("idle");
@@ -32,7 +35,11 @@ export function GraciasPostPago({ emailInicial }: Props) {
         const res = await fetch("/api/mp/sincronizar", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: emailInicial, reenviarEmail: true }),
+          body: JSON.stringify({
+            email: emailInicial,
+            reenviarEmail: true,
+            establecerSesion: true,
+          }),
         });
         const data = (await res.json()) as ResultadoSync;
 
@@ -44,10 +51,17 @@ export function GraciasPostPago({ emailInicial }: Props) {
           return;
         }
 
+        if (data.sesion && (data.estado === "activado" || data.estado === "activo")) {
+          setEstado(data.estado === "activado" ? "activado" : "activo");
+          setMensajeSync("¡Listo! Te llevamos a tu museo…");
+          router.replace("/mecenas");
+          return;
+        }
+
         if (data.errorEmail) {
           setEstado("error");
           setMensajeSync(
-            `Tu membresía está activa pero el email falló: ${data.errorEmail}`,
+            `Tu membresía está activa pero el email falló: ${data.errorEmail}. Pedí el enlace abajo.`,
           );
           return;
         }
@@ -57,16 +71,16 @@ export function GraciasPostPago({ emailInicial }: Props) {
             setEstado("activado");
             setMensajeSync(
               data.emailEnviado
-                ? "¡Listo! Te mandamos un email de confirmación con tu enlace de acceso."
-                : "Membresía activada. Pedí el enlace abajo si no llegó el email.",
+                ? "Membresía activada. Si no entraste automáticamente, pedí el enlace abajo."
+                : "Membresía activada. Pedí el enlace abajo para entrar.",
             );
             break;
           case "activo":
             setEstado("activo");
             setMensajeSync(
               data.emailEnviado
-                ? "Te reenviamos el email de confirmación con tu enlace de acceso."
-                : "Tu membresía ya está activa. Pedí el enlace abajo si no llegó el email.",
+                ? "Tu membresía ya está activa. Pedí el enlace abajo si no entraste solo."
+                : "Tu membresía ya está activa. Pedí el enlace abajo.",
             );
             break;
           case "pendiente":
@@ -93,13 +107,13 @@ export function GraciasPostPago({ emailInicial }: Props) {
     return () => {
       cancelado = true;
     };
-  }, [emailInicial]);
+  }, [emailInicial, router]);
 
   return (
     <div className="mt-10 space-y-4">
       {emailInicial && estado === "sincronizando" && (
         <p className="text-sm text-tinta-suave" role="status">
-          Verificando tu pago con MercadoPago…
+          Verificando tu pago y preparando tu acceso…
         </p>
       )}
       {mensajeSync && (

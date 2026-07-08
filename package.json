@@ -10,7 +10,8 @@
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
-    "grafo:validar": "npx tsx scripts/grafo-validar.ts"
+    "grafo:validar": "npx tsx scripts/grafo-validar.ts",
+    "efemerides:validar": "npx tsx scripts/efemerides-validar-narrativa.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

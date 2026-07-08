@@ -57,3 +57,13 @@ model MembresiaSettings {
   precioFundador     Int      @default(39990)
   updatedAt          DateTime @updatedAt
 }
+
+model VotoCronicaFundador {
+  id         String   @id @default(cuid())
+  mecenasId  String   @unique
+  opcionSlug String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([opcionSlug])
+}

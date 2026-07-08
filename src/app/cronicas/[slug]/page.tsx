@@ -43,6 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ruta: `/cronicas/${slug}`,
     tipo: "article",
     noindex: exclusiva,
+    imagen: `${sitio.url}/cronicas/${slug}/opengraph-image`,
   });
 }
 

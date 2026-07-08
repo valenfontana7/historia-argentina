@@ -53,8 +53,8 @@ export const narrativaEfemerides: Record<string, NarrativaEfemeride> = {
     giro: "No era un símbolo oficial todavía: era un estandarte de guerra que un general improvisado necesitaba para distinguir a sus hombres en la batalla.",
   },
   "1-de-mayo": {
-    hook: "En Chicago, en 1886, una huelga por la jornada de ocho horas terminó en sangre.",
-    giro: "Ese 1 de mayo se convirtió en símbolo mundial del trabajo — y en Argentina, en feriado y memoria de quienes pelearon por derechos que hoy damos por sentados.",
+    hook: "Cuatro décadas de anarquía, guerras civiles y caudillos terminaron con una ley suprema sancionada en Santa Fe.",
+    giro: "La Constitución de 1853, inspirada en las Bases de Alberdi, intentó por fin convertir provincias en nación.",
   },
   "24-de-marzo": {
     hook: "Una mañana de 1976, los tanques salieron a la calle y el país despertó bajo un nuevo régimen.",
@@ -80,10 +80,6 @@ export const narrativaEfemerides: Record<string, NarrativaEfemeride> = {
     hook: "Pedro de Mendoza fundó la primera Buenos Aires — una ciudad condenada al hambre y al fuego.",
     giro: "Duró poco: en 1541 sus propios pobladores la abandonaron e incendiaron. La capital definitiva llegaría con Garay, cuarenta años después.",
   },
-  "27-de-febrero": {
-    hook: "La batalla de Chacabuco selló la independencia de Chile — y validó el plan más audaz de San Martín.",
-    giro: "Menos de un mes después del cruce de los Andes, el Ejército de los Andes venció en campo abierto al realismo.",
-  },
   "20-de-febrero": {
     hook: "La batalla de Salta cerró la campaña del Norte con una victoria decisiva de Belgrano.",
     giro: "El general donó sus premios para fundar escuelas — y demostró que la revolución también podía construir, no solo destruir.",
@@ -93,28 +89,32 @@ export const narrativaEfemerides: Record<string, NarrativaEfemeride> = {
     giro: "Abrió una serie de interrupciones democráticas que marcarían el siglo XX: la política argentina nunca volvería a ser la misma.",
   },
   "16-de-junio": {
-    hook: "La Revolución del Parque de 1890 fue la primera gran rebelión civil contra la oligarquía.",
-    giro: "Fracasó en las armas, pero obligó a reformas que abrieron el camino al voto secreto y al sufragio universal masculino.",
+    hook: "Aviones de la Marina bombardearon y ametrallaron la Plaza de Mayo en plena tarde de un día hábil.",
+    giro: "El intento de asesinar a Perón dejó más de 300 civiles muertos — entre ellos escolares en un colectivo.",
   },
   "11-de-septiembre": {
     hook: "En 1852, en Caseros, Urquiza derrotó a Rosas y cambió el equilibrio del poder.",
     giro: "La batalla más grande de la historia argentina hasta entonces puso fin a dos décadas de rosismo y abrió la Constitución de 1853.",
   },
   "12-de-febrero": {
-    hook: "En 1812, el general Manuel Belgrano juró lealtad a la Primera Junta en el Cabildo de Buenos Aires.",
-    giro: "Ese acto selló su compromiso con la revolución y lo empujó hacia la guerra del Norte — y hacia la bandera.",
+    hook: "Apenas días después de cruzar los Andes, el Ejército de los Andes chocó con el realismo en la cuesta de Chacabuco.",
+    giro: "O'Higgins atacó de frente, Soler envolvió por el oeste y la caballería remató: Chile quedó en camino a la independencia.",
   },
   "15-de-febrero": {
-    hook: "En 1881, Roca y Alsina firmaron el pacto que federalizó Buenos Aires.",
-    giro: "Cerró décadas de conflicto porteño-interior por el control del puerto y las rentas aduaneras.",
+    hook: "En una casa de adobe de San Juan, bajo una higuera, nació quien haría de la escuela pública una obsesión nacional.",
+    giro: "Domingo Faustino Sarmiento pasaría del Facundo al aula: su vida entera fue una guerra contra la barbarie escrita con libros.",
   },
   "25-de-febrero": {
-    hook: "En 1812, el general Manuel Belgrano creó la Escuadra Nacional en la Fortaleza de Buenos Aires.",
-    giro: "La apuesta naval complementaba la Campaña del Norte: la revolución pensaba en términos continentales.",
+    hook: "En Yapeyú, en las misiones jesuíticas del litoral, nació el hijo de un oficial español que liberaría medio continente.",
+    giro: "José de San Martín crecería en España, volvería a los 34 años y concebiría el plan más audaz de la independencia sudamericana.",
+  },
+  "27-de-febrero": {
+    hook: "A orillas del Paraná, Belgrano hizo jurar a sus soldados una bandera nueva, celeste y blanca.",
+    giro: "No era símbolo oficial todavía: era un estandarte de guerra para distinguir a sus hombres en plena Campaña del Norte.",
   },
   "2-de-abril": {
-    hook: "En 1807, los porteños rechazaron por segunda vez a las tropas británicas en las calles de Buenos Aires.",
-    giro: "La Reconquista demostró que el virreinato podía defenderse sin el rey — y encendió la idea de autogobierno.",
+    hook: "Tropas argentinas desembarcaron en las Malvinas y recuperaron Puerto Argentino en nombre de la patria.",
+    giro: "La dictadura apostó a una causa nacional profunda — y abrió una guerra de 74 días que el país aún no terminó de procesar.",
   },
   "5-de-abril": {
     hook: "En 1818, en Maipú, San Martín selló la independencia de Chile.",
@@ -133,56 +133,56 @@ export const narrativaEfemerides: Record<string, NarrativaEfemeride> = {
     giro: "La letra de Vicente López y la música de Blas Parera buscaban unir provincias en guerra contra el mismo enemigo.",
   },
   "10-de-junio": {
-    hook: "En 1940, murió el general Manuel Belgrano — el intelectual que la revolución convirtió en general.",
-    giro: "Su legado mezcla bandera, escuelas y batallas: el héroe que soñaba con educar antes que con conquistar.",
+    hook: "Buenos Aires creó la primera comandancia política y militar argentina en las Islas Malvinas.",
+    giro: "Luis Vernet ya tenía colonia en Puerto Soledad: el Estado rioplatense intentó afirmar soberanía con familias, ganado y comercio.",
   },
   "14-de-junio": {
-    hook: "En 1956, el general Juan José Valle fue fusilado tras el fallido levantamiento de la Frontera.",
-    giro: "Su muerte marcó el fin de la resistencia peronista armada en los primeros años de la proscripción.",
+    hook: "Tras 74 días de guerra, las fuerzas argentinas en Puerto Argentino se rindieron.",
+    giro: "649 argentinos, 255 británicos y 3 isleñas muertos: miles de veteranos cargarían las heridas del conflicto durante décadas.",
   },
   "17-de-junio": {
-    hook: "En 1953, Evita recibió el título de Jefa Espiritual de la Nación.",
-    giro: "Fue el reconocimiento institucional de una figura que ya movía masas desde la Secretaría de Trabajo y la Fundación.",
+    hook: "Herido diez días antes en una incursión realista, Güemes murió en un catre rodeado de sus gauchos.",
+    giro: "A los 36 años, el único general argentino caído en acción en la Independencia cerró la Guerra Gaucha que sostuvo el norte.",
   },
   "1-de-julio": {
-    hook: "En 1816, el Congreso de Tucumán abrió sesiones en la casa de Francisca Bazán de Laguna.",
-    giro: "Nueve días después pronunciarían la independencia — pero primero debían decidir si el país podía existir sin España.",
+    hook: "A los 78 años, en ejercicio de su tercera presidencia, murió Juan Domingo Perón.",
+    giro: "Días antes había dicho desde el balcón de la Casa Rosada que llevaba en los oídos la palabra del pueblo argentino.",
   },
   "7-de-julio": {
-    hook: "En 1816, el Congreso de Tucumán declaró la independencia de las Provincias Unidas del Sur.",
-    giro: "La palabra se pronunció entre guerras civiles y con el ejército realista aún dominando Lima.",
+    hook: "El general Whitelocke firmó la capitulación: sus tropas deshechas se retiraban del Río de la Plata.",
+    giro: "Buenos Aires, sin ayuda de España, había derrotado por segunda vez al mayor imperio del mundo en sus propias calles.",
   },
   "22-de-agosto": {
-    hook: "En 1806, Santiago de Liniers rechazó la primera invasión inglesa en las calles de Buenos Aires.",
-    giro: "Un oficial francés al servicio de España se convirtió en héroe popular — y en símbolo de que el virreinato podía autogobernarse.",
+    hook: "Cerca de un millón de personas colmaron la avenida 9 de Julio pidiendo que Evita aceptara la vicepresidencia.",
+    giro: "Desde el palco, entre lágrimas, pidió tiempo: «Haré lo que diga el pueblo» — y el justicialismo mostró su fuerza de masas.",
   },
   "27-de-agosto": {
-    hook: "En 1828, el tratado con el Brasil reconoció la independencia de la Banda Oriental.",
-    giro: "Uruguay nació como estado separado del proyecto rioplatense — y la herida territorial sigue en la memoria argentina.",
+    hook: "Desde el techo del Teatro Coliseo, cuatro jóvenes transmitieron la ópera Parsifal por primera vez al público.",
+    giro: "Los «locos de la azotea» inventaron la radiodifusión regular: la radio como medio masivo nació en Buenos Aires.",
   },
   "16-de-septiembre": {
-    hook: "En 1810, el general Manuel Belgrano juró defender la Primera Junta con su vida.",
-    giro: "Ese juramento lo empujó hacia la Campaña del Norte, donde ganaría las batallas que salvaron la revolución.",
+    hook: "Un alzamiento cívico-militar iniciado en Córdoba terminó con la renuncia de Perón en pocos días.",
+    giro: "La Revolución Libertadora lo envió al exilio por 18 años — y abrió la proscripción peronista que marcaría el siglo.",
   },
   "8-de-octubre": {
-    hook: "En 1895, murió Domingo Faustino Sarmiento — el presidente que más apostó por la educación pública.",
-    giro: "De Facundo a la presidencia: su vida entera fue una guerra contra la barbarie, escrita con escuelas y con pluma.",
+    hook: "En Lobos, provincia de Buenos Aires, nació quien redefiniría la política argentina del siglo XX.",
+    giro: "Juan Domingo Perón pasaría del Colegio Militar a la Secretaría de Trabajo — y a tres presidencias que aún dividen al país.",
   },
   "30-de-octubre": {
-    hook: "En 1974, murió el general Juan Domingo Perón — tres veces presidente y figura central del siglo XX argentino.",
-    giro: "Su muerte dejó un vacío de poder que el país aún no había terminado de llenar cuando estalló la dictadura.",
+    hook: "Tras siete años de dictadura, los argentinos volvieron a las urnas con el país quebrado y herido.",
+    giro: "Raúl Alfonsín ganó con el 52 % prometiendo juzgar el terrorismo de Estado — y la democracia volvió para quedarse.",
   },
   "10-de-noviembre": {
-    hook: "En 1890, la Revolución del Parque estalló contra la oligarquía conservadora.",
-    giro: "Fracasó en las armas, pero obligó a reformas que abrieron el camino al voto secreto y al sufragio universal masculino.",
+    hook: "En el Perdriel nació José Hernández, el autor que convirtió al gaucho perseguido en símbolo de la patria.",
+    giro: "El Martín Fierro no es solo un poema: es el día en que la tradición argentina se volvió literatura universal.",
   },
   "20-de-noviembre": {
-    hook: "En 1955, un golpe militar derrocó a Perón y lo obligó al exilio.",
-    giro: "La Revolución Libertadora abrió dieciocho años de proscripción peronista — y una grieta que el país nunca cerró del todo.",
+    hook: "En un recodo del Paraná, unos mil hombres y tres cadenas enfrentaron la flota anglo-francesa más poderosa del continente.",
+    giro: "La Vuelta de Obligado duró siete horas: Argentina perdió la batalla, pero ganó el símbolo de soberanía que Rosas supo explotar.",
   },
   "8-de-enero": {
-    hook: "En 1817, San Martín cruzó los Andes con más de 5.000 hombres.",
-    giro: "Fue la operación militar más audaz de la independencia sudamericana — y el clímax de su plan continental.",
+    hook: "Argentina, Brasil y Uruguay sellaron en Buenos Aires un tratado secreto contra Paraguay.",
+    giro: "La Triple Alianza abrió la guerra más sangrienta de América del Sur — y una herida que el continente aún procesa.",
   },
 };
 

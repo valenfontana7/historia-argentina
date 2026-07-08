@@ -22,9 +22,8 @@ export default async function MembresiaGraciasPage({ searchParams }: Props) {
         Gracias por sostener Argent
       </h1>
       <p className="mt-6 text-base leading-relaxed text-tinta-suave">
-        Te mandamos un email de confirmación con tu enlace de acceso al área de
-        mecenas. Si tarda unos minutos, podés pedirlo acá con el mismo correo del
-        pago.
+        Si tu pago ya se confirmó, te redirigimos automáticamente a tu museo.
+        Si no, pedí el enlace de acceso con el mismo correo del checkout.
       </p>
       <GraciasPostPago emailInicial={email || undefined} />
       <Link

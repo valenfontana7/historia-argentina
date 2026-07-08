@@ -26,6 +26,7 @@ import { obtenerVarios } from "@/data/personajes";
 import { cronicas } from "@/content/cronicas/registro";
 import { obtenerNodo } from "@/lib/grafo/queries";
 import { construirMetadata } from "@/lib/seo/metadata";
+import { sitio } from "@/lib/site.config";
 import { eventoJsonLd, migajasJsonLd } from "@/lib/seo/jsonld";
 import { hoyEnArgentina } from "@/lib/fechas";
 
@@ -47,6 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     descripcion: `${efemeride.fecha} de ${efemeride.anio}: ${efemeride.titulo}. La historia del día, contada en 90 segundos.`,
     ruta: `/hoy/${dia}`,
     tipo: "article",
+    imagen: `${sitio.url}/hoy/${dia}/opengraph-image`,
   });
 }
 

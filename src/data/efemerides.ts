@@ -1,3 +1,5 @@
+import { efemeridesAmpliacion } from "./efemerides-ampliacion";
+
 export type CitaEfemeride = {
   texto: string;
   atribucion?: string;
@@ -49,7 +51,7 @@ export function formatearFechaCalendario(mes: number, numero: number): string {
   return `${numero} de ${nombre}`;
 }
 
-export const efemerides: Efemeride[] = [
+const efemeridesBase: Efemeride[] = [
   {
     dia: "31-de-enero",
     numero: 31,
@@ -946,6 +948,11 @@ export const efemerides: Efemeride[] = [
     ],
     relacionados: ["juan-manuel-de-rosas", "justo-jose-de-urquiza", "manuel-belgrano"],
   },
+];
+
+export const efemerides: Efemeride[] = [
+  ...efemeridesBase,
+  ...(efemeridesAmpliacion as Efemeride[]),
 ];
 
 const ordenadas = [...efemerides].sort((a, b) =>

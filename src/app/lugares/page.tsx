@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MapaHistorico } from "@/components/mecenas/MapaHistorico";
+import {
+  esLugarPreview,
+  LUGARES_PREVIEW_SLUGS,
+} from "@/data/lugares-preview";
+import { MapaExploratorio } from "@/components/exploracion/MapaExploratorio";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import { lugares } from "@/data/lugares";
@@ -17,6 +21,9 @@ export const metadata: Metadata = construirMetadata({
 
 export default async function LugaresPage() {
   const esMecenas = await puedeVerContenidoMecenas();
+  const lugaresVisibles = esMecenas
+    ? lugares
+    : lugares.filter((l) => esLugarPreview(l.slug));
   const migajas = [
     { nombre: "Inicio", href: "/" },
     { nombre: "Lugares", href: "/lugares" },
@@ -47,12 +54,35 @@ export default async function LugaresPage() {
           <div className="filete mt-10 w-32" />
         </Reveal>
 
+        {!esMecenas && (
+          <Reveal className="mt-10">
+            <div className="rounded-sm border border-oro/30 bg-fondo-2 p-6 sm:p-8">
+              <p className="kicker text-oro">Vista previa</p>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-tinta-suave">
+                Mostramos {LUGARES_PREVIEW_SLUGS.length} lugares emblemáticos del
+                archivo. Mecenas desbloquea el mapa completo con todos los
+                marcadores, filtros por época y rutas curatoriales.
+              </p>
+              <Link
+                href="/membresia"
+                className="mt-5 inline-block rounded-full bg-oro px-6 py-3 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro"
+              >
+                Ver membresía Mecenas →
+              </Link>
+            </div>
+          </Reveal>
+        )}
+
         <Reveal className="mt-12">
-          <MapaHistorico interactivo={esMecenas} esMecenas={esMecenas} />
+          <MapaExploratorio
+            lugares={lugares}
+            completo={esMecenas}
+            esMecenas={esMecenas}
+          />
         </Reveal>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {lugares.map((lugar, i) => (
+          {lugaresVisibles.map((lugar, i) => (
             <Reveal key={lugar.slug} delay={i * 0.05}>
               <Link
                 href={`/lugares/${lugar.slug}`}
@@ -69,6 +99,21 @@ export default async function LugaresPage() {
             </Reveal>
           ))}
         </div>
+
+        {!esMecenas && lugares.length > lugaresVisibles.length && (
+          <Reveal className="mt-12 text-center">
+            <p className="text-sm text-tinta-suave">
+              +{lugares.length - lugaresVisibles.length} lugares más en el mapa
+              completo para mecenas.
+            </p>
+            <Link
+              href="/membresia"
+              className="mt-4 inline-block text-sm text-oro-claro hover:text-oro"
+            >
+              Desbloquear el archivo geográfico →
+            </Link>
+          </Reveal>
+        )}
       </div>
     </div>
   );
