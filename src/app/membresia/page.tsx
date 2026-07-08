@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { CheckoutForm } from "@/components/membresia/CheckoutForm";
+import { esMecenasActivo } from "@/lib/auth";
 import { formatearPrecio } from "@/lib/membresia.config";
 import { planesVisiblesPublico } from "@/lib/membresia-settings";
 import { construirMetadata } from "@/lib/seo/metadata";
@@ -40,6 +42,8 @@ const faqs = [
 ];
 
 export default async function MembresiaPage() {
+  if (await esMecenasActivo()) redirect("/mecenas");
+
   const planesPublicos = await planesVisiblesPublico();
 
   return (

@@ -56,6 +56,10 @@ export default async function CronicaPage({ params }: Props) {
   const Contenido = mostrarContenido ? (await cargador()).default : null;
   const nodo = obtenerNodo("cronica", slug);
   const rutaCronica = `/cronicas/${cronica.slug}`;
+  const kickerHero =
+    exclusivas && mecenas
+      ? cronica.kicker.replace(/^Exclusiva Mecenas/, "Tu exclusiva")
+      : cronica.kicker;
 
   const migajas = [
     { nombre: "Inicio", href: "/" },
@@ -81,7 +85,7 @@ export default async function CronicaPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <EscenaHero
-        kicker={cronica.kicker}
+        kicker={kickerHero}
         titulo={cronica.titulo}
         subtitulo={cronica.subtitulo}
         meta={`${cronica.periodo} · Lectura: ${cronica.duracion}`}

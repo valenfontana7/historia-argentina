@@ -1,21 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { sitio } from "@/lib/site.config";
 
-const enlaces = [
+const ENLACES_BASE = [
   { href: "/explorar", etiqueta: "Explorar" },
   { href: "/timelines", etiqueta: "Timeline" },
   { href: "/jugar", etiqueta: "Jugar" },
   { href: "/cronicas", etiqueta: "Crónicas" },
   { href: "/panteon", etiqueta: "El Panteón" },
   { href: "/hoy", etiqueta: "Hoy" },
-  { href: "/membresia", etiqueta: "Mecenas" },
 ] as const;
 
-export function Header() {
+type Props = {
+  esMecenas: boolean;
+};
+
+export function Header({ esMecenas }: Props) {
   const [menuAbierto, setMenuAbierto] = useState(false);
+
+  const enlaces = useMemo(
+    () => [
+      ...ENLACES_BASE,
+      esMecenas
+        ? ({ href: "/mecenas", etiqueta: "Tu museo", mecenas: true } as const)
+        : ({ href: "/membresia", etiqueta: "Mecenas", mecenas: false } as const),
+    ],
+    [esMecenas],
+  );
 
   const cerrarMenu = useCallback(() => setMenuAbierto(false), []);
 
@@ -54,8 +67,12 @@ export function Header() {
             <Link
               key={enlace.href}
               href={enlace.href}
-              className="text-tinta-suave transition-colors hover:text-oro-claro"
+              className="inline-flex items-center gap-1.5 text-tinta-suave transition-colors hover:text-oro-claro"
+              aria-label={"mecenas" in enlace && enlace.mecenas ? "Sesión de mecenas activa" : undefined}
             >
+              {"mecenas" in enlace && enlace.mecenas && (
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-celeste" aria-hidden />
+              )}
               {enlace.etiqueta}
             </Link>
           ))}
@@ -110,9 +127,13 @@ export function Header() {
                 <li key={enlace.href}>
                   <Link
                     href={enlace.href}
-                    className="flex min-h-11 items-center text-base text-tinta-suave transition-colors hover:text-oro-claro"
+                    className="flex min-h-11 items-center gap-2 text-base text-tinta-suave transition-colors hover:text-oro-claro"
                     onClick={cerrarMenu}
+                    aria-label={"mecenas" in enlace && enlace.mecenas ? "Sesión de mecenas activa" : undefined}
                   >
+                    {"mecenas" in enlace && enlace.mecenas && (
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-celeste" aria-hidden />
+                    )}
                     {enlace.etiqueta}
                   </Link>
                 </li>

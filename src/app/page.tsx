@@ -10,6 +10,7 @@ import { personajes } from "@/data/personajes";
 import { cronicas } from "@/content/cronicas/registro";
 import { todosLosNodos } from "@/lib/grafo/queries";
 import { hoyEnArgentina } from "@/lib/fechas";
+import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { sitio } from "@/lib/site.config";
 
@@ -33,7 +34,8 @@ const destacados = [
   "raul-alfonsin",
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const esMecenas = await puedeVerContenidoMecenas();
   const { mes, dia } = hoyEnArgentina();
   const efemeride = efemerideParaFecha(mes, dia);
   const cronicaDestacada = cronicas[0];
@@ -199,7 +201,7 @@ export default function HomePage() {
             Gratis, sin spam, para siempre.
           </p>
           <div className="mt-8">
-            <BoletinForm />
+            <BoletinForm esMecenas={esMecenas} />
           </div>
         </Reveal>
       </section>

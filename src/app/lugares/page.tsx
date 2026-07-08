@@ -4,6 +4,7 @@ import { MapaHistorico } from "@/components/mecenas/MapaHistorico";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import { lugares } from "@/data/lugares";
+import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 
@@ -14,7 +15,8 @@ export const metadata: Metadata = construirMetadata({
   ruta: "/lugares",
 });
 
-export default function LugaresPage() {
+export default async function LugaresPage() {
+  const esMecenas = await puedeVerContenidoMecenas();
   const migajas = [
     { nombre: "Inicio", href: "/" },
     { nombre: "Lugares", href: "/lugares" },
@@ -46,7 +48,7 @@ export default function LugaresPage() {
         </Reveal>
 
         <Reveal className="mt-12">
-          <MapaHistorico interactivo={false} />
+          <MapaHistorico interactivo={esMecenas} esMecenas={esMecenas} />
         </Reveal>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

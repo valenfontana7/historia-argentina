@@ -4,7 +4,11 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { suscribir, type EstadoSuscripcion } from "@/app/acciones";
 
-export function BoletinForm() {
+type Props = {
+  esMecenas?: boolean;
+};
+
+export function BoletinForm({ esMecenas = false }: Props) {
   const [estado, accion, pendiente] = useActionState<EstadoSuscripcion | null, FormData>(
     suscribir,
     null,
@@ -37,7 +41,7 @@ export function BoletinForm() {
           <p className={`text-sm ${estado.ok ? "text-oro-claro" : "text-carmesi"}`}>
             {estado.mensaje}
           </p>
-          {estado.ok && estado.upsell && (
+          {estado.ok && estado.upsell && !esMecenas && (
             <p className="mt-2 text-sm text-tinta-suave">
               ¿Querés el anticipo de nuevas crónicas?{" "}
               <Link href="/membresia" className="text-oro-claro underline-offset-4 hover:underline">

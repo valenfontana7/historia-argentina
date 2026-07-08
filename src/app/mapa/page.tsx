@@ -2,6 +2,7 @@ import { MapaExploratorio } from "@/components/exploracion/MapaExploratorio";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import { lugares } from "@/data/lugares";
+import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 import Link from "next/link";
@@ -14,7 +15,8 @@ export const metadata: Metadata = construirMetadata({
   ruta: "/mapa",
 });
 
-export default function MapaPage() {
+export default async function MapaPage() {
+  const esMecenas = await puedeVerContenidoMecenas();
   const migajas = [
     { nombre: "Inicio", href: "/" },
     { nombre: "Explorar", href: "/explorar" },
@@ -35,19 +37,26 @@ export default function MapaPage() {
             Mapa exploratorio
           </h1>
           <p className="mt-6 max-w-2xl text-tinta-suave">
-            Los lugares donde se escribió la historia argentina. Vista previa con los
-            puntos esenciales; el mapa completo es para mecenas.
+            {esMecenas
+              ? "Los lugares donde se escribió la historia argentina. Mapa completo con filtros por período."
+              : "Los lugares donde se escribió la historia argentina. Vista previa con los puntos esenciales; el mapa completo es para mecenas."}
           </p>
         </Reveal>
 
         <Reveal className="mt-10">
-          <MapaExploratorio lugares={lugares} completo={false} />
+          <MapaExploratorio lugares={lugares} completo={esMecenas} esMecenas={esMecenas} />
         </Reveal>
 
         <p className="mt-8 text-center text-sm">
-          <Link href="/lugares" className="text-oro-claro hover:text-oro">
-            Ver todas las fichas de lugares →
-          </Link>
+          {esMecenas ? (
+            <Link href="/mecenas/mapa" className="text-oro-claro hover:text-oro">
+              Abrir en tu área de mecenas →
+            </Link>
+          ) : (
+            <Link href="/lugares" className="text-oro-claro hover:text-oro">
+              Ver todas las fichas de lugares →
+            </Link>
+          )}
         </p>
       </div>
     </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { cronicas } from "@/content/cronicas/registro";
+import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { construirMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = construirMetadata({
@@ -11,7 +12,8 @@ export const metadata: Metadata = construirMetadata({
   ruta: "/cronicas",
 });
 
-export default function CronicasPage() {
+export default async function CronicasPage() {
+  const esMecenas = await puedeVerContenidoMecenas();
   return (
     <div className="mx-auto max-w-6xl px-5 pb-28 pt-32">
       <Reveal>
@@ -50,7 +52,11 @@ export default function CronicasPage() {
                   <span>{cronica.periodo}</span>
                   <span>Lectura: {cronica.duracion}</span>
                   <span className="text-oro transition-transform duration-300 group-hover:translate-x-1.5">
-                    {exclusiva ? "Exclusiva mecenas →" : "Vivir la historia →"}
+                    {exclusiva
+                      ? esMecenas
+                        ? "Incluida en tu membresía →"
+                        : "Exclusiva mecenas →"
+                      : "Vivir la historia →"}
                   </span>
                 </div>
               </Link>

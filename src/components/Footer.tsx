@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { sitio } from "@/lib/site.config";
 
-export function Footer() {
+type Props = {
+  esMecenas: boolean;
+};
+
+export function Footer({ esMecenas }: Props) {
   return (
     <footer className="border-t border-linea-suave bg-fondo-2">
       <div className="mx-auto max-w-6xl px-5 py-14">
@@ -34,12 +38,20 @@ export function Footer() {
             <Link href="/hoy" className="text-tinta-suave transition-colors hover:text-oro-claro">
               Un día como hoy
             </Link>
-            <Link href="/membresia" className="text-oro-claro transition-colors hover:text-oro">
-              Hacete mecenas
-            </Link>
-            <Link href="/membresia/acceder" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              Ya soy mecenas
-            </Link>
+            {esMecenas ? (
+              <Link href="/mecenas" className="text-oro-claro transition-colors hover:text-oro">
+                Tu área de mecenas
+              </Link>
+            ) : (
+              <>
+                <Link href="/membresia" className="text-oro-claro transition-colors hover:text-oro">
+                  Hacete mecenas
+                </Link>
+                <Link href="/membresia/acceder" className="text-tinta-suave transition-colors hover:text-oro-claro">
+                  Ya soy mecenas
+                </Link>
+              </>
+            )}
             <Link href="/" className="text-tinta-suave transition-colors hover:text-oro-claro">
               Inicio
             </Link>

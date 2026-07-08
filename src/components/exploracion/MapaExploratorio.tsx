@@ -26,6 +26,7 @@ const PREVIEW_SLUGS = [
 type Props = {
   lugares: Lugar[];
   completo?: boolean;
+  esMecenas?: boolean;
 };
 
 const EPOCAS: Epoca[] = [
@@ -47,7 +48,8 @@ type PuntoMapa = {
   bloqueado: boolean;
 };
 
-export function MapaExploratorio({ lugares, completo = false }: Props) {
+export function MapaExploratorio({ lugares, completo = false, esMecenas = false }: Props) {
+  const mapaCompleto = completo || esMecenas;
   const router = useRouter();
   const [periodoFiltro, setPeriodoFiltro] = useState<Epoca | "">("");
   const [hover, setHover] = useState<string | null>(null);
@@ -68,7 +70,7 @@ export function MapaExploratorio({ lugares, completo = false }: Props) {
 
   const visibles = useMemo(() => {
     let lista = conCoords;
-    if (!completo) {
+    if (!mapaCompleto) {
       lista = lista.filter((l) =>
         (PREVIEW_SLUGS as readonly string[]).includes(l.slug),
       );
@@ -77,14 +79,14 @@ export function MapaExploratorio({ lugares, completo = false }: Props) {
       lista = lista.filter((l) => l.periodo === periodoFiltro);
     }
     return lista;
-  }, [conCoords, completo, periodoFiltro]);
+  }, [conCoords, mapaCompleto, periodoFiltro]);
 
   const bloqueados = useMemo(() => {
-    if (completo) return [];
+    if (mapaCompleto) return [];
     return conCoords.filter(
       (l) => !(PREVIEW_SLUGS as readonly string[]).includes(l.slug),
     );
-  }, [conCoords, completo]);
+  }, [conCoords, mapaCompleto]);
 
   const puntos = useMemo(() => {
     const out: PuntoMapa[] = [];
@@ -106,7 +108,7 @@ export function MapaExploratorio({ lugares, completo = false }: Props) {
   }, [visibles, bloqueados]);
 
   const rutas = useMemo(() => {
-    if (!completo || visibles.length < 2) return [];
+    if (!mapaCompleto || visibles.length < 2) return [];
     const lineas: { x1: number; y1: number; x2: number; y2: number }[] = [];
     const activos = puntos.filter((p) => !p.bloqueado);
     for (const origen of activos.slice(0, 5)) {
@@ -128,11 +130,11 @@ export function MapaExploratorio({ lugares, completo = false }: Props) {
       }
     }
     return lineas;
-  }, [completo, visibles.length, puntos]);
+  }, [mapaCompleto, visibles.length, puntos]);
 
   return (
     <div className="relative overflow-hidden rounded-sm border border-linea bg-[#060910]">
-      {completo && (
+      {mapaCompleto && (
         <div className="flex flex-wrap gap-2 border-b border-linea bg-fondo-2 p-4">
           <button
             type="button"
@@ -180,9 +182,9 @@ export function MapaExploratorio({ lugares, completo = false }: Props) {
           ))}
           {puntos.map((p) => {
             const activo = hover === p.lugar.slug;
-            const clickable = completo && !p.bloqueado;
+            const clickable = mapaCompleto && !p.bloqueado;
             const color = p.bloqueado ? "#5a6478" : "#c6a15b";
-            const mostrarEtiqueta = esMobile || activo || (!completo && !p.bloqueado);
+            const mostrarEtiqueta = esMobile || activo || (!mapaCompleto && !p.bloqueado);
 
             return (
               <g
@@ -249,7 +251,7 @@ export function MapaExploratorio({ lugares, completo = false }: Props) {
         ))}
       </ul>
 
-      {!completo && bloqueados.length > 0 && (
+      {!mapaCompleto && bloqueados.length > 0 && (
         <p className="border-t border-linea bg-fondo-3 px-4 py-3 text-center text-xs text-tinta-tenue">
           +{bloqueados.length} lugares más en el mapa completo →{" "}
           <Link href="/membresia" className="text-oro-claro hover:text-oro">

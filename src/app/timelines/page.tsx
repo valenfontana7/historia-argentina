@@ -5,7 +5,7 @@ import { TimelinePremium } from "@/components/mecenas/TimelinePremium";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import { aniosConEventos } from "@/lib/grafo/queries";
-import { obtenerSesion } from "@/lib/auth";
+import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 
@@ -17,7 +17,7 @@ export const metadata: Metadata = construirMetadata({
 });
 
 export default async function TimelinesPage() {
-  const sesion = await obtenerSesion();
+  const esMecenas = await puedeVerContenidoMecenas();
   const anios = aniosConEventos();
   const migajas = [
     { nombre: "Inicio", href: "/" },
@@ -48,7 +48,7 @@ export default async function TimelinesPage() {
           <TimelineExplorer anioInicial={1810} />
         </Reveal>
 
-        <TimelinePremium esMecenas={Boolean(sesion)} />
+        <TimelinePremium esMecenas={esMecenas} />
 
         <Reveal className="mt-16">
           <p className="kicker">Años con eventos indexados</p>

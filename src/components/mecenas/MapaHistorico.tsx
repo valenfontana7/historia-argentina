@@ -30,9 +30,10 @@ const PUNTOS = lugares
 
 type Props = {
   interactivo?: boolean;
+  esMecenas?: boolean;
 };
 
-export function MapaHistorico({ interactivo = true }: Props) {
+export function MapaHistorico({ interactivo = true, esMecenas = false }: Props) {
   return (
     <div className="relative overflow-hidden rounded-sm border border-linea bg-[#060910]">
       <div className="aspect-[720/440] w-full">
@@ -84,7 +85,7 @@ export function MapaHistorico({ interactivo = true }: Props) {
           );
         })}
       </ul>
-      {!interactivo && (
+      {!interactivo && !esMecenas && (
         <p className="border-t border-linea bg-fondo-3 px-4 py-3 text-center text-xs text-tinta-tenue">
           Mapa completo disponible para mecenas →{" "}
           <Link href="/membresia" className="text-oro-claro hover:text-oro">

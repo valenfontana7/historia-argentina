@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { MagicLinkForm } from "@/components/membresia/MagicLinkForm";
+import { esMecenasActivo } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Acceder como mecenas",
@@ -13,6 +15,13 @@ type Props = {
 
 export default async function AccederPage({ searchParams }: Props) {
   const { error, next } = await searchParams;
+
+  if (await esMecenasActivo()) {
+    const destino =
+      next && next.startsWith("/") && !next.startsWith("//") ? next : "/mecenas";
+    redirect(destino);
+  }
+
   const aviso =
     error === "expirado"
       ? "Ese enlace expiró. Pedí uno nuevo."

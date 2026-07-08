@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import { SiteShell } from "@/components/SiteShell";
+import { SiteShellWrapper } from "@/components/SiteShellWrapper";
 import { metadataSitio } from "@/lib/seo/metadata";
 import { grafoSitioJsonLd } from "@/lib/seo/jsonld";
 import "./globals.css";
@@ -36,7 +36,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGlobal) }}
         />
-        <SiteShell>{children}</SiteShell>
+        <SiteShellWrapper>{children}</SiteShellWrapper>
         <Analytics />
       </body>
     </html>

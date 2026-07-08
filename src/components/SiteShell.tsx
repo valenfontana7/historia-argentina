@@ -6,9 +6,10 @@ import { Footer } from "@/components/Footer";
 
 type Props = {
   children: React.ReactNode;
+  esMecenas: boolean;
 };
 
-export function SiteShell({ children }: Props) {
+export function SiteShell({ children, esMecenas }: Props) {
   const pathname = usePathname();
   const esAdmin = pathname.startsWith("/admin");
 
@@ -18,9 +19,9 @@ export function SiteShell({ children }: Props) {
 
   return (
     <>
-      <Header />
+      <Header esMecenas={esMecenas} />
       <main className="flex-1">{children}</main>
-      <Footer />
+      <Footer esMecenas={esMecenas} />
     </>
   );
 }
