@@ -26,7 +26,8 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export const revalidate = 3600;
+/** Las exclusivas leen cookies; no mezclar con ISR del mismo segmento. */
+export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return cronicas.filter((c) => c.acceso === "publico").map((c) => ({ slug: c.slug }));
