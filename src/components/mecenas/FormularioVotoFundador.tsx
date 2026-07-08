@@ -32,7 +32,7 @@ export function FormularioVotoFundador({ opcionActual }: Props) {
         return;
       }
       setEstado("ok");
-      setMensaje("Gracias. Tu voto quedó registrado para la próxima producción.");
+      setMensaje("Gracias. Registramos tu voto.");
     } catch {
       setEstado("error");
       setMensaje("Error de red al enviar el voto.");

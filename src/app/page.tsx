@@ -79,7 +79,7 @@ export default async function HomePage() {
             <div className="flex flex-col gap-8 sm:flex-row sm:items-center">
               <Reveal className="shrink-0">
                 <p className="kicker">
-                  {esExacta ? "Un día como hoy" : "Del archivo · rotación editorial"}
+                  {esExacta ? "Un día como hoy" : "Historia del día"}
                 </p>
                 <p className="titulo-display mt-2 text-5xl font-semibold leading-none text-oro sm:text-7xl">
                   {efemeride.anio}
@@ -114,7 +114,7 @@ export default async function HomePage() {
               Historias con un hilo conductor
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-sm text-tinta-suave">
-              Rutas editoriales que conectan personajes, eventos y crónicas en
+              Rutas que conectan personajes, eventos y crónicas en
               secuencia — sin ruleta, sin perderte.
             </p>
             <Link
@@ -159,12 +159,11 @@ export default async function HomePage() {
         <Reveal className="mx-auto max-w-3xl px-5 py-24 text-center">
           <p className="kicker">El boletín</p>
           <h2 className="titulo-display mt-4 text-4xl font-semibold leading-tight">
-            Lista de espera del boletín
+            Avisame cuando salga el boletín
           </h2>
           <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-tinta-suave">
-            Estamos preparando el envío diario de historias del archivo argentino.
-            Dejá tu email y te avisamos cuando arranque — con rotación honesta
-            mientras el calendario no cubre los 365 días.
+            Estamos armando un email con historias argentinas. Dejá tu correo y
+            te avisamos cuando empiece a salir.
           </p>
           <div className="mt-8">
             <BoletinForm esMecenas={esMecenas} />

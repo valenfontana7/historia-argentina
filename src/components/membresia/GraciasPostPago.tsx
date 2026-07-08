@@ -47,7 +47,7 @@ export function GraciasPostPago({ emailInicial }: Props) {
 
         if (!data.ok) {
           setEstado("error");
-          setMensajeSync(data.mensaje ?? "No pudimos verificar el pago.");
+          setMensajeSync(data.mensaje ?? "No pudimos confirmar el pago.");
           return;
         }
 
@@ -61,7 +61,7 @@ export function GraciasPostPago({ emailInicial }: Props) {
         if (data.errorEmail) {
           setEstado("error");
           setMensajeSync(
-            `Tu membresía está activa pero el email falló: ${data.errorEmail}. Pedí el enlace abajo.`,
+            `Tu membresía ya está activa, pero no llegó el email. Pedí el enlace abajo.`,
           );
           return;
         }
@@ -71,34 +71,34 @@ export function GraciasPostPago({ emailInicial }: Props) {
             setEstado("activado");
             setMensajeSync(
               data.emailEnviado
-                ? "Membresía activada. Si no entraste automáticamente, pedí el enlace abajo."
-                : "Membresía activada. Pedí el enlace abajo para entrar.",
+                ? "¡Gracias! Si no entraste solo, pedí el enlace abajo."
+                : "¡Gracias! Pedí el enlace abajo para entrar.",
             );
             break;
           case "activo":
             setEstado("activo");
             setMensajeSync(
               data.emailEnviado
-                ? "Tu membresía ya está activa. Pedí el enlace abajo si no entraste solo."
+                ? "Tu membresía ya está activa. Pedí el enlace abajo si hace falta."
                 : "Tu membresía ya está activa. Pedí el enlace abajo.",
             );
             break;
           case "pendiente":
             setEstado("pendiente");
             setMensajeSync(
-              "MercadoPago todavía está procesando el pago. Revisá tu casilla en unos minutos o pedí el enlace abajo.",
+              "Todavía estamos confirmando el pago. Revisá tu email en unos minutos o pedí el enlace abajo.",
             );
             break;
           default:
             setEstado("pendiente");
             setMensajeSync(
-              "No encontramos tu pago todavía. Probá de nuevo en unos minutos o pedí el enlace con el mismo email.",
+              "No encontramos el pago todavía. Probá de nuevo en unos minutos con el mismo email.",
             );
         }
       } catch {
         if (!cancelado) {
           setEstado("error");
-          setMensajeSync("Error de red al verificar el pago.");
+          setMensajeSync("No pudimos conectar. Probá de nuevo.");
         }
       }
     }
@@ -113,7 +113,7 @@ export function GraciasPostPago({ emailInicial }: Props) {
     <div className="mt-10 space-y-4">
       {emailInicial && estado === "sincronizando" && (
         <p className="text-sm text-tinta-suave" role="status">
-          Verificando tu pago y preparando tu acceso…
+          Estamos confirmando tu pago…
         </p>
       )}
       {mensajeSync && (

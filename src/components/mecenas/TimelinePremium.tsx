@@ -39,14 +39,14 @@ export function TimelinePremium({ esMecenas }: Props) {
       <aside className="mt-10 rounded-sm border border-oro/20 bg-fondo-2 p-6 text-center">
         <p className="kicker text-oro">Timeline avanzada</p>
         <p className="mt-3 text-sm text-tinta-suave">
-          Compará dos años, filtrá por categoría y explorá rangos completos. Exclusivo
-          para mecenas.
+          Compará dos años, filtrá por tema y explorá rangos de fechas. Solo para
+          mecenas.
         </p>
         <Link
           href="/membresia"
           className="mt-5 inline-block rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
         >
-          Desbloquear con Mecenas →
+          Ver con Mecenas →
         </Link>
       </aside>
     );

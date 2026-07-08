@@ -35,7 +35,7 @@ export default function Image() {
           Donde pasó la historia
         </div>
         <div style={{ display: "flex", marginTop: 20, fontSize: 28, color: "#a59a86" }}>
-          {sitio.nombre} · Lugares del archivo argentino
+          {sitio.nombre} · Lugares de la historia argentina
         </div>
       </div>
     ),

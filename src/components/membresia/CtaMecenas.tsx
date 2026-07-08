@@ -15,20 +15,19 @@ export async function CtaMecenas({ compacto = false }: Props) {
         compacto ? "py-8" : "px-8 py-12"
       } text-center`}
     >
-      <p className="kicker">Mecenazgo</p>
+      <p className="kicker">Mecenas</p>
       <h3 className="titulo-display mt-3 text-2xl font-semibold sm:text-3xl">
         Si esto te importa, sostenelo
       </h3>
       <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-tinta-suave">
-        El museo es gratuito. Las exclusivas, el anticipo de nuevas crónicas y la
-        carta del mecenas sostienen el trabajo de contar la historia con este
-        cuidado.
+        El museo es gratis. Con Mecenas accedés a crónicas exclusivas, mapa
+        completo y recorridos especiales.
       </p>
       <Link
         href="/membresia"
         className="mt-6 inline-flex rounded-full bg-oro px-6 py-3 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro"
       >
-        Hacete mecenas →
+        Ver planes de Mecenas →
       </Link>
     </aside>
   );

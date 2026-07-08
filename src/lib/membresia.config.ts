@@ -3,6 +3,12 @@
  * Ajustar acá actualiza la página de precios y el checkout de MercadoPago.
  */
 
+import {
+  BENEFICIOS_PLAN_FUNDADOR,
+  BENEFICIOS_PLAN_MENSUAL,
+  DESCRIPCION_PLAN_FUNDADOR,
+  DESCRIPCION_PLAN_MENSUAL,
+} from "@/lib/copy";
 import { sitio } from "@/lib/site.config";
 
 export type PlanId = "mensual" | "fundador";
@@ -25,17 +31,8 @@ export const planes: Record<PlanId, PlanMembresia> = {
     precio: 4990,
     moneda: "ARS",
     periodo: "por mes",
-    descripcion:
-      "La capa narrativa exclusiva de Argent: crónicas inmersivas, recorridos premium y exploración avanzada.",
-    beneficios: [
-      "2 crónicas exclusivas hoy (nueva cada 6–8 semanas)",
-      "2 recorridos premium (Democracia y San Martín continental)",
-      "Carta editorial mensual del mecenas",
-      "Mapa histórico completo con filtros por época",
-      "Timeline con capa avanzada para mecenas",
-      "Tu nombre en el muro de créditos",
-      "Exploración inmersiva sin interrupciones",
-    ],
+    descripcion: DESCRIPCION_PLAN_MENSUAL,
+    beneficios: [...BENEFICIOS_PLAN_MENSUAL],
   },
   fundador: {
     id: "fundador",
@@ -44,15 +41,8 @@ export const planes: Record<PlanId, PlanMembresia> = {
     moneda: "ARS",
     periodo: "por año",
     destacado: true,
-    descripcion:
-      "Los primeros que hacen posible Argent. Narrativa exclusiva + voz en la próxima crónica.",
-    beneficios: [
-      "Todo lo del plan Mecenas",
-      "Tasa de fundador por un año",
-      "Voto anticipado sobre la próxima crónica (en /mecenas/voto)",
-      "Nombre destacado en los créditos",
-      "Acceso anticipado a nuevas crónicas del pipeline",
-    ],
+    descripcion: DESCRIPCION_PLAN_FUNDADOR,
+    beneficios: [...BENEFICIOS_PLAN_FUNDADOR],
   },
 };
 
@@ -71,9 +61,9 @@ export function diasDePlan(plan: PlanId): number {
 /** Copy listo para el primer post de lanzamiento (IG / X / WhatsApp). */
 export const copyLanzamiento = `Abrimos Mecenas.
 
-Argent es un museo digital de historia argentina: crónicas cinematográficas, un panteón vivo y un archivo de efemérides. Todo eso sigue gratis.
+Argent es un museo digital de historia argentina: crónicas para leer, un panteón de personajes y una historia cada día. Todo eso sigue gratis.
 
-Si querés la capa narrativa exclusiva —crónicas mensuales, recorridos premium, mapa completo y carta editorial— este es el momento de los fundadores.
+Si querés crónicas exclusivas, recorridos especiales, mapa completo y la carta mensual, este es el momento de los fundadores.
 
 ${
   typeof process !== "undefined" && process.env.NEXT_PUBLIC_SITE_URL

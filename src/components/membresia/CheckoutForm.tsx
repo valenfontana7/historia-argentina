@@ -59,7 +59,7 @@ export function CheckoutForm({ plan, etiqueta, destacado = false }: Props) {
             : "border border-oro/50 text-oro-claro hover:bg-oro/10"
         }`}
       >
-        {pendiente ? "Redirigiendo a MercadoPago…" : etiqueta}
+        {pendiente ? "Un momento…" : etiqueta}
       </button>
       {error && (
         <p className="text-sm text-carmesi" role="alert">

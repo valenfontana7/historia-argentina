@@ -97,7 +97,7 @@ export default async function RecorridoPage({ params }: Props) {
           <div className="mt-16">
             {pasos[0] && (
               <Reveal>
-                <p className="text-xs uppercase tracking-[0.25em] text-oro">Vista previa · Paso 1</p>
+                <p className="text-xs uppercase tracking-[0.25em] text-oro">Probá el primer paso</p>
                 {pasos[0].paso.puente && (
                   <p className="mt-2 text-sm italic text-tinta-tenue">
                     {pasos[0].paso.puente}

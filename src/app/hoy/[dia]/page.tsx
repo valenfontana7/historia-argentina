@@ -28,6 +28,7 @@ import { obtenerNodo } from "@/lib/grafo/queries";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { sitio } from "@/lib/site.config";
 import { eventoJsonLd, migajasJsonLd } from "@/lib/seo/jsonld";
+import { KICKER_EFEMERIDE_SUGERIDA } from "@/lib/copy";
 import { hoyEnArgentina } from "@/lib/fechas";
 
 type Props = {
@@ -116,7 +117,8 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
         <p className="kicker text-center">
           {esSugerida ? (
             <>
-              Del archivo · <span className="text-tinta">{efemeride.fecha}</span>
+              {KICKER_EFEMERIDE_SUGERIDA} ·{" "}
+              <span className="text-tinta">{efemeride.fecha}</span>
             </>
           ) : (
             <>
@@ -252,12 +254,11 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
 
       <Reveal className="mt-20 rounded-sm border border-linea bg-fondo-2 p-8 text-center sm:p-10">
         <p className="titulo-display text-2xl font-semibold">
-          Lista de espera del boletín
+          Avisame cuando salga el boletín
         </p>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-tinta-suave">
-          Estamos preparando el envío diario. Dejá tu email y te avisamos cuando
-          arranque — con rotación honesta del archivo mientras no cubrimos los
-          365 días.
+          Estamos armando un email con historias argentinas. Dejá tu correo y te
+          avisamos cuando empiece a salir.
         </p>
         <div className="mt-6">
           <BoletinForm />

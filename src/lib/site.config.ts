@@ -10,9 +10,9 @@
  */
 export const sitio = {
   nombre: "Argent",
-  lema: "Museo digital de historia argentina",
+  lema: "Historia argentina para explorar",
   descripcion:
-    "La historia argentina contada como nunca: crónicas cinematográficas que se navegan con el scroll, un panteón interactivo de personajes y una efeméride visual cada día.",
+    "Crónicas para leer con el scroll, fichas de personajes y una historia del día. Un museo digital de historia argentina, gratis y en español.",
   url: "https://museoargent.com.ar",
   palabrasClave: [
     "historia argentina",

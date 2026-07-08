@@ -25,18 +25,18 @@ function rutaPorDefecto(esMecenas: boolean, cronicaDestacadaSlug: string): Ruta 
     return {
       href: "/mecenas",
       kicker: "Tu museo",
-      titulo: "Retomá donde lo dejaste",
+      titulo: "Seguí donde lo dejaste",
       descripcion:
-        "Crónicas exclusivas, recorridos premium y tu área de mecenas te esperan.",
-      cta: "Entrar a tu museo →",
+        "Tus crónicas exclusivas, recorridos especiales y tu espacio de mecenas te esperan.",
+      cta: "Ir a tu museo →",
     };
   }
   return {
     href: `/cronicas/${cronicaDestacadaSlug}`,
     kicker: "Empezá acá",
-    titulo: "Viví una crónica inmersiva",
+    titulo: "Leé una crónica con mapas y fotos",
     descripcion:
-      "La mejor forma de conocer Argent: una historia contada con scroll, mapas y citas — como un documental.",
+      "Es la forma más simple de conocer Argent: una historia que vas leyendo y mirando, como un documental.",
     cta: "Empezar la crónica →",
   };
 }
@@ -56,9 +56,9 @@ export function RutaRecomendada({ esMecenas, cronicaDestacadaSlug }: Props) {
       setRuta({
         href: "/hoy",
         kicker: "Volvé por acá",
-        titulo: "Una historia del archivo argentino",
+        titulo: "La historia de hoy",
         descripcion:
-          "La efeméride de hoy — o una rotación honesta del archivo si este día aún no tiene entrada propia.",
+          "Cada día hay una historia argentina para leer. Si hoy aún no tiene la nuestra, te mostramos otra parecida.",
         cta: "Leer la historia del día →",
       });
     }

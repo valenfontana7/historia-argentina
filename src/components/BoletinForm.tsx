@@ -33,7 +33,7 @@ export function BoletinForm({ esMecenas = false }: Props) {
           disabled={pendiente}
           className="w-full shrink-0 rounded-full bg-oro px-6 py-3 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro disabled:opacity-60 sm:w-auto"
         >
-          {pendiente ? "..." : "Unirme a la lista"}
+          {pendiente ? "..." : "Avisame"}
         </button>
       </form>
       {estado && (
@@ -44,14 +44,14 @@ export function BoletinForm({ esMecenas = false }: Props) {
           {estado.ok && (
             <>
               <p className="mt-2 text-xs text-tinta-tenue">
-                El envío diario todavía no está activo: te avisamos cuando
-                arranque. Mientras tanto, explorá el archivo en /hoy.
+                Todavía no enviamos emails. Te avisamos cuando empiece. Mientras
+                tanto, podés leer la historia del día.
               </p>
               {estado.upsell && !esMecenas && (
                 <p className="mt-2 text-sm text-tinta-suave">
-                  ¿Querés crónicas exclusivas y recorridos premium?{" "}
+                  ¿Querés crónicas exclusivas y recorridos especiales?{" "}
                   <Link href="/membresia" className="text-oro-claro underline-offset-4 hover:underline">
-                    Conocé Mecenas
+                    Ver Mecenas
                   </Link>
                 </p>
               )}

@@ -41,7 +41,7 @@ export async function suscribir(
 
   return {
     ok: true,
-    mensaje: "¡Listo! Te sumamos a la lista de espera del boletín.",
+    mensaje: "¡Listo! Te avisamos cuando salga el boletín.",
     upsell: true,
   };
 }

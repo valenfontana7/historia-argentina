@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { CheckoutForm } from "@/components/membresia/CheckoutForm";
 import { esMecenasActivo } from "@/lib/auth";
+import { FAQ_MEMBRESIA, QUE_ES_MECENAS } from "@/lib/copy";
 import { formatearPrecio } from "@/lib/membresia.config";
 import { planesVisiblesPublico } from "@/lib/membresia-settings";
 import { construirMetadata } from "@/lib/seo/metadata";
@@ -14,32 +15,11 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = construirMetadata({
   titulo: "Membresía Mecenas",
   descripcion:
-    "Sostené Argent y desbloqueá la capa narrativa exclusiva: crónicas inmersivas, 2 recorridos premium, mapa completo y carta editorial.",
+    "Sostené Argent y accedé a crónicas exclusivas, mapa completo y recorridos especiales.",
   ruta: "/membresia",
 });
 
-const faqs = [
-  {
-    q: "¿El museo sigue siendo gratis?",
-    a: "Sí. Crónicas públicas, el Panteón, lugares, períodos, 5 recorridos base y la efeméride del archivo siguen abiertos para todos. Mecenas desbloquea narrativa exclusiva y exploración avanzada.",
-  },
-  {
-    q: "¿Qué desbloquea Mecenas hoy?",
-    a: "Crónicas exclusivas mensuales, dos recorridos premium (Democracia y memoria; San Martín continental), carta editorial, mapa completo con filtros por época, timeline avanzada y navegación sin publicidad.",
-  },
-  {
-    q: "¿Cómo pago?",
-    a: "Con MercadoPago: tarjeta, débito, dinero en cuenta o los medios que ofrezca tu checkout. El plan mensual es una suscripción; el fundador es un pago anual.",
-  },
-  {
-    q: "¿Cómo entro después de pagar?",
-    a: "Te mandamos un magic link al email del pago. También podés pedir uno nuevo desde «Ya soy mecenas».",
-  },
-  {
-    q: "¿Puedo cancelar?",
-    a: "El plan mensual se cancela cuando quieras desde MercadoPago. El fundador dura un año completo desde el pago.",
-  },
-];
+const faqs = FAQ_MEMBRESIA;
 
 export default async function MembresiaPage() {
   if (await esMecenasActivo()) redirect("/mecenas");
@@ -62,10 +42,8 @@ export default async function MembresiaPage() {
           Mecenas de {sitio.nombre}
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-tinta-suave">
-          No pagás por más artículos: pagás por la capa narrativa exclusiva de
-          Argent. Crónicas inmersivas mensuales, dos recorridos premium, mapa
-          completo con filtros y carta editorial — con el rigor visual que ya
-          conocés.
+          {QUE_ES_MECENAS} El museo sigue siendo gratis; pagás por contenido
+          exclusivo y herramientas extra.
         </p>
         <p className="mt-4 text-sm text-tinta-tenue">
           ¿Ya sos mecenas?{" "}
@@ -83,8 +61,8 @@ export default async function MembresiaPage() {
           <div className="rounded-sm border border-linea bg-fondo-2 p-10 text-center md:col-span-2">
             <h2 className="titulo-display text-2xl font-semibold">Mecenas próximamente</h2>
             <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-tinta-suave">
-              Estamos preparando la apertura de la membresía. Si ya sos mecenas, podés
-              pedir tu enlace de acceso abajo.
+              Estamos preparando la apertura. Si ya sos mecenas, pedí tu enlace de
+              acceso abajo.
             </p>
             <Link
               href="/membresia/acceder"
@@ -133,8 +111,8 @@ export default async function MembresiaPage() {
                 destacado={plan.destacado}
                 etiqueta={
                   plan.id === "fundador"
-                    ? "Ser fundador con MercadoPago"
-                    : "Suscribirme con MercadoPago"
+                    ? "Pagar con Mercado Pago (fundador)"
+                    : "Pagar con Mercado Pago"
                 }
               />
             </div>

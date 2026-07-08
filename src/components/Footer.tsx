@@ -55,7 +55,7 @@ export function Footer({ esMecenas }: Props) {
             </Link>
             {esMecenas ? (
               <Link href="/mecenas" className="text-oro-claro transition-colors hover:text-oro">
-                Tu área de mecenas
+                Tu museo
               </Link>
             ) : (
               <>

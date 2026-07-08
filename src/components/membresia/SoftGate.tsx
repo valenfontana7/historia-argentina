@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ACCESO_EMAIL } from "@/lib/copy";
 
 type Props = {
   titulo: string;
@@ -29,7 +30,7 @@ export function SoftGate({
         aria-hidden
         className="pointer-events-none absolute inset-x-0 -top-24 h-24 bg-gradient-to-b from-transparent to-fondo"
       />
-      <p className="kicker">Exclusiva para mecenas</p>
+      <p className="kicker">Solo para mecenas</p>
       <h2 className="titulo-display mt-4 text-3xl font-semibold sm:text-4xl">
         {titulo}
       </h2>
@@ -45,26 +46,35 @@ export function SoftGate({
       )}
       {duracion && (
         <p className="mt-4 text-xs uppercase tracking-[0.2em] text-tinta-tenue">
-          {duracion} de historia que no está en ningún manual
+          {duracion} de lectura
         </p>
       )}
-      <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-tinta-suave">
-        Si ya sos mecenas, entrá con el magic link de tu email. Pagá la membresía
-        solo si todavía no la tenés activa.
-      </p>
-      <div className="mt-8 flex flex-wrap justify-center gap-4">
-        <Link
-          href={accederHref}
-          className="rounded-full bg-oro px-6 py-3 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro"
-        >
-          Entrar como mecenas
-        </Link>
-        <Link
-          href="/membresia"
-          className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
-        >
-          Ver planes
-        </Link>
+
+      <div className="mx-auto mt-10 max-w-md space-y-6 text-left">
+        <div className="rounded-sm border border-linea bg-fondo-2 p-5">
+          <p className="text-sm font-medium text-tinta">¿Ya pagaste?</p>
+          <p className="mt-2 text-sm leading-relaxed text-tinta-suave">
+            {ACCESO_EMAIL}
+          </p>
+          <Link
+            href={accederHref}
+            className="mt-4 inline-block rounded-full bg-oro px-5 py-2.5 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro"
+          >
+            Pedir enlace de acceso
+          </Link>
+        </div>
+        <div className="rounded-sm border border-linea bg-fondo-2 p-5">
+          <p className="text-sm font-medium text-tinta">¿Todavía no sos mecenas?</p>
+          <p className="mt-2 text-sm leading-relaxed text-tinta-suave">
+            Mirá los planes y sumate para leer esta historia completa.
+          </p>
+          <Link
+            href="/membresia"
+            className="mt-4 inline-block rounded-full border border-oro/50 px-5 py-2.5 text-sm text-oro-claro transition-colors hover:bg-oro/10"
+          >
+            Ver planes
+          </Link>
+        </div>
       </div>
     </div>
   );

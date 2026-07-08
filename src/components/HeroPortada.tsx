@@ -72,16 +72,15 @@ export function HeroPortada() {
           {...(reducido ? {} : { initial: { y: 34 }, animate: { y: 0 } })}
           transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
         >
-          La historia argentina, como nunca la viste.
+          La historia argentina, fácil de entender.
         </motion.h1>
         <motion.p
           className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-tinta-suave sm:text-xl"
           {...(reducido ? {} : aparicion)}
           transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          Crónicas inmersivas que se viven con el scroll, un panteón de héroes y
-          villanos, y un archivo de historias para explorar. Sin manuales. Sin
-          polvo. Sin permiso.
+          Leé crónicas con imágenes y mapas, conocé personajes del Panteón y
+          descubrí qué pasó un día como hoy. Todo gratis para empezar.
         </motion.p>
       </div>
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { MagicLinkForm } from "@/components/membresia/MagicLinkForm";
+import { ACCESO_EMAIL } from "@/lib/copy";
 import { esMecenasActivo } from "@/lib/auth";
 
 export const metadata: Metadata = {
@@ -24,17 +25,17 @@ export default async function AccederPage({ searchParams }: Props) {
 
   const aviso =
     error === "expirado"
-      ? "Ese enlace expiró. Pedí uno nuevo."
+      ? "Ese enlace venció. Pedí uno nuevo."
       : error === "token"
         ? "Falta el enlace de acceso."
         : null;
 
   return (
     <div className="mx-auto max-w-xl px-5 pb-28 pt-32 text-center">
-      <p className="kicker">Área de mecenas</p>
+      <p className="kicker">Tu museo</p>
       <h1 className="titulo-display mt-4 text-4xl font-semibold">Entrar sin contraseña</h1>
       <p className="mt-5 text-base leading-relaxed text-tinta-suave">
-        Te mandamos un magic link al email con el que pagaste la membresía.
+        {ACCESO_EMAIL} Usá el mismo email con el que pagaste.
       </p>
       {aviso && <p className="mt-4 text-sm text-carmesi">{aviso}</p>}
       <div className="mt-10">

@@ -242,9 +242,9 @@ export function MapaExploratorio({ lugares, completo = false, esMecenas = false 
 
       {!mapaCompleto && bloqueados.length > 0 && (
         <p className="border-t border-linea bg-fondo-3 px-4 py-3 text-center text-xs text-tinta-tenue">
-          +{bloqueados.length} lugares más en el mapa completo →{" "}
+          Hay más lugares en el mapa completo.{" "}
           <Link href="/membresia" className="text-oro-claro hover:text-oro">
-            Hacete mecenas
+            Ver con Mecenas
           </Link>
         </p>
       )}

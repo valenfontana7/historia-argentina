@@ -6,7 +6,7 @@ import { opcionPorSlug } from "@/data/voto-fundador";
 import { prisma } from "@/lib/db";
 
 export const metadata = {
-  title: "Voto fundador — próxima crónica",
+  title: "Votá la próxima crónica",
   robots: { index: false },
 };
 
@@ -29,11 +29,11 @@ export default async function VotoFundadorPage() {
     <div className="mx-auto max-w-xl px-5 pb-28 pt-32">
       <p className="kicker text-oro">Mecenas fundador</p>
       <h1 className="titulo-display mt-4 text-4xl font-semibold">
-        Votá la próxima crónica
+        ¿Qué crónica hacemos después?
       </h1>
       <p className="mt-6 text-sm leading-relaxed text-tinta-suave">
-        Elegí qué historia producimos en las próximas semanas. Tu voto orienta el
-        pipeline editorial de Argent — no es una encuesta decorativa.
+        Elegí la historia que más te gustaría leer. Tu voto nos ayuda a decidir
+        cuál producimos a continuación.
       </p>
       <FormularioVotoFundador opcionActual={opcionActual} />
       <p className="mt-12">

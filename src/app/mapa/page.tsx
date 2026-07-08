@@ -35,9 +35,9 @@ export default function MapaPage() {
             Mapa exploratorio
           </h1>
           <p className="mt-6 max-w-2xl text-tinta-suave">
-            Los lugares esenciales donde se escribió la historia argentina. Vista
-            previa con los puntos clave; el mapa completo con filtros por época es
-            para mecenas.
+            Los lugares clave donde pasó la historia argentina. Gratis ves los
+            más importantes; con Mecenas tenés el mapa completo y filtros por
+            época.
           </p>
         </Reveal>
 
@@ -47,7 +47,7 @@ export default function MapaPage() {
 
         <p className="mt-8 text-center text-sm">
           <Link href="/membresia" className="text-oro-claro hover:text-oro">
-            Desbloquear el mapa completo como mecenas →
+            Ver el mapa completo con Mecenas →
           </Link>
           {" · "}
           <Link href="/lugares" className="text-tinta-suave hover:text-oro-claro">

@@ -9,7 +9,7 @@ import { migajasJsonLd } from "@/lib/seo/jsonld";
 export const metadata: Metadata = construirMetadata({
   titulo: "Recorridos — rutas por la historia argentina",
   descripcion:
-    "Rutas editoriales curadas: secuencias de personajes, eventos y crónicas para explorar la historia argentina con un hilo conductor.",
+    "Historias con un hilo conductor: vas de un paso al siguiente sin perderte.",
   ruta: "/recorridos",
 });
 
@@ -28,14 +28,13 @@ export default function RecorridosPage() {
       <div className="mx-auto max-w-6xl px-5">
         <MigasDePan migajas={migajas} />
         <Reveal>
-          <p className="kicker">Exploración curada</p>
+          <p className="kicker">Paso a paso</p>
           <h1 className="titulo-display mt-4 text-5xl font-semibold sm:text-6xl">
             Recorridos
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-tinta-suave">
-            Historias con un hilo conductor. Sin ruleta: cada paso te lleva al
-            siguiente con intención editorial. Dos rutas son exclusivas para
-            mecenas.
+            Caminá la historia en orden: cada paso te lleva al siguiente. Hay
+            recorridos gratis y dos especiales solo para mecenas.
           </p>
         </Reveal>
 

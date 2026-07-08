@@ -24,7 +24,7 @@ export default function Image() {
           Explorar
         </div>
         <div style={{ display: "flex", marginTop: 24, fontSize: 72, fontWeight: 700 }}>
-          Historia sin dead ends
+          Siempre hay algo más para ver
         </div>
         <div style={{ display: "flex", marginTop: 20, fontSize: 28, color: "#a59a86" }}>
           {sitio.nombre} · Personajes, lugares, timeline y más

@@ -12,7 +12,7 @@ import { migajasJsonLd } from "@/lib/seo/jsonld";
 export const metadata: Metadata = construirMetadata({
   titulo: "Explorar la historia argentina",
   descripcion:
-    "Descubrí personajes, lugares, períodos y eventos. Tu museo digital de historia argentina, sin dead ends.",
+    "Personajes, lugares, períodos y eventos. Elegí por dónde empezar o dejate sorprender.",
   ruta: "/explorar",
 });
 
@@ -33,13 +33,12 @@ export default function ExplorarPage() {
       <div className="mx-auto max-w-6xl px-5">
         <MigasDePan migajas={migajas} />
         <Reveal>
-          <p className="kicker">Sin dead ends</p>
+          <p className="kicker">Por donde quieras</p>
           <h1 className="titulo-display mt-4 text-5xl font-semibold sm:text-6xl">
             Explorar
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-tinta-suave">
-            Wikipedia te hace leer. Argent te hace explorar. Elegí un camino o
-            dejate sorprender.
+            Elegí un camino o tocá «Sorprendeme». Siempre hay algo más para ver.
           </p>
           <div className="mt-8">
             <DescubrirAleatorio nodos={nodos} />

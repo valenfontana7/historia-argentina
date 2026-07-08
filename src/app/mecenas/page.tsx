@@ -45,14 +45,13 @@ export default async function MecenasPage() {
     <div className="pb-28 pt-32">
       <header className="border-b border-linea-suave bg-fondo-2">
         <div className="mx-auto max-w-3xl px-5 py-20 text-center">
-          <p className="kicker text-oro">Sala del mecenas</p>
+          <p className="kicker text-oro">Tu espacio de mecenas</p>
           <h1 className="titulo-display mt-4 text-4xl font-semibold sm:text-5xl">
-            Tu museo personal
+            Tu museo
           </h1>
           <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-tinta-suave">
-            Gracias por sostener Argent. Esta sala reúne lo que solo vos podés
-            abrir: crónicas exclusivas, el mapa completo y las rutas reservadas
-            del archivo.
+            Gracias por sostener Argent. Acá tenés las crónicas exclusivas, el
+            mapa completo y los recorridos especiales.
           </p>
           <p className="mt-4 text-xs uppercase tracking-[0.25em] text-tinta-tenue">
             {plan.nombre}
@@ -64,7 +63,7 @@ export default async function MecenasPage() {
 
       <div className="mx-auto max-w-3xl px-5">
         <section className="mt-16">
-          <p className="kicker">Exposición del mes</p>
+          <p className="kicker">Crónica destacada</p>
           <Link
             href={`/cronicas/${exposicion.slug}`}
             className="group mt-6 block overflow-hidden rounded-sm border border-oro/30 bg-fondo-2"
@@ -87,7 +86,7 @@ export default async function MecenasPage() {
                 {exposicion.subtitulo}
               </p>
               <p className="mt-8 text-sm font-medium text-oro-claro transition-transform group-hover:translate-x-1">
-                Entrar a la sala →
+                Leer la crónica →
               </p>
             </div>
           </Link>
@@ -95,7 +94,7 @@ export default async function MecenasPage() {
 
         {exclusivas.length > 1 && (
           <section className="mt-14">
-            <p className="kicker">Más exclusivas</p>
+            <p className="kicker">Más crónicas exclusivas</p>
             <ul className="mt-6 space-y-3">
               {exclusivas.slice(1).map((c) => (
                 <li key={c.slug}>
@@ -118,26 +117,25 @@ export default async function MecenasPage() {
           >
             <p className="kicker text-oro">Mapa histórico</p>
             <p className="mt-2 text-sm text-tinta-suave">
-              Todos los lugares del archivo, filtros por época y navegación
-              interactiva.
+              Todos los lugares del mapa, con filtros por época.
             </p>
           </Link>
           <Link
             href="/recorridos"
             className="rounded-sm border border-linea bg-fondo-2 p-6 transition-colors hover:border-oro/40"
           >
-            <p className="kicker">Recorridos premium</p>
+            <p className="kicker">Recorridos especiales</p>
             <p className="mt-2 text-sm text-tinta-suave">
-              Rutas curatoriales reservadas para mecenas.
+              Historias paso a paso, solo para mecenas.
             </p>
           </Link>
           <Link
             href="/mecenas/carta"
             className="rounded-sm border border-linea bg-fondo-2 p-6 transition-colors hover:border-oro/40"
           >
-            <p className="kicker">Carta editorial</p>
+            <p className="kicker">Carta del mes</p>
             <p className="mt-2 text-sm text-tinta-suave">
-              Novedades del mes y pipeline de crónicas.
+              Novedades y mensaje del equipo de Argent.
             </p>
           </Link>
           {mecenas.esFundador && (
@@ -145,9 +143,9 @@ export default async function MecenasPage() {
               href="/mecenas/voto"
               className="rounded-sm border border-oro/30 bg-fondo-2 p-6 transition-colors hover:border-oro/50"
             >
-              <p className="kicker text-oro">Voto fundador</p>
+              <p className="kicker text-oro">Votá la próxima crónica</p>
               <p className="mt-2 text-sm text-tinta-suave">
-                Elegí qué crónica producimos después.
+                Elegí qué historia queremos hacer después.
               </p>
             </Link>
           )}

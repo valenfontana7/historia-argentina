@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   esLugarPreview,
-  LUGARES_PREVIEW_SLUGS,
 } from "@/data/lugares-preview";
 import { MapaExploratorio } from "@/components/exploracion/MapaExploratorio";
 import { MigasDePan } from "@/components/seo/MigasDePan";
@@ -57,11 +56,10 @@ export default async function LugaresPage() {
         {!esMecenas && (
           <Reveal className="mt-10">
             <div className="rounded-sm border border-oro/30 bg-fondo-2 p-6 sm:p-8">
-              <p className="kicker text-oro">Vista previa</p>
+              <p className="kicker text-oro">Muestra gratis</p>
               <p className="mt-2 max-w-2xl text-sm leading-relaxed text-tinta-suave">
-                Mostramos {LUGARES_PREVIEW_SLUGS.length} lugares emblemáticos del
-                archivo. Mecenas desbloquea el mapa completo con todos los
-                marcadores, filtros por época y rutas curatoriales.
+                Podés ver 7 lugares destacados. Con Mecenas accedés al mapa
+                completo, con todos los lugares y filtros por época.
               </p>
               <Link
                 href="/membresia"
@@ -103,14 +101,13 @@ export default async function LugaresPage() {
         {!esMecenas && lugares.length > lugaresVisibles.length && (
           <Reveal className="mt-12 text-center">
             <p className="text-sm text-tinta-suave">
-              +{lugares.length - lugaresVisibles.length} lugares más en el mapa
-              completo para mecenas.
+              Hay más lugares en el mapa completo para mecenas.
             </p>
             <Link
               href="/membresia"
               className="mt-4 inline-block text-sm text-oro-claro hover:text-oro"
             >
-              Desbloquear el archivo geográfico →
+              Ver el mapa completo con Mecenas →
             </Link>
           </Reveal>
         )}

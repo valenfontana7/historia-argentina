@@ -24,7 +24,13 @@ export function CronicaDelMesPortada({ cronica }: Props) {
             href={`/cronicas/${cronica.slug}`}
             className="text-oro-claro underline-offset-4 hover:underline"
           >
-            También podés empezar por la crónica del mes
+            También podés empezar por{" "}
+            <Link
+              href={`/cronicas/${cronica.slug}`}
+              className="text-oro-claro underline-offset-4 hover:underline"
+            >
+              esta crónica del mes
+            </Link>
           </Link>
         </p>
       </section>

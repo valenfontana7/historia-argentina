@@ -22,8 +22,8 @@ export default async function MembresiaGraciasPage({ searchParams }: Props) {
         Gracias por sostener Argent
       </h1>
       <p className="mt-6 text-base leading-relaxed text-tinta-suave">
-        Si tu pago ya se confirmó, te redirigimos automáticamente a tu museo.
-        Si no, pedí el enlace de acceso con el mismo correo del checkout.
+        Si tu pago ya se confirmó, te llevamos a tu museo. Si no, pedí un enlace
+        de acceso con el mismo email del pago.
       </p>
       <GraciasPostPago emailInicial={email || undefined} />
       <Link

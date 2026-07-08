@@ -22,34 +22,34 @@ export default async function CartaMecenasPage() {
     <article className="mx-auto max-w-2xl px-5 pb-28 pt-32">
       <p className="kicker">Carta del mecenas · Julio 2026</p>
       <h1 className="titulo-display mt-4 text-4xl font-semibold">
-        Tu museo personal
+        Gracias por estar acá
       </h1>
       <Reveal className="mt-10">
         <div className="prosa capitular border border-linea bg-fondo-2 p-8 sm:p-10">
           <p>
-            Gracias por sostener Argent. Este mes consolidamos lo que Mecenas
-            desbloquea hoy: mapa histórico completo con filtros por época, dos
-            recorridos premium y la carta que estás leyendo.
+            Gracias por sostener Argent. Con tu membresía tenés el mapa histórico
+            completo, dos crónicas que solo ven los mecenas y dos recorridos
+            especiales para recorrer la historia paso a paso.
           </p>
           <p>
-            El museo público sigue abierto — panteón, lugares, cinco recorridos
-            base y el archivo de efemérides. Tu membresía agrega profundidad
-            narrativa: crónicas exclusivas, rutas curatoriales reservadas y
-            herramientas de exploración sin distracciones.
+            El resto del museo sigue abierto para todos: el Panteón, lugares,
+            cinco recorridos gratis y la historia del día. Tu aporte suma
+            contenido exclusivo y herramientas extra para explorar.
           </p>
           <p>
-            Hoy el archivo tiene 2 crónicas públicas y 2 exclusivas para
-            mecenas. El pipeline editorial apunta a una pieza nueva cada 6–8
-            semanas — sin prometer un volumen que todavía no existe.
+            Hoy hay dos crónicas públicas y dos exclusivas para mecenas. Seguimos
+            sumando historias nuevas; cuando haya una lista, la vas a ver acá
+            primero.
           </p>
-          <p>
-            En el roadmap de fundadores: audio en piezas selectas, ampliación del
-            calendario de efemérides y tu voto sobre la próxima crónica en{" "}
-            <Link href="/mecenas/voto" className="text-oro-claro hover:text-oro">
-              /mecenas/voto
-            </Link>
-            .
-          </p>
+          {mecenas.esFundador && (
+            <p>
+              Como fundador, podés{" "}
+              <Link href="/mecenas/voto" className="text-oro-claro hover:text-oro">
+                votar qué crónica hacemos después
+              </Link>
+              .
+            </p>
+          )}
           <p className="text-oro-claro">— El equipo de Argent</p>
         </div>
       </Reveal>
@@ -61,7 +61,7 @@ export default async function CartaMecenasPage() {
           Abrir el mapa completo →
         </Link>
         <Link href="/mecenas" className="text-sm text-tinta-suave hover:text-oro-claro">
-          ← Área de mecenas
+          ← Tu museo
         </Link>
       </div>
     </article>
