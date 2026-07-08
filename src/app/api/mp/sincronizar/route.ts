@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     }
 
     const resultado = await sincronizarMecenasPorEmail(email);
-    return NextResponse.json({ ok: true, ...resultado });
+    return NextResponse.json(resultado);
   } catch (error) {
     console.error("[mp/sincronizar]", error);
     const mensaje =
