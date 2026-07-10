@@ -54,8 +54,10 @@ export function DatoGigante({ valor, prefijo = "", sufijo = "", etiqueta }: Dato
 /** Grilla para mostrar varios datos gigantes en fila. */
 export function FilaDeDatos({ children }: { children: ReactNode }) {
   return (
-    <section className="mx-auto grid max-w-5xl grid-cols-1 gap-16 px-5 py-24 sm:grid-cols-3">
-      {children}
+    <section className="textura-mapa relative bg-fondo-3 py-24">
+      <div className="relative mx-auto grid max-w-5xl grid-cols-1 gap-16 px-5 sm:grid-cols-3">
+        {children}
+      </div>
     </section>
   );
 }

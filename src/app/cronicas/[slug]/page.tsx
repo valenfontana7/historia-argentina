@@ -93,6 +93,8 @@ export default async function CronicaPage({ params }: Props) {
         titulo={cronica.titulo}
         subtitulo={cronica.subtitulo}
         meta={`${cronica.periodo} · Lectura: ${cronica.duracion}`}
+        variante={cronica.visual.varianteHero}
+        imagenHero={cronica.visual.imagenHero}
       />
 
       {mostrarContenido && Contenido ? (

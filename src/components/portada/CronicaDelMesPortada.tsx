@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
 import { tieneVisitaOnboarding } from "@/lib/engagement/storage";
 import type { CronicaMeta } from "@/content/cronicas/registro";
+import { MiniSiluetaHero, gradientesHero } from "@/components/scrolly/HeroSiluetas";
 
 type Props = {
   cronica: CronicaMeta;
@@ -11,6 +12,7 @@ type Props = {
 
 export function CronicaDelMesPortada({ cronica }: Props) {
   const mostrar = useStorageSnapshot(tieneVisitaOnboarding, false);
+  const variante = cronica.visual.varianteHero;
 
   if (!mostrar) {
     return (
@@ -45,26 +47,9 @@ export function CronicaDelMesPortada({ cronica }: Props) {
         >
           <div
             className="relative px-8 py-20 sm:px-14 sm:py-28"
-            style={{
-              background:
-                "linear-gradient(180deg, #05070d 0%, #0a1020 50%, #16202f 100%)",
-            }}
+            style={{ background: gradientesHero[variante] }}
           >
-            <svg
-              aria-hidden
-              className="absolute bottom-0 left-0 w-full opacity-80 transition-transform duration-700 group-hover:scale-[1.03]"
-              viewBox="0 0 1200 240"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M0 240 L0 170 L140 90 L280 160 L420 60 L580 165 L720 75 L880 170 L1030 100 L1200 175 L1200 240 Z"
-                fill="#121826"
-              />
-              <path
-                d="M0 240 L0 205 L180 140 L360 205 L540 120 L740 210 L920 140 L1100 215 L1200 180 L1200 240 Z"
-                fill="#080a10"
-              />
-            </svg>
+            <MiniSiluetaHero variante={variante} />
             <div className="relative">
               <p className="kicker">{cronica.kicker}</p>
               <h3 className="titulo-display mt-4 max-w-2xl text-4xl font-semibold leading-tight transition-colors group-hover:text-oro-claro sm:text-6xl">
