@@ -15,6 +15,12 @@ import { recorridos, esRecorridoMecenas } from "@/data/recorridos";
 import { recorridosConAudioguia } from "@/data/audioguias";
 import { exhibicionesConAudioguia } from "@/data/audioguias-salas";
 import { exposicionesAnticipoActivas } from "@/lib/cronicas/indice";
+import { ColeccionPremium } from "@/components/piezas/ColeccionPremium";
+import {
+  DESCRIPCION_COLECCION_PREMIUM,
+  KICKER_COLECCION_PREMIUM,
+  TITULO_COLECCION_PREMIUM,
+} from "@/lib/copy";
 import { planes } from "@/lib/membresia.config";
 
 export const metadata = {
@@ -163,6 +169,25 @@ export default async function MecenasPage() {
             </ul>
           </section>
         )}
+
+        <section className="mt-16">
+          <p className="kicker text-oro">{KICKER_COLECCION_PREMIUM}</p>
+          <h2 className="titulo-display mt-3 text-2xl font-medium">
+            {TITULO_COLECCION_PREMIUM}
+          </h2>
+          <p className="mt-3 text-sm text-tinta-suave">{DESCRIPCION_COLECCION_PREMIUM}</p>
+          <div className="mt-8">
+            <ColeccionPremium compacto />
+          </div>
+          <p className="mt-6 text-center">
+            <Link
+              href="/piezas#coleccion-mecenas"
+              className="text-sm text-oro-claro underline-offset-4 hover:underline"
+            >
+              Ver la colección completa →
+            </Link>
+          </p>
+        </section>
 
         {exclusivas.length > 1 && (
           <section className="mt-14">

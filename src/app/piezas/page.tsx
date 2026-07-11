@@ -9,6 +9,12 @@ import {
   piezasPorTipo,
   todasLasPiezas,
 } from "@/lib/piezas/indice";
+import { ColeccionPremium } from "@/components/piezas/ColeccionPremium";
+import {
+  DESCRIPCION_COLECCION_PREMIUM,
+  KICKER_COLECCION_PREMIUM,
+  TITULO_COLECCION_PREMIUM,
+} from "@/lib/copy";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 
@@ -89,6 +95,21 @@ export default function PiezasPage() {
             </section>
           ),
         )}
+
+        <section id="coleccion-mecenas" className="mt-24 border-t border-linea-suave pt-20">
+          <Reveal>
+            <p className="kicker text-oro">{KICKER_COLECCION_PREMIUM}</p>
+            <h2 className="titulo-display mt-4 text-3xl font-medium">
+              {TITULO_COLECCION_PREMIUM}
+            </h2>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-tinta-suave">
+              {DESCRIPCION_COLECCION_PREMIUM}
+            </p>
+          </Reveal>
+          <div className="mt-12">
+            <ColeccionPremium />
+          </div>
+        </section>
 
         <Reveal className="mt-16 text-center">
           <Link

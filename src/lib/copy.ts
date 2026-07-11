@@ -21,7 +21,8 @@ export function mensajeEfemerideSugerida(
 export const KICKER_EFEMERIDE_SUGERIDA = "Otra pieza del museo";
 
 export const BENEFICIOS_PLAN_MENSUAL = [
-  "43 exhibiciones exclusivas para mecenas (catálogo en expansión)",
+  "43 exhibiciones exclusivas para mecenas",
+  "12 piezas comentadas en la colección premium",
   "3 visitas guiadas especiales con audioguía (Democracia, San Martín continental y Patagonia)",
   "Audioguías narradas en todas las exhibiciones del museo",
   "Carta mensual con novedades",
@@ -35,6 +36,7 @@ export const COMPARATIVA_MEMBRESIA = [
   { aspecto: "Exhibiciones", gratis: "56 públicas", mecenas: "56 públicas + 43 exclusivas" },
   { aspecto: "Visitas guiadas", gratis: "6 recorridos", mecenas: "6 + 3 especiales con audioguía" },
   { aspecto: "Audioguías", gratis: "Todas las salas públicas", mecenas: "Todas las exhibiciones" },
+  { aspecto: "Colección premium", gratis: "Piezas con ficha básica", mecenas: "12 piezas comentadas" },
   { aspecto: "Mapa", gratis: "7 lugares destacados", mecenas: "Mapa completo + filtros" },
   { aspecto: "Pasillo del tiempo", gratis: "Explorar por año", mecenas: "Comparar años y rangos" },
   { aspecto: "Retratos y pieza del día", gratis: "Todo gratis", mecenas: "Todo gratis" },
@@ -104,6 +106,15 @@ export const DESCRIPCION_SALA_PRIVADA =
 export const CTA_PEDIR_ACCESO = "Pedir enlace de acceso";
 export const CTA_VER_PLANES = "Ver planes de mecenas";
 
+/** Comentario curatorial en piezas premium. */
+export const KICKER_COMENTARIO_PREMIUM = "Comentario del museo";
+export const DESCRIPCION_COMENTARIO_PREMIUM =
+  "Los mecenas acceden al comentario curatorial completo: contexto, conexiones y lectura del documento.";
+export const KICKER_COLECCION_PREMIUM = "Colección comentada";
+export const TITULO_COLECCION_PREMIUM = "Piezas con comentario curatorial";
+export const DESCRIPCION_COLECCION_PREMIUM =
+  "Doce piezas del acervo con lectura extendida: mapas, actas, grabados y fotografías comentados por el equipo de Argent.";
+
 export const FAQ_MEMBRESIA = [
   {
     q: "¿El museo sigue siendo gratis?",
@@ -111,7 +122,7 @@ export const FAQ_MEMBRESIA = [
   },
   {
     q: "¿Qué incluye Mecenas hoy?",
-    a: "43 exhibiciones exclusivas, tres visitas guiadas especiales, mapa completo con filtros, pasillo del tiempo avanzado, carta mensual y tu nombre en los créditos.",
+    a: "43 exhibiciones exclusivas, doce piezas comentadas en la colección premium, tres visitas guiadas especiales, mapa completo con filtros, pasillo del tiempo avanzado, carta mensual y tu nombre en los créditos.",
   },
   {
     q: "¿Cómo pago?",

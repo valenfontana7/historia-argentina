@@ -10,6 +10,7 @@ import { cronicas } from "../src/content/cronicas/registro";
 import { tierDeCronica } from "../src/content/cronicas/tiers";
 import { MANUAL_INDICE } from "../src/data/audioguias-salas-manual";
 import { MANUAL_TIERB_INDICE } from "../src/data/audioguias-salas-manual-tierb";
+import { MANUAL_TIERC_INDICE } from "../src/data/audioguias-salas-manual-tierc";
 
 const ROOT = join(import.meta.dirname, "..");
 const MDX_DIR = join(ROOT, "src/content/cronicas");
@@ -27,6 +28,7 @@ const CAPITULO_BLOCK_RE = /<Capitulo[\s\S]*?\/>/g;
 const EXCLUIDOS = new Set([
   ...Object.keys(MANUAL_INDICE),
   ...Object.keys(MANUAL_TIERB_INDICE),
+  ...Object.keys(MANUAL_TIERC_INDICE),
 ]);
 
 function limpiarProsa(raw: string): string {
@@ -244,16 +246,33 @@ function main() {
     tierB,
     "B",
   );
-  escribirArchivo(
-    OUTPUT_C,
-    "GENERADO_INDICE",
-    "Generado por scripts/audioguias-indexar.ts — tier C narrativo",
-    tierC,
-    "C",
-  );
+
+  if (tierC.length > 0) {
+    escribirArchivo(
+      OUTPUT_C,
+      "GENERADO_INDICE",
+      "Generado por scripts/audioguias-indexar.ts — tier C narrativo",
+      tierC,
+      "C",
+    );
+  } else {
+    writeFileSync(
+      OUTPUT_C,
+      `/** Generado por scripts/audioguias-indexar.ts — tier C cubierto por manual. */
+import type { AudioguiaExhibicion } from "@/data/audioguias-salas-manual";
+
+export const GENERADO_INDICE: Record<string, AudioguiaExhibicion> = {};
+`,
+      "utf8",
+    );
+  }
 
   console.log(`✓ Audioguías tier B curadas: ${tierB.length} → ${OUTPUT_B}`);
-  console.log(`✓ Audioguías tier C generadas: ${tierC.length} → ${OUTPUT_C}`);
+  console.log(
+    tierC.length > 0
+      ? `✓ Audioguías tier C generadas: ${tierC.length} → ${OUTPUT_C}`
+      : `✓ Tier C cubierto por manual (${Object.keys(MANUAL_TIERC_INDICE).length} salas)`,
+  );
   if (tierA.length > 0) {
     console.log(`✓ Audioguías tier A curadas: ${tierA.length}`);
   }

@@ -6,14 +6,16 @@ import {
   type AudioguiaExhibicion,
 } from "@/data/audioguias-salas-manual";
 import { MANUAL_TIERB_INDICE } from "@/data/audioguias-salas-manual-tierb";
+import { MANUAL_TIERC_INDICE } from "@/data/audioguias-salas-manual-tierc";
 
 export type { AudioguiaExhibicion };
 
-/** Prioridad: manual > manual tier B > curadas tier B > generadas tier C. */
+/** Prioridad: manual > manual tier B/C > curadas tier B/A > generadas tier C. */
 const INDICE: Record<string, AudioguiaExhibicion> = {
   ...GENERADO_INDICE,
   ...CURADAS_TIERA_INDICE,
   ...CURADAS_TIERB_INDICE,
+  ...MANUAL_TIERC_INDICE,
   ...MANUAL_TIERB_INDICE,
   ...MANUAL_INDICE,
 };
