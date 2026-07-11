@@ -4,6 +4,7 @@ import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import { TransicionLink } from "@/components/navigation/TransicionLink";
 import { recorridos, esRecorridoMecenas } from "@/data/recorridos";
+import { recorridosConAudioguia } from "@/data/audioguias";
 import { contarCronicasEnRecorrido } from "@/lib/cronicas/indice";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
@@ -25,6 +26,7 @@ export const metadata: Metadata = construirMetadata({
 });
 
 export default function RecorridosPage() {
+  const slugsAudioguia = new Set(recorridosConAudioguia());
   const migajas = [
     { nombre: "Inicio", href: "/" },
     { nombre: MIGA_VISITAS_GUIADAS, href: "/recorridos" },
@@ -67,6 +69,9 @@ export default function RecorridosPage() {
                   )}
                   {esRecorridoMecenas(recorrido) && (
                     <span className="ml-2 text-oro">· Mecenas</span>
+                  )}
+                  {slugsAudioguia.has(recorrido.slug) && (
+                    <span className="ml-2 text-oro">· Audioguía</span>
                   )}
                 </p>
                 <h2 className="titulo-display mt-3 text-2xl font-semibold transition-colors group-hover:text-oro-claro">

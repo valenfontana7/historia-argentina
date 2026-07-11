@@ -2,6 +2,7 @@ import Image from "next/image";
 import { MiniSiluetaHero, gradientesHero } from "@/components/scrolly/HeroSiluetas";
 import { TransicionLink } from "@/components/navigation/TransicionLink";
 import type { CronicaMeta } from "@/content/cronicas/registro";
+import { esExposicionAnticipo, exhibicionAbiertaAlPublico } from "@/lib/cronicas/acceso";
 import { obtenerImagenCronica } from "@/data/cronicas-imagenes";
 import { tierDeCronica, etiquetaTier } from "@/content/cronicas/tiers";
 import { nombreTransicionExhibicion } from "@/lib/view-transitions";
@@ -27,6 +28,7 @@ export function FichaExhibicion({
   variante = "vertical",
 }: Props) {
   const exclusiva = cronica.acceso !== "publico";
+  const anticipo = esExposicionAnticipo(cronica) && !exhibicionAbiertaAlPublico(cronica);
   const imagen = cronica.visual.imagenHero
     ? obtenerImagenCronica(cronica.visual.imagenHero)
     : undefined;
@@ -113,9 +115,9 @@ export function FichaExhibicion({
             {cronica.numero}
           </span>
         )}
-        {exclusiva && (
+        {(anticipo || exclusiva) && (
           <span className="absolute right-3 top-3 rounded-full border border-oro/40 bg-fondo/80 px-2.5 py-0.5 text-[0.6rem] uppercase tracking-[0.18em] text-oro backdrop-blur-sm">
-            Mecenas
+            {anticipo ? "Anticipo" : "Mecenas"}
           </span>
         )}
         <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
@@ -136,7 +138,15 @@ export function FichaExhibicion({
           <span>{etiquetaTier(tier)}</span>
         </div>
         <p className="mt-4 text-[0.65rem] uppercase tracking-[0.18em] text-oro transition-transform duration-300 group-hover:translate-x-1">
-          {exclusiva ? (esMecenas ? "Entrar →" : "Sala privada →") : "Entrar a la sala →"}
+          {exclusiva
+            ? esMecenas
+              ? anticipo
+                ? "Anticipo →"
+                : "Entrar →"
+              : anticipo
+                ? "Próximamente · Mecenas ya →"
+                : "Sala privada →"
+            : "Entrar a la sala →"}
         </p>
       </div>
     </TransicionLink>

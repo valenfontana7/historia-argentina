@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { ProgresoSala } from "@/components/museo/ProgresoSala";
+import { RegistrarSelloSala } from "@/components/museo/RegistrarSelloSala";
 import { GridCronicas } from "@/components/cronicas/GridCronicas";
 import { RecientementeVisitado } from "@/components/engagement/RecientementeVisitado";
 import { PersonajeCard } from "@/components/PersonajeCard";
@@ -79,6 +80,7 @@ export default async function PeriodoPage({ params }: Props) {
         </Reveal>
 
         <ProgresoSala epoca={periodo.slug as Epoca} />
+        <RegistrarSelloSala epoca={periodo.slug as Epoca} nombre={periodo.nombre} />
 
         <Reveal className="mt-14">
           <div className="prosa max-w-3xl">

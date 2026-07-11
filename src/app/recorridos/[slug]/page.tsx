@@ -6,7 +6,7 @@ import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { obtenerCronica } from "@/content/cronicas/registro";
 import { TarjetaEntidad } from "@/components/exploracion/TarjetaEntidad";
 import { SoftGate } from "@/components/membresia/SoftGate";
-import { RecorridoPasos } from "@/components/recorridos/RecorridoPasos";
+import { VisitaGuiadaContenido } from "@/components/recorridos/VisitaGuiadaContenido";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import {
@@ -20,6 +20,7 @@ import { obtenerSalidasPagina } from "@/lib/grafo/obtener-salidas-pagina";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 import { CTA_VER_TODAS_VISITAS, MIGA_VISITAS_GUIADAS } from "@/lib/copy";
+import { obtenerAudioguia } from "@/data/audioguias";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -72,6 +73,8 @@ export default async function RecorridoPage({ params }: Props) {
     .map((p) => obtenerCronica(p.slug))
     .filter((c): c is NonNullable<typeof c> => c !== undefined);
 
+  const audioguia = obtenerAudioguia(slug);
+
   return (
     <article className="pb-28 pt-32">
       <script
@@ -84,6 +87,7 @@ export default async function RecorridoPage({ params }: Props) {
           <p className="kicker">
             {recorrido.duracion} · {pasos.length} estaciones
             {premium && " · Visita exclusiva mecenas"}
+            {audioguia && desbloqueado && " · Con audioguía"}
           </p>
           <h1 className="titulo-display mt-4 text-4xl font-semibold leading-tight sm:text-5xl">
             {recorrido.titulo}
@@ -110,9 +114,12 @@ export default async function RecorridoPage({ params }: Props) {
 
         {desbloqueado ? (
           <>
-            <div className="mt-16">
-              <RecorridoPasos pasos={pasos} tituloRecorrido={recorrido.titulo} />
-            </div>
+            <VisitaGuiadaContenido
+              pasos={pasos}
+              tituloRecorrido={recorrido.titulo}
+              slug={slug}
+              audioguia={audioguia}
+            />
             {salidas.length > 0 && (
               <SalidasDeSala
                 salidas={salidas}

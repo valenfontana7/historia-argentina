@@ -94,6 +94,14 @@ export function tituloExhibicionesColeccion(nombre: string): string {
 }
 export const CTA_VER_SALA_EPOCA = "Ver la sala de la época →";
 
+/** Puerta de sala privada (SoftGate museográfico). */
+export const KICKER_SALA_PRIVADA = "Sala privada";
+export const TITULO_SALA_PRIVADA = "Esta exhibición está reservada para mecenas";
+export const DESCRIPCION_SALA_PRIVADA =
+  "Podés ver el umbral desde acá. Cruzar la puerta requiere la membresía que sostiene el museo.";
+export const CTA_PEDIR_ACCESO = "Pedir enlace de acceso";
+export const CTA_VER_PLANES = "Ver planes de mecenas";
+
 export const FAQ_MEMBRESIA = [
   {
     q: "¿El museo sigue siendo gratis?",

@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import type { Epoca } from "@/components/ui/Retrato";
 import type { VarianteHero } from "@/content/cronicas/tipos";
 import { taxonomiaPorSlug } from "@/content/cronicas/taxonomia";
+import { requiereAccesoMecenas } from "@/lib/cronicas/acceso";
 
 export type AccesoCronica = "publico" | "mecenas" | "anticipo";
 
@@ -20,6 +21,8 @@ export type CronicaMeta = {
   visual: { varianteHero: VarianteHero; imagenHero?: string; acento?: string };
   /** Época histórica para agrupación y hubs */
   epoca: Epoca;
+  /** Para acceso `anticipo`: fecha ISO en que abre al público general. */
+  publicacionPublica?: string;
   /** Slugs de categorías temáticas */
   categorias: string[];
   anioInicio: number;
@@ -448,13 +451,14 @@ const cronicasBase: CronicaBase[] = [
     titulo: "La Conquista del Desierto",
     subtitulo:
       "Roca, la Patagonia y la herida que la Argentina todavía discute.",
-    kicker: "Exclusiva Mecenas · Crónica N.º 24",
+    kicker: "Anticipo Mecenas · Crónica N.º 24",
     periodo: "1878 — 1885",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de la Conquista del Desierto: frontera móvil, campaña militar y memoria disputada.",
     publicada: "2026-07-10",
-    acceso: "mecenas",
+    acceso: "anticipo",
+    publicacionPublica: "2026-09-01",
     protagonista: { slug: "julio-argentino-roca", etiqueta: "La ficha de Roca" },
     visual: { varianteHero: "pampa", imagenHero: "desierto-ejercito" },
   },
@@ -478,13 +482,14 @@ const cronicasBase: CronicaBase[] = [
     titulo: "Junín",
     subtitulo:
       "La batalla de caballería a 4.000 metros: la última victoria de San Martín en el Perú.",
-    kicker: "Exclusiva Mecenas · Crónica N.º 25",
+    kicker: "Anticipo Mecenas · Crónica N.º 25",
     periodo: "6 de agosto de 1824",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de la batalla de Junín: sables en la meseta andina y el preludio de Ayacucho.",
     publicada: "2026-07-11",
-    acceso: "mecenas",
+    acceso: "anticipo",
+    publicacionPublica: "2026-08-15",
     protagonista: { slug: "jose-de-san-martin", etiqueta: "La ficha de San Martín" },
     visual: { varianteHero: "andes", imagenHero: "junin-batalla" },
   },
@@ -1647,8 +1652,5 @@ export function cronicasPublicas(): CronicaMeta[] {
 }
 
 export function requiereMecenas(cronica: CronicaMeta): boolean {
-  if (process.env.NEXT_PUBLIC_SALTAR_MECENAS === "true") {
-    return false;
-  }
-  return cronica.acceso === "mecenas" || cronica.acceso === "anticipo";
+  return requiereAccesoMecenas(cronica);
 }

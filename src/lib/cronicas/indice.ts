@@ -6,6 +6,7 @@ import {
 } from "@/content/cronicas/registro";
 import { recorridos } from "@/data/recorridos";
 import { periodos } from "@/data/periodos";
+import { esExposicionAnticipo, exhibicionAbiertaAlPublico } from "@/lib/cronicas/acceso";
 
 /** Orden editorial de épocas en el catálogo. */
 export const ORDEN_EPOCAS: Epoca[] = [
@@ -98,15 +99,30 @@ export function destacadas(): CronicaMeta[] {
   return filtrarYOrdenar(cronicas).slice(0, 3);
 }
 
-export function agrupadasPorEpoca(): { epoca: Epoca; nombre: string; cronicas: CronicaMeta[] }[] {
+export function visibleEnGrupoCatalogo(
+  cronica: CronicaMeta,
+  esMecenas: boolean,
+): boolean {
+  if (esMecenas) return true;
+  if (esExposicionAnticipo(cronica) && !exhibicionAbiertaAlPublico(cronica)) {
+    return false;
+  }
+  return true;
+}
+
+export function agrupadasPorEpocaVisibles(esMecenas: boolean) {
   return ORDEN_EPOCAS.map((epoca) => {
     const periodo = periodos.find((p) => p.slug === epoca);
     return {
       epoca,
       nombre: periodo?.nombre ?? epoca,
-      cronicas: porEpoca(epoca),
+      cronicas: porEpoca(epoca).filter((c) => visibleEnGrupoCatalogo(c, esMecenas)),
     };
   }).filter((g) => g.cronicas.length > 0);
+}
+
+export function agrupadasPorEpoca(): { epoca: Epoca; nombre: string; cronicas: CronicaMeta[] }[] {
+  return agrupadasPorEpocaVisibles(true);
 }
 
 export function conteoPorEpoca(): Record<Epoca, number> {
@@ -186,4 +202,18 @@ export function contarCronicasEnRecorrido(recorridoSlug: string): number {
   const rec = recorridos.find((r) => r.slug === recorridoSlug);
   if (!rec) return 0;
   return rec.pasos.filter((p) => p.tipo === "cronica").length;
+}
+
+/** Exhibiciones en anticipo: mecenas ya, público en fecha futura. */
+export function exposicionesAnticipoActivas(): CronicaMeta[] {
+  return filtrarYOrdenar(
+    cronicas.filter((c) => c.acceso === "anticipo" && !exhibicionAbiertaAlPublico(c)),
+  );
+}
+
+/** Catálogo visible sin membresía (excluye mecenas y anticipo no publicadas). */
+export function exhibicionesPublicasCatalogo(): CronicaMeta[] {
+  return filtrarYOrdenar(
+    cronicas.filter((c) => c.acceso === "publico" || exhibicionAbiertaAlPublico(c)),
+  );
 }

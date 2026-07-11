@@ -10,7 +10,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import type { CronicaMeta } from "@/content/cronicas/registro";
 import type { Epoca } from "@/components/ui/Retrato";
 import {
-  agrupadasPorEpoca,
+  agrupadasPorEpocaVisibles,
   conteoPorEpoca,
   datasetBusqueda,
   filtrarCatalogo,
@@ -43,7 +43,7 @@ export function CatalogoCronicas({
   const [busqueda, setBusqueda] = useState("");
   const dataset = useMemo(() => datasetBusqueda(), []);
   const conteos = useMemo(() => conteoPorEpoca(), []);
-  const grupos = useMemo(() => agrupadasPorEpoca(), []);
+  const grupos = useMemo(() => agrupadasPorEpocaVisibles(esMecenas), [esMecenas]);
 
   const resultadosBusqueda = useMemo(() => {
     const q = normalizar(busqueda.trim());

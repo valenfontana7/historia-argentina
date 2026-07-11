@@ -1,10 +1,13 @@
 import { Suspense } from "react";
 import { CatalogoCronicas } from "@/components/cronicas/CatalogoCronicas";
+import { ExposicionesTemporales } from "@/components/museo/ExposicionesTemporales";
 import { Reveal } from "@/components/ui/Reveal";
 import { puedeVerContenidoMecenas } from "@/lib/auth";
 import {
   destacadas,
+  exposicionesAnticipoActivas,
   filtrarCatalogo,
+  visibleEnGrupoCatalogo,
   type FiltrosCatalogo,
 } from "@/lib/cronicas/indice";
 import { construirMetadata } from "@/lib/seo/metadata";
@@ -48,6 +51,7 @@ export default async function CronicasPage({ searchParams }: Props) {
   const filtros = parseFiltros(params);
   const modoFiltrado = Boolean(filtros.epoca || filtros.categoria || filtros.acceso);
   const resultadosFiltrados = modoFiltrado ? filtrarCatalogo(filtros) : [];
+  const anticipo = exposicionesAnticipoActivas();
 
   return (
     <div className="mx-auto max-w-6xl px-5 pb-28 pt-32">
@@ -63,9 +67,15 @@ export default async function CronicasPage({ searchParams }: Props) {
         </p>
       </Reveal>
 
+      {!modoFiltrado && anticipo.length > 0 && (
+        <Reveal className="mt-10">
+          <ExposicionesTemporales exposiciones={anticipo} esMecenas={esMecenas} />
+        </Reveal>
+      )}
+
       <Suspense fallback={<div className="mt-10 h-24 animate-pulse rounded-sm bg-fondo-2" />}>
         <CatalogoCronicas
-          destacadas={destacadas()}
+          destacadas={destacadas().filter((c) => visibleEnGrupoCatalogo(c, esMecenas))}
           esMecenas={esMecenas}
           filtrosIniciales={filtros}
           modoFiltrado={modoFiltrado}

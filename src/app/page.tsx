@@ -8,8 +8,11 @@ import { CronicaDelMesPortada } from "@/components/portada/CronicaDelMesPortada"
 import { PortadaRetorno } from "@/components/portada/PortadaRetorno";
 import { PuertasDeSala } from "@/components/museo/PuertasDeSala";
 import { TuVisita } from "@/components/museo/TuVisita";
+import { ExposicionesTemporales } from "@/components/museo/ExposicionesTemporales";
 import { TransicionLink } from "@/components/navigation/TransicionLink";
 import { Reveal } from "@/components/ui/Reveal";
+import { puedeVerContenidoMecenas } from "@/lib/auth";
+import { exposicionesAnticipoActivas } from "@/lib/cronicas/indice";
 import {
   formatearFechaCalendario,
   resolverEfemerideParaFecha,
@@ -45,6 +48,8 @@ function cronicaDelMes() {
 }
 
 export default async function HomePage() {
+  const esMecenas = await puedeVerContenidoMecenas();
+  const anticipo = exposicionesAnticipoActivas();
   const { mes, dia } = hoyEnArgentina();
   const { efemeride, esExacta } = resolverEfemerideParaFecha(mes, dia);
   const fechaHoy = formatearFechaCalendario(mes, dia);
@@ -67,6 +72,14 @@ export default async function HomePage() {
       <PortadaRetorno />
 
       <TuVisita />
+
+      {anticipo.length > 0 && (
+        <section className="border-b border-linea-suave bg-fondo-2">
+          <div className="mx-auto max-w-6xl px-5 py-12">
+            <ExposicionesTemporales exposiciones={anticipo} esMecenas={esMecenas} />
+          </div>
+        </section>
+      )}
 
       {/* Pieza del día */}
       <section className="border-y border-linea-suave bg-fondo">

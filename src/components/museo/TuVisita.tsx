@@ -8,8 +8,10 @@ import {
   proximaSalaSugerida,
   type ProgresoSala,
 } from "@/lib/engagement/visita";
+import { obtenerSellos } from "@/lib/engagement/sellos";
 import { Reveal } from "@/components/ui/Reveal";
 import { TransicionLink } from "@/components/navigation/TransicionLink";
+import { SellosVisita } from "@/components/museo/SellosVisita";
 
 type Props = {
   compacto?: boolean;
@@ -18,13 +20,14 @@ type Props = {
 export function TuVisita({ compacto = false }: Props) {
   const salas = useStorageSnapshot(obtenerProgresoSalas, []);
   const recientes = useStorageSnapshot(obtenerRecientes, []);
+  const sellos = useStorageSnapshot(obtenerSellos, []);
 
   const enCurso = recientes.find(
     (r) => r.tipo === "cronica" && r.href.startsWith("/cronicas/"),
   );
   const proximaSala = proximaSalaSugerida(salas);
 
-  if (salas.length === 0 && !enCurso) return null;
+  if (salas.length === 0 && !enCurso && sellos.length === 0) return null;
 
   if (compacto) {
     return (
@@ -45,6 +48,9 @@ export function TuVisita({ compacto = false }: Props) {
             Próxima sala: {proximaSala.nombre} ({proximaSala.vistas}/{proximaSala.total}) →
           </Link>
         )}
+        <div className="mt-2">
+          <SellosVisita compacto />
+        </div>
       </div>
     );
   }
@@ -128,6 +134,10 @@ export function TuVisita({ compacto = false }: Props) {
           ))}
         </div>
       )}
+
+      <div className="mt-12">
+        <SellosVisita />
+      </div>
     </section>
   );
 }
