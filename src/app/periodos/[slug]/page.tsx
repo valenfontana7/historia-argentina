@@ -3,11 +3,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
 import { EnlacesRelacionados } from "@/components/exploracion/EnlacesRelacionados";
+import { GridCronicas } from "@/components/cronicas/GridCronicas";
+import { RecientementeVisitado } from "@/components/engagement/RecientementeVisitado";
 import { PersonajeCard } from "@/components/PersonajeCard";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import { personajes } from "@/data/personajes";
 import { obtenerPeriodo, periodos } from "@/data/periodos";
+import { puedeVerContenidoMecenas } from "@/lib/auth";
+import { porEpoca } from "@/lib/cronicas/indice";
 import { obtenerNodo } from "@/lib/grafo/queries";
 import { enlaceDeHitoPeriodo } from "@/lib/periodo-enlaces";
 import { construirMetadata } from "@/lib/seo/metadata";
@@ -38,6 +42,8 @@ export default async function PeriodoPage({ params }: Props) {
   const periodo = obtenerPeriodo(slug);
   if (!periodo) notFound();
 
+  const esMecenas = await puedeVerContenidoMecenas();
+  const cronicasEpoca = porEpoca(periodo.slug);
   const nodo = obtenerNodo("periodo", slug);
   const delPeriodo = personajes.filter((p) => p.epoca === periodo.slug);
   const migajas = [
@@ -94,6 +100,18 @@ export default async function PeriodoPage({ params }: Props) {
             })}
           </ul>
         </Reveal>
+
+        {cronicasEpoca.length > 0 && (
+          <div className="mt-20">
+            <GridCronicas
+              cronicas={cronicasEpoca}
+              titulo="Crónicas de esta época"
+              esMecenas={esMecenas}
+            />
+          </div>
+        )}
+
+        <RecientementeVisitado limite={5} />
 
         {delPeriodo.length > 0 && (
           <section className="mt-20">

@@ -3,6 +3,7 @@ import { efemerides } from "@/data/efemerides";
 import { personajes } from "@/data/personajes";
 import { periodoPorAnio } from "@/data/periodos";
 import type { Periodo } from "@/data/periodos";
+import { cronicasEnAnio } from "@/lib/cronicas/indice";
 
 export type EventoPreview = {
   slug: string;
@@ -16,11 +17,18 @@ export type PersonajePreview = {
   nombre: string;
 };
 
+export type CronicaPreview = {
+  slug: string;
+  titulo: string;
+  anioInicio: number;
+};
+
 export type PreviewAnio = {
   anio: number;
   periodo: Periodo | undefined;
   eventos: EventoPreview[];
   personajes: PersonajePreview[];
+  cronicas: CronicaPreview[];
 };
 
 export type StatsSiglo = {
@@ -66,6 +74,11 @@ export function previewAnio(anio: number): PreviewAnio {
     periodo: periodoPorAnio(anio),
     eventos,
     personajes: personajesActivos,
+    cronicas: cronicasEnAnio(anio).map((c) => ({
+      slug: c.slug,
+      titulo: c.titulo,
+      anioInicio: c.anioInicio,
+    })),
   };
 }
 

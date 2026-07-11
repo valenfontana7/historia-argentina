@@ -21,8 +21,8 @@ export function mensajeEfemerideSugerida(
 export const KICKER_EFEMERIDE_SUGERIDA = "Otra historia del museo";
 
 export const BENEFICIOS_PLAN_MENSUAL = [
-  "2 crónicas que solo ven los mecenas",
-  "2 recorridos especiales (Democracia y San Martín continental)",
+  "43 crónicas exclusivas para mecenas (catálogo en expansión)",
+  "3 recorridos especiales (Democracia, San Martín continental y Patagonia)",
   "Carta mensual con novedades",
   "Mapa histórico completo con filtros por época",
   "Línea de tiempo para comparar años",
@@ -31,8 +31,8 @@ export const BENEFICIOS_PLAN_MENSUAL = [
 
 /** Comparación lado a lado para la landing de membresía. */
 export const COMPARATIVA_MEMBRESIA = [
-  { aspecto: "Crónicas", gratis: "2 públicas", mecenas: "2 públicas + 2 exclusivas" },
-  { aspecto: "Recorridos", gratis: "5 recorridos", mecenas: "5 + 2 especiales" },
+  { aspecto: "Crónicas", gratis: "56 públicas", mecenas: "56 públicas + 43 exclusivas" },
+  { aspecto: "Recorridos", gratis: "6 recorridos", mecenas: "6 + 3 especiales" },
   { aspecto: "Mapa", gratis: "7 lugares destacados", mecenas: "Mapa completo + filtros" },
   { aspecto: "Línea de tiempo", gratis: "Explorar por año", mecenas: "Comparar años y rangos" },
   { aspecto: "Panteón e historia del día", gratis: "Todo gratis", mecenas: "Todo gratis" },
@@ -56,11 +56,11 @@ export const DESCRIPCION_PLAN_FUNDADOR =
 export const FAQ_MEMBRESIA = [
   {
     q: "¿El museo sigue siendo gratis?",
-    a: "Sí. Podés leer crónicas públicas, el Panteón, lugares, cinco recorridos y la historia del día sin pagar. Mecenas suma crónicas exclusivas, mapa completo y recorridos especiales.",
+    a: "Sí. Podés leer crónicas públicas, el Panteón, lugares, seis recorridos y la historia del día sin pagar. Mecenas suma 43 crónicas exclusivas, mapa completo y recorridos especiales.",
   },
   {
     q: "¿Qué incluye Mecenas hoy?",
-    a: "Dos crónicas exclusivas, dos recorridos especiales, mapa completo con filtros, línea de tiempo avanzada, carta mensual y tu nombre en los créditos.",
+    a: "43 crónicas exclusivas, tres recorridos especiales, mapa completo con filtros, línea de tiempo avanzada, carta mensual y tu nombre en los créditos.",
   },
   {
     q: "¿Cómo pago?",

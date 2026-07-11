@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CronicaCardCompacta } from "@/components/cronicas/CronicaCardCompacta";
 import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
+import { obtenerCronica } from "@/content/cronicas/registro";
 import { TarjetaEntidad } from "@/components/exploracion/TarjetaEntidad";
 import { SoftGate } from "@/components/membresia/SoftGate";
 import { RecorridoPasos } from "@/components/recorridos/RecorridoPasos";
@@ -61,6 +63,12 @@ export default async function RecorridoPage({ params }: Props) {
 
   const ultimoNodo = pasos[pasos.length - 1]?.nodo;
 
+  const previewCronicas = recorrido.pasos
+    .filter((p) => p.tipo === "cronica")
+    .slice(0, 4)
+    .map((p) => obtenerCronica(p.slug))
+    .filter((c): c is NonNullable<typeof c> => c !== undefined);
+
   return (
     <article className="pb-28 pt-32">
       <script
@@ -81,6 +89,21 @@ export default async function RecorridoPage({ params }: Props) {
             {recorrido.subtitulo}
           </p>
         </Reveal>
+
+        {previewCronicas.length > 0 && (
+          <section className="mt-12">
+            <Reveal>
+              <p className="kicker">Crónicas del recorrido</p>
+            </Reveal>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {previewCronicas.map((cronica, i) => (
+                <Reveal key={cronica.slug} delay={i * 0.04}>
+                  <CronicaCardCompacta cronica={cronica} esMecenas={mecenas} />
+                </Reveal>
+              ))}
+            </div>
+          </section>
+        )}
 
         {desbloqueado ? (
           <>

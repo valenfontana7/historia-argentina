@@ -139,6 +139,7 @@ Panel para el creador en **`/admin`** (magic link, sin contraseñas).
 | `/admin/acceder` | Pedir magic link (solo emails en `MECENAS_CREATOR_EMAILS`) |
 | `/admin` | Dashboard: stats, estado de planes, accesos rápidos |
 | `/admin/mecenas` | Activar/desactivar planes y probar checkout a $1 |
+| `/admin/mecenas/personas` | Listado de mecenas, alta manual, cortesías y vencimientos |
 
 | Función | Descripción |
 | ------- | ----------- |
@@ -146,6 +147,25 @@ Panel para el creador en **`/admin`** (magic link, sin contraseñas).
 | Activar / desactivar Fundador | Controla si el plan anual aparece en `/membresia` |
 | Probar checkout | Flujo real de MercadoPago a **$1 ARS** (o `MECENAS_CREATOR_PRECIO`) |
 | Checkout con plan apagado | Solo emails en `MECENAS_CREATOR_EMAILS` |
+| Listar mecenas | Tabla con filtros por email, estado, plan y cortesía |
+| Alta manual | Crear mecenas activo sin pasar por MercadoPago |
+| Cortesía (`exentoFacturacion`) | Acceso sin cobro; no cancela suscripciones MP existentes |
+| Editar vencimiento | `periodEnd` con fecha o indefinido (`null`) |
+| Notas admin | Campo interno por mecenas (no visible al público) |
+
+### Gestión de personas (cortesías)
+
+Desde **`/admin/mecenas/personas`** podés:
+
+1. **Ver** todos los mecenas con origen (MercadoPago o manual), estado y vencimiento.
+2. **Agregar** un email manualmente: elegís plan, cortesía, vencimiento y si enviar email de acceso.
+3. **Editar** estado, cortesía, vencimiento, plan, nombre en mural y notas internas.
+
+Un mecenas con `exentoFacturacion: true` tiene acceso premium sin cobro. Si ya tiene suscripción MP activa, marcar cortesía **no cancela** el débito automático — hay que cancelarlo en el panel de MercadoPago.
+
+Campos nuevos en `Mecenas` (Prisma): `exentoFacturacion`, `notasAdmin`.
+
+Código: [`src/lib/mecenas-admin.ts`](../src/lib/mecenas-admin.ts), [`src/app/admin/(panel)/mecenas/personas/page.tsx`](../src/app/admin/(panel)/mecenas/personas/page.tsx)
 
 ### Flujo recomendado
 
@@ -163,7 +183,7 @@ Panel para el creador en **`/admin`** (magic link, sin contraseñas).
 - Precio reducido **solo** si el email del checkout coincide con `MECENAS_CREATOR_EMAILS`.
 - `/admin/` excluido de robots.
 
-Código: [`src/lib/admin-auth.ts`](../src/lib/admin-auth.ts), [`src/app/admin/(panel)/page.tsx`](../src/app/admin/(panel)/page.tsx), [`src/app/admin/(panel)/mecenas/page.tsx`](../src/app/admin/(panel)/mecenas/page.tsx)
+Código: [`src/lib/admin-auth.ts`](../src/lib/admin-auth.ts), [`src/app/admin/(panel)/page.tsx`](../src/app/admin/(panel)/page.tsx), [`src/app/admin/(panel)/mecenas/page.tsx`](../src/app/admin/(panel)/mecenas/page.tsx), [`src/lib/mecenas-admin.ts`](../src/lib/mecenas-admin.ts)
 
 ---
 
@@ -263,6 +283,7 @@ Checklist cuando compres el dominio:
 | `/membresia` | Público | Planes habilitados, precios, FAQ, checkout |
 | `/admin` | Creador (magic link) | Dashboard, stats, accesos rápidos |
 | `/admin/mecenas` | Creador | Activar/desactivar planes, probar checkout $1 |
+| `/admin/mecenas/personas` | Creador | Listado, alta manual, cortesías y vencimientos |
 | `/admin/acceder` | Público | Login admin por magic link |
 | `/membresia/gracias` | Público | Post-pago; pedir magic link |
 | `/membresia/acceder` | Público | Login por magic link |

@@ -6,19 +6,29 @@ export type OpcionProximaCronica = {
 
 export const opcionesProximaCronica: OpcionProximaCronica[] = [
   {
-    slug: "cordobazo",
-    titulo: "El Cordobazo",
-    bajada: "Mayo de 1969: cuando el trabajo industrial le ganó la calle al poder.",
+    slug: "levingston",
+    titulo: "Levingston",
+    bajada: "1970: el general interino de la Revolución Argentina.",
   },
   {
-    slug: "malvinas-ciudad",
-    titulo: "Malvinas vista desde la ciudad",
-    bajada: "La guerra que llegó a cada barrio argentino en 1982.",
+    slug: "campora",
+    titulo: "Cámpora",
+    bajada: "Marzo de 1973: el peronismo vuelve a las urnas.",
   },
   {
-    slug: "exodo-jujeno",
-    titulo: "El Éxodo Jujeño",
-    bajada: "Belgrano quema la tierra y arrastra un pueblo entero hacia el sur.",
+    slug: "celman",
+    titulo: "Celman",
+    bajada: "1886: la Generación del Ochenta y el estallido de 1890.",
+  },
+  {
+    slug: "videla",
+    titulo: "Videla",
+    bajada: "1976: el rostro del Proceso de Reorganización Nacional.",
+  },
+  {
+    slug: "massera",
+    titulo: "Massera",
+    bajada: "El almirante de la ESMA y los vuelos de la muerte.",
   },
 ];
 

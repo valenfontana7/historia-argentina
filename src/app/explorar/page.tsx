@@ -5,6 +5,8 @@ import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import { categorias } from "@/data/categorias";
 import { periodos } from "@/data/periodos";
+import { conteoPorEpoca } from "@/lib/cronicas/indice";
+import { RecientementeVisitado } from "@/components/engagement/RecientementeVisitado";
 import { aniosConEventos, todosLosNodos } from "@/lib/grafo/queries";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
@@ -19,6 +21,7 @@ export const metadata: Metadata = construirMetadata({
 export default function ExplorarPage() {
   const nodos = todosLosNodos();
   const anios = aniosConEventos().slice(-8).reverse();
+  const conteos = conteoPorEpoca();
   const migajas = [
     { nombre: "Inicio", href: "/" },
     { nombre: "Explorar", href: "/explorar" },
@@ -70,6 +73,39 @@ export default function ExplorarPage() {
                 <p className="mt-2 text-sm text-tinta-tenue">{item.desc}</p>
               </Link>
             ))}
+          </div>
+        </section>
+
+        <RecientementeVisitado limite={5} />
+
+        <section className="mt-20">
+          <Reveal>
+            <h2 className="titulo-display text-2xl font-medium text-oro">
+              Empezá por una época
+            </h2>
+            <p className="mt-3 max-w-xl text-sm text-tinta-suave">
+              Cada período agrupa crónicas, personajes y eventos. Elegí por dónde
+              entrar al catálogo.
+            </p>
+          </Reveal>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {periodos.map((p) => {
+              const n = conteos[p.slug] ?? 0;
+              return (
+                <Link
+                  key={p.slug}
+                  href={`/periodos/${p.slug}#cronicas`}
+                  className="rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
+                >
+                  {p.nombre}
+                  {n > 0 && (
+                    <span className="ml-1.5 text-oro">
+                      · {n} {n === 1 ? "crónica" : "crónicas"}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
           </div>
         </section>
 

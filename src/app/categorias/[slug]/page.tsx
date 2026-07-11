@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
+import { GridCronicas } from "@/components/cronicas/GridCronicas";
+import { RecientementeVisitado } from "@/components/engagement/RecientementeVisitado";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import { categorias, obtenerCategoria, slugDeCategoria } from "@/data/categorias";
 import { efemerides } from "@/data/efemerides";
 import { obtenerVarios } from "@/data/personajes";
+import { puedeVerContenidoMecenas } from "@/lib/auth";
+import { porCategoria } from "@/lib/cronicas/indice";
 import { obtenerNodo } from "@/lib/grafo/queries";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { sitio } from "@/lib/site.config";
@@ -36,6 +40,8 @@ export default async function CategoriaPage({ params }: Props) {
   const cat = obtenerCategoria(slug);
   if (!cat) notFound();
 
+  const esMecenas = await puedeVerContenidoMecenas();
+  const cronicasTema = porCategoria(slug);
   const eventos = efemerides.filter((e) => slugDeCategoria(e.categoria) === slug);
   const personajeSlugs = new Set<string>();
   for (const e of eventos) {
@@ -65,6 +71,18 @@ export default async function CategoriaPage({ params }: Props) {
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-tinta-suave">{cat.descripcion}</p>
         </Reveal>
+
+        {cronicasTema.length > 0 && (
+          <div className="mt-16">
+            <GridCronicas
+              cronicas={cronicasTema}
+              titulo={`Crónicas de ${cat.nombre.toLowerCase()}`}
+              esMecenas={esMecenas}
+            />
+          </div>
+        )}
+
+        <RecientementeVisitado limite={5} />
 
         {eventos.length > 0 && (
           <section className="mt-16">

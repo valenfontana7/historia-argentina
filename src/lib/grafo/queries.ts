@@ -4,6 +4,8 @@ import { efemerides } from "@/data/efemerides";
 import { lugares } from "@/data/lugares";
 import { periodoPorAnio } from "@/data/periodos";
 import { personajes } from "@/data/personajes";
+import { recorridos } from "@/data/recorridos";
+import { recorridosDeCronica } from "@/lib/cronicas/indice";
 import { construirTodosLosNodos } from "@/lib/grafo/adaptadores";
 import type {
   EntidadRef,
@@ -137,9 +139,14 @@ function enriquecerRelaciones(nodo: NodoEntidad): EntidadRef[] {
     const cronica = cronicas.find((c) => c.slug === nodo.slug);
     if (cronica) {
       extras.push({ tipo: "persona", slug: cronica.protagonista.slug });
+      extras.push({ tipo: "periodo", slug: cronica.epoca });
+
+      for (const cat of cronica.categorias.slice(0, 2)) {
+        extras.push({ tipo: "categoria", slug: cat });
+      }
+
       const prota = personajes.find((p) => p.slug === cronica.protagonista.slug);
       if (prota) {
-        extras.push({ tipo: "periodo", slug: prota.epoca });
         for (const ef of efemerides) {
           if (ef.relacionados.includes(prota.slug)) {
             extras.push({ tipo: "evento", slug: ef.dia });
@@ -149,10 +156,44 @@ function enriquecerRelaciones(nodo: NodoEntidad): EntidadRef[] {
           extras.push({ tipo: "persona", slug });
         }
       }
-      for (const otra of cronicas) {
-        if (otra.slug !== cronica.slug) {
-          extras.push({ tipo: "cronica", slug: otra.slug });
+
+      const mismasEpoca = cronicas
+        .filter((c) => c.slug !== cronica.slug && c.epoca === cronica.epoca)
+        .slice(0, 4);
+      for (const otra of mismasEpoca) {
+        extras.push({ tipo: "cronica", slug: otra.slug });
+      }
+
+      const porCategoria = cronicas
+        .filter(
+          (c) =>
+            c.slug !== cronica.slug &&
+            c.categorias.some((cat) => cronica.categorias.includes(cat)),
+        )
+        .slice(0, 3);
+      for (const otra of porCategoria) {
+        extras.push({ tipo: "cronica", slug: otra.slug });
+      }
+
+      for (const recSlug of recorridosDeCronica(cronica.slug).slice(0, 2)) {
+        const rec = recorridos.find((r) => r.slug === recSlug);
+        if (!rec) continue;
+        for (const paso of rec.pasos) {
+          if (paso.tipo === "cronica" && paso.slug !== cronica.slug) {
+            extras.push({ tipo: "cronica", slug: paso.slug });
+          }
         }
+      }
+
+      const cercanas = cronicas
+        .filter(
+          (c) =>
+            c.slug !== cronica.slug &&
+            Math.abs(c.anioInicio - cronica.anioInicio) <= 20,
+        )
+        .slice(0, 3);
+      for (const otra of cercanas) {
+        extras.push({ tipo: "cronica", slug: otra.slug });
       }
     }
   }
@@ -329,6 +370,10 @@ export function cronicasDePersonaje(slug: string): NodoEntidad[] {
 
 export function aniosConEventos(): number[] {
   const anios = new Set(efemerides.map((e) => e.anio));
+  for (const c of cronicas) {
+    anios.add(c.anioInicio);
+    if (c.anioFin !== c.anioInicio) anios.add(c.anioFin);
+  }
   return [...anios].sort((a, b) => a - b);
 }
 

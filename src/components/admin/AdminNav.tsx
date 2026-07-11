@@ -8,9 +8,25 @@ type Props = {
 };
 
 const links = [
-  { href: "/admin", label: "Inicio", exact: true },
-  { href: "/admin/mecenas", label: "Mecenas", exact: false },
+  { href: "/admin", label: "Inicio", match: "exact" as const },
+  { href: "/admin/mecenas", label: "Planes", match: "planes" as const },
+  { href: "/admin/mecenas/personas", label: "Personas", match: "prefix" as const },
 ] as const;
+
+function linkActivo(pathname: string, href: string, match: (typeof links)[number]["match"]): boolean {
+  switch (match) {
+    case "exact":
+      return pathname === href;
+    case "planes":
+      return pathname === href || pathname === `${href}/`;
+    case "prefix":
+      return pathname.startsWith(href);
+    default: {
+      const _exhaustive: never = match;
+      return _exhaustive;
+    }
+  }
+}
 
 export function AdminNav({ email }: Props) {
   const pathname = usePathname();
@@ -28,8 +44,8 @@ export function AdminNav({ email }: Props) {
           <p className="text-sm text-tinta-suave">{email}</p>
         </div>
         <nav className="flex flex-wrap items-center gap-2">
-          {links.map(({ href, label, exact }) => {
-            const activo = exact ? pathname === href : pathname.startsWith(href);
+          {links.map(({ href, label, match }) => {
+            const activo = linkActivo(pathname, href, match);
             return (
               <Link
                 key={href}

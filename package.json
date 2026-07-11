@@ -12,6 +12,7 @@
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
     "grafo:validar": "npx tsx scripts/grafo-validar.ts",
+    "cronicas:validar": "npx tsx scripts/cronicas-validar.ts",
     "efemerides:validar": "npx tsx scripts/efemerides-validar-narrativa.ts"
   },
   "dependencies": {

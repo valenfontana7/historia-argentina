@@ -40,6 +40,8 @@ model Mecenas {
   mpSubscriptionId String?
   mpPreferenceId   String?
   periodEnd        DateTime?
+  exentoFacturacion Boolean      @default(false)
+  notasAdmin       String?
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
 

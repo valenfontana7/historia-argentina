@@ -6,6 +6,9 @@ import { PosicionEnTimeline } from "@/components/exploracion/PosicionEnTimeline"
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import { periodoPorAnio } from "@/data/periodos";
+import { cronicasEnAnio } from "@/lib/cronicas/indice";
+import { puedeVerContenidoMecenas } from "@/lib/auth";
+import { CronicaCardCompacta } from "@/components/cronicas/CronicaCardCompacta";
 import {
   aniosConEventos,
   eventosPorAnio,
@@ -41,6 +44,8 @@ export default async function TimelineAnioPage({ params }: Props) {
   const eventos = eventosPorAnio(num);
   const personajes = personajesActivosEnAnio(num);
   const periodo = periodoPorAnio(num);
+  const esMecenas = await puedeVerContenidoMecenas();
+  const cronicasAnio = cronicasEnAnio(num);
 
   const migajas = [
     { nombre: "Inicio", href: "/" },
@@ -69,6 +74,23 @@ export default async function TimelineAnioPage({ params }: Props) {
         </Reveal>
 
         <PosicionEnTimeline anio={num} />
+
+        {cronicasAnio.length > 0 && (
+          <section className="mt-16">
+            <Reveal>
+              <h2 className="titulo-display text-2xl font-medium text-oro">
+                Crónicas de {num}
+              </h2>
+            </Reveal>
+            <div className="mt-8 grid gap-5 sm:grid-cols-2">
+              {cronicasAnio.map((cronica, i) => (
+                <Reveal key={cronica.slug} delay={i * 0.04}>
+                  <CronicaCardCompacta cronica={cronica} esMecenas={esMecenas} />
+                </Reveal>
+              ))}
+            </div>
+          </section>
+        )}
 
         {eventos.length > 0 && (
           <section className="mt-16">

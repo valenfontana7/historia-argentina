@@ -18,4 +18,5 @@ if (enVercelCloud) {
   );
 }
 
+run("npx tsx scripts/cronicas-validar.ts");
 run("npx next build");

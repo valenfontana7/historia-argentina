@@ -3,6 +3,7 @@ import Link from "next/link";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
 import { recorridos, esRecorridoMecenas } from "@/data/recorridos";
+import { contarCronicasEnRecorrido } from "@/lib/cronicas/indice";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 
@@ -39,7 +40,9 @@ export default function RecorridosPage() {
         </Reveal>
 
         <div className="mt-16 grid gap-6 md:grid-cols-2">
-          {recorridos.map((recorrido, i) => (
+          {recorridos.map((recorrido, i) => {
+            const numCronicas = contarCronicasEnRecorrido(recorrido.slug);
+            return (
             <Reveal key={recorrido.slug} delay={i * 0.05}>
               <Link
                 href={`/recorridos/${recorrido.slug}`}
@@ -47,6 +50,12 @@ export default function RecorridosPage() {
               >
                 <p className="text-xs uppercase tracking-[0.2em] text-tinta-tenue">
                   {recorrido.duracion} · {recorrido.pasos.length} pasos
+                  {numCronicas > 0 && (
+                    <span>
+                      {" "}
+                      · {numCronicas} {numCronicas === 1 ? "crónica" : "crónicas"}
+                    </span>
+                  )}
                   {esRecorridoMecenas(recorrido) && (
                     <span className="ml-2 text-oro">· Mecenas</span>
                   )}
@@ -62,7 +71,8 @@ export default function RecorridosPage() {
                 </p>
               </Link>
             </Reveal>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

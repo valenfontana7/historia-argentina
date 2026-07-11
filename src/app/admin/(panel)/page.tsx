@@ -2,6 +2,7 @@ import Link from "next/link";
 import { EstadoMecenas } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { requireAdminSesion } from "@/lib/admin-auth";
+import { contarCortesiasActivas } from "@/lib/mecenas-admin";
 import { formatearPrecio, planes } from "@/lib/membresia.config";
 import { getMembresiaSettings } from "@/lib/membresia-settings";
 import { sitio } from "@/lib/site.config";
@@ -9,7 +10,7 @@ import { sitio } from "@/lib/site.config";
 export default async function AdminDashboardPage() {
   await requireAdminSesion();
 
-  const [settings, mecenasActivos, mecenasPendientes, mecenasInactivos, suscriptores] =
+  const [settings, mecenasActivos, mecenasPendientes, mecenasInactivos, suscriptores, cortesiasActivas] =
     await Promise.all([
       getMembresiaSettings(),
       prisma.mecenas.count({ where: { estado: EstadoMecenas.activo } }),
@@ -20,6 +21,7 @@ export default async function AdminDashboardPage() {
         },
       }),
       prisma.suscriptor.count(),
+      contarCortesiasActivas(),
     ]);
 
   return (
@@ -31,11 +33,29 @@ export default async function AdminDashboardPage() {
         </p>
       </div>
 
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <StatCard titulo="Mecenas activos" valor={mecenasActivos} />
+        <StatCard titulo="Cortesías activas" valor={cortesiasActivas} />
         <StatCard titulo="Pagos pendientes" valor={mecenasPendientes} />
         <StatCard titulo="Cancelados / vencidos" valor={mecenasInactivos} />
         <StatCard titulo="Suscriptores boletín" valor={suscriptores} />
+      </section>
+
+      <section className="rounded-sm border border-linea bg-fondo-2 p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="titulo-display text-xl font-semibold">Personas Mecenas</h2>
+            <p className="mt-2 text-sm text-tinta-suave">
+              Alta manual, cortesías y control de vencimientos.
+            </p>
+          </div>
+          <Link
+            href="/admin/mecenas/personas"
+            className="inline-flex rounded-full border border-oro/50 px-5 py-2 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10"
+          >
+            Ver personas
+          </Link>
+        </div>
       </section>
 
       <section className="rounded-sm border border-linea bg-fondo-2 p-6">
