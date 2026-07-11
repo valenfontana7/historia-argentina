@@ -1,12 +1,12 @@
 /**
- * Frases canónicas de la interfaz. Importar acá para mantener un solo tono.
+ * Frases canónicas de la interfaz. Importar acá para mantener un solo tono museográfico.
  */
 
 export const QUE_ES_MECENAS =
-  "Mecenas es la membresía que sostiene Argent y te da crónicas exclusivas, mapa completo y recorridos especiales.";
+  "Mecenas es la membresía que sostiene Argent y te da acceso a salas privadas: exhibiciones exclusivas, mapa completo y visitas guiadas especiales.";
 
 export const GRATIS_VS_MECENAS =
-  "Crónicas públicas, el Panteón, lugares, recorridos base y la historia del día siguen gratis. Mecenas suma contenido exclusivo y herramientas extra.";
+  "Exhibiciones públicas, la galería de retratos, mapas, visitas guiadas base y la pieza del día siguen gratis. Mecenas suma salas privadas y herramientas extra.";
 
 export const ACCESO_EMAIL =
   "Te mandamos un enlace a tu email para entrar. No hace falta contraseña.";
@@ -15,52 +15,52 @@ export function mensajeEfemerideSugerida(
   fechaConsultada: string,
   fechaEfemeride: string,
 ): string {
-  return `Todavía no tenemos una historia fija para el ${fechaConsultada}. Te mostramos esta otra del museo: ${fechaEfemeride}.`;
+  return `Todavía no tenemos una pieza fija para el ${fechaConsultada}. Te mostramos esta otra del museo: ${fechaEfemeride}.`;
 }
 
-export const KICKER_EFEMERIDE_SUGERIDA = "Otra historia del museo";
+export const KICKER_EFEMERIDE_SUGERIDA = "Otra pieza del museo";
 
 export const BENEFICIOS_PLAN_MENSUAL = [
-  "43 crónicas exclusivas para mecenas (catálogo en expansión)",
-  "3 recorridos especiales (Democracia, San Martín continental y Patagonia)",
+  "43 exhibiciones exclusivas para mecenas (catálogo en expansión)",
+  "3 visitas guiadas especiales (Democracia, San Martín continental y Patagonia)",
   "Carta mensual con novedades",
-  "Mapa histórico completo con filtros por época",
-  "Línea de tiempo para comparar años",
+  "Sala de mapas completa con filtros por época",
+  "Pasillo del tiempo para comparar años",
   "Tu nombre en el muro de quienes sostienen Argent",
 ] as const;
 
 /** Comparación lado a lado para la landing de membresía. */
 export const COMPARATIVA_MEMBRESIA = [
-  { aspecto: "Crónicas", gratis: "56 públicas", mecenas: "56 públicas + 43 exclusivas" },
-  { aspecto: "Recorridos", gratis: "6 recorridos", mecenas: "6 + 3 especiales" },
+  { aspecto: "Exhibiciones", gratis: "56 públicas", mecenas: "56 públicas + 43 exclusivas" },
+  { aspecto: "Visitas guiadas", gratis: "6 recorridos", mecenas: "6 + 3 especiales" },
   { aspecto: "Mapa", gratis: "7 lugares destacados", mecenas: "Mapa completo + filtros" },
-  { aspecto: "Línea de tiempo", gratis: "Explorar por año", mecenas: "Comparar años y rangos" },
-  { aspecto: "Panteón e historia del día", gratis: "Todo gratis", mecenas: "Todo gratis" },
+  { aspecto: "Pasillo del tiempo", gratis: "Explorar por año", mecenas: "Comparar años y rangos" },
+  { aspecto: "Retratos y pieza del día", gratis: "Todo gratis", mecenas: "Todo gratis" },
   { aspecto: "Carta y créditos", gratis: "—", mecenas: "Carta mensual + tu nombre" },
 ] as const;
 
 export const BENEFICIOS_PLAN_FUNDADOR = [
   "Todo lo del plan Mecenas",
   "Precio de fundador por un año",
-  "Votá qué crónica hacemos después",
+  "Votá qué exhibición hacemos después",
   "Tu nombre destacado en los créditos",
-  "Acceso antes que nadie a crónicas nuevas",
+  "Acceso antes que nadie a exhibiciones nuevas",
 ] as const;
 
 export const DESCRIPCION_PLAN_MENSUAL =
-  "Crónicas exclusivas, recorridos especiales y mapa completo para explorar la historia argentina.";
+  "Salas privadas, visitas guiadas especiales y mapa completo para recorrer la historia argentina.";
 
 export const DESCRIPCION_PLAN_FUNDADOR =
-  "Para quienes ayudan a que Argent exista. Incluye voto sobre la próxima crónica.";
+  "Para quienes ayudan a que Argent exista. Incluye voto sobre la próxima exhibición.";
 
 export const FAQ_MEMBRESIA = [
   {
     q: "¿El museo sigue siendo gratis?",
-    a: "Sí. Podés leer crónicas públicas, el Panteón, lugares, seis recorridos y la historia del día sin pagar. Mecenas suma 43 crónicas exclusivas, mapa completo y recorridos especiales.",
+    a: "Sí. Podés recorrer exhibiciones públicas, la galería de retratos, mapas, seis visitas guiadas y la pieza del día sin pagar. Mecenas suma 43 exhibiciones exclusivas, mapa completo y visitas guiadas especiales.",
   },
   {
     q: "¿Qué incluye Mecenas hoy?",
-    a: "43 crónicas exclusivas, tres recorridos especiales, mapa completo con filtros, línea de tiempo avanzada, carta mensual y tu nombre en los créditos.",
+    a: "43 exhibiciones exclusivas, tres visitas guiadas especiales, mapa completo con filtros, pasillo del tiempo avanzado, carta mensual y tu nombre en los créditos.",
   },
   {
     q: "¿Cómo pago?",

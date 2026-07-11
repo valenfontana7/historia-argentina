@@ -6,6 +6,9 @@ import { PersonajeCard } from "@/components/PersonajeCard";
 import { RutaRecomendada } from "@/components/portada/RutaRecomendada";
 import { CronicaDelMesPortada } from "@/components/portada/CronicaDelMesPortada";
 import { PortadaRetorno } from "@/components/portada/PortadaRetorno";
+import { PuertasDeSala } from "@/components/museo/PuertasDeSala";
+import { TuVisita } from "@/components/museo/TuVisita";
+import { TransicionLink } from "@/components/navigation/TransicionLink";
 import { Reveal } from "@/components/ui/Reveal";
 import {
   formatearFechaCalendario,
@@ -63,6 +66,9 @@ export default async function HomePage() {
 
       <PortadaRetorno />
 
+      <TuVisita />
+
+      {/* Pieza del día */}
       <section className="border-y border-linea-suave bg-fondo">
         <div className="mx-auto max-w-6xl px-5 py-16">
           {!esExacta && (
@@ -73,11 +79,11 @@ export default async function HomePage() {
               />
             </div>
           )}
-          <Link href={hrefHoy} className="group block">
+          <TransicionLink href={hrefHoy} className="group block">
             <div className="flex flex-col gap-8 sm:flex-row sm:items-center">
               <Reveal className="shrink-0">
                 <p className="kicker">
-                  {esExacta ? "Un día como hoy" : "Historia del día"}
+                  {esExacta ? "La pieza del día" : "Pieza del día sugerida"}
                 </p>
                 <p className="titulo-display mt-2 text-5xl font-semibold leading-none text-oro sm:text-7xl">
                   {efemeride.anio}
@@ -94,13 +100,15 @@ export default async function HomePage() {
                   {efemeride.historia[0].slice(0, 180)}…
                 </p>
                 <p className="mt-4 text-xs uppercase tracking-[0.2em] text-oro transition-transform duration-300 group-hover:translate-x-1.5">
-                  Leer la historia →
+                  Ver en la vitrina →
                 </p>
               </Reveal>
             </div>
-          </Link>
+          </TransicionLink>
         </div>
       </section>
+
+      <PuertasDeSala />
 
       <CronicaDelMesPortada cronica={cronicaDestacada} />
 
@@ -112,19 +120,19 @@ export default async function HomePage() {
                 href="/recorridos"
                 className="text-sm text-oro-claro underline-offset-4 transition-colors hover:underline"
               >
-                Recorridos paso a paso →
+                Visitas guiadas →
               </Link>
               <Link
                 href="/panteon"
                 className="text-sm text-oro-claro underline-offset-4 transition-colors hover:underline"
               >
-                El Panteón →
+                Galería de retratos →
               </Link>
               <Link
                 href="/explorar"
                 className="text-sm text-oro-claro underline-offset-4 transition-colors hover:underline"
               >
-                Explorar el museo →
+                Plano del museo →
               </Link>
             </div>
           </Reveal>
@@ -142,7 +150,7 @@ export default async function HomePage() {
               href="/panteon"
               className="shrink-0 text-xs uppercase tracking-[0.2em] text-tinta-suave transition-colors hover:text-oro-claro sm:ml-0"
             >
-              Ver todos →
+              Ver galería →
             </Link>
           </div>
         </Reveal>

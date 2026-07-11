@@ -12,9 +12,9 @@ import type { Epoca } from "@/components/ui/Retrato";
 import type { AccesoCronica } from "@/content/cronicas/registro";
 
 export const metadata = construirMetadata({
-  titulo: "Crónicas — Historias visuales de la historia argentina",
+  titulo: "Exhibiciones — museo digital de historia argentina",
   descripcion:
-    "Historias de la historia argentina contadas como experiencias visuales interactivas: mapas animados, datos y relatos que se navegan con el scroll.",
+    "Salas inmersivas de la historia argentina: mapas animados, piezas del patrimonio y relatos que se recorren como una visita al museo.",
   ruta: "/cronicas",
 });
 
@@ -52,14 +52,14 @@ export default async function CronicasPage({ searchParams }: Props) {
   return (
     <div className="mx-auto max-w-6xl px-5 pb-28 pt-32">
       <Reveal>
-        <p className="kicker">Crónicas</p>
+        <p className="kicker">Plano de exhibiciones</p>
         <h1 className="titulo-display mt-4 max-w-3xl text-5xl font-semibold leading-[1.05] sm:text-6xl">
-          Historias que se viven con el scroll.
+          Todas las salas del museo.
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-tinta-suave">
-          Explorá por época, tema o recorrido. Cada crónica es una experiencia:
-          mapas que se dibujan, cifras que cobran vida y relatos que avanzan al
-          ritmo de tu dedo.
+          Explorá por sala, colección o visita guiada. Cada exhibición es una
+          experiencia inmersiva: mapas que se dibujan, piezas del patrimonio y
+          relatos que avanzan al ritmo de tu visita.
         </p>
       </Reveal>
 

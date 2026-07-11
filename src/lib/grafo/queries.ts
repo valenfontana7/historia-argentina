@@ -7,6 +7,7 @@ import { personajes } from "@/data/personajes";
 import { recorridos } from "@/data/recorridos";
 import { recorridosDeCronica } from "@/lib/cronicas/indice";
 import { construirTodosLosNodos } from "@/lib/grafo/adaptadores";
+import { todasLasPiezas } from "@/lib/piezas/indice";
 import type {
   EntidadRef,
   EntidadTipo,
@@ -194,6 +195,32 @@ function enriquecerRelaciones(nodo: NodoEntidad): EntidadRef[] {
         .slice(0, 3);
       for (const otra of cercanas) {
         extras.push({ tipo: "cronica", slug: otra.slug });
+      }
+    }
+  }
+
+  if (nodo.tipo === "pieza") {
+    const pieza = todasLasPiezas().find((p) => p.id === nodo.slug);
+    if (pieza) {
+      for (const slug of pieza.exhibiciones) {
+        extras.push({ tipo: "cronica", slug });
+        const cronica = cronicas.find((c) => c.slug === slug);
+        if (cronica) {
+          extras.push({ tipo: "persona", slug: cronica.protagonista.slug });
+          extras.push({ tipo: "periodo", slug: cronica.epoca });
+          for (const cat of cronica.categorias.slice(0, 1)) {
+            extras.push({ tipo: "categoria", slug: cat });
+          }
+        }
+      }
+      for (const otra of todasLasPiezas()) {
+        if (
+          otra.id !== pieza.id &&
+          otra.tipo === pieza.tipo &&
+          extras.filter((e) => e.tipo === "pieza").length < 4
+        ) {
+          extras.push({ tipo: "pieza", slug: otra.id });
+        }
       }
     }
   }

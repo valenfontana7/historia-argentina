@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CronicaCardCompacta } from "@/components/cronicas/CronicaCardCompacta";
+import { FichaExhibicion } from "@/components/cronicas/FichaExhibicion";
 import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
 import { obtenerCronica } from "@/content/cronicas/registro";
 import { TarjetaEntidad } from "@/components/exploracion/TarjetaEntidad";
@@ -57,7 +57,7 @@ export default async function RecorridoPage({ params }: Props) {
 
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Recorridos", href: "/recorridos" },
+    { nombre: "Visitas guiadas", href: "/recorridos" },
     { nombre: recorrido.titulo, href: `/recorridos/${slug}` },
   ];
 
@@ -79,8 +79,8 @@ export default async function RecorridoPage({ params }: Props) {
         <MigasDePan migajas={migajas} />
         <Reveal>
           <p className="kicker">
-            {recorrido.duracion} · {pasos.length} pasos
-            {premium && " · Exclusivo mecenas"}
+            {recorrido.duracion} · {pasos.length} estaciones
+            {premium && " · Visita exclusiva mecenas"}
           </p>
           <h1 className="titulo-display mt-4 text-4xl font-semibold leading-tight sm:text-5xl">
             {recorrido.titulo}
@@ -93,12 +93,12 @@ export default async function RecorridoPage({ params }: Props) {
         {previewCronicas.length > 0 && (
           <section className="mt-12">
             <Reveal>
-              <p className="kicker">Crónicas del recorrido</p>
+              <p className="kicker">Exhibiciones de la visita</p>
             </Reveal>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {previewCronicas.map((cronica, i) => (
                 <Reveal key={cronica.slug} delay={i * 0.04}>
-                  <CronicaCardCompacta cronica={cronica} esMecenas={mecenas} />
+                  <FichaExhibicion cronica={cronica} esMecenas={mecenas} />
                 </Reveal>
               ))}
             </div>
@@ -108,7 +108,7 @@ export default async function RecorridoPage({ params }: Props) {
         {desbloqueado ? (
           <>
             <div className="mt-16">
-              <RecorridoPasos pasos={pasos} />
+              <RecorridoPasos pasos={pasos} tituloRecorrido={recorrido.titulo} />
             </div>
             {ultimoNodo && (
               <div className="mt-20">

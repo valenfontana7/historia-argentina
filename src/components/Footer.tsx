@@ -24,31 +24,34 @@ export function Footer({ esMecenas }: Props) {
             aria-label="Mapa del museo"
           >
             <Link href="/explorar" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              Explorar
+              Plano del museo
             </Link>
             <Link href="/recorridos" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              Recorridos
+              Visitas guiadas
             </Link>
             <Link href="/timelines" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              Timeline
+              Pasillo del tiempo
             </Link>
             <Link href="/lugares" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              Mapa y lugares
+              Sala de mapas
             </Link>
             <Link href="/categorias" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              Categorías
+              Colecciones
             </Link>
             <Link href="/periodos" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              Períodos
+              Salas
             </Link>
             <Link href="/cronicas" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              Crónicas
+              Exhibiciones
+            </Link>
+            <Link href="/piezas" className="text-tinta-suave transition-colors hover:text-oro-claro">
+              La colección
             </Link>
             <Link href="/panteon" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              El Panteón
+              Galería de retratos
             </Link>
             <Link href="/hoy" className="text-tinta-suave transition-colors hover:text-oro-claro">
-              Un día como hoy
+              Pieza del día
             </Link>
             {esMecenas ? (
               <Link href="/mecenas" className="text-oro-claro transition-colors hover:text-oro">

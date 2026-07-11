@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EscenaHero } from "@/components/scrolly/EscenaHero";
-import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
-import { EnlacesRelacionados } from "@/components/exploracion/EnlacesRelacionados";
+import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { CtaMecenas } from "@/components/membresia/CtaMecenas";
 import { SoftGate } from "@/components/membresia/SoftGate";
 import { BarraProgresoLectura } from "@/components/engagement/BarraProgresoLectura";
@@ -18,6 +17,7 @@ import {
 } from "@/content/cronicas/registro";
 import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { obtenerNodo } from "@/lib/grafo/queries";
+import { salidasCuradas } from "@/lib/grafo/salidas-curadas";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { articuloJsonLd, migajasJsonLd } from "@/lib/seo/jsonld";
 import { sitio } from "@/lib/site.config";
@@ -59,6 +59,7 @@ export default async function CronicaPage({ params }: Props) {
   const mostrarContenido = !exclusivas || mecenas;
   const Contenido = mostrarContenido ? (await cargador()).default : null;
   const nodo = obtenerNodo("cronica", slug);
+  const salidas = nodo ? salidasCuradas(nodo, 3) : [];
   const rutaCronica = `/cronicas/${cronica.slug}`;
   const kickerHero =
     exclusivas && mecenas
@@ -67,7 +68,7 @@ export default async function CronicaPage({ params }: Props) {
 
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Crónicas", href: "/cronicas" },
+    { nombre: "Exhibiciones", href: "/cronicas" },
     { nombre: cronica.titulo, href: rutaCronica },
   ];
 
@@ -82,17 +83,24 @@ export default async function CronicaPage({ params }: Props) {
 
   return (
     <article>
-      <RegistrarVisita titulo={cronica.titulo} tipo="cronica" progreso={mostrarContenido} />
+      <RegistrarVisita
+        titulo={cronica.titulo}
+        tipo="cronica"
+        progreso={mostrarContenido}
+        epoca={cronica.epoca}
+        slugCronica={cronica.slug}
+      />
       {mostrarContenido && <BarraProgresoLectura href={rutaCronica} />}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <EscenaHero
+        slug={cronica.slug}
         kicker={kickerHero}
         titulo={cronica.titulo}
         subtitulo={cronica.subtitulo}
-        meta={`${cronica.periodo} · Lectura: ${cronica.duracion}`}
+        meta={`${cronica.periodo} · ${cronica.duracion}`}
         variante={cronica.visual.varianteHero}
         imagenHero={cronica.visual.imagenHero}
       />
@@ -103,11 +111,10 @@ export default async function CronicaPage({ params }: Props) {
           <div className="mx-auto max-w-2xl px-5 py-10">
             <CtaMecenas />
           </div>
+          <SalidasDeSala salidas={salidas} tituloExhibicion={cronica.titulo} />
           <footer className="mx-auto max-w-6xl px-5 pb-28 pt-6">
             <div className="filete mb-10" />
             <MigasDePan migajas={migajas} />
-            {nodo && <EnlacesRelacionados origen={nodo} limitePorTipo={4} />}
-            {nodo && <ContinuarExplorando origen={nodo} titulo="Seguí explorando" />}
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <Link
                 href={`/panteon/${cronica.protagonista.slug}`}
@@ -125,13 +132,13 @@ export default async function CronicaPage({ params }: Props) {
                 href="/cronicas"
                 className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
               >
-                Todas las crónicas
+                Plano de exhibiciones
               </Link>
               <Link
                 href="/explorar"
                 className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
               >
-                Explorar más →
+                Explorar el museo →
               </Link>
             </div>
           </footer>

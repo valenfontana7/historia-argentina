@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import { Capitulo } from "@/components/scrolly/Capitulo";
+import { VitrinaContexto } from "@/components/museo/VitrinaContexto";
 import { CitaHistorica } from "@/components/scrolly/CitaHistorica";
 import { DatoGigante, FilaDeDatos } from "@/components/scrolly/DatoGigante";
 import { Comparador } from "@/components/scrolly/Comparador";
@@ -364,6 +365,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     MasseraAlmirante,
     MasseraJunta,
     Prosa,
+    VitrinaContexto,
     ...components,
   };
 }

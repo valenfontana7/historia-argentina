@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CronicaCardCompacta } from "@/components/cronicas/CronicaCardCompacta";
+import { FichaExhibicion } from "@/components/cronicas/FichaExhibicion";
 import { Reveal } from "@/components/ui/Reveal";
 import type { CronicaMeta } from "@/content/cronicas/registro";
 import type { Epoca } from "@/components/ui/Retrato";
@@ -33,14 +33,15 @@ export function SeccionCronicasEpoca({
           <div>
             <p className="kicker">{nombreEpoca}</p>
             <h2 className="titulo-display mt-2 text-3xl font-semibold sm:text-4xl">
-              {cronicas.length} {cronicas.length === 1 ? "crónica" : "crónicas"}
+              {cronicas.length}{" "}
+              {cronicas.length === 1 ? "exhibición" : "exhibiciones"}
             </h2>
           </div>
           <Link
             href={`/periodos/${epoca}#cronicas`}
             className="text-sm text-oro-claro transition-colors hover:text-oro"
           >
-            Ver en el período →
+            Ver en la sala →
           </Link>
         </div>
       </Reveal>
@@ -48,7 +49,7 @@ export function SeccionCronicasEpoca({
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {visibles.map((cronica, i) => (
           <Reveal key={cronica.slug} delay={i * 0.04}>
-            <CronicaCardCompacta cronica={cronica} esMecenas={esMecenas} />
+            <FichaExhibicion cronica={cronica} esMecenas={esMecenas} />
           </Reveal>
         ))}
       </div>
@@ -59,7 +60,7 @@ export function SeccionCronicasEpoca({
             href={`/cronicas?epoca=${epoca}`}
             className="text-sm text-oro-claro transition-colors hover:text-oro"
           >
-            Ver las {cronicas.length} crónicas de {nombreEpoca} →
+            Ver las {cronicas.length} exhibiciones de {nombreEpoca} →
           </Link>
         </p>
       )}

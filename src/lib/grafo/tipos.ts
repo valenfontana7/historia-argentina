@@ -6,7 +6,8 @@ export type EntidadTipo =
   | "lugar"
   | "periodo"
   | "cronica"
-  | "categoria";
+  | "categoria"
+  | "pieza";
 
 export type EntidadRef = {
   tipo: EntidadTipo;

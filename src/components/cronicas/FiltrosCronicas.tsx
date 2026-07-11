@@ -59,7 +59,7 @@ export function FiltrosCronicas({ conteoPorEpoca }: Props) {
             : "border-linea text-tinta-suave hover:border-oro/40 hover:text-oro-claro"
         }`}
       >
-        <span>Filtrar</span>
+        <span>Filtrar salas</span>
         {filtrosActivos > 0 && (
           <span className="rounded-full bg-oro/20 px-2 py-0.5 text-[0.65rem] font-medium tabular-nums">
             {filtrosActivos}
@@ -86,7 +86,7 @@ export function FiltrosCronicas({ conteoPorEpoca }: Props) {
         >
           <div>
             <p className="mb-3 text-[0.65rem] uppercase tracking-[0.2em] text-tinta-tenue">
-              Época
+              Sala
             </p>
             <div className="flex flex-wrap gap-2">
               <button
@@ -141,7 +141,7 @@ export function FiltrosCronicas({ conteoPorEpoca }: Props) {
 
           <div>
             <p className="mb-3 text-[0.65rem] uppercase tracking-[0.2em] text-tinta-tenue">
-              Tema
+              Colección
             </p>
             <div className="flex flex-wrap gap-2">
               <button

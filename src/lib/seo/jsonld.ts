@@ -70,6 +70,25 @@ export function eventoJsonLd(params: {
   };
 }
 
+export function piezaJsonLd(params: {
+  titulo: string;
+  descripcion: string;
+  url: string;
+  imagen: string;
+  tipo: string;
+}): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VisualArtwork",
+    name: params.titulo,
+    description: params.descripcion,
+    url: params.url.startsWith("http") ? params.url : `${sitio.url}${params.url}`,
+    image: params.imagen,
+    artform: params.tipo,
+    creator: { "@type": "Organization", name: sitio.nombre },
+  };
+}
+
 export function articuloJsonLd(params: {
   titulo: string;
   descripcion: string;

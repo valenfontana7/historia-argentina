@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { NavMobileInferior } from "@/components/navigation/NavMobileInferior";
 
 type Props = {
   children: React.ReactNode;
@@ -40,10 +41,11 @@ export function SiteShell({ children }: Props) {
   return (
     <>
       <Header esMecenas={esMecenas} />
-      <main id="contenido-principal" className="flex-1">
+      <main id="contenido-principal" className="flex-1 pb-16 lg:pb-0">
         {children}
       </main>
       <Footer esMecenas={esMecenas} />
+      <NavMobileInferior />
     </>
   );
 }

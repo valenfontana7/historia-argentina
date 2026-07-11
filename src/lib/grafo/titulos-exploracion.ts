@@ -15,6 +15,8 @@ export function tituloExploracionDesde(origen: NodoEntidad): string {
       return "Más de esta época…";
     case "categoria":
       return "Más en este tema…";
+    case "pieza":
+      return "Desde esta pieza del patrimonio…";
     default: {
       const _exhaustive: never = origen.tipo;
       return _exhaustive;

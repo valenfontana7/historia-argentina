@@ -11,6 +11,8 @@ import type { Periodo } from "@/data/periodos";
 import { personajes } from "@/data/personajes";
 import type { Personaje } from "@/data/personajes";
 import { obtenerImagenPersonaje } from "@/data/personajes-imagenes";
+import { imagenesCronicas } from "@/data/cronicas-imagenes";
+import { piezasDeExhibicion, todasLasPiezas } from "@/lib/piezas/indice";
 import { sitio } from "@/lib/site.config";
 import type { EntidadRef, NodoEntidad } from "@/lib/grafo/tipos";
 
@@ -64,13 +66,49 @@ export function adaptarEvento(efemeride: Efemeride): NodoEntidad {
 }
 
 export function adaptarCronica(cronica: CronicaMeta): NodoEntidad {
+  const relaciones: EntidadRef[] = [
+    { tipo: "persona", slug: cronica.protagonista.slug },
+  ];
+  if (cronica.visual.imagenHero) {
+    relaciones.push({ tipo: "pieza", slug: cronica.visual.imagenHero });
+  }
+  for (const pieza of piezasDeExhibicion(cronica.slug).slice(0, 3)) {
+    relaciones.push({ tipo: "pieza", slug: pieza.id });
+  }
+
+  const imagenHero = cronica.visual.imagenHero
+    ? imagenesCronicas[cronica.visual.imagenHero]?.url
+    : undefined;
+
   return {
     tipo: "cronica",
     slug: cronica.slug,
     titulo: cronica.titulo,
     resumen: cronica.descripcion,
     url: `${sitio.url}/cronicas/${cronica.slug}`,
-    relaciones: [{ tipo: "persona", slug: cronica.protagonista.slug }],
+    imagen: imagenHero,
+    periodo: cronica.epoca,
+    categorias: cronica.categorias,
+    anio: cronica.anioInicio,
+    anioFin: cronica.anioFin,
+    relaciones,
+  };
+}
+
+export function adaptarPieza(pieza: ReturnType<typeof todasLasPiezas>[number]): NodoEntidad {
+  const relaciones: EntidadRef[] = pieza.exhibiciones.map((slug) => ({
+    tipo: "cronica" as const,
+    slug,
+  }));
+
+  return {
+    tipo: "pieza",
+    slug: pieza.id,
+    titulo: pieza.alt,
+    resumen: pieza.credito,
+    url: `${sitio.url}/piezas/${pieza.id}`,
+    imagen: pieza.url,
+    relaciones,
   };
 }
 
@@ -125,5 +163,8 @@ export function construirTodosLosNodos(): NodoEntidad[] {
     ...lugares.map(adaptarLugar),
     ...periodos.map(adaptarPeriodo),
     ...categorias.map(adaptarCategoria),
+    ...todasLasPiezas()
+      .filter((p) => p.exhibiciones.length > 0)
+      .map(adaptarPieza),
   ];
 }

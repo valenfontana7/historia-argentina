@@ -6,10 +6,10 @@ import { sitio } from "@/lib/site.config";
 
 const ENLACES_BASE = [
   { href: "/explorar", etiqueta: "Explorar" },
-  { href: "/recorridos", etiqueta: "Recorridos" },
-  { href: "/cronicas", etiqueta: "Crónicas" },
-  { href: "/panteon", etiqueta: "El Panteón" },
-  { href: "/lugares", etiqueta: "Mapa" },
+  { href: "/recorridos", etiqueta: "Visitas guiadas" },
+  { href: "/cronicas", etiqueta: "Exhibiciones" },
+  { href: "/panteon", etiqueta: "Retratos" },
+  { href: "/lugares", etiqueta: "Mapas" },
   { href: "/hoy", etiqueta: "Hoy" },
 ] as const;
 

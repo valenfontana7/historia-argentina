@@ -7,6 +7,7 @@ const rutas: Record<EntidadTipo, string> = {
   lugar: "/lugares",
   periodo: "/periodos",
   categoria: "/categorias",
+  pieza: "/piezas",
 };
 
 export function rutaEntidad(tipo: EntidadTipo, slug: string): string {
@@ -18,10 +19,11 @@ export function rutaDeNodo(nodo: NodoEntidad): string {
 }
 
 export const etiquetasTipo: Record<EntidadTipo, string> = {
-  persona: "Personaje",
-  evento: "Evento",
-  cronica: "Crónica",
+  persona: "Retrato",
+  evento: "Acontecimiento",
+  cronica: "Exhibición",
   lugar: "Lugar",
-  periodo: "Período",
-  categoria: "Categoría",
+  periodo: "Sala",
+  categoria: "Colección",
+  pieza: "Pieza",
 };

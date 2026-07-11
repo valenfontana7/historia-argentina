@@ -8,20 +8,33 @@ import {
   marcarVisitaOnboarding,
   type PaginaReciente,
 } from "@/lib/engagement/storage";
+import { registrarExhibicionVista } from "@/lib/engagement/visita";
+import type { Epoca } from "@/components/ui/Retrato";
 
 type Props = {
   titulo: string;
   tipo?: PaginaReciente["tipo"];
   /** Activar tracking de scroll (crónicas) */
   progreso?: boolean;
+  epoca?: Epoca;
+  slugCronica?: string;
 };
 
-export function RegistrarVisita({ titulo, tipo = "otro", progreso = false }: Props) {
+export function RegistrarVisita({
+  titulo,
+  tipo = "otro",
+  progreso = false,
+  epoca,
+  slugCronica,
+}: Props) {
   const pathname = usePathname();
 
   useEffect(() => {
     agregarReciente({ href: pathname, titulo, tipo });
-  }, [pathname, titulo, tipo]);
+    if (epoca && slugCronica) {
+      registrarExhibicionVista(slugCronica, epoca);
+    }
+  }, [pathname, titulo, tipo, epoca, slugCronica]);
 
   useEffect(() => {
     if (!progreso) return;

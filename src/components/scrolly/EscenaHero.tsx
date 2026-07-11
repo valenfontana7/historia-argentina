@@ -11,6 +11,8 @@ import { SiluetaHero, gradientesHero } from "@/components/scrolly/HeroSiluetas";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
+import { nombreTransicionExhibicion } from "@/lib/view-transitions";
+
 type EscenaHeroProps = {
   kicker: string;
   titulo: string;
@@ -18,6 +20,8 @@ type EscenaHeroProps = {
   meta: string;
   variante?: VarianteHero;
   imagenHero?: string;
+  /** Slug de la crónica para transición compartida con la ficha. */
+  slug?: string;
 };
 
 /**
@@ -31,6 +35,7 @@ export function EscenaHero({
   meta,
   variante = "andes",
   imagenHero,
+  slug,
 }: EscenaHeroProps) {
   const escena = useRef<HTMLDivElement>(null);
   const imagen = imagenHero ? obtenerImagenCronica(imagenHero) : undefined;
@@ -79,14 +84,16 @@ export function EscenaHero({
 
   const mostrarEstrellas = variante === "andes";
 
+  const vtName = slug ? nombreTransicionExhibicion(slug) : undefined;
+
   return (
     <div
       ref={escena}
       className="relative flex h-svh items-center justify-center overflow-hidden"
-      style={{ background: gradientesHero[variante] }}
+      style={{ background: gradientesHero[variante], viewTransitionName: vtName }}
     >
       {imagen && (
-        <div className="absolute inset-0 opacity-[0.18]">
+        <div className="absolute inset-0 opacity-[0.18]" style={{ viewTransitionName: vtName }}>
           <Image
             src={imagen.url}
             alt=""

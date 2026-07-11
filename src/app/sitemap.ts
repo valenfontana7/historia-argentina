@@ -7,6 +7,7 @@ import { personajes } from "@/data/personajes";
 import { efemerides } from "@/data/efemerides";
 import { cronicasPublicas } from "@/content/cronicas/registro";
 import { recorridos } from "@/data/recorridos";
+import { todasLasPiezas } from "@/lib/piezas/indice";
 import { sitio } from "@/lib/site.config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -21,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${sitio.url}/lugares`, changeFrequency: "weekly", priority: 0.85 },
     { url: `${sitio.url}/periodos`, changeFrequency: "monthly", priority: 0.85 },
     { url: `${sitio.url}/categorias`, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${sitio.url}/piezas`, changeFrequency: "monthly", priority: 0.85 },
     { url: `${sitio.url}/membresia`, changeFrequency: "weekly", priority: 0.8 },
   ];
 
@@ -72,6 +74,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
+  const dePiezas: MetadataRoute.Sitemap = todasLasPiezas()
+    .filter((p) => p.exhibiciones.length > 0)
+    .map((p) => ({
+      url: `${sitio.url}/piezas/${p.id}`,
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    }));
+
   return [
     ...fijas,
     ...deCronicas,
@@ -82,5 +92,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...dePeriodos,
     ...deCategorias,
     ...deTimelines,
+    ...dePiezas,
   ];
 }
