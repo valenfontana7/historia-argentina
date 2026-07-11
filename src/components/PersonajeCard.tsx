@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TransicionLink } from "@/components/navigation/TransicionLink";
 import { Retrato } from "@/components/ui/Retrato";
 import type { Personaje } from "@/data/personajes";
 import { obtenerImagenPersonaje } from "@/data/personajes-imagenes";
@@ -10,7 +10,7 @@ type PersonajeCardProps = {
 export function PersonajeCard({ personaje }: PersonajeCardProps) {
   const anios = `${personaje.nacimiento.anio} — ${personaje.muerte?.anio ?? "presente"}`;
   return (
-    <Link
+    <TransicionLink
       href={`/panteon/${personaje.slug}`}
       className="group block transition-transform duration-500 ease-out hover:-translate-y-1.5"
     >
@@ -30,6 +30,6 @@ export function PersonajeCard({ personaje }: PersonajeCardProps) {
         </h3>
         <p className="mt-1 text-sm text-tinta-tenue">{personaje.rol}</p>
       </div>
-    </Link>
+    </TransicionLink>
   );
 }

@@ -4,6 +4,7 @@ import {
   type TipoImagenCronica,
 } from "@/data/cronicas-imagenes";
 import { cronicas } from "@/content/cronicas/registro";
+import { exhibicionesPorPiezaMdx } from "@/lib/piezas/exhibiciones-por-pieza-mdx";
 
 export type Pieza = ImagenCronica & {
   /** Slugs de exhibiciones que muestran esta pieza. */
@@ -11,15 +12,26 @@ export type Pieza = ImagenCronica & {
 };
 
 const indiceExhibiciones: Map<string, string[]> = (() => {
-  const mapa = new Map<string, string[]>();
+  const mapa = new Map<string, Set<string>>();
+
+  function agregar(id: string, slug: string) {
+    const set = mapa.get(id) ?? new Set<string>();
+    set.add(slug);
+    mapa.set(id, set);
+  }
+
   for (const cronica of cronicas) {
     const id = cronica.visual.imagenHero;
-    if (!id) continue;
-    const lista = mapa.get(id) ?? [];
-    lista.push(cronica.slug);
-    mapa.set(id, lista);
+    if (id) agregar(id, cronica.slug);
   }
-  return mapa;
+
+  for (const [id, slugs] of Object.entries(exhibicionesPorPiezaMdx)) {
+    for (const slug of slugs) agregar(id, slug);
+  }
+
+  return new Map(
+    [...mapa.entries()].map(([id, set]) => [id, [...set].sort()]),
+  );
 })();
 
 function enriquecerPieza(imagen: ImagenCronica): Pieza {

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { obtenerImagenCronica } from "@/data/cronicas-imagenes";
 
@@ -33,6 +34,13 @@ export function IlustracionEscena({
   return (
     <Reveal className="mx-auto max-w-5xl px-5 py-10">
       <figure className={`capa-vineta group relative overflow-hidden rounded-sm border border-linea ${aspectos[formato]}`}>
+        <Link
+          href={`/piezas/${imagenId}`}
+          className="absolute inset-0 z-10"
+          aria-label={`Ver pieza: ${imagen.alt}`}
+        >
+          <span className="sr-only">Ver pieza en la colección</span>
+        </Link>
         <Image
           src={imagen.url}
           alt={imagen.alt}
@@ -50,6 +58,9 @@ export function IlustracionEscena({
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-gradient-to-b from-oro/8 via-transparent to-fondo/30 mix-blend-overlay"
         />
+        <p className="pointer-events-none absolute right-4 top-4 z-20 rounded-full border border-oro/30 bg-fondo/70 px-3 py-1 text-[0.6rem] uppercase tracking-[0.16em] text-oro opacity-0 transition-opacity group-hover:opacity-100">
+          Ver pieza →
+        </p>
         {(pie || imagen.credito) && (
           <figcaption className="absolute inset-x-0 bottom-0 z-10 px-5 pb-4 pt-20">
             {pie && (

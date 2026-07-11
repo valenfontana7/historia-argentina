@@ -35,6 +35,67 @@ const PUENTES_EDITORIALES: Record<string, Record<string, string>> = {
     conadep: "La verdad que el país necesitaba escuchar",
     "raul-alfonsin": "Quien devolvió la democracia",
   },
+  "jose-de-san-martin": {
+    "el-cruce-de-los-andes": "La exhibición que cuenta cómo cruzó lo imposible",
+    chacabuco: "La victoria que abrió el camino a Chile libre",
+    guayaquil: "El encuentro con Bolívar que cambió América",
+    "manuel-belgrano": "Quien sostenía el norte mientras él avanzaba al sur",
+  },
+  "manuel-belgrano": {
+    "jose-de-san-martin": "El Libertador que cruzó los Andes mientras Belgrano defendía el norte",
+    "juan-manuel-de-rosas": "Otra figura que marcó la organización nacional",
+    independencia: "La sala de la Revolución y las guerras de independencia",
+  },
+  "juan-domingo-peron": {
+    peron: "La exhibición sobre su ascenso y su legado",
+    "eva-peron": "La compañera que transformó la política argentina",
+    "el-17-de-octubre": "El día que volvió a la plaza",
+  },
+  "eva-peron": {
+    peron: "La exhibición del movimiento que construyeron juntos",
+    "juan-domingo-peron": "Su retrato en el Panteón",
+    contemporanea: "La sala de la Argentina del siglo XX",
+  },
+  "juan-manuel-de-rosas": {
+    caseros: "La batalla que derrocó su régimen",
+    "domingo-faustino-sarmiento": "Quien encarnó la oposición intelectual",
+    organizacion: "La sala de caudillos y constituciones",
+  },
+  "raul-alfonsin": {
+    "el-proceso": "Lo que vino antes: la dictadura y su memoria",
+    "elecciones-83": "La vuelta a las urnas",
+    contemporanea: "La sala de la democracia recuperada",
+  },
+  "domingo-faustino-sarmiento": {
+    "juan-manuel-de-rosas": "El caudillo contra el que luchó toda su vida",
+    moderna: "La sala de la Argentina que soñó educar",
+    sarmiento: "Su obsesión: escuelas para todos",
+  },
+  "25-de-mayo": {
+    "las-48-horas-de-mayo": "La exhibición de las 48 horas que cambiaron todo",
+    "jose-de-san-martin": "El joven coronel que observaba desde lejos",
+    independencia: "La sala donde empieza la Argentina moderna",
+  },
+  "9-de-julio": {
+    "el-congreso-de-1816": "La exhibición del congreso que declaró la independencia",
+    "manuel-belgrano": "Quien izó la bandera en Tucumán",
+    independencia: "La sala de la patria nueva",
+  },
+  "12-de-octubre": {
+    peron: "El líder que convirtió el Día de la Raza en Día del Respeto",
+    "juan-domingo-peron": "Su retrato en el Panteón",
+    contemporanea: "La sala del peronismo y sus transformaciones",
+  },
+  "20-de-junio": {
+    "la-bandera": "La historia de la bandera que se conmemora",
+    "manuel-belgrano": "Quien la creó en el río Paraná",
+    independencia: "La sala de los primeros símbolos nacionales",
+  },
+  "2-de-abril": {
+    malvinas: "La exhibición sobre la guerra de 1982",
+    galtieri: "El general que ordenó la operación",
+    contemporanea: "La sala de la Argentina reciente",
+  },
 };
 
 function clavePuente(origenSlug: string, destino: NodoEntidad): string {

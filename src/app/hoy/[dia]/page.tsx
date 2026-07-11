@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
+import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { ContextoTemporal } from "@/components/exploracion/ContextoTemporal";
 import { PosicionEnTimeline } from "@/components/exploracion/PosicionEnTimeline";
 import { SabiasQue } from "@/components/exploracion/SabiasQue";
@@ -26,6 +26,7 @@ import { narrativaDeEfemeride } from "@/data/efemerides-narrativa";
 import { obtenerVarios } from "@/data/personajes";
 import { cronicas } from "@/content/cronicas/registro";
 import { obtenerNodo } from "@/lib/grafo/queries";
+import { obtenerSalidasPagina } from "@/lib/grafo/obtener-salidas-pagina";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { sitio } from "@/lib/site.config";
 import { eventoJsonLd, migajasJsonLd } from "@/lib/seo/jsonld";
@@ -73,6 +74,7 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
   const navegacion = vecinas(dia);
   const personajesRelacionados = obtenerVarios(efemeride.relacionados);
   const nodo = obtenerNodo("evento", dia);
+  const salidas = obtenerSalidasPagina(nodo);
   const catSlug = slugDeCategoria(efemeride.categoria);
 
   const cronicasRel = cronicas.filter((c) =>
@@ -250,10 +252,8 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
         </Reveal>
       )}
 
-      {nodo && (
-        <div className="mx-auto max-w-6xl">
-          <ContinuarExplorando origen={nodo} />
-        </div>
+      {salidas.length > 0 && (
+        <SalidasDeSala salidas={salidas} tituloExhibicion={efemeride.titulo} />
       )}
 
       <RecientementeVisitado excluirHref={`/hoy/${dia}`} />

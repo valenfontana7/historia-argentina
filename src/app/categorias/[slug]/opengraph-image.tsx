@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { categorias } from "@/data/categorias";
 import { sitio } from "@/lib/site.config";
+import { KICKER_COLECCION } from "@/lib/copy";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -30,13 +31,13 @@ export default async function Image({ params }: { params: Promise<{ slug: string
       >
         <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
           <div style={{ display: "flex", fontSize: 26, letterSpacing: 10, textTransform: "uppercase", color: "#c6a15b" }}>
-            Categoría
+            {KICKER_COLECCION}
           </div>
           <div style={{ display: "flex", fontSize: 26, color: "#6e6455" }}>{sitio.nombre}</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", marginTop: 14, fontSize: 80, fontWeight: 700, lineHeight: 1.02 }}>
-            {categoria?.nombre ?? "Categoría"}
+            {categoria?.nombre ?? "Colección"}
           </div>
           <div style={{ display: "flex", marginTop: 22, fontSize: 28, color: "#a59a86", maxWidth: 900 }}>
             {categoria?.descripcion ?? ""}

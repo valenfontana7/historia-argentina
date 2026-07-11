@@ -4,6 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { MapaCompactoNav } from "@/components/scrolly/MapaCompactoNav";
 import {
   BaseMapaGuayaquil,
   ETAPAS_GUAYAQUIL,
@@ -23,7 +24,7 @@ export function MapaGuayaquil() {
 
   useGSAP(
     () => {
-      const fichas = gsap.utils.toArray<HTMLElement>("[data-ficha-gua]");
+      const fichas = gsap.utils.toArray<HTMLElement>("[data-ficha-mapa]");
       const trazos = gsap.utils.toArray<SVGPathElement>("[data-trazo-gua]");
       const capas = gsap.utils.toArray<SVGGElement>("[data-capa-gua]");
 
@@ -65,6 +66,7 @@ export function MapaGuayaquil() {
   );
 
   return (
+    <>
     <div ref={envoltorio} className="relative" style={{ height: `${etapas.length * 120}vh` }}>
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden bg-[#080b10]">
         <div className="relative min-h-0 flex-1 px-3 pt-3 sm:px-6 sm:pt-5">
@@ -137,7 +139,7 @@ export function MapaGuayaquil() {
             {etapas.map((etapa, i) => (
               <div
                 key={etapa.nombre}
-                data-ficha-gua={i}
+                data-ficha-mapa={i}
                 className="absolute inset-0 flex flex-col justify-center"
               >
                 <p className="text-[0.65rem] uppercase tracking-[0.24em] text-tinta-tenue">
@@ -155,5 +157,17 @@ export function MapaGuayaquil() {
         </div>
       </div>
     </div>
+
+    <MapaCompactoNav
+
+      etapas={etapas}
+
+      vhPorEtapa={120}
+
+      contenedorRef={envoltorio}
+
+    />
+
+    </>
   );
 }

@@ -3,7 +3,10 @@
  * Valida metadata y coherencia del catálogo de crónicas.
  * Uso: npm run cronicas:validar
  */
+import { execSync } from "node:child_process";
 import { validarCronicas } from "../src/lib/cronicas/validar";
+
+execSync("npx tsx scripts/piezas-indexar.ts", { stdio: "inherit" });
 
 const resultado = validarCronicas();
 

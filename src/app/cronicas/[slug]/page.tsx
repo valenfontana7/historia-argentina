@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EscenaHero } from "@/components/scrolly/EscenaHero";
 import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
+import { PiezasDeSala } from "@/components/piezas/PiezasDeSala";
 import { CtaMecenas } from "@/components/membresia/CtaMecenas";
 import { SoftGate } from "@/components/membresia/SoftGate";
 import { BarraProgresoLectura } from "@/components/engagement/BarraProgresoLectura";
@@ -108,6 +109,7 @@ export default async function CronicaPage({ params }: Props) {
       {mostrarContenido && Contenido ? (
         <>
           <Contenido />
+          <PiezasDeSala slug={cronica.slug} tituloExhibicion={cronica.titulo} />
           <div className="mx-auto max-w-2xl px-5 py-10">
             <CtaMecenas />
           </div>

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
-import { EnlacesRelacionados } from "@/components/exploracion/EnlacesRelacionados";
+import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
+import { ProgresoSala } from "@/components/museo/ProgresoSala";
 import { GridCronicas } from "@/components/cronicas/GridCronicas";
 import { RecientementeVisitado } from "@/components/engagement/RecientementeVisitado";
 import { PersonajeCard } from "@/components/PersonajeCard";
@@ -13,10 +13,17 @@ import { obtenerPeriodo, periodos } from "@/data/periodos";
 import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { porEpoca } from "@/lib/cronicas/indice";
 import { obtenerNodo } from "@/lib/grafo/queries";
+import { obtenerSalidasPagina } from "@/lib/grafo/obtener-salidas-pagina";
 import { enlaceDeHitoPeriodo } from "@/lib/periodo-enlaces";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { sitio } from "@/lib/site.config";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
+import type { Epoca } from "@/components/ui/Retrato";
+import {
+  MIGA_SALAS,
+  TITULO_EXHIBICIONES_SALA,
+  TITULO_RETRATOS_RELACIONADOS,
+} from "@/lib/copy";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -45,10 +52,11 @@ export default async function PeriodoPage({ params }: Props) {
   const esMecenas = await puedeVerContenidoMecenas();
   const cronicasEpoca = porEpoca(periodo.slug);
   const nodo = obtenerNodo("periodo", slug);
+  const salidas = obtenerSalidasPagina(nodo);
   const delPeriodo = personajes.filter((p) => p.epoca === periodo.slug);
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Períodos", href: "/periodos" },
+    { nombre: MIGA_SALAS, href: "/periodos" },
     { nombre: periodo.nombre, href: `/periodos/${slug}` },
   ];
 
@@ -69,6 +77,8 @@ export default async function PeriodoPage({ params }: Props) {
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-tinta-suave">{periodo.descripcion}</p>
         </Reveal>
+
+        <ProgresoSala epoca={periodo.slug as Epoca} />
 
         <Reveal className="mt-14">
           <div className="prosa max-w-3xl">
@@ -105,7 +115,7 @@ export default async function PeriodoPage({ params }: Props) {
           <div className="mt-20">
             <GridCronicas
               cronicas={cronicasEpoca}
-              titulo="Crónicas de esta época"
+              titulo={TITULO_EXHIBICIONES_SALA}
               esMecenas={esMecenas}
             />
           </div>
@@ -117,7 +127,7 @@ export default async function PeriodoPage({ params }: Props) {
           <section className="mt-20">
             <Reveal>
               <h2 className="titulo-display text-2xl font-medium text-oro">
-                Personajes de esta época
+                {TITULO_RETRATOS_RELACIONADOS}
               </h2>
             </Reveal>
             <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-4">
@@ -137,8 +147,9 @@ export default async function PeriodoPage({ params }: Props) {
           </section>
         )}
 
-        {nodo && <EnlacesRelacionados origen={nodo} tipos={["persona", "evento", "lugar"]} />}
-        {nodo && <ContinuarExplorando origen={nodo} />}
+        {salidas.length > 0 && (
+          <SalidasDeSala salidas={salidas} tituloExhibicion={periodo.nombre} />
+        )}
       </div>
     </article>
   );

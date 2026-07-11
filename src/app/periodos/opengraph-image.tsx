@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { sitio } from "@/lib/site.config";
+import { KICKER_SALAS, TITULO_SALAS } from "@/lib/copy";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -29,10 +30,10 @@ export default function Image() {
             color: "#c6a15b",
           }}
         >
-          Eras
+          {KICKER_SALAS}
         </div>
         <div style={{ display: "flex", marginTop: 24, fontSize: 72, fontWeight: 700 }}>
-          Períodos de la historia
+          {TITULO_SALAS}
         </div>
         <div style={{ display: "flex", marginTop: 20, fontSize: 28, color: "#a59a86" }}>
           {sitio.nombre} · De la colonia a la democracia

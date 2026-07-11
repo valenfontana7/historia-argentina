@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
-import { EnlacesRelacionados } from "@/components/exploracion/EnlacesRelacionados";
+import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { PosicionEnTimeline } from "@/components/exploracion/PosicionEnTimeline";
 import { BotonFavorito } from "@/components/engagement/BotonFavorito";
 import { RegistrarVisita } from "@/components/engagement/RegistrarVisita";
@@ -31,7 +30,12 @@ import { rutaDeNodo } from "@/lib/grafo/rutas";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { sitio } from "@/lib/site.config";
 import { migajasJsonLd, personaJsonLd } from "@/lib/seo/jsonld";
+import { obtenerSalidasPagina } from "@/lib/grafo/obtener-salidas-pagina";
 import { momentoDePersonaje } from "@/lib/personaje-momento";
+import {
+  TITULO_EXHIBICIONES_PROTAGONIZADAS,
+  TITULO_RETRATOS_RELACIONADOS,
+} from "@/lib/copy";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -64,6 +68,7 @@ export default async function PersonajePage({ params }: Props) {
   const anios = `${personaje.nacimiento.anio} — ${personaje.muerte?.anio ?? "presente"}`;
   const imagen = obtenerImagenPersonaje(slug);
   const nodo = obtenerNodo("persona", slug);
+  const salidas = obtenerSalidasPagina(nodo);
   const efemerides = efemeridesDePersonaje(slug);
   const cronicasRel = cronicasDePersonaje(slug);
   const lugarNac = slugDeLugarPorTexto(personaje.nacimiento.lugar);
@@ -303,7 +308,7 @@ export default async function PersonajePage({ params }: Props) {
           <section className="mt-16">
             <Reveal>
               <h2 className="titulo-display text-2xl font-medium text-oro">
-                Crónicas protagonizadas
+                {TITULO_EXHIBICIONES_PROTAGONIZADAS}
               </h2>
             </Reveal>
             <ul className="mt-6 space-y-3">
@@ -321,13 +326,15 @@ export default async function PersonajePage({ params }: Props) {
           </section>
         )}
 
-        {nodo && <EnlacesRelacionados origen={nodo} />}
+        {salidas.length > 0 && (
+          <SalidasDeSala salidas={salidas} tituloExhibicion={personaje.nombre} />
+        )}
 
         <section className="mt-28">
           <Reveal>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
               <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">
-                De la misma época
+                {TITULO_RETRATOS_RELACIONADOS}
               </h2>
               <div className="filete w-full" />
             </div>
@@ -344,7 +351,6 @@ export default async function PersonajePage({ params }: Props) {
           </div>
         </section>
 
-        {nodo && <ContinuarExplorando origen={nodo} estrategia="relacionados" />}
         <RecientementeVisitado excluirHref={`/panteon/${slug}`} />
       </div>
     </article>

@@ -5,18 +5,24 @@ import { periodos } from "@/data/periodos";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 import { MigasDePan } from "@/components/seo/MigasDePan";
+import {
+  DESCRIPCION_SALAS,
+  KICKER_SALAS,
+  METADATA_SALAS,
+  MIGA_SALAS,
+  TITULO_SALAS,
+} from "@/lib/copy";
 
 export const metadata: Metadata = construirMetadata({
-  titulo: "Períodos de la historia argentina",
-  descripcion:
-    "De la colonia a la Argentina contemporánea: cinco épocas para recorrer el relato nacional.",
+  titulo: METADATA_SALAS.titulo,
+  descripcion: METADATA_SALAS.descripcion,
   ruta: "/periodos",
 });
 
 export default function PeriodosPage() {
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Períodos", href: "/periodos" },
+    { nombre: MIGA_SALAS, href: "/periodos" },
   ];
 
   return (
@@ -28,13 +34,12 @@ export default function PeriodosPage() {
       <div className="mx-auto max-w-6xl px-5">
         <MigasDePan migajas={migajas} />
         <Reveal>
-          <p className="kicker">La línea del tiempo</p>
+          <p className="kicker">{KICKER_SALAS}</p>
           <h1 className="titulo-display mt-4 text-5xl font-semibold sm:text-6xl">
-            Períodos
+            {TITULO_SALAS}
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-tinta-suave">
-            Argentina no se construyó de un golpe. Recorré las cinco grandes
-            épocas que dieron forma al país.
+            {DESCRIPCION_SALAS}
           </p>
         </Reveal>
 
@@ -57,7 +62,7 @@ export default function PeriodosPage() {
                   </p>
                 </div>
                 <span className="shrink-0 text-oro opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
-                  Explorar →
+                  Entrar a la sala →
                 </span>
               </Link>
             </Reveal>

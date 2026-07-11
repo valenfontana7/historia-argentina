@@ -53,6 +53,47 @@ export const DESCRIPCION_PLAN_MENSUAL =
 export const DESCRIPCION_PLAN_FUNDADOR =
   "Para quienes ayudan a que Argent exista. Incluye voto sobre la próxima exhibición.";
 
+/** Vocabulario museográfico — salas, exhibiciones, visitas guiadas. */
+export const MIGA_SALAS = "Salas";
+export const KICKER_SALAS = "Salas permanentes";
+export const TITULO_SALAS = "Salas permanentes";
+export const DESCRIPCION_SALAS =
+  "Argentina no se construyó de un golpe. Recorré las cinco grandes salas que dieron forma al país.";
+export const METADATA_SALAS = {
+  titulo: "Salas permanentes — historia argentina",
+  descripcion: DESCRIPCION_SALAS,
+} as const;
+export const TITULO_EXHIBICIONES_SALA = "Exhibiciones de esta sala";
+export const KICKER_SALA = "Sala";
+export const OG_KICKER_SALA = "Sala";
+
+export const MIGA_VISITAS_GUIADAS = "Visitas guiadas";
+export const KICKER_VISITAS_GUIADAS = "Visitas guiadas";
+export const TITULO_VISITAS_GUIADAS = "Visitas guiadas";
+export const DESCRIPCION_VISITAS_GUIADAS =
+  "Caminá la historia en orden: cada estación te lleva a la siguiente. Hay visitas gratuitas y tres exclusivas para mecenas.";
+export const METADATA_VISITAS_GUIADAS = {
+  titulo: "Visitas guiadas — historia argentina",
+  descripcion: DESCRIPCION_VISITAS_GUIADAS,
+} as const;
+export const CTA_INICIAR_VISITA = "Iniciar visita →";
+export const CTA_VER_TODAS_VISITAS = "← Ver todas las visitas guiadas";
+export function etiquetaExhibicionesVisita(cantidad: number): string {
+  return `${cantidad} ${cantidad === 1 ? "exhibición" : "exhibiciones"}`;
+}
+export function etiquetaEstacionesVisita(cantidad: number): string {
+  return `${cantidad} ${cantidad === 1 ? "estación" : "estaciones"}`;
+}
+
+export const TITULO_EXHIBICIONES_PROTAGONIZADAS = "Exhibiciones protagonizadas";
+export const TITULO_RETRATOS_RELACIONADOS = "Retratos relacionados";
+export const KICKER_COLECCION = "Colección";
+export const MIGA_COLECCIONES = "Colecciones";
+export function tituloExhibicionesColeccion(nombre: string): string {
+  return `Exhibiciones de la colección «${nombre}»`;
+}
+export const CTA_VER_SALA_EPOCA = "Ver la sala de la época →";
+
 export const FAQ_MEMBRESIA = [
   {
     q: "¿El museo sigue siendo gratis?",

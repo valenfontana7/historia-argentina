@@ -80,4 +80,11 @@ export function obtenerProgresoSalas(): ProgresoSala[] {
   }).filter((s) => s.total > 0);
 }
 
+/** Primera sala incompleta: prioriza la que ya empezaste. */
+export function proximaSalaSugerida(salas: ProgresoSala[]): ProgresoSala | undefined {
+  const empezada = salas.find((s) => s.vistas > 0 && s.vistas < s.total);
+  if (empezada) return empezada;
+  return salas.find((s) => s.vistas < s.total);
+}
+
 export { obtenerRecientes };

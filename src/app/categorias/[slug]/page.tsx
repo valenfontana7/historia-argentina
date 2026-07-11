@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
+import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { GridCronicas } from "@/components/cronicas/GridCronicas";
 import { RecientementeVisitado } from "@/components/engagement/RecientementeVisitado";
 import { MigasDePan } from "@/components/seo/MigasDePan";
@@ -12,9 +12,15 @@ import { obtenerVarios } from "@/data/personajes";
 import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { porCategoria } from "@/lib/cronicas/indice";
 import { obtenerNodo } from "@/lib/grafo/queries";
+import { obtenerSalidasPagina } from "@/lib/grafo/obtener-salidas-pagina";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { sitio } from "@/lib/site.config";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
+import {
+  KICKER_COLECCION,
+  MIGA_COLECCIONES,
+  tituloExhibicionesColeccion,
+} from "@/lib/copy";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -49,10 +55,11 @@ export default async function CategoriaPage({ params }: Props) {
   }
   const personajesRel = obtenerVarios([...personajeSlugs]);
   const nodo = obtenerNodo("categoria", slug);
+  const salidas = obtenerSalidasPagina(nodo);
 
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Categorías", href: "/categorias" },
+    { nombre: MIGA_COLECCIONES, href: "/categorias" },
     { nombre: cat.nombre, href: `/categorias/${slug}` },
   ];
 
@@ -65,7 +72,7 @@ export default async function CategoriaPage({ params }: Props) {
       <div className="mx-auto max-w-6xl px-5">
         <MigasDePan migajas={migajas} />
         <Reveal>
-          <p className="kicker">Categoría</p>
+          <p className="kicker">{KICKER_COLECCION}</p>
           <h1 className="titulo-display mt-4 text-5xl font-semibold sm:text-6xl">
             {cat.nombre}
           </h1>
@@ -76,7 +83,7 @@ export default async function CategoriaPage({ params }: Props) {
           <div className="mt-16">
             <GridCronicas
               cronicas={cronicasTema}
-              titulo={`Crónicas de ${cat.nombre.toLowerCase()}`}
+              titulo={tituloExhibicionesColeccion(cat.nombre)}
               esMecenas={esMecenas}
             />
           </div>
@@ -124,7 +131,9 @@ export default async function CategoriaPage({ params }: Props) {
           </Reveal>
         )}
 
-        {nodo && <ContinuarExplorando origen={nodo} estrategia="misma-categoria" titulo="También te puede interesar" />}
+        {salidas.length > 0 && (
+          <SalidasDeSala salidas={salidas} tituloExhibicion={cat.nombre} />
+        )}
       </div>
     </article>
   );

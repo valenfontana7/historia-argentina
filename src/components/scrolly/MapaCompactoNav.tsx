@@ -2,14 +2,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 
+export const SELECTOR_FICHA_MAPA = "[data-ficha-mapa]";
+
 type Etapa = {
   nombre: string;
 };
 
 type Props = {
   etapas: Etapa[];
-  /** Selector de fichas, ej. `[data-ficha-cha]` */
-  selectorFicha: string;
   /** Altura del contenedor scrolly en vh por etapa */
   vhPorEtapa: number;
   contenedorRef?: React.RefObject<HTMLElement | null>;
@@ -21,7 +21,6 @@ type Props = {
  */
 export function MapaCompactoNav({
   etapas,
-  selectorFicha,
   vhPorEtapa,
   contenedorRef,
 }: Props) {
@@ -31,24 +30,24 @@ export function MapaCompactoNav({
     (indice: number) => {
       const contenedor =
         contenedorRef?.current ??
-        document.querySelector<HTMLElement>(selectorFicha)?.closest(".relative");
+        document.querySelector<HTMLElement>(SELECTOR_FICHA_MAPA)?.closest(".relative");
       if (!contenedor) return;
       const top = contenedor.offsetTop + indice * vhPorEtapa * (window.innerHeight / 100);
       window.scrollTo({ top, behavior: "smooth" });
       setEtapaActiva(indice);
     },
-    [contenedorRef, selectorFicha, vhPorEtapa],
+    [contenedorRef, vhPorEtapa],
   );
 
   useEffect(() => {
-    const fichas = document.querySelectorAll(selectorFicha);
+    const fichas = document.querySelectorAll(SELECTOR_FICHA_MAPA);
     if (fichas.length === 0) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            const idx = Number((entry.target as HTMLElement).dataset.fichaCha);
+            const idx = Number((entry.target as HTMLElement).dataset.fichaMapa);
             if (!Number.isNaN(idx)) setEtapaActiva(idx);
           }
         }
@@ -58,7 +57,7 @@ export function MapaCompactoNav({
 
     fichas.forEach((f) => observer.observe(f));
     return () => observer.disconnect();
-  }, [selectorFicha, etapas.length]);
+  }, [etapas.length]);
 
   return (
     <div className="fixed inset-x-0 bottom-16 z-40 border-t border-linea-suave bg-fondo/95 px-4 py-3 backdrop-blur-md sm:hidden lg:bottom-0">

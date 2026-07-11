@@ -2,22 +2,32 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
+import { TransicionLink } from "@/components/navigation/TransicionLink";
 import { recorridos, esRecorridoMecenas } from "@/data/recorridos";
 import { contarCronicasEnRecorrido } from "@/lib/cronicas/indice";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
+import {
+  CTA_INICIAR_VISITA,
+  DESCRIPCION_VISITAS_GUIADAS,
+  etiquetaEstacionesVisita,
+  etiquetaExhibicionesVisita,
+  KICKER_VISITAS_GUIADAS,
+  METADATA_VISITAS_GUIADAS,
+  MIGA_VISITAS_GUIADAS,
+  TITULO_VISITAS_GUIADAS,
+} from "@/lib/copy";
 
 export const metadata: Metadata = construirMetadata({
-  titulo: "Recorridos — rutas por la historia argentina",
-  descripcion:
-    "Historias con un hilo conductor: vas de un paso al siguiente sin perderte.",
+  titulo: METADATA_VISITAS_GUIADAS.titulo,
+  descripcion: METADATA_VISITAS_GUIADAS.descripcion,
   ruta: "/recorridos",
 });
 
 export default function RecorridosPage() {
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Recorridos", href: "/recorridos" },
+    { nombre: MIGA_VISITAS_GUIADAS, href: "/recorridos" },
   ];
 
   return (
@@ -29,13 +39,12 @@ export default function RecorridosPage() {
       <div className="mx-auto max-w-6xl px-5">
         <MigasDePan migajas={migajas} />
         <Reveal>
-          <p className="kicker">Paso a paso</p>
+          <p className="kicker">{KICKER_VISITAS_GUIADAS}</p>
           <h1 className="titulo-display mt-4 text-5xl font-semibold sm:text-6xl">
-            Recorridos
+            {TITULO_VISITAS_GUIADAS}
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-tinta-suave">
-            Caminá la historia en orden: cada paso te lleva al siguiente. Hay
-            recorridos gratis y dos especiales solo para mecenas.
+            {DESCRIPCION_VISITAS_GUIADAS}
           </p>
         </Reveal>
 
@@ -44,16 +53,16 @@ export default function RecorridosPage() {
             const numCronicas = contarCronicasEnRecorrido(recorrido.slug);
             return (
             <Reveal key={recorrido.slug} delay={i * 0.05}>
-              <Link
+              <TransicionLink
                 href={`/recorridos/${recorrido.slug}`}
                 className="group block h-full rounded-sm border border-linea bg-fondo-2 p-8 transition-colors hover:border-oro/40"
               >
                 <p className="text-xs uppercase tracking-[0.2em] text-tinta-tenue">
-                  {recorrido.duracion} · {recorrido.pasos.length} pasos
+                  {recorrido.duracion} · {etiquetaEstacionesVisita(recorrido.pasos.length)}
                   {numCronicas > 0 && (
                     <span>
                       {" "}
-                      · {numCronicas} {numCronicas === 1 ? "crónica" : "crónicas"}
+                      · {etiquetaExhibicionesVisita(numCronicas)}
                     </span>
                   )}
                   {esRecorridoMecenas(recorrido) && (
@@ -67,9 +76,9 @@ export default function RecorridosPage() {
                   {recorrido.subtitulo}
                 </p>
                 <p className="mt-6 text-xs uppercase tracking-[0.2em] text-oro transition-transform duration-300 group-hover:translate-x-1.5">
-                  Empezar recorrido →
+                  {CTA_INICIAR_VISITA}
                 </p>
-              </Link>
+              </TransicionLink>
             </Reveal>
             );
           })}

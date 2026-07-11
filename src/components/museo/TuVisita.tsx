@@ -5,6 +5,7 @@ import { useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
 import {
   obtenerProgresoSalas,
   obtenerRecientes,
+  proximaSalaSugerida,
   type ProgresoSala,
 } from "@/lib/engagement/visita";
 import { Reveal } from "@/components/ui/Reveal";
@@ -21,7 +22,7 @@ export function TuVisita({ compacto = false }: Props) {
   const enCurso = recientes.find(
     (r) => r.tipo === "cronica" && r.href.startsWith("/cronicas/"),
   );
-  const salaActiva = salas.find((s) => s.vistas < s.total && s.vistas > 0);
+  const proximaSala = proximaSalaSugerida(salas);
 
   if (salas.length === 0 && !enCurso) return null;
 
@@ -36,12 +37,12 @@ export function TuVisita({ compacto = false }: Props) {
             Continuar: {enCurso.titulo} →
           </TransicionLink>
         )}
-        {salaActiva && !enCurso && (
+        {!enCurso && proximaSala && (
           <Link
-            href={`/periodos/${salaActiva.epoca}`}
+            href={`/periodos/${proximaSala.epoca}`}
             className="block text-sm text-tinta-suave hover:text-oro-claro"
           >
-            Sala {salaActiva.nombre}: {salaActiva.vistas}/{salaActiva.total} →
+            Próxima sala: {proximaSala.nombre} ({proximaSala.vistas}/{proximaSala.total}) →
           </Link>
         )}
       </div>
@@ -73,6 +74,28 @@ export function TuVisita({ compacto = false }: Props) {
             </div>
             <span className="text-oro">→</span>
           </TransicionLink>
+        </Reveal>
+      )}
+
+      {!enCurso && proximaSala && (
+        <Reveal delay={0.05} className="mt-6">
+          <Link
+            href={`/periodos/${proximaSala.epoca}`}
+            className="group flex items-center justify-between rounded-sm border border-linea bg-fondo-2 px-5 py-4 transition-colors hover:border-oro/40"
+          >
+            <div>
+              <p className="text-[0.6rem] uppercase tracking-[0.2em] text-tinta-tenue">
+                Próxima sala sugerida
+              </p>
+              <p className="titulo-display mt-1 text-lg font-medium group-hover:text-oro-claro">
+                {proximaSala.nombre}
+              </p>
+              <p className="mt-1 text-xs text-tinta-tenue">
+                {proximaSala.vistas} de {proximaSala.total} exhibiciones
+              </p>
+            </div>
+            <span className="text-oro">→</span>
+          </Link>
         </Reveal>
       )}
 

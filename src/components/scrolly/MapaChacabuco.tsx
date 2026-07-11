@@ -24,7 +24,7 @@ export function MapaChacabuco() {
 
   useGSAP(
     () => {
-      const fichas = gsap.utils.toArray<HTMLElement>("[data-ficha-cha]");
+      const fichas = gsap.utils.toArray<HTMLElement>("[data-ficha-mapa]");
       const trazos = gsap.utils.toArray<SVGPathElement>("[data-trazo-cha]");
       const capas = gsap.utils.toArray<SVGGElement>("[data-capa-cha]");
 
@@ -135,7 +135,7 @@ export function MapaChacabuco() {
             {etapas.map((etapa, i) => (
               <div
                 key={etapa.nombre}
-                data-ficha-cha={i}
+                data-ficha-mapa={i}
                 className="absolute inset-0 flex flex-col justify-center"
               >
                 <p className="text-[0.65rem] uppercase tracking-[0.24em] text-tinta-tenue">
@@ -155,7 +155,6 @@ export function MapaChacabuco() {
     </div>
     <MapaCompactoNav
       etapas={etapas}
-      selectorFicha="[data-ficha-cha]"
       vhPorEtapa={120}
       contenedorRef={envoltorio}
     />

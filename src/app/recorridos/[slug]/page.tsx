@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FichaExhibicion } from "@/components/cronicas/FichaExhibicion";
-import { ContinuarExplorando } from "@/components/exploracion/ContinuarExplorando";
+import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { obtenerCronica } from "@/content/cronicas/registro";
 import { TarjetaEntidad } from "@/components/exploracion/TarjetaEntidad";
 import { SoftGate } from "@/components/membresia/SoftGate";
@@ -16,8 +16,10 @@ import {
 } from "@/data/recorridos";
 import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { resolverNodo } from "@/lib/grafo/queries";
+import { obtenerSalidasPagina } from "@/lib/grafo/obtener-salidas-pagina";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
+import { CTA_VER_TODAS_VISITAS, MIGA_VISITAS_GUIADAS } from "@/lib/copy";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -57,11 +59,12 @@ export default async function RecorridoPage({ params }: Props) {
 
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Visitas guiadas", href: "/recorridos" },
+    { nombre: MIGA_VISITAS_GUIADAS, href: "/recorridos" },
     { nombre: recorrido.titulo, href: `/recorridos/${slug}` },
   ];
 
   const ultimoNodo = pasos[pasos.length - 1]?.nodo;
+  const salidas = obtenerSalidasPagina(ultimoNodo);
 
   const previewCronicas = recorrido.pasos
     .filter((p) => p.tipo === "cronica")
@@ -110,10 +113,11 @@ export default async function RecorridoPage({ params }: Props) {
             <div className="mt-16">
               <RecorridoPasos pasos={pasos} tituloRecorrido={recorrido.titulo} />
             </div>
-            {ultimoNodo && (
-              <div className="mt-20">
-                <ContinuarExplorando origen={ultimoNodo} estrategia="relacionados" />
-              </div>
+            {salidas.length > 0 && (
+              <SalidasDeSala
+                salidas={salidas}
+                tituloExhibicion={recorrido.titulo}
+              />
             )}
           </>
         ) : (
@@ -145,7 +149,7 @@ export default async function RecorridoPage({ params }: Props) {
             href="/recorridos"
             className="text-sm text-oro-claro transition-colors hover:text-oro"
           >
-            ← Ver todos los recorridos
+            {CTA_VER_TODAS_VISITAS}
           </Link>
         </Reveal>
       </div>
