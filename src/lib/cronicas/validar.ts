@@ -2,6 +2,7 @@ import { categorias } from "@/data/categorias";
 import { personajes } from "@/data/personajes";
 import { cargadores, cronicas } from "@/content/cronicas/registro";
 import { taxonomiaPorSlug } from "@/content/cronicas/taxonomia";
+import { exhibicionesConAudioguia } from "@/data/audioguias-salas";
 
 export type ProblemaCronica = {
   slug: string;
@@ -20,6 +21,8 @@ const slugsPersonaje = new Set(personajes.map((p) => p.slug));
 export function validarCronicas(): ResultadoValidacionCronicas {
   const problemas: ProblemaCronica[] = [];
   const slugsVistos = new Set<string>();
+
+  const slugsAudioguia = new Set(exhibicionesConAudioguia());
 
   for (const cronica of cronicas) {
     if (slugsVistos.has(cronica.slug)) {
@@ -53,6 +56,10 @@ export function validarCronicas(): ResultadoValidacionCronicas {
           detalle: `categoría inexistente: ${cat}`,
         });
       }
+    }
+
+    if (!slugsAudioguia.has(cronica.slug)) {
+      problemas.push({ slug: cronica.slug, detalle: "sin audioguía (ejecutá npm run audioguias:indexar)" });
     }
 
     if (cronica.anioFin < cronica.anioInicio) {

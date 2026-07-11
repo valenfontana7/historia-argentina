@@ -23,7 +23,7 @@ export const KICKER_EFEMERIDE_SUGERIDA = "Otra pieza del museo";
 export const BENEFICIOS_PLAN_MENSUAL = [
   "43 exhibiciones exclusivas para mecenas (catálogo en expansión)",
   "3 visitas guiadas especiales con audioguía (Democracia, San Martín continental y Patagonia)",
-  "Audioguías narradas en salas emblemáticas del museo",
+  "Audioguías narradas en todas las exhibiciones del museo",
   "Carta mensual con novedades",
   "Sala de mapas completa con filtros por época",
   "Pasillo del tiempo para comparar años",
@@ -34,7 +34,7 @@ export const BENEFICIOS_PLAN_MENSUAL = [
 export const COMPARATIVA_MEMBRESIA = [
   { aspecto: "Exhibiciones", gratis: "56 públicas", mecenas: "56 públicas + 43 exclusivas" },
   { aspecto: "Visitas guiadas", gratis: "6 recorridos", mecenas: "6 + 3 especiales con audioguía" },
-  { aspecto: "Audioguías", gratis: "Salas públicas seleccionadas", mecenas: "Salas públicas + exclusivas" },
+  { aspecto: "Audioguías", gratis: "Todas las salas públicas", mecenas: "Todas las exhibiciones" },
   { aspecto: "Mapa", gratis: "7 lugares destacados", mecenas: "Mapa completo + filtros" },
   { aspecto: "Pasillo del tiempo", gratis: "Explorar por año", mecenas: "Comparar años y rangos" },
   { aspecto: "Retratos y pieza del día", gratis: "Todo gratis", mecenas: "Todo gratis" },
