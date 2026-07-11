@@ -17,6 +17,8 @@ type Props = {
   datoTeaser?: string;
   /** Primera línea del subtítulo o hook. */
   teaser?: string;
+  /** La sala incluye audioguía narrada. */
+  incluyeAudioguia?: boolean;
 };
 
 /** Puerta de sala privada: umbral visible, cuerpo detrás del acceso mecenas. */
@@ -26,6 +28,7 @@ export function SoftGate({
   duracion,
   datoTeaser,
   teaser,
+  incluyeAudioguia = false,
 }: Props) {
   const accederHref = volverA
     ? `/membresia/acceder?next=${encodeURIComponent(volverA)}`
@@ -60,6 +63,7 @@ export function SoftGate({
         {duracion && (
           <p className="mt-4 text-xs uppercase tracking-[0.2em] text-tinta-tenue">
             Visita de {duracion}
+            {incluyeAudioguia ? " · Con audioguía" : ""}
           </p>
         )}
 

@@ -5,6 +5,7 @@ import type { CronicaMeta } from "@/content/cronicas/registro";
 import { esExposicionAnticipo, exhibicionAbiertaAlPublico } from "@/lib/cronicas/acceso";
 import { obtenerImagenCronica } from "@/data/cronicas-imagenes";
 import { tierDeCronica, etiquetaTier } from "@/content/cronicas/tiers";
+import { tieneAudioguia } from "@/data/audioguias-salas";
 import { nombreTransicionExhibicion } from "@/lib/view-transitions";
 
 type Props = {
@@ -34,6 +35,7 @@ export function FichaExhibicion({
     : undefined;
   const varianteHero = cronica.visual.varianteHero;
   const tier = tierDeCronica(cronica.slug);
+  const conAudioguia = tieneAudioguia(cronica.slug);
   const vtName = nombreTransicionExhibicion(cronica.slug);
 
   if (variante === "destacada") {
@@ -118,6 +120,16 @@ export function FichaExhibicion({
         {(anticipo || exclusiva) && (
           <span className="absolute right-3 top-3 rounded-full border border-oro/40 bg-fondo/80 px-2.5 py-0.5 text-[0.6rem] uppercase tracking-[0.18em] text-oro backdrop-blur-sm">
             {anticipo ? "Anticipo" : "Mecenas"}
+          </span>
+        )}
+        {conAudioguia && !anticipo && !exclusiva && (
+          <span className="absolute right-3 top-3 rounded-full border border-oro/40 bg-fondo/80 px-2.5 py-0.5 text-[0.6rem] uppercase tracking-[0.18em] text-oro backdrop-blur-sm">
+            Audioguía
+          </span>
+        )}
+        {conAudioguia && (anticipo || exclusiva) && (
+          <span className="absolute right-3 top-10 rounded-full border border-oro/30 bg-fondo/80 px-2.5 py-0.5 text-[0.6rem] uppercase tracking-[0.18em] text-oro-claro backdrop-blur-sm">
+            Audioguía
           </span>
         )}
         <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">

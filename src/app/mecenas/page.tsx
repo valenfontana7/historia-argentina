@@ -13,6 +13,7 @@ import { obtenerMecenasActivo, obtenerSesion } from "@/lib/auth";
 import { cronicas } from "@/content/cronicas/registro";
 import { recorridos, esRecorridoMecenas } from "@/data/recorridos";
 import { recorridosConAudioguia } from "@/data/audioguias";
+import { exhibicionesConAudioguia } from "@/data/audioguias-salas";
 import { exposicionesAnticipoActivas } from "@/lib/cronicas/indice";
 import { planes } from "@/lib/membresia.config";
 
@@ -37,6 +38,10 @@ export default async function MecenasPage() {
   const exposicion = anticipo[0] ?? exclusivas[0] ?? cronicas[0];
   const creditos = await obtenerCreditosMecenas(48);
   const slugsAudioguia = new Set(recorridosConAudioguia());
+  const slugsAudioguiaSalas = exhibicionesConAudioguia();
+  const salasConAudioguia = slugsAudioguiaSalas
+    .map((slug) => cronicas.find((c) => c.slug === slug))
+    .filter((c): c is NonNullable<typeof c> => c !== undefined);
   const visitasPremium = recorridos.filter((r) => esRecorridoMecenas(r));
 
   const plan = planes[mecenas.plan];
@@ -106,6 +111,31 @@ export default async function MecenasPage() {
             </div>
           </TransicionLink>
         </section>
+
+        {salasConAudioguia.length > 0 && (
+          <section className="mt-16">
+            <p className="kicker">Audioguías en salas</p>
+            <p className="mt-3 text-sm text-tinta-suave">
+              Activá la guía al entrar a cada exhibición. El segmento cambia
+              mientras recorrés los capítulos.
+            </p>
+            <ul className="mt-6 space-y-3">
+              {salasConAudioguia.map((c) => (
+                <li key={c.slug}>
+                  <TransicionLink
+                    href={`/cronicas/${c.slug}`}
+                    className="flex items-center justify-between rounded-sm border border-linea bg-fondo-2 px-5 py-4 transition-colors hover:border-oro/40"
+                  >
+                    <span className="text-sm text-tinta-suave">{c.titulo}</span>
+                    <span className="text-[0.6rem] uppercase tracking-[0.16em] text-oro">
+                      Audioguía
+                    </span>
+                  </TransicionLink>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {visitasPremium.length > 0 && (
           <section className="mt-16">

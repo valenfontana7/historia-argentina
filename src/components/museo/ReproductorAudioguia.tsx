@@ -8,6 +8,8 @@ type Props = {
   segmentos: SegmentoAudioguia[];
   estacionActiva?: number;
   audioUrl?: string;
+  /** Etiqueta de contexto para accesibilidad. */
+  contexto?: "visita" | "exhibicion";
 };
 
 function segmentoParaEstacion(
@@ -24,6 +26,7 @@ export function ReproductorAudioguia({
   segmentos,
   estacionActiva = 0,
   audioUrl,
+  contexto = "visita",
 }: Props) {
   const [indice, setIndice] = useState(0);
   const [reproduciendo, setReproduciendo] = useState(false);
@@ -73,7 +76,11 @@ export function ReproductorAudioguia({
   return (
     <aside
       className="sticky top-20 z-30 mb-10 rounded-sm border border-oro/30 bg-fondo-2/95 p-4 backdrop-blur-md sm:p-5"
-      aria-label="Audioguía de la visita"
+      aria-label={
+        contexto === "exhibicion"
+          ? "Audioguía de la exhibición"
+          : "Audioguía de la visita"
+      }
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>

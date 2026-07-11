@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EscenaHero } from "@/components/scrolly/EscenaHero";
 import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
+import { ExhibicionConAudioguia } from "@/components/museo/ExhibicionConAudioguia";
 import { PiezasDeSala } from "@/components/piezas/PiezasDeSala";
 import { CtaMecenas } from "@/components/membresia/CtaMecenas";
 import { SoftGate } from "@/components/membresia/SoftGate";
@@ -22,6 +23,7 @@ import { salidasCuradas } from "@/lib/grafo/salidas-curadas";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { articuloJsonLd, migajasJsonLd } from "@/lib/seo/jsonld";
 import { sitio } from "@/lib/site.config";
+import { obtenerAudioguiaSala, tieneAudioguia } from "@/data/audioguias-salas";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -62,6 +64,7 @@ export default async function CronicaPage({ params }: Props) {
   const nodo = obtenerNodo("cronica", slug);
   const salidas = nodo ? salidasCuradas(nodo, 3) : [];
   const rutaCronica = `/cronicas/${cronica.slug}`;
+  const audioguia = obtenerAudioguiaSala(slug);
   const kickerHero =
     exclusivas && mecenas
       ? cronica.kicker.replace(/^Exclusiva Mecenas/, "Tu exclusiva")
@@ -101,14 +104,16 @@ export default async function CronicaPage({ params }: Props) {
         kicker={kickerHero}
         titulo={cronica.titulo}
         subtitulo={cronica.subtitulo}
-        meta={`${cronica.periodo} · ${cronica.duracion}`}
+        meta={`${cronica.periodo} · ${cronica.duracion}${audioguia && mostrarContenido ? " · Con audioguía" : ""}`}
         variante={cronica.visual.varianteHero}
         imagenHero={cronica.visual.imagenHero}
       />
 
       {mostrarContenido && Contenido ? (
         <>
-          <Contenido />
+          <ExhibicionConAudioguia audioguia={audioguia}>
+            <Contenido />
+          </ExhibicionConAudioguia>
           <PiezasDeSala slug={cronica.slug} tituloExhibicion={cronica.titulo} />
           <div className="mx-auto max-w-2xl px-5 py-10">
             <CtaMecenas />
@@ -151,6 +156,7 @@ export default async function CronicaPage({ params }: Props) {
           volverA={`/cronicas/${cronica.slug}`}
           duracion={cronica.duracion}
           teaser={cronica.subtitulo}
+          incluyeAudioguia={tieneAudioguia(cronica.slug)}
           datoTeaser={
             cronica.slug === "las-48-horas-de-mayo"
               ? "48 horas que cambiaron el virreinato"
