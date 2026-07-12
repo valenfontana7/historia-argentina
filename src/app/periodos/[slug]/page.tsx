@@ -114,7 +114,7 @@ export default async function PeriodoPage({ params }: Props) {
         </Reveal>
 
         {cronicasEpoca.length > 0 && (
-          <div className="mt-20">
+          <div id="cronicas" className="mt-20 scroll-mt-32">
             <GridCronicas
               cronicas={cronicasEpoca}
               titulo={TITULO_EXHIBICIONES_SALA}
