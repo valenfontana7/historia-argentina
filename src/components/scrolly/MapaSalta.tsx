@@ -4,7 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { MapaCompactoNav } from "@/components/scrolly/MapaCompactoNav";
+import { ControlesEtapasInline } from "@/components/scrolly/MapaCompactoNav";
 import {
   BaseMapaSalta,
   ETAPAS_SALTA,
@@ -145,16 +145,6 @@ export function MapaSalta() {
         </div>
       </div>
     </div>
-
-    <MapaCompactoNav
-
-      etapas={etapas}
-
-      vhPorEtapa={120}
-
-      contenedorRef={envoltorio}
-
-    />
 
     </>
   );

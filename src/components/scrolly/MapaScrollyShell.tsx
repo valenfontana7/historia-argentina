@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, type ReactNode, type RefObject } from "react";
-import { MapaCompactoNav } from "@/components/scrolly/MapaCompactoNav";
+import { ControlesEtapasInline } from "@/components/scrolly/MapaCompactoNav";
 
 export type EtapaScrolly = {
   nombre: string;
@@ -62,14 +62,14 @@ export function MapaScrollyShell({
                   </div>
                 ))}
             </div>
+            <ControlesEtapasInline
+              etapas={etapas}
+              vhPorEtapa={vhPorEtapa}
+              contenedorRef={envoltorioRef}
+            />
           </div>
         </div>
       </div>
-      <MapaCompactoNav
-        etapas={etapas}
-        vhPorEtapa={vhPorEtapa}
-        contenedorRef={envoltorioRef}
-      />
     </>
   );
 }

@@ -4,7 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { MapaCompactoNav } from "@/components/scrolly/MapaCompactoNav";
+import { ControlesEtapasInline } from "@/components/scrolly/MapaCompactoNav";
 import {
   BaseMapaCruce,
   ILU_CRUCE,
@@ -144,19 +144,14 @@ export function MapaCruce() {
               </div>
             ))}
           </div>
+          <ControlesEtapasInline
+            etapas={rutas}
+            vhPorEtapa={120}
+            contenedorRef={envoltorio}
+          />
         </div>
       </div>
     </div>
-
-    <MapaCompactoNav
-
-      etapas={rutas}
-
-      vhPorEtapa={120}
-
-      contenedorRef={envoltorio}
-
-    />
 
     </>
   );

@@ -4,7 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { MapaCompactoNav } from "@/components/scrolly/MapaCompactoNav";
+import { ControlesEtapasInline } from "@/components/scrolly/MapaCompactoNav";
 import {
   BaseMapaChacabuco,
   ETAPAS_CHACABUCO,
@@ -150,14 +150,14 @@ export function MapaChacabuco() {
               </div>
             ))}
           </div>
+          <ControlesEtapasInline
+            etapas={etapas}
+            vhPorEtapa={120}
+            contenedorRef={envoltorio}
+          />
         </div>
       </div>
     </div>
-    <MapaCompactoNav
-      etapas={etapas}
-      vhPorEtapa={120}
-      contenedorRef={envoltorio}
-    />
     </>
   );
 }
