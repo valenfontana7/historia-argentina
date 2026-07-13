@@ -99,7 +99,6 @@ function generarTextoTierB(
   cronica: (typeof cronicas)[number],
   cap: CapituloParseado,
   indice: number,
-  total: number,
 ): string {
   const partes: string[] = [];
 
@@ -120,14 +119,6 @@ function generarTextoTierB(
   }
 
   let texto = partes.join(" ").replace(/\s+/g, " ").trim();
-
-  if (cap.tieneComparador) {
-    texto += " Deslizá el comparador de imágenes mientras escuchás.";
-  }
-
-  if (indice === total - 1 && total > 1) {
-    texto += " Al final de la sala, elegí tu próxima puerta de salida.";
-  }
 
   return texto;
 }
@@ -165,7 +156,7 @@ function generarAudioguia(slug: string, tier: "B" | "C"): string {
     .map((cap, i) => {
       const texto =
         tier === "B"
-          ? generarTextoTierB(cronica, cap, i, capitulos.length)
+          ? generarTextoTierB(cronica, cap, i)
           : generarTextoBase(cronica, cap, i);
       return `    {
       estacion: ${i},

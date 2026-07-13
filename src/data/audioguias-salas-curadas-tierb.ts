@@ -9,7 +9,7 @@ const ALBERTO_FERNANDEZ: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Frente de Todos",
-      texto: "2019 — 2023: Frente de Todos, pandemia y el retorno del peronismo. 10 de diciembre de 2019: el peronismo vuelve con Alberto y Cristina. En 2019, Alberto Fernández —ex jefe de Gabinete de Néstor Kirchner— ganó la presidencia con el Frente de Todos. Cristina Fernández fue su vicepresidenta. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "2019 — 2023: Frente de Todos, pandemia y el retorno del peronismo. 10 de diciembre de 2019: el peronismo vuelve con Alberto y Cristina. En 2019, Alberto Fernández —ex jefe de Gabinete de Néstor Kirchner— ganó la presidencia con el Frente de Todos. Cristina Fernández fue su vicepresidenta.",
     },
     {
       estacion: 1,
@@ -24,7 +24,7 @@ const ALBERTO_FERNANDEZ: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La puerta a Milei",
-      texto: "2023: la derrota peronista abrió una nueva etapa política. Alberto Fernández no fue un presidente menor: gobernó en pandemia, renegoció deuda y sostuvo la democracia en un contexto global turbulento. Pero no logró estabilizar la economía ni recomponer el peronismo. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "2023: la derrota peronista abrió una nueva etapa política. Alberto Fernández no fue un presidente menor: gobernó en pandemia, renegoció deuda y sostuvo la democracia en un contexto global turbulento. Pero no logró estabilizar la economía ni recomponer el peronismo.",
     }
   ],
 };
@@ -37,7 +37,7 @@ const AMIA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El atentado",
-      texto: "18 de julio de 1994: el atentado que la democracia no resolvió. 18 de julio de 1994: una bomba destruye la AMIA en plena democracia. El 18 de julio de 1994, una bomba destruyó la sede de la AMIA —Asociación Mutual Israelita Argentina— en Buenos Aires. 85 personas murieron. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "18 de julio de 1994: el atentado que la democracia no resolvió. 18 de julio de 1994: una bomba destruye la AMIA en plena democracia. El 18 de julio de 1994, una bomba destruyó la sede de la AMIA —Asociación Mutual Israelita Argentina— en Buenos Aires. 85 personas murieron.",
     },
     {
       estacion: 1,
@@ -52,7 +52,7 @@ const AMIA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La democracia bajo ataque",
-      texto: "El caso AMIA muestra que el terror no terminó con la dictadura. El atentado a la AMIA dejó una herida que cruza la política argentina: acuerdos con Irán, fiscales muertos, jueces apartados, sociedad dividida. No es solo un caso judicial. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "El caso AMIA muestra que el terror no terminó con la dictadura. El atentado a la AMIA dejó una herida que cruza la política argentina: acuerdos con Irán, fiscales muertos, jueces apartados, sociedad dividida. No es solo un caso judicial.",
     }
   ],
 };
@@ -65,7 +65,7 @@ const CAMPORA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Cámpora al gobierno",
-      texto: "11 de marzo de 1973: Cámpora al gobierno, Perón a la presidencia. 11 de marzo de 1973: el peronismo vuelve a ganar elecciones. Después de 18 años de proscripción, el peronismo volvió a las urnas en 1973. Héctor José Cámpora —dentista, dirigente histórico, hombre de confianza de Perón— ganó la presidencia con una consigna que resumía todo: «Cámpora al gobierno, Perón a la presidencia». Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "11 de marzo de 1973: Cámpora al gobierno, Perón a la presidencia. 11 de marzo de 1973: el peronismo vuelve a ganar elecciones. Después de 18 años de proscripción, el peronismo volvió a las urnas en 1973. Héctor José Cámpora —dentista, dirigente histórico, hombre de confianza de Perón— ganó la presidencia con una consigna que resumía todo: «Cámpora al gobierno, Perón a la presidencia».",
     },
     {
       estacion: 1,
@@ -80,7 +80,7 @@ const CAMPORA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Del dentista a la tormenta",
-      texto: "Cámpora abrió la puerta. Perón entró en un país en guerra. Para entender el retorno de Perón, hay que leer a Cámpora: el presidente que devolvió legitimidad electoral al peronismo y se retiró a tiempo para que el líder exiliado compitiera y ganara. Lo que vino después —violencia, Triple A, golpe de 1976— no borra lo que significó marzo de 1973: la política volvió a contar. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Cámpora abrió la puerta. Perón entró en un país en guerra. Para entender el retorno de Perón, hay que leer a Cámpora: el presidente que devolvió legitimidad electoral al peronismo y se retiró a tiempo para que el líder exiliado compitiera y ganara. Lo que vino después —violencia, Triple A, golpe de 1976— no borra lo que significó marzo de 1973: la política volvió a contar.",
     }
   ],
 };
@@ -93,7 +93,7 @@ const DE_LA_RUA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Alianza",
-      texto: "1999 — 2001: la Alianza, la convertibilidad heredada y la renuncia. 10 de diciembre de 1999: De la Rúa asume con la convertibilidad heredada. Después de diez años de Menem, la Argentina votó cambio sin ruptura. Fernando de la Rúa —abogado radical, dos veces jefe de Gobierno porteño— ganó la presidencia con la Alianza frente al peronismo. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1999 — 2001: la Alianza, la convertibilidad heredada y la renuncia. 10 de diciembre de 1999: De la Rúa asume con la convertibilidad heredada. Después de diez años de Menem, la Argentina votó cambio sin ruptura. Fernando de la Rúa —abogado radical, dos veces jefe de Gobierno porteño— ganó la presidencia con la Alianza frente al peronismo.",
     },
     {
       estacion: 1,
@@ -108,7 +108,7 @@ const DE_LA_RUA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La puerta al 2001",
-      texto: "De la Rúa no causó la crisis. La heredó y no pudo contenerla. La caída de De la Rúa no fue un accidente personal: fue el colapso de un modelo económico y de una democracia puesta a prueba. Cinco presidentes en dos semanas. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "De la Rúa no causó la crisis. La heredó y no pudo contenerla. La caída de De la Rúa no fue un accidente personal: fue el colapso de un modelo económico y de una democracia puesta a prueba. Cinco presidentes en dos semanas.",
     }
   ],
 };
@@ -121,7 +121,7 @@ const DORREGO: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El federal que gobernó Buenos Aires",
-      texto: "El caudillo federal fusilado en 1828: el mártir que abrió la era rosista. Manuel Dorrego encarnó el federalismo porteño contra el centralismo unitario. En los años 1820, Argentina no era un país: era un nombre en disputa. Los unitarios querían un Estado central fuerte en Buenos Aires. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "El caudillo federal fusilado en 1828: el mártir que abrió la era rosista. Manuel Dorrego encarnó el federalismo porteño contra el centralismo unitario. En los años 1820, Argentina no era un país: era un nombre en disputa. Los unitarios querían un Estado central fuerte en Buenos Aires.",
     },
     {
       estacion: 1,
@@ -136,7 +136,7 @@ const DORREGO: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La semilla del rosismo",
-      texto: "La muerte de Dorrego abrió la era de Rosas. El fusilamiento de Dorrego no cerró la disputa: la radicalizó. Su muerte convirtió el federalismo en martirio. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "La muerte de Dorrego abrió la era de Rosas. El fusilamiento de Dorrego no cerró la disputa: la radicalizó. Su muerte convirtió el federalismo en martirio.",
     }
   ],
 };
@@ -149,7 +149,7 @@ const EL_43: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Revolución del 43",
-      texto: "4 de junio de 1943: el golpe que abrió la Argentina contemporánea. 4 de junio de 1943: un golpe militar abre la Argentina contemporánea. El 4 de junio de 1943, un golpe militar derrocó al presidente Ramón Castillo y puso fin a la década infame. No fue solo un cambio de gobernantes: fue el inicio de la Argentina contemporánea. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "4 de junio de 1943: el golpe que abrió la Argentina contemporánea. 4 de junio de 1943: un golpe militar abre la Argentina contemporánea. El 4 de junio de 1943, un golpe militar derrocó al presidente Ramón Castillo y puso fin a la década infame. No fue solo un cambio de gobernantes: fue el inicio de la Argentina contemporánea.",
     },
     {
       estacion: 1,
@@ -164,7 +164,7 @@ const EL_43: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "El siglo que siguió",
-      texto: "1943 marca el punto de partida de todo lo que vino después. La Revolución del 43 no fue democrática. Fue militar, corporativa, ambigua. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "1943 marca el punto de partida de todo lo que vino después. La Revolución del 43 no fue democrática. Fue militar, corporativa, ambigua.",
     }
   ],
 };
@@ -177,7 +177,7 @@ const EL_DEFAULT: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La cesación de pagos",
-      texto: "23 de diciembre de 2001: la cesación de pagos más grande de la historia. 23 de diciembre de 2001: Argentina declara el default. El 23 de diciembre de 2001, el gobierno de Rodrigo Rua —interino tras la caída de De la Rúa— anunció la cesación de pagos de la deuda externa. Fue el default más grande de la historia: más de 100.000 millones de dólares. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "23 de diciembre de 2001: la cesación de pagos más grande de la historia. 23 de diciembre de 2001: Argentina declara el default. El 23 de diciembre de 2001, el gobierno de Rodrigo Rua —interino tras la caída de De la Rúa— anunció la cesación de pagos de la deuda externa. Fue el default más grande de la historia: más de 100.000 millones de dólares.",
     },
     {
       estacion: 1,
@@ -192,7 +192,7 @@ const EL_DEFAULT: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Después del default",
-      texto: "2001 no terminó con la deuda. Empezó otra Argentina. La devaluación, los piquetes, las fábricas recuperadas, el kirchnerismo: todo nació del mismo colapso. El default fue el punto de quiebre financiero de una democracia que no cayó —pero salió transformada. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "2001 no terminó con la deuda. Empezó otra Argentina. La devaluación, los piquetes, las fábricas recuperadas, el kirchnerismo: todo nació del mismo colapso. El default fue el punto de quiebre financiero de una democracia que no cayó —pero salió transformada.",
     }
   ],
 };
@@ -205,7 +205,7 @@ const EL_FACUNDO: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El libro que inventó la Argentina",
-      texto: "Sarmiento escribe el libro que inventó la dicotomía civilización o barbarie. 1845: Sarmiento escribe el Facundo en el exilio chileno. En 1845, exiliado en Chile, Domingo Faustino Sarmiento publicó Facundo o civilización y barbarie en las pampas argentinas. No era solo una biografía de Juan Facundo Quiroga. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "Sarmiento escribe el libro que inventó la dicotomía civilización o barbarie. 1845: Sarmiento escribe el Facundo en el exilio chileno. En 1845, exiliado en Chile, Domingo Faustino Sarmiento publicó Facundo o civilización y barbarie en las pampas argentinas. No era solo una biografía de Juan Facundo Quiroga.",
     },
     {
       estacion: 1,
@@ -220,7 +220,7 @@ const EL_FACUNDO: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "El legado que no termina",
-      texto: "Del libro a las escuelas, del exilio a la presidencia. El Facundo fundó la literatura política argentina. Pero Sarmiento no se quedó en el papel: fue gobernador, senador, presidente. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Del libro a las escuelas, del exilio a la presidencia. El Facundo fundó la literatura política argentina. Pero Sarmiento no se quedó en el papel: fue gobernador, senador, presidente.",
     }
   ],
 };
@@ -233,7 +233,7 @@ const EL_RETORNO: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Perón vuelve",
-      texto: "1973: Perón vuelve al país después de 18 años de proscripción. 17 de octubre de 1972: el exilio termina. La Argentina espera. Dieciocho años después del golpe de 1955, Juan Domingo Perón regresó al país. El peronismo había sobrevivido en el exilio, en la clandestinidad, en las urnas prohibidas. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1973: Perón vuelve al país después de 18 años de proscripción. 17 de octubre de 1972: el exilio termina. La Argentina espera. Dieciocho años después del golpe de 1955, Juan Domingo Perón regresó al país. El peronismo había sobrevivido en el exilio, en la clandestinidad, en las urnas prohibidas.",
     },
     {
       estacion: 1,
@@ -248,7 +248,7 @@ const EL_RETORNO: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La puerta al horror",
-      texto: "El retorno no unificó al país. Lo acercó al abismo. El retorno de Perón fue un triunfo electoral y una tragedia política. No pudo contener la violencia que él mismo había ayudado a desatar. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "El retorno no unificó al país. Lo acercó al abismo. El retorno de Perón fue un triunfo electoral y una tragedia política. No pudo contener la violencia que él mismo había ayudado a desatar.",
     }
   ],
 };
@@ -261,7 +261,7 @@ const ELECCIONES_83: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La urna vuelve",
-      texto: "30 de octubre de 1983: la urna que cerró la última dictadura. 30 de octubre de 1983: la Argentina elige por primera vez desde 1973. Siete años de dictadura. Miles de desaparecidos. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "30 de octubre de 1983: la urna que cerró la última dictadura. 30 de octubre de 1983: la Argentina elige por primera vez desde 1973. Siete años de dictadura. Miles de desaparecidos.",
     },
     {
       estacion: 1,
@@ -276,7 +276,7 @@ const ELECCIONES_83: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La democracia que no se interrumpió",
-      texto: "Desde 1983, ningún gobierno constitucional fue derrocado. Las elecciones de 1983 no resolvieron la economía ni cerraron la herida de los desaparecidos. Pero hicieron algo irreversible: devolvieron la soberanía popular. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Desde 1983, ningún gobierno constitucional fue derrocado. Las elecciones de 1983 no resolvieron la economía ni cerraron la herida de los desaparecidos. Pero hicieron algo irreversible: devolvieron la soberanía popular.",
     }
   ],
 };
@@ -289,7 +289,7 @@ const EMBAJADA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Embajada",
-      texto: "17 de marzo de 1992: el atentado que anticipó la AMIA. 17 de marzo de 1992: una bomba destruye la Embajada de Israel. El 17 de marzo de 1992, un camión bomba explotó frente a la Embajada de Israel en Buenos Aires. 29 personas murieron. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "17 de marzo de 1992: el atentado que anticipó la AMIA. 17 de marzo de 1992: una bomba destruye la Embajada de Israel. El 17 de marzo de 1992, un camión bomba explotó frente a la Embajada de Israel en Buenos Aires. 29 personas murieron.",
     },
     {
       estacion: 1,
@@ -304,7 +304,7 @@ const EMBAJADA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Dos atentados, una herida",
-      texto: "Embajada y AMIA marcan el terror en democracia. El atentado a la Embajada no recibió la misma atención mediática que la AMIA dos años después. Pero las familias de las 29 víctimas siguen exigiendo justicia. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Embajada y AMIA marcan el terror en democracia. El atentado a la Embajada no recibió la misma atención mediática que la AMIA dos años después. Pero las familias de las 29 víctimas siguen exigiendo justicia.",
     }
   ],
 };
@@ -317,7 +317,7 @@ const ERP: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El ERP",
-      texto: "La guerrilla marxista que eligió las armas en los setenta. 1970: el Ejército Revolucionario del Pueblo elige las armas. En los años setenta, la violencia política no fue solo de Montoneros. El ERP —Ejército Revolucionario del Pueblo— fue una guerrilla marxista-leninista liderada por Mario Roberto Santucho. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "La guerrilla marxista que eligió las armas en los setenta. 1970: el Ejército Revolucionario del Pueblo elige las armas. En los años setenta, la violencia política no fue solo de Montoneros. El ERP —Ejército Revolucionario del Pueblo— fue una guerrilla marxista-leninista liderada por Mario Roberto Santucho.",
     },
     {
       estacion: 1,
@@ -332,7 +332,7 @@ const ERP: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La escalera al Proceso",
-      texto: "El ERP no causó la dictadura. Fue parte de la espiral. Montoneros y ERP, Triple A y Ejército: todos alimentaron la idea de que la violencia era método legítimo. Cuando el 24 de marzo de 1976 llegó el golpe, los militares usaron esa espiral como excusa. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "El ERP no causó la dictadura. Fue parte de la espiral. Montoneros y ERP, Triple A y Ejército: todos alimentaron la idea de que la violencia era método legítimo. Cuando el 24 de marzo de 1976 llegó el golpe, los militares usaron esa espiral como excusa.",
     }
   ],
 };
@@ -345,7 +345,7 @@ const FABRICAS_RECUPERADAS: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Las fábricas sin dueño",
-      texto: "2002 — 2015: cooperativas, autogestión y la economía del post-2001. 2002: los trabajadores ocupan la producción cuando el patrón desaparece. Después del 2001, cientos de empresas cerraron o abandonaron a sus empleados. En lugar de esperar, los trabajadores ocuparon las plantas y formaron cooperativas. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "2002 — 2015: cooperativas, autogestión y la economía del post-2001. 2002: los trabajadores ocupan la producción cuando el patrón desaparece. Después del 2001, cientos de empresas cerraron o abandonaron a sus empleados. En lugar de esperar, los trabajadores ocuparon las plantas y formaron cooperativas.",
     },
     {
       estacion: 1,
@@ -360,7 +360,7 @@ const FABRICAS_RECUPERADAS: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Herencia del 2001",
-      texto: "Las fábricas recuperadas no resolvieron la crisis. Mostraron otra salida. Muchas cooperativas sobrevivieron décadas. Otras cerraron por falta de mercado o crédito. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Las fábricas recuperadas no resolvieron la crisis. Mostraron otra salida. Muchas cooperativas sobrevivieron décadas. Otras cerraron por falta de mercado o crédito.",
     }
   ],
 };
@@ -373,7 +373,7 @@ const FEDERALIZACION: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Una ciudad, dos destinos",
-      texto: "1880: Buenos Aires deja de ser provincia y nace la Capital Federal. 1880: Buenos Aires deja de ser provincia y se convierte en capital de la Nación. Durante décadas, Buenos Aires fue provincia y capital a la vez. Controlaba el puerto, la aduana, las rentas. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1880: Buenos Aires deja de ser provincia y nace la Capital Federal. 1880: Buenos Aires deja de ser provincia y se convierte en capital de la Nación. Durante décadas, Buenos Aires fue provincia y capital a la vez. Controlaba el puerto, la aduana, las rentas.",
     },
     {
       estacion: 1,
@@ -388,7 +388,7 @@ const FEDERALIZACION: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La capital que ordenó la Nación",
-      texto: "Federalizar Buenos Aires fue el paso que faltaba para cerrar la organización nacional. La federalización cerró el ciclo abierto en Caseros y Pavón: un país con Constitución, un presidente, un ejército nacional y ahora una capital neutral. Roca asumiría la presidencia ese mismo año. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Federalizar Buenos Aires fue el paso que faltaba para cerrar la organización nacional. La federalización cerró el ciclo abierto en Caseros y Pavón: un país con Constitución, un presidente, un ejército nacional y ahora una capital neutral. Roca asumiría la presidencia ese mismo año.",
     }
   ],
 };
@@ -401,7 +401,7 @@ const FRONDIZI: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El desarrollismo",
-      texto: "1958 — 1962: desarrollismo, petróleo y el peronismo que votó sin Perón. 1 de mayo de 1958: Frondizi asume con el voto peronista y un plan industrial. Después de la Revolución Libertadora, el peronismo seguía proscripto pero vivo. En 1958, Arturo Frondizi —radical intransigente— ganó la presidencia con el apoyo encubierto del voto peronista y un proyecto que llamó desarrollismo: petróleo, acero, industria pesada, inversión extranjera. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1958 — 1962: desarrollismo, petróleo y el peronismo que votó sin Perón. 1 de mayo de 1958: Frondizi asume con el voto peronista y un plan industrial. Después de la Revolución Libertadora, el peronismo seguía proscripto pero vivo. En 1958, Arturo Frondizi —radical intransigente— ganó la presidencia con el apoyo encubierto del voto peronista y un proyecto que llamó desarrollismo: petróleo, acero, industria pesada, inversión extranjera.",
     },
     {
       estacion: 1,
@@ -416,7 +416,7 @@ const FRONDIZI: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Entre dos golpes",
-      texto: "Frondizi no unificó al país. Preparó el terreno para Illia y para el 66. Frondizi intentó gobernar sin Perón y con el peronismo. Fue una ecuación imposible. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Frondizi no unificó al país. Preparó el terreno para Illia y para el 66. Frondizi intentó gobernar sin Perón y con el peronismo. Fue una ecuación imposible.",
     }
   ],
 };
@@ -429,7 +429,7 @@ const GALTIERI: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Galtieri",
-      texto: "1981 — 1982: el dictador que apostó a Malvinas y perdió todo. 22 de diciembre de 1981: el último presidente de la dictadura. A fines de 1981, Leopoldo Galtieri asumió la presidencia de facto. La dictadura llevaba cinco años en el poder y enfrentaba inflación, protestas y un país cansado del terror. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1981 — 1982: el dictador que apostó a Malvinas y perdió todo. 22 de diciembre de 1981: el último presidente de la dictadura. A fines de 1981, Leopoldo Galtieri asumió la presidencia de facto. La dictadura llevaba cinco años en el poder y enfrentaba inflación, protestas y un país cansado del terror.",
     },
     {
       estacion: 1,
@@ -444,7 +444,7 @@ const GALTIERI: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Del frente a las urnas",
-      texto: "Malvinas no salvó al Proceso. Lo precipitó. Galtieri murió en 2003 sin haber sido juzgado por Malvinas. Pero su legado es claro: usó la soberanía como último recurso de un régimen que ya no podía gobernar. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Malvinas no salvó al Proceso. Lo precipitó. Galtieri murió en 2003 sin haber sido juzgado por Malvinas. Pero su legado es claro: usó la soberanía como último recurso de un régimen que ya no podía gobernar.",
     }
   ],
 };
@@ -457,7 +457,7 @@ const GUEMES: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El caudillo del norte",
-      texto: "El caudillo gaucho que defendió Salta durante seis años de guerra irregular. Güemes defendió Salta con gauchos, caballos y una guerra que el ejército no sabía pelear. Mientras Belgrano peleaba batallas formales, Martín Miguel de Güemes organizó otra guerra en Salta: montoneras, caballería irregular, emboscadas nocturnas. Los realistas llamaban a sus hombres «el infierno con faldas». Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "El caudillo gaucho que defendió Salta durante seis años de guerra irregular. Güemes defendió Salta con gauchos, caballos y una guerra que el ejército no sabía pelear. Mientras Belgrano peleaba batallas formales, Martín Miguel de Güemes organizó otra guerra en Salta: montoneras, caballería irregular, emboscadas nocturnas. Los realistas llamaban a sus hombres «el infierno con faldas».",
     },
     {
       estacion: 1,
@@ -472,7 +472,7 @@ const GUEMES: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "El escudo que no cayó",
-      texto: "Sin Güemes, Belgrano no habría ganado Tucumán ni Salta. Güemes murió antes de ver la independencia. Pero su obra permitió que el norte resistiera cuando todo parecía perdido. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Sin Güemes, Belgrano no habría ganado Tucumán ni Salta. Güemes murió antes de ver la independencia. Pero su obra permitió que el norte resistiera cuando todo parecía perdido.",
     }
   ],
 };
@@ -485,7 +485,7 @@ const HIPERINFLACION: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La hiperinflación",
-      texto: "1989: el Rodrigazo, la entrega anticipada de Alfonsín y el puente a Menem. 1989: la inflación que devoró salarios, ahorros y gobierno. A fines de los años ochenta, la hiperinflación se comió la Argentina. Precios que cambiaban por hora. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1989: el Rodrigazo, la entrega anticipada de Alfonsín y el puente a Menem. 1989: la inflación que devoró salarios, ahorros y gobierno. A fines de los años ochenta, la hiperinflación se comió la Argentina. Precios que cambiaban por hora.",
     },
     {
       estacion: 1,
@@ -500,7 +500,7 @@ const HIPERINFLACION: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "De Alfonsín a Menem",
-      texto: "La crisis que abrió la década de 1990. Alfonsín dejó un legado democrático irreversible: memoria, juicio a las juntas, cultura de derechos humanos. Pero la hiperinflación destruyó su gobierno económico. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "La crisis que abrió la década de 1990. Alfonsín dejó un legado democrático irreversible: memoria, juicio a las juntas, cultura de derechos humanos. Pero la hiperinflación destruyó su gobierno económico.",
     }
   ],
 };
@@ -513,7 +513,7 @@ const ILLIA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La democracia radical",
-      texto: "1963 — 1966: la democracia radical entre Frondizi y Onganía. 12 de octubre de 1963: Illia asume con el 28 % de los votos. Después del golpe a Frondizi, la Argentina vivió meses de incertidumbre. En 1963, Arturo Illia —médico rural, radical austero— ganó las elecciones con el 28 % de los votos en un sistema que premiaba la pluralidad. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1963 — 1966: la democracia radical entre Frondizi y Onganía. 12 de octubre de 1963: Illia asume con el 28 % de los votos. Después del golpe a Frondizi, la Argentina vivió meses de incertidumbre. En 1963, Arturo Illia —médico rural, radical austero— ganó las elecciones con el 28 % de los votos en un sistema que premiaba la pluralidad.",
     },
     {
       estacion: 1,
@@ -528,7 +528,7 @@ const ILLIA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La puerta al 66",
-      texto: "Illia no cayó por las urnas. Cayó por un golpe. El 28 de junio de 1966, las Fuerzas Armadas derrocaron a Illia e instalaron la Revolución Argentina de Onganía. Fue el quinto golpe desde 1930 en una democracia que aún no había aprendido a sostenerse. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Illia no cayó por las urnas. Cayó por un golpe. El 28 de junio de 1966, las Fuerzas Armadas derrocaron a Illia e instalaron la Revolución Argentina de Onganía. Fue el quinto golpe desde 1930 en una democracia que aún no había aprendido a sostenerse.",
     }
   ],
 };
@@ -541,7 +541,7 @@ const ISABEL: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La presidenta",
-      texto: "1974 — 1976: la primera mujer presidenta y el camino al último golpe. 1 de julio de 1974: Isabel asume tras la muerte de Perón. Cuando Perón murió el 1 de julio de 1974, María Estela Martínez de Perón —«Isabel»— asumió la presidencia. Fue la primera mujer en gobernar un país de América. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1974 — 1976: la primera mujer presidenta y el camino al último golpe. 1 de julio de 1974: Isabel asume tras la muerte de Perón. Cuando Perón murió el 1 de julio de 1974, María Estela Martínez de Perón —«Isabel»— asumió la presidencia. Fue la primera mujer en gobernar un país de América.",
     },
     {
       estacion: 1,
@@ -556,7 +556,7 @@ const ISABEL: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La puerta al 24 de marzo",
-      texto: "Isabel no cayó por las urnas. Cayó por el último golpe. El 24 de marzo de 1976, la junta militar derrocó a Isabel y proclamó el Proceso de Reorganización Nacional. Fue el cierre de un ciclo que empezó con el retorno de Perón y terminó en la dictadura más brutal de la historia argentina. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Isabel no cayó por las urnas. Cayó por el último golpe. El 24 de marzo de 1976, la junta militar derrocó a Isabel y proclamó el Proceso de Reorganización Nacional. Fue el cierre de un ciclo que empezó con el retorno de Perón y terminó en la dictadura más brutal de la historia argentina.",
     }
   ],
 };
@@ -569,7 +569,7 @@ const JUICIO_A_LAS_JUNTAS: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El banquillo",
-      texto: "22 de abril de 1985: los dictadores en el banquillo civil. 22 de abril de 1985: comienza el Juicio a las Juntas. Dos años después del retorno democrático, Raúl Alfonsín hizo lo que ningún gobierno de América Latina había hecho: sentar a los comandantes de la dictadura en un tribunal civil. El Juicio a las Juntas comenzó el 22 de abril de 1985. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "22 de abril de 1985: los dictadores en el banquillo civil. 22 de abril de 1985: comienza el Juicio a las Juntas. Dos años después del retorno democrático, Raúl Alfonsín hizo lo que ningún gobierno de América Latina había hecho: sentar a los comandantes de la dictadura en un tribunal civil. El Juicio a las Juntas comenzó el 22 de abril de 1985.",
     },
     {
       estacion: 1,
@@ -584,7 +584,7 @@ const JUICIO_A_LAS_JUNTAS: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "El precedente que quedó",
-      texto: "Los indultos truncaron el juicio. El precedente no. Los indultos de 1989 y 1990 interrumpieron el camino de la justicia plena. Pero el Juicio a las Juntas dejó una huella: la idea de que el terror de Estado no es impune. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Los indultos truncaron el juicio. El precedente no. Los indultos de 1989 y 1990 interrumpieron el camino de la justicia plena. Pero el Juicio a las Juntas dejó una huella: la idea de que el terror de Estado no es impune.",
     }
   ],
 };
@@ -597,7 +597,7 @@ const LA_BANDERA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La bandera que nació desobedeciendo",
-      texto: "27 de febrero de 1812: Belgrano crea el celeste y blanco en Rosario. Febrero de 1812: Belgrano iza el celeste y blanco en Rosario. Manuel Belgrano no era militar de vocación: era abogado, economista, hombre de letras. Pero la revolución lo convirtió en general del Norte. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "27 de febrero de 1812: Belgrano crea el celeste y blanco en Rosario. Febrero de 1812: Belgrano iza el celeste y blanco en Rosario. Manuel Belgrano no era militar de vocación: era abogado, economista, hombre de letras. Pero la revolución lo convirtió en general del Norte.",
     },
     {
       estacion: 1,
@@ -612,7 +612,7 @@ const LA_BANDERA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "El símbolo que sobrevivió",
-      texto: "Belgrano murió pobre. Su bandera no. Belgrano murió en 1820, olvidado y endeudado. Pero la bandera que creó en Rosario se convirtió en el símbolo mayor de la nación. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Belgrano murió pobre. Su bandera no. Belgrano murió en 1820, olvidado y endeudado. Pero la bandera que creó en Rosario se convirtió en el símbolo mayor de la nación.",
     }
   ],
 };
@@ -625,7 +625,7 @@ const LA_CONVERTIBILIDAD: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Un peso, un dólar",
-      texto: "1991 — 2001: un peso, un dólar, y el colapso que terminó en el corralito. 1991: Argentina fijó su moneda al dólar y creyó que el caos había terminado. Después de décadas de inflación, hiperinflación y planes económicos fallidos, el gobierno de Carlos Menem implementó la convertibilidad: un peso valía exactamente un dólar. La estabilidad llegó. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1991 — 2001: un peso, un dólar, y el colapso que terminó en el corralito. 1991: Argentina fijó su moneda al dólar y creyó que el caos había terminado. Después de décadas de inflación, hiperinflación y planes económicos fallidos, el gobierno de Carlos Menem implementó la convertibilidad: un peso valía exactamente un dólar. La estabilidad llegó.",
     },
     {
       estacion: 1,
@@ -640,7 +640,7 @@ const LA_CONVERTIBILIDAD: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Del 1 a 1 al corralito",
-      texto: "2001: la convertibilidad terminó como empezó la hiperinflación — en crisis. En 2001, la convertibilidad colapsó. El corralito congeló los ahorros. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "2001: la convertibilidad terminó como empezó la hiperinflación — en crisis. En 2001, la convertibilidad colapsó. El corralito congeló los ahorros.",
     }
   ],
 };
@@ -653,7 +653,7 @@ const LA_PANDEMIA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El virus",
-      texto: "2020 — 2021: COVID-19, cuarentena y la Argentina aislada. 11 de marzo de 2020: la OMS declara pandemia. Argentina cierra. En marzo de 2020, la COVID-19 llegó a la Argentina. Alberto Fernández decretó una cuarentena estricta —una de las más largas del mundo— para frenar el contagio. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "2020 — 2021: COVID-19, cuarentena y la Argentina aislada. 11 de marzo de 2020: la OMS declara pandemia. Argentina cierra. En marzo de 2020, la COVID-19 llegó a la Argentina. Alberto Fernández decretó una cuarentena estricta —una de las más largas del mundo— para frenar el contagio.",
     },
     {
       estacion: 1,
@@ -668,7 +668,7 @@ const LA_PANDEMIA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Después del virus",
-      texto: "La pandemia no terminó con la polarización. La profundizó. Cuando llegaron las vacunas y se flexibilizó la cuarentena, la economía reactivó con inflación alta y deuda creciente. La pandemia no creó la crisis argentina: la encontró y la empeoró. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "La pandemia no terminó con la polarización. La profundizó. Cuando llegaron las vacunas y se flexibilizó la cuarentena, la economía reactivó con inflación alta y deuda creciente. La pandemia no creó la crisis argentina: la encontró y la empeoró.",
     }
   ],
 };
@@ -681,7 +681,7 @@ const LA_TRANSICION: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El día que volvió la democracia",
-      texto: "10 de diciembre de 1983: Alfonsín devuelve la democracia después de la dictadura. 10 de diciembre de 1983: Alfonsín jura ante un país de duelo. Siete años y medio de dictadura. Miles de desaparecidos. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "10 de diciembre de 1983: Alfonsín devuelve la democracia después de la dictadura. 10 de diciembre de 1983: Alfonsín jura ante un país de duelo. Siete años y medio de dictadura. Miles de desaparecidos.",
     },
     {
       estacion: 1,
@@ -696,7 +696,7 @@ const LA_TRANSICION: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La herencia que no termina",
-      texto: "Desde 1983, la democracia argentina no se interrumpió. Alfonsín gobernó con la economía en llamas y alzamientos militares en la espalda. Entregó el poder seis meses antes. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Desde 1983, la democracia argentina no se interrumpió. Alfonsín gobernó con la economía en llamas y alzamientos militares en la espalda. Entregó el poder seis meses antes.",
     }
   ],
 };
@@ -709,7 +709,7 @@ const LANUSSE: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Granaderos a política",
-      texto: "1971 — 1973: el general que convocó elecciones y abrió el retorno de Perón. 1971: Lanusse reemplaza a Onganía y promete elecciones. Cuando Alejandro Lanusse asumió en 1971, la Revolución Argentina llevaba cinco años en el poder. Onganía había caído. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1971 — 1973: el general que convocó elecciones y abrió el retorno de Perón. 1971: Lanusse reemplaza a Onganía y promete elecciones. Cuando Alejandro Lanusse asumió en 1971, la Revolución Argentina llevaba cinco años en el poder. Onganía había caído.",
     },
     {
       estacion: 1,
@@ -724,7 +724,7 @@ const LANUSSE: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Del 66 al 73",
-      texto: "Lanusse no evitó el horror. Abrió la puerta al retorno. Lanusse no fue un demócrata puro: fue un militar que entendió que la proscripción eterna era insostenible. Su legado es ambivalente: devolvió las urnas, pero también dejó un país más violento y más fracturado. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Lanusse no evitó el horror. Abrió la puerta al retorno. Lanusse no fue un demócrata puro: fue un militar que entendió que la proscripción eterna era insostenible. Su legado es ambivalente: devolvió las urnas, pero también dejó un país más violento y más fracturado.",
     }
   ],
 };
@@ -737,7 +737,7 @@ const LEVINGSTON: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El general interino",
-      texto: "1970 — 1971: el general interino de la Revolución Argentina. 1970: Levingston reemplaza a Onganía en la Revolución Argentina. En junio de 1970, otro general ocupó la presidencia de facto: Roberto Marcelo Levingston. Había sido comandante del Ejército. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1970 — 1971: el general interino de la Revolución Argentina. 1970: Levingston reemplaza a Onganía en la Revolución Argentina. En junio de 1970, otro general ocupó la presidencia de facto: Roberto Marcelo Levingston. Había sido comandante del Ejército.",
     },
     {
       estacion: 1,
@@ -752,7 +752,7 @@ const LEVINGSTON: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Antes de las urnas",
-      texto: "Levingston no convocó elecciones. Lanusse sí. Para entender el retorno de Perón en 1973, hay que leer la cadena de generales: Onganía, Levingston, Lanusse. Cada uno intentó salir del callejón sin volver del todo a la democracia. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Levingston no convocó elecciones. Lanusse sí. Para entender el retorno de Perón en 1973, hay que leer la cadena de generales: Onganía, Levingston, Lanusse. Cada uno intentó salir del callejón sin volver del todo a la democracia.",
     }
   ],
 };
@@ -765,7 +765,7 @@ const LEY_SAENZ_PENA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El voto que cambió todo",
-      texto: "1912: voto secreto y obligatorio — la puerta que abrió la democracia moderna. 1912: Roque Sáenz Peña rompió el fraude y abrió la democracia. Durante décadas, las elecciones argentinas fueron un teatro: el gobierno elegía al ganador, la oposición se abstuvo o conspiraba. La Ley Sáenz Peña de 1912 cambió las reglas: voto secreto y obligatorio para todos los varones. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1912: voto secreto y obligatorio — la puerta que abrió la democracia moderna. 1912: Roque Sáenz Peña rompió el fraude y abrió la democracia. Durante décadas, las elecciones argentinas fueron un teatro: el gobierno elegía al ganador, la oposición se abstuvo o conspiraba. La Ley Sáenz Peña de 1912 cambió las reglas: voto secreto y obligatorio para todos los varones.",
     },
     {
       estacion: 1,
@@ -780,7 +780,7 @@ const LEY_SAENZ_PENA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Yrigoyen y la democracia posible",
-      texto: "Cuatro años después, el pueblo eligió a Yrigoyen presidente. En 1916, Yrigoyen ganó las primeras elecciones presidenciales con voto secreto. Por primera vez en la historia argentina, el pueblo —no el fraude, no el acuerdo de cúpulas— decidió quién gobernaba. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Cuatro años después, el pueblo eligió a Yrigoyen presidente. En 1916, Yrigoyen ganó las primeras elecciones presidenciales con voto secreto. Por primera vez en la historia argentina, el pueblo —no el fraude, no el acuerdo de cúpulas— decidió quién gobernaba.",
     }
   ],
 };
@@ -793,7 +793,7 @@ const LINIERS: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El héroe de la Reconquista",
-      texto: "El héroe de la Reconquista que terminó fusilado por la Revolución. Liniers salvó Buenos Aires cuando el virrey había huido. Santiago de Liniers era un marino francés al servicio de España. En junio de 1806, cuando los ingleses ocuparon Buenos Aires y el virrey escapó a Córdoba, Liniers cruzó desde Montevideo con milicianos y vecinos. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "El héroe de la Reconquista que terminó fusilado por la Revolución. Liniers salvó Buenos Aires cuando el virrey había huido. Santiago de Liniers era un marino francés al servicio de España. En junio de 1806, cuando los ingleses ocuparon Buenos Aires y el virrey escapó a Córdoba, Liniers cruzó desde Montevideo con milicianos y vecinos.",
     },
     {
       estacion: 1,
@@ -808,7 +808,7 @@ const LINIERS: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "El héroe que la revolución mató",
-      texto: "Liniers hizo posible Mayo sin saberlo — y murió combatiéndolo. La paradoja de Liniers resume la historia argentina: el hombre que demostró que el virreinato podía autogobernarse fue ejecutado por quienes aprendieron esa lección en sus milicias. Sin Liniers no hay Reconquista. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Liniers hizo posible Mayo sin saberlo — y murió combatiéndolo. La paradoja de Liniers resume la historia argentina: el hombre que demostró que el virreinato podía autogobernarse fue ejecutado por quienes aprendieron esa lección en sus milicias. Sin Liniers no hay Reconquista.",
     }
   ],
 };
@@ -821,7 +821,7 @@ const MALVINAS_CIUDAD: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La guerra en cada barrio",
-      texto: "La guerra que llegó a cada barrio argentino en abril de 1982. Abril de 1982: Malvinas dejó de ser un mapa lejano. El 2 de abril de 1982, la dictadura desembarcó en Malvinas y movilizó al país entero. Pero la guerra no ocurrió solo en el Atlántico Sur. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "La guerra que llegó a cada barrio argentino en abril de 1982. Abril de 1982: Malvinas dejó de ser un mapa lejano. El 2 de abril de 1982, la dictadura desembarcó en Malvinas y movilizó al país entero. Pero la guerra no ocurrió solo en el Atlántico Sur.",
     },
     {
       estacion: 1,
@@ -836,7 +836,7 @@ const MALVINAS_CIUDAD: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "De la Plaza a la democracia",
-      texto: "La herida que aceleró el fin de la dictadura. La derrota del 14 de junio llegó a cada hogar por radio y televisión. La dictadura no sobreviviría mucho más. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "La herida que aceleró el fin de la dictadura. La derrota del 14 de junio llegó a cada hogar por radio y televisión. La dictadura no sobreviviría mucho más.",
     }
   ],
 };
@@ -849,7 +849,7 @@ const MARIQUITA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La anfitriona de la patria",
-      texto: "La anfitriona de la patria: el salón donde se conspiró la revolución. En el salón de Mariquita Sánchez se conspiró la revolución. Mariquita Sánchez de Thompson no comandó ejércitos ni firmó decretos. Pero su casa de la calle Umquera fue el lugar donde la elite criolla se reunió para pensar la Argentina antes de que existiera. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "La anfitriona de la patria: el salón donde se conspiró la revolución. En el salón de Mariquita Sánchez se conspiró la revolución. Mariquita Sánchez de Thompson no comandó ejércitos ni firmó decretos. Pero su casa de la calle Umquera fue el lugar donde la elite criolla se reunió para pensar la Argentina antes de que existiera.",
     },
     {
       estacion: 1,
@@ -864,7 +864,7 @@ const MARIQUITA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La crónica que escribió con cartas",
-      texto: "Sus epístolas son uno de los grandes documentos del siglo XIX. Mariquita integró la Sociedad de Beneficencia, la primera institución pública dirigida por mujeres. Fue opositora a Rosas y partió al exilio. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Sus epístolas son uno de los grandes documentos del siglo XIX. Mariquita integró la Sociedad de Beneficencia, la primera institución pública dirigida por mujeres. Fue opositora a Rosas y partió al exilio.",
     }
   ],
 };
@@ -877,7 +877,7 @@ const MASSERA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El almirante",
-      texto: "1976 — 1978: el almirante de la ESMA y los vuelos de la muerte. 1976: Massera y la Armada en el corazón del Proceso. La Junta Militar de 1976 tenía tres cabezas: Videla (Ejército), Massera (Armada) y Agosti (Aeronáutica). Emilio Eduardo Massera no fue un figurante. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1976 — 1978: el almirante de la ESMA y los vuelos de la muerte. 1976: Massera y la Armada en el corazón del Proceso. La Junta Militar de 1976 tenía tres cabezas: Videla (Ejército), Massera (Armada) y Agosti (Aeronáutica). Emilio Eduardo Massera no fue un figurante.",
     },
     {
       estacion: 1,
@@ -892,7 +892,7 @@ const MASSERA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Juicio y negación",
-      texto: "Massera fue condenado. Los negacionistas siguen. Massera fue condenado a cadena perpetua por crímenes de lesa humanidad. Murió en 2010, con procesos abiertos y memoria disputada. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Massera fue condenado. Los negacionistas siguen. Massera fue condenado a cadena perpetua por crímenes de lesa humanidad. Murió en 2010, con procesos abiertos y memoria disputada.",
     }
   ],
 };
@@ -905,7 +905,7 @@ const MORENO: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El hombre que pensó la revolución",
-      texto: "La Gazeta, la censura y la revolución de ideas que pensó la Argentina antes de existir. Mariano Moreno no solo abrió el cabildo: abrió una guerra de ideas. Cuando el 25 de mayo de 1810 nació la Primera Junta, Mariano Moreno tenía 32 años y una convicción: la revolución no era solo cambiar gobernantes, sino cambiar cómo se pensaba el país. Abogado, periodista, secretario de la Junta: Moreno fue el cerebro de los primeros meses. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "La Gazeta, la censura y la revolución de ideas que pensó la Argentina antes de existir. Mariano Moreno no solo abrió el cabildo: abrió una guerra de ideas. Cuando el 25 de mayo de 1810 nació la Primera Junta, Mariano Moreno tenía 32 años y una convicción: la revolución no era solo cambiar gobernantes, sino cambiar cómo se pensaba el país. Abogado, periodista, secretario de la Junta: Moreno fue el cerebro de los primeros meses.",
     },
     {
       estacion: 1,
@@ -920,7 +920,7 @@ const MORENO: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La partida que dejó un legado",
-      texto: "Moreno murió en el Atlántico, pero su pensamiento siguió navegando. En enero de 1811, la Junta lo apartó del poder. Moreno partió hacia Inglaterra en la fragata George Canning. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Moreno murió en el Atlántico, pero su pensamiento siguió navegando. En enero de 1811, la Junta lo apartó del poder. Moreno partió hacia Inglaterra en la fragata George Canning.",
     }
   ],
 };
@@ -933,7 +933,7 @@ const ONGANIA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Revolución Argentina",
-      texto: "28 de junio de 1966: la Revolución Argentina y el autoritarismo moderno. 28 de junio de 1966: el golpe que derrocó a Arturo Illia. El 28 de junio de 1966, las Fuerzas Armadas derrocaron al presidente Arturo Illia y proclamaron la Revolución Argentina. Juan Carlos Onganía asumió como presidente de facto con un proyecto autoritario: orden, modernización y fin de la política de partidos. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "28 de junio de 1966: la Revolución Argentina y el autoritarismo moderno. 28 de junio de 1966: el golpe que derrocó a Arturo Illia. El 28 de junio de 1966, las Fuerzas Armadas derrocaron al presidente Arturo Illia y proclamaron la Revolución Argentina. Juan Carlos Onganía asumió como presidente de facto con un proyecto autoritario: orden, modernización y fin de la política de partidos.",
     },
     {
       estacion: 1,
@@ -948,7 +948,7 @@ const ONGANIA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Del 66 al 76",
-      texto: "La Revolución Argentina no evitó el horror. Lo preparó. Onganía no fusiló miles de personas como lo haría la dictadura del Proceso. Pero normalizó la idea de que la democracia podía suspenderse por el bien del país. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "La Revolución Argentina no evitó el horror. Lo preparó. Onganía no fusiló miles de personas como lo haría la dictadura del Proceso. Pero normalizó la idea de que la democracia podía suspenderse por el bien del país.",
     }
   ],
 };
@@ -961,7 +961,7 @@ const PARAGUAY: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Triple Alianza",
-      texto: "1865 — 1870: la Triple Alianza y la campaña más sangrienta del continente. 1865: Argentina, Brasil y Uruguay declaran la guerra a Paraguay. En 1865, Argentina, Brasil y Uruguay sellaron un tratado secreto para derrocar al presidente paraguayo Francisco Solano López. Lo que siguió fue la campaña más larga y mortífera de la historia sudamericana. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1865 — 1870: la Triple Alianza y la campaña más sangrienta del continente. 1865: Argentina, Brasil y Uruguay declaran la guerra a Paraguay. En 1865, Argentina, Brasil y Uruguay sellaron un tratado secreto para derrocar al presidente paraguayo Francisco Solano López. Lo que siguió fue la campaña más larga y mortífera de la historia sudamericana.",
     },
     {
       estacion: 1,
@@ -976,7 +976,7 @@ const PARAGUAY: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La herida que no cierra",
-      texto: "La guerra del Paraguay sigue siendo debate en Argentina y en el continente. La Triple Alianza transformó el mapa político sudamericano. Incorporó territorios, consolidó el Estado nacional argentino y dejó una herida que Paraguay nunca olvidó. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "La guerra del Paraguay sigue siendo debate en Argentina y en el continente. La Triple Alianza transformó el mapa político sudamericano. Incorporó territorios, consolidó el Estado nacional argentino y dejó una herida que Paraguay nunca olvidó.",
     }
   ],
 };
@@ -989,7 +989,7 @@ const PATAGONIA_REBELDE: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La huelga del fin del mundo",
-      texto: "1920 — 1922: la huelga obrera del sur que Yrigoyen reprimió con fusilamientos. 1920: obreros de Santa Cruz exigen jornada de ocho horas en la Patagonia. En la Patagonia australes, lejos de Buenos Aires, obreros de frigoríficos y estancias iniciaron una huelga en 1920. Pedían jornada de ocho horas, mejor salario, sindicato libre. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1920 — 1922: la huelga obrera del sur que Yrigoyen reprimió con fusilamientos. 1920: obreros de Santa Cruz exigen jornada de ocho horas en la Patagonia. En la Patagonia australes, lejos de Buenos Aires, obreros de frigoríficos y estancias iniciaron una huelga en 1920. Pedían jornada de ocho horas, mejor salario, sindicato libre.",
     },
     {
       estacion: 1,
@@ -1004,7 +1004,7 @@ const PATAGONIA_REBELDE: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La democracia y su sombra",
-      texto: "Yrigoyen abrió el voto popular. También reprimió a los obreros. La Patagonia rebelde no fue una anomalía: fue parte del mismo gobierno que sancionó la ley Sáenz Peña y ganó las elecciones con el voto popular. Yrigoyen podía recibir delegaciones de obreros en Casa Rosada y, al mismo tiempo, enviar fusileros al sur. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Yrigoyen abrió el voto popular. También reprimió a los obreros. La Patagonia rebelde no fue una anomalía: fue parte del mismo gobierno que sancionó la ley Sáenz Peña y ganó las elecciones con el voto popular. Yrigoyen podía recibir delegaciones de obreros en Casa Rosada y, al mismo tiempo, enviar fusileros al sur.",
     }
   ],
 };
@@ -1017,7 +1017,7 @@ const PIQUETEROS: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La calle después del 2001",
-      texto: "2002 — 2015: la calle que nació del colapso del 2001. 2002: los piquetes nacen del colapso y de la necesidad. Después del corralito de 2001, miles de argentinos perdieron empleo de un día para el otro. En barrios del conurbano y del interior, surgió una forma nueva de protesta: el piquete —el corte de ruta como último recurso para exigir trabajo, comida o planes sociales. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "2002 — 2015: la calle que nació del colapso del 2001. 2002: los piquetes nacen del colapso y de la necesidad. Después del corralito de 2001, miles de argentinos perdieron empleo de un día para el otro. En barrios del conurbano y del interior, surgió una forma nueva de protesta: el piquete —el corte de ruta como último recurso para exigir trabajo, comida o planes sociales.",
     },
     {
       estacion: 1,
@@ -1032,7 +1032,7 @@ const PIQUETEROS: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Del 2001 al presente",
-      texto: "Los piqueteros son el rostro social del colapso convertido en organización. Los piqueteros no resolvieron la pobreza argentina. Pero mostraron que, después del 2001, la sociedad no esperó al Estado: se organizó. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Los piqueteros son el rostro social del colapso convertido en organización. Los piqueteros no resolvieron la pobreza argentina. Pero mostraron que, después del 2001, la sociedad no esperó al Estado: se organizó.",
     }
   ],
 };
@@ -1045,7 +1045,7 @@ const REVOLUCION_DEL_PARQUE: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Revolución del Parque",
-      texto: "26 de julio de 1890: la ciudad se levanta contra el régimen de Celman. 26 de julio de 1890: la ciudad se levanta contra Celman. En julio de 1890, Buenos Aires estalló contra el presidente Miguel Juárez Celman. La acusación era corrupción, fraude y un modelo agroexportador que enriquecía a pocos. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "26 de julio de 1890: la ciudad se levanta contra el régimen de Celman. 26 de julio de 1890: la ciudad se levanta contra Celman. En julio de 1890, Buenos Aires estalló contra el presidente Miguel Juárez Celman. La acusación era corrupción, fraude y un modelo agroexportador que enriquecía a pocos.",
     },
     {
       estacion: 1,
@@ -1060,7 +1060,7 @@ const REVOLUCION_DEL_PARQUE: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "De Alem a Yrigoyen",
-      texto: "La revolución falló. El radicalismo nació. Alem fundó el radicalismo en la derrota. Décadas después, Yrigoyen ganaría las elecciones con voto secreto. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "La revolución falló. El radicalismo nació. Alem fundó el radicalismo en la derrota. Décadas después, Yrigoyen ganaría las elecciones con voto secreto.",
     }
   ],
 };
@@ -1073,7 +1073,7 @@ const RIVADAVIA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El primer presidente unitario",
-      texto: "El primer presidente unitario y la Constitución de 1826 que fracturó el país. 1826: Rivadavia intenta modernizar la República desde Buenos Aires. Bernardino Rivadavia fue el primer presidente de las Provincias Unidas en tiempos de unificación. Su proyecto era ambicioso: constitución central, universidad, teatro, inmigración, reforma eclesiástica. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "El primer presidente unitario y la Constitución de 1826 que fracturó el país. 1826: Rivadavia intenta modernizar la República desde Buenos Aires. Bernardino Rivadavia fue el primer presidente de las Provincias Unidas en tiempos de unificación. Su proyecto era ambicioso: constitución central, universidad, teatro, inmigración, reforma eclesiástica.",
     },
     {
       estacion: 1,
@@ -1088,7 +1088,7 @@ const RIVADAVIA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "De Rivadavia a la Nación",
-      texto: "El unitarismo que volvería con Mitre y la Constitución de 1853. Rivadavia murió en el exilio español, lejos del país que quiso transformar. Pero muchas de sus ideas —educación pública, inmigración, instituciones— volvieron con Alberdi, con Mitre, con la Constitución de 1853. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "El unitarismo que volvería con Mitre y la Constitución de 1853. Rivadavia murió en el exilio español, lejos del país que quiso transformar. Pero muchas de sus ideas —educación pública, inmigración, instituciones— volvieron con Alberdi, con Mitre, con la Constitución de 1853.",
     }
   ],
 };
@@ -1101,7 +1101,7 @@ const RODRIGAZO: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El Rodrigazo",
-      texto: "6 de junio de 1975: el ajuste que aceleró el caos de Isabel. 6 de junio de 1975: Celestino Rodrigo desata la inflación. En junio de 1975, el ministro de Economía Celestino Rodrigo anunció de un día para el otro un aumento masivo de tarifas y precios controlados. La medida se llamó Rodrigazo. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "6 de junio de 1975: el ajuste que aceleró el caos de Isabel. 6 de junio de 1975: Celestino Rodrigo desata la inflación. En junio de 1975, el ministro de Economía Celestino Rodrigo anunció de un día para el otro un aumento masivo de tarifas y precios controlados. La medida se llamó Rodrigazo.",
     },
     {
       estacion: 1,
@@ -1116,7 +1116,7 @@ const RODRIGAZO: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La escalera al 24 de marzo",
-      texto: "El Rodrigazo fue economía. También fue política. Después del Rodrigazo, la Argentina vivió meses de caos institucional. Sindicatos divididos, guerrilla activa, parapolicialismo, inflación galopante. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "El Rodrigazo fue economía. También fue política. Después del Rodrigazo, la Argentina vivió meses de caos institucional. Sindicatos divididos, guerrilla activa, parapolicialismo, inflación galopante.",
     }
   ],
 };
@@ -1129,7 +1129,7 @@ const SAAVEDRA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El hombre de las milicias",
-      texto: "El coronel de granaderos que comandó las milicias del 25 de Mayo. Saavedra comandó las fuerzas que hicieron posible el 25 de Mayo. El 25 de Mayo de 1810 no fue un accidente. Fue el resultado de años de conspiración, milicias criollas y un hombre que las comandaba: Cornelio Saavedra, coronel de granaderos, líder de la disidencia contra el virreinato. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "El coronel de granaderos que comandó las milicias del 25 de Mayo. Saavedra comandó las fuerzas que hicieron posible el 25 de Mayo. El 25 de Mayo de 1810 no fue un accidente. Fue el resultado de años de conspiración, milicias criollas y un hombre que las comandaba: Cornelio Saavedra, coronel de granaderos, líder de la disidencia contra el virreinato.",
     },
     {
       estacion: 1,
@@ -1144,7 +1144,7 @@ const SAAVEDRA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "El olvido del héroe",
-      texto: "Saavedra fue apartado, exiliado y borrado de la memoria oficial. Moreno lo apartó del poder. Saavedra fue enviado a Córdoba, luego arrestado, luego olvidado. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Saavedra fue apartado, exiliado y borrado de la memoria oficial. Moreno lo apartó del poder. Saavedra fue enviado a Córdoba, luego arrestado, luego olvidado.",
     }
   ],
 };
@@ -1157,7 +1157,7 @@ const SEMANA_TRAGICA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La huelga que encendió la ciudad",
-      texto: "Enero de 1919: la huelga metalúrgica que dejó cientos de muertos en Buenos Aires. Enero de 1919: metalúrgicos en paro y Buenos Aires al borde de la explosión. Argentina había votado por primera vez en 1916 y Hipólito Yrigoyen era presidente. Pero la democracia no alimentaba: los salarios no alcanzaban, las fábricas explotaban y los sindicatos crecían en los barrios obreros. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "Enero de 1919: la huelga metalúrgica que dejó cientos de muertos en Buenos Aires. Enero de 1919: metalúrgicos en paro y Buenos Aires al borde de la explosión. Argentina había votado por primera vez en 1916 y Hipólito Yrigoyen era presidente. Pero la democracia no alimentaba: los salarios no alcanzaban, las fábricas explotaban y los sindicatos crecían en los barrios obreros.",
     },
     {
       estacion: 1,
@@ -1172,7 +1172,7 @@ const SEMANA_TRAGICA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La democracia herida",
-      texto: "La Semana Trágica dejó una cicatriz que el radicalismo nunca cerró. Yrigoyen sobrevivió políticamente, fue reelecto en 1928, pero la Semana Trágica marcó su gobierno para siempre. Mostró que la Argentina moderna nació con una fractura: oligarquía porteña contra obreros, conservadores contra radicales, orden contra huelga. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "La Semana Trágica dejó una cicatriz que el radicalismo nunca cerró. Yrigoyen sobrevivió políticamente, fue reelecto en 1928, pero la Semana Trágica marcó su gobierno para siempre. Mostró que la Argentina moderna nació con una fractura: oligarquía porteña contra obreros, conservadores contra radicales, orden contra huelga.",
     }
   ],
 };
@@ -1185,7 +1185,7 @@ const TRIPLE_A: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Triple A",
-      texto: "1973 — 1975: López Rega y el terror parapolicial del tercer peronismo. 1973: López Rega arma la Alianza Anticomunista Argentina. Cuando Perón volvió en 1973, el poder no estaba solo en la Casa Rosada. José López Rega —ministro de Bienestar Social, fundador de la Triple A (Alianza Anticomunista Argentina)— operaba en la sombra con cobertura estatal. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1973 — 1975: López Rega y el terror parapolicial del tercer peronismo. 1973: López Rega arma la Alianza Anticomunista Argentina. Cuando Perón volvió en 1973, el poder no estaba solo en la Casa Rosada. José López Rega —ministro de Bienestar Social, fundador de la Triple A (Alianza Anticomunista Argentina)— operaba en la sombra con cobertura estatal.",
     },
     {
       estacion: 1,
@@ -1200,7 +1200,7 @@ const TRIPLE_A: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La escalera al Proceso",
-      texto: "La Triple A no evitó el horror. Lo anticipó. Cuando el 24 de marzo de 1976 llegó el golpe definitivo, parte de la sociedad lo recibió como «orden» frente al caos. Pero el caos no había sido solo de Montoneros: también fue de parapolicialismo, inflación y un Estado que ya había elegido matar en lugar de disputar. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "La Triple A no evitó el horror. Lo anticipó. Cuando el 24 de marzo de 1976 llegó el golpe definitivo, parte de la sociedad lo recibió como «orden» frente al caos. Pero el caos no había sido solo de Montoneros: también fue de parapolicialismo, inflación y un Estado que ya había elegido matar en lugar de disputar.",
     }
   ],
 };
@@ -1213,7 +1213,7 @@ const VIDELA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Videla",
-      texto: "1976 — 1981: el general que encabezó el Proceso de Reorganización Nacional. 24 de marzo de 1976: el general que encabezó el golpe. Cuando los tanques salieron a la calle el 24 de marzo de 1976, Jorge Rafael Videla era el rostro del golpe. General del Ejército, católico, disciplinado, convencido de que la Argentina necesitaba un «Proceso de Reorganización Nacional». Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "1976 — 1981: el general que encabezó el Proceso de Reorganización Nacional. 24 de marzo de 1976: el general que encabezó el golpe. Cuando los tanques salieron a la calle el 24 de marzo de 1976, Jorge Rafael Videla era el rostro del golpe. General del Ejército, católico, disciplinado, convencido de que la Argentina necesitaba un «Proceso de Reorganización Nacional».",
     },
     {
       estacion: 1,
@@ -1228,7 +1228,7 @@ const VIDELA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Memoria y juicio",
-      texto: "Videla murió preso. La herida sigue abierta. En 1985, el Juicio a las Juntas lo condenó. Volvió a prisión en los 2000. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Videla murió preso. La herida sigue abierta. En 1985, el Juicio a las Juntas lo condenó. Volvió a prisión en los 2000.",
     }
   ],
 };
@@ -1241,7 +1241,7 @@ const VOTO_FEMENINO: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Las mujeres entran a votar",
-      texto: "23 de septiembre de 1947: millones de mujeres entran a la política. 23 de septiembre de 1947: la ley 13.010 abre la política a millones. El 23 de septiembre de 1947, el Congreso sancionó la ley de voto femenino. Por primera vez, las mujeres argentinas podían elegir presidente, gobernadores y legisladores. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "23 de septiembre de 1947: millones de mujeres entran a la política. 23 de septiembre de 1947: la ley 13.010 abre la política a millones. El 23 de septiembre de 1947, el Congreso sancionó la ley de voto femenino. Por primera vez, las mujeres argentinas podían elegir presidente, gobernadores y legisladores.",
     },
     {
       estacion: 1,
@@ -1256,7 +1256,7 @@ const VOTO_FEMENINO: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La puerta que no se cerró",
-      texto: "El voto femenino cambió la Argentina para siempre. En 1951, millones de mujeres votaron por primera vez en elecciones nacionales. Evita murió meses después. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "El voto femenino cambió la Argentina para siempre. En 1951, millones de mujeres votaron por primera vez en elecciones nacionales. Evita murió meses después.",
     }
   ],
 };
@@ -1269,7 +1269,7 @@ const WALSH: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Walsh",
-      texto: "25 de marzo de 1977: la Carta abierta y el periodismo bajo dictadura. 25 de marzo de 1977: la Carta abierta a la Junta Militar. Rodolfo Walsh fue periodista, escritor de Operación Masacre y militante de Montoneros. El 25 de marzo de 1977, un año después del golpe, publicó la Carta abierta de un escritor a la Junta Militar: 21 preguntas que documentaban el horror del Proceso con precisión literaria. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "25 de marzo de 1977: la Carta abierta y el periodismo bajo dictadura. 25 de marzo de 1977: la Carta abierta a la Junta Militar. Rodolfo Walsh fue periodista, escritor de Operación Masacre y militante de Montoneros. El 25 de marzo de 1977, un año después del golpe, publicó la Carta abierta de un escritor a la Junta Militar: 21 preguntas que documentaban el horror del Proceso con precisión literaria.",
     },
     {
       estacion: 1,
@@ -1284,7 +1284,7 @@ const WALSH: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La palabra que no calló",
-      texto: "Walsh murió. Su carta sigue leída. La Carta abierta es uno de los textos más citados de la literatura política argentina. Walsh no esperó a la democracia para documentar el terror: lo hizo en el momento, sabiendo el riesgo. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Walsh murió. Su carta sigue leída. La Carta abierta es uno de los textos más citados de la literatura política argentina. Walsh no esperó a la democracia para documentar el terror: lo hizo en el momento, sabiendo el riesgo.",
     }
   ],
 };
@@ -1297,7 +1297,7 @@ const YRIGOYEN: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El Peludo",
-      texto: "El primer presidente elegido por voto popular y el primer golpe de Estado. Yrigoyen construyó décadas de abstención para llegar al poder. Hipólito Yrigoyen fue comisario, docente, estanciero y conspirador silencioso. Durante treinta años construyó la Unión Cívica Radical sobre una consigna: no participar en elecciones fraudulentas hasta que hubiera urnas limpias. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "El primer presidente elegido por voto popular y el primer golpe de Estado. Yrigoyen construyó décadas de abstención para llegar al poder. Hipólito Yrigoyen fue comisario, docente, estanciero y conspirador silencioso. Durante treinta años construyó la Unión Cívica Radical sobre una consigna: no participar en elecciones fraudulentas hasta que hubiera urnas limpias.",
     },
     {
       estacion: 1,
@@ -1312,7 +1312,7 @@ const YRIGOYEN: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "El primer golpe",
-      texto: "6 de septiembre de 1930: la democracia fue derribada. La crisis mundial y una feroz campaña de prensa erosionaron su segundo gobierno. El 6 de septiembre de 1930, el general Uriburu lo derrocó: fue el primer golpe de Estado de la historia argentina. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "6 de septiembre de 1930: la democracia fue derribada. La crisis mundial y una feroz campaña de prensa erosionaron su segundo gobierno. El 6 de septiembre de 1930, el general Uriburu lo derrocó: fue el primer golpe de Estado de la historia argentina.",
     }
   ],
 };

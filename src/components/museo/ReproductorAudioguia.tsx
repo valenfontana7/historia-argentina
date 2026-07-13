@@ -1,7 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { SegmentoAudioguia } from "@/data/audioguias";
+import {
+  cargarVoces,
+  detenerHabla,
+  hablarTexto,
+  mejorVozEs,
+  prepararTextoTts,
+} from "@/lib/audioguia/tts";
 
 type Props = {
   titulo: string;
@@ -31,9 +38,17 @@ export function ReproductorAudioguia({
   const [indice, setIndice] = useState(0);
   const [reproduciendo, setReproduciendo] = useState(false);
   const [ttsDisponible, setTtsDisponible] = useState(false);
+  const vozRef = useRef<SpeechSynthesisVoice | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    setTtsDisponible(typeof window !== "undefined" && "speechSynthesis" in window);
+    const disponible = typeof window !== "undefined" && "speechSynthesis" in window;
+    setTtsDisponible(disponible);
+    if (!disponible) return;
+
+    void cargarVoces().then((voces) => {
+      vozRef.current = mejorVozEs(voces);
+    });
   }, []);
 
   useEffect(() => {
@@ -44,27 +59,32 @@ export function ReproductorAudioguia({
   const segmento = segmentos[indice] ?? segmentoParaEstacion(segmentos, estacionActiva);
 
   const detener = useCallback(() => {
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
+    detenerHabla();
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
     }
     setReproduciendo(false);
   }, []);
 
   const reproducirSegmento = useCallback(
     (seg: SegmentoAudioguia) => {
-      if (audioUrl) {
-        setReproduciendo(true);
+      if (audioUrl && audioRef.current) {
+        void audioRef.current.play().then(
+          () => setReproduciendo(true),
+          () => setReproduciendo(false),
+        );
         return;
       }
       if (!ttsDisponible || typeof window === "undefined") return;
-      window.speechSynthesis.cancel();
-      const utter = new SpeechSynthesisUtterance(seg.texto);
-      utter.lang = "es-AR";
-      utter.rate = 0.95;
-      utter.onend = () => setReproduciendo(false);
-      utter.onerror = () => setReproduciendo(false);
+
+      hablarTexto({
+        texto: seg.texto,
+        voz: vozRef.current,
+        onFin: () => setReproduciendo(false),
+        onError: () => setReproduciendo(false),
+      });
       setReproduciendo(true);
-      window.speechSynthesis.speak(utter);
     },
     [audioUrl, ttsDisponible],
   );
@@ -72,6 +92,8 @@ export function ReproductorAudioguia({
   useEffect(() => () => detener(), [detener]);
 
   if (!segmento) return null;
+
+  const textoVisible = prepararTextoTts(segmento.texto);
 
   return (
     <aside
@@ -118,10 +140,18 @@ export function ReproductorAudioguia({
       </div>
 
       <p className="mt-3 text-sm font-medium text-oro-claro">{segmento.titulo}</p>
-      <p className="mt-2 text-sm leading-relaxed text-tinta-suave">{segmento.texto}</p>
+      <p className="mt-2 text-sm leading-relaxed text-tinta-suave">{textoVisible}</p>
 
       {audioUrl && (
-        <audio controls className="mt-4 w-full" src={audioUrl}>
+        <audio
+          ref={audioRef}
+          controls
+          className="mt-4 w-full"
+          src={audioUrl}
+          onEnded={() => setReproduciendo(false)}
+          onPause={() => setReproduciendo(false)}
+          onPlay={() => setReproduciendo(true)}
+        >
           <track kind="captions" />
         </audio>
       )}

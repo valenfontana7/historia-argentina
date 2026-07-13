@@ -9,7 +9,7 @@ const BARRANCA_YACO: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El Tigre de los Llanos",
-      texto: "La emboscada que mató a Facundo Quiroga: crimen político en los llanos riojanos. Facundo Quiroga dominaba La Rioja con hierro y caballos. En los años 1830, Juan Facundo Quiroga era el poder en La Rioja y buena parte del interior. Lo llamaban el Tigre de los Llanos: caudillo feroz, aliado incómodo de Rosas, pesadilla de los unitarios. Deslizá el comparador de imágenes mientras escuchás.",
+      texto: "La emboscada que mató a Facundo Quiroga: crimen político en los llanos riojanos. Facundo Quiroga dominaba La Rioja con hierro y caballos. En los años 1830, Juan Facundo Quiroga era el poder en La Rioja y buena parte del interior. Lo llamaban el Tigre de los Llanos: caudillo feroz, aliado incómodo de Rosas, pesadilla de los unitarios.",
     },
     {
       estacion: 1,
@@ -24,7 +24,7 @@ const BARRANCA_YACO: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Civilización y barbarie",
-      texto: "Diez años después, Sarmiento escribirá el libro que explicará este mundo. Barranca Yaco no resolvió la disputa entre federales y unitarios. Pero mató a uno de los personajes más poderosos del interior. Al final de la sala, elegí tu próxima puerta de salida.",
+      texto: "Diez años después, Sarmiento escribirá el libro que explicará este mundo. Barranca Yaco no resolvió la disputa entre federales y unitarios. Pero mató a uno de los personajes más poderosos del interior.",
     }
   ],
 };
