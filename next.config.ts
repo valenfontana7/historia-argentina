@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
       { source: "/timelines/comparar", destination: "/timelines", permanent: true },
       { source: "/mapa", destination: "/lugares", permanent: true },
       { source: "/mecenas/mapa", destination: "/lugares", permanent: true },
+      { source: "/salas", destination: "/periodos", permanent: true },
+      { source: "/salas/:slug", destination: "/periodos/:slug", permanent: true },
     ];
   },
 };

@@ -1,5 +1,3 @@
-"use client";
-
 import type { ComponentType } from "react";
 import { ESCENAS_COMPARADOR, type EscenaComparadorDef } from "@/data/escenas-comparador";
 import { PanelImagenComparador } from "@/components/scrolly/PanelImagenComparador";
