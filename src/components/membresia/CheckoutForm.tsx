@@ -48,6 +48,8 @@ export function CheckoutForm({ plan, etiqueta, destacado = false }: Props) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="tu@email.com"
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? "checkout-error" : undefined}
           className="mt-2 w-full rounded-full border border-linea bg-fondo px-5 py-3 text-sm normal-case tracking-normal text-tinta placeholder:text-tinta-tenue focus:border-oro/60 focus:outline-none"
         />
       </label>
@@ -66,7 +68,7 @@ export function CheckoutForm({ plan, etiqueta, destacado = false }: Props) {
         {pendiente ? "Un momento…" : etiqueta}
       </button>
       {error && (
-        <p className="text-sm text-carmesi" role="alert">
+        <p id="checkout-error" className="text-sm text-carmesi" role="alert">
           {error}
         </p>
       )}

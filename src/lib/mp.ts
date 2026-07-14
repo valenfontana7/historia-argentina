@@ -1,5 +1,5 @@
 import { MercadoPagoConfig, Preference, PreApproval, Payment } from "mercadopago";
-import { EstadoMecenas, PlanMecenas } from "@prisma/client";
+import { EstadoMecenas, PlanMecenas, Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { diasDePlan, planes, type PlanId } from "@/lib/membresia.config";
 import {
@@ -10,6 +10,7 @@ import {
 import { enviarConfirmacionMecenas } from "@/lib/email";
 import { crearMagicToken } from "@/lib/auth";
 import { sitio } from "@/lib/site.config";
+import { registrarError, registrarEvento } from "@/lib/observabilidad";
 
 function accessToken() {
   const token = process.env.MP_ACCESS_TOKEN;
@@ -324,6 +325,15 @@ export async function sincronizarMecenasPorEmail(
 }
 
 async function procesarPago(paymentId: string) {
+  const pagoYaProcesado = await prisma.mecenas.findFirst({
+    where: { mpPaymentId: String(paymentId) },
+    select: { id: true },
+  });
+  if (pagoYaProcesado) {
+    registrarEvento("info", "mp_pago_duplicado", { paymentId });
+    return { ok: true, skipped: true as const };
+  }
+
   const paymentApi = new Payment(clienteMp());
   const pago = await paymentApi.get({ id: paymentId });
   if (pago.status !== "approved") {
@@ -390,6 +400,7 @@ export async function procesarWebhook(input: {
   id?: string | null;
   type?: string | null;
   dataId?: string | null;
+  requestId?: string | null;
 }) {
   const tipoRaw = input.topic ?? input.type;
   const id = input.id ?? input.dataId;
@@ -401,9 +412,40 @@ export async function procesarWebhook(input: {
     return { ok: true, skipped: true as const };
   }
 
-  if (tipo === "payment") {
-    return procesarPago(id);
+  const procesar = () => (tipo === "payment" ? procesarPago(id) : procesarPreapproval(id));
+  const requestId = input.requestId;
+  if (!requestId) return procesar();
+
+  try {
+    await prisma.webhookMercadoPago.create({
+      data: { requestId, tipo, recursoId: id },
+    });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+      registrarEvento("info", "mp_webhook_duplicado", {
+        requestId,
+        tipo,
+        recursoId: id,
+      });
+      return { ok: true, skipped: true as const };
+    }
+    throw error;
   }
 
-  return procesarPreapproval(id);
+  try {
+    const resultado = await procesar();
+    await prisma.webhookMercadoPago.update({
+      where: { requestId },
+      data: { procesadoEn: new Date() },
+    });
+    return resultado;
+  } catch (error) {
+    await prisma.webhookMercadoPago.delete({ where: { requestId } }).catch(
+      (errorBorrado) =>
+        registrarError("mp_webhook_borrado_fallido", errorBorrado, {
+          requestId,
+        }),
+    );
+    throw error;
+  }
 }

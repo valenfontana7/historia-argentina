@@ -69,3 +69,14 @@ model VotoCronicaFundador {
 
   @@index([opcionSlug])
 }
+
+model WebhookMercadoPago {
+  id          String   @id @default(cuid())
+  requestId   String   @unique
+  tipo        String?
+  recursoId   String?
+  recibidoEn  DateTime @default(now())
+  procesadoEn DateTime?
+
+  @@index([recibidoEn])
+}

@@ -101,6 +101,7 @@ Implementación: [`src/lib/mp.ts`](../src/lib/mp.ts)
 4. Eventos relevantes:
    - Pagos (`payment`) — plan fundador
    - Suscripciones / preapproval — plan mensual
+5. Copiar la clave secreta generada para Webhooks a `MP_WEBHOOK_SECRET` en Vercel. Los pagos firmados se rechazan si la firma no coincide; las suscripciones sin firma se verifican consultando el recurso con el Access Token.
 
 ### Credenciales de prueba
 
@@ -234,6 +235,7 @@ Copiá [`.env.example`](../.env.example) a `.env` local.
 | `AUTH_SECRET` | Sí | Firma JWT de sesión, magic links y admin |
 | `NEXT_PUBLIC_SITE_URL` | Sí | Links operativos (MP, emails). Sin barra final |
 | `MP_ACCESS_TOKEN` | Para cobrar | Access Token de MercadoPago |
+| `MP_WEBHOOK_SECRET` | Para producción | Clave secreta de Webhooks en MercadoPago; valida el origen de cada notificación |
 | `MECENAS_CREATOR_EMAILS` | Para admin y pruebas | Emails de creador (auth admin + precio $1 en MP) |
 | `MECENAS_CREATOR_PRECIO` | Opcional | Monto ARS para creador (default `1`) |
 | `RESEND_API_KEY` | Para emails reales | API key de Resend |
@@ -253,6 +255,7 @@ Configurar en **Project → Settings → Environment Variables**:
 - `AUTH_SECRET`
 - `NEXT_PUBLIC_SITE_URL` → por ahora el `*.vercel.app`; luego `https://museoargent.com.ar`
 - `MP_ACCESS_TOKEN`
+- `MP_WEBHOOK_SECRET`
 - `MECENAS_CREATOR_EMAILS`, `MECENAS_CREATOR_PRECIO`
 - `RESEND_API_KEY` y `RESEND_FROM` cuando estén listos
 
@@ -350,6 +353,7 @@ git push origin master   # dispara build + migrate en Vercel
 
 - [ ] `DATABASE_URL` y `AUTH_SECRET` en Vercel
 - [ ] `MP_ACCESS_TOKEN` (producción o prueba)
+- [ ] `MP_WEBHOOK_SECRET` de la aplicación configurado en Vercel
 - [ ] Webhook MP apuntando a `/api/mp/webhook`
 - [ ] Pago de prueba fundador → mecenas activo en DB
 - [ ] Pago de prueba mensual → suscripción autorizada
