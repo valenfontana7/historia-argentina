@@ -79,6 +79,12 @@ export class PersistingJobQueue implements JobQueue {
     await this.persist(await this.inner.get(jobId));
   }
 
+  async cancel(jobId: string): Promise<JobView | null> {
+    const view = await this.inner.cancel(jobId);
+    await this.persist(view);
+    return view;
+  }
+
   private async persist(view: JobView | null): Promise<void> {
     if (!view) return;
     await this.storage.put(

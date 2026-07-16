@@ -216,6 +216,9 @@ export class PostgresJobQueue implements JobQueue {
       stageTimingsMs: Record<string, number>;
     },
   ): Promise<void> {
+    const current = await this.prisma.videoJob.findUnique({ where: { id: jobId } });
+    if (!current || current.status === "cancelled") return;
+
     await this.prisma.videoJob.update({
       where: { id: jobId },
       data: {
@@ -240,6 +243,10 @@ export class PostgresJobQueue implements JobQueue {
   }
 
   async fail(jobId: string, error: string): Promise<void> {
+    const current = await this.prisma.videoJob.findUnique({ where: { id: jobId } });
+    if (!current || current.status === "cancelled" || current.status === "succeeded") {
+      return;
+    }
     await this.prisma.videoJob.update({
       where: { id: jobId },
       data: {
@@ -250,5 +257,24 @@ export class PostgresJobQueue implements JobQueue {
       },
     });
     await this.appendEvent(jobId, "error", "Job failed", { error });
+  }
+
+  async cancel(jobId: string): Promise<JobView | null> {
+    const current = await this.prisma.videoJob.findUnique({ where: { id: jobId } });
+    if (!current) return null;
+    if (current.status !== "queued" && current.status !== "running") {
+      return mapJob(current);
+    }
+    const updated = await this.prisma.videoJob.update({
+      where: { id: jobId },
+      data: {
+        status: "cancelled",
+        error: "Cancelado por el admin",
+        finishedAt: new Date(),
+        lockedAt: null,
+      },
+    });
+    await this.appendEvent(jobId, "info", "Job cancelled");
+    return mapJob(updated);
   }
 }

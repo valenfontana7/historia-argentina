@@ -183,6 +183,7 @@ export class InMemoryJobQueue implements JobQueue {
   ): Promise<void> {
     const job = this.jobs.get(jobId);
     if (!job) return;
+    if (job.status === "cancelled") return;
     job.status = "succeeded";
     job.outputMp4Uri = result.outputMp4Uri;
     job.manifestUri = result.manifestUri;
@@ -211,8 +212,21 @@ export class InMemoryJobQueue implements JobQueue {
   async fail(jobId: string, error: string): Promise<void> {
     const job = this.jobs.get(jobId);
     if (!job) return;
+    if (job.status === "cancelled" || job.status === "succeeded") return;
     job.status = "failed";
     job.error = error;
     job.updatedAt = new Date().toISOString();
+  }
+
+  async cancel(jobId: string): Promise<JobView | null> {
+    const job = this.jobs.get(jobId);
+    if (!job) return null;
+    if (job.status !== "queued" && job.status !== "running") {
+      return toView(job);
+    }
+    job.status = "cancelled";
+    job.error = "Cancelado por el admin";
+    job.updatedAt = new Date().toISOString();
+    return toView(job);
   }
 }

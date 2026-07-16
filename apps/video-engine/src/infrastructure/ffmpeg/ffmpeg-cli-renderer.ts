@@ -32,24 +32,33 @@ import {
 const W = REEL_W;
 const H = REEL_H;
 
-/** Encode craft v3.1: nitidez sin mush. */
+/** Encode: en VPS 1 GB preferí velocidad (veryfast); local puede forzar medium. */
+const X264_PRESET = process.env.VIDEO_X264_PRESET?.trim() || "veryfast";
+const X264_CRF = process.env.VIDEO_X264_CRF?.trim() || "22";
+
 const X264_ARGS = [
   "-c:v",
   "libx264",
   "-crf",
-  "18",
+  X264_CRF,
   "-preset",
-  "medium",
+  X264_PRESET,
   "-pix_fmt",
   "yuv420p",
 ] as const;
 
 export class FfmpegCliRenderer implements FfmpegRenderer {
+  private activeSignal?: AbortSignal;
+
   constructor(
     private readonly storage: ObjectStorage,
     private readonly ffmpegPath: string,
     private readonly ffprobePath: string,
   ) {}
+
+  private ff(args: string[]): Promise<void> {
+    return run(this.ffmpegPath, args, this.activeSignal);
+  }
 
   async healthcheck(): Promise<boolean> {
     try {
@@ -64,57 +73,68 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
   async render(
     manifest: VideoManifest,
     outputUri: string,
+    signal?: AbortSignal,
   ): Promise<RenderResult> {
     const ok = await this.healthcheck();
     if (!ok) throw new MissingBinaryError(this.ffmpegPath);
+    if (signal?.aborted) throw new Error("render aborted");
 
-    const outPath = this.storage.resolvePath(outputUri);
-    await mkdir(path.dirname(outPath), { recursive: true });
-    const workDir = path.join(path.dirname(outPath), "ffmpeg-work");
-    await mkdir(workDir, { recursive: true });
+    this.activeSignal = signal;
+    try {
+      const outPath = this.storage.resolvePath(outputUri);
+      await mkdir(path.dirname(outPath), { recursive: true });
+      const workDir = path.join(path.dirname(outPath), "ffmpeg-work");
+      await mkdir(workDir, { recursive: true });
 
-    const fps = manifest.format.fps;
-    const sceneClips: string[] = [];
+      const fps = manifest.format.fps;
+      const sceneClips: string[] = [];
 
-    for (let i = 0; i < manifest.scenes.length; i++) {
-      const scene = manifest.scenes[i];
-      const scenePath = path.join(workDir, `scene-${i}.mp4`);
-      await this.renderScene(scene, scenePath, fps);
-      sceneClips.push(scenePath);
+      for (let i = 0; i < manifest.scenes.length; i++) {
+        if (signal?.aborted) throw new Error("render aborted");
+        const scene = manifest.scenes[i];
+        const scenePath = path.join(workDir, `scene-${i}.mp4`);
+        await this.renderScene(scene, scenePath, fps);
+        sceneClips.push(scenePath);
+      }
+
+      if (manifest.branding) {
+        if (signal?.aborted) throw new Error("render aborted");
+        const brandPath = path.join(workDir, "brand.mp4");
+        await this.renderBranding(manifest, brandPath, fps);
+        sceneClips.push(brandPath);
+      }
+
+      const silentVideo = path.join(workDir, "silent.mp4");
+      await this.concatWithTransitions(
+        sceneClips,
+        manifest.scenes.map((s) => s.transition?.type ?? "fade"),
+        silentVideo,
+        fps,
+      );
+
+      const mixed = path.join(workDir, "mixed.mp4");
+      await this.mixAudio(manifest, silentVideo, mixed, workDir);
+
+      if (manifest.subtitles) {
+        await this.burnSubtitles(manifest.subtitles.uri, mixed, outPath);
+      } else {
+        await this.ff(["-y", "-i", mixed, "-c", "copy", outPath]);
+      }
+
+      if (signal?.aborted) throw new Error("render aborted");
+
+      const durationSec = await probeDuration(this.ffprobePath, outPath);
+      const bytes = (await stat(outPath)).size;
+      return {
+        mp4Uri: `file://${outPath}`,
+        width: W,
+        height: H,
+        durationSec,
+        bytes,
+      };
+    } finally {
+      this.activeSignal = undefined;
     }
-
-    if (manifest.branding) {
-      const brandPath = path.join(workDir, "brand.mp4");
-      await this.renderBranding(manifest, brandPath, fps);
-      sceneClips.push(brandPath);
-    }
-
-    const silentVideo = path.join(workDir, "silent.mp4");
-    await this.concatWithTransitions(
-      sceneClips,
-      manifest.scenes.map((s) => s.transition?.type ?? "fade"),
-      silentVideo,
-      fps,
-    );
-
-    const mixed = path.join(workDir, "mixed.mp4");
-    await this.mixAudio(manifest, silentVideo, mixed, workDir);
-
-    if (manifest.subtitles) {
-      await this.burnSubtitles(manifest.subtitles.uri, mixed, outPath);
-    } else {
-      await run(this.ffmpegPath, ["-y", "-i", mixed, "-c", "copy", outPath]);
-    }
-
-    const durationSec = await probeDuration(this.ffprobePath, outPath);
-    const bytes = (await stat(outPath)).size;
-    return {
-      mp4Uri: `file://${outPath}`,
-      width: W,
-      height: H,
-      durationSec,
-      bytes,
-    };
   }
 
   private async renderScene(
@@ -147,7 +167,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
             ? `[framed]${look}${text},format=yuv420p[vout]`
             : `[framed]${zoom},${look}${text},format=yuv420p[vout]`,
         ].join(";");
-        await run(this.ffmpegPath, [
+        await this.ff( [
           "-y",
           "-loop",
           "1",
@@ -184,7 +204,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
         .filter(Boolean)
         .join(",");
 
-      await run(this.ffmpegPath, [
+      await this.ff( [
         "-y",
         "-loop",
         "1",
@@ -204,7 +224,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
     }
 
     const color = (solid?.color ?? "#111111").replace("#", "");
-    await run(this.ffmpegPath, [
+    await this.ff( [
       "-y",
       "-f",
       "lavfi",
@@ -282,7 +302,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
         `[0:v][logo]overlay=(W-w)/2:${logoY}[base]`,
         `[base]${textFilters.join(",")},fade=t=in:st=0:d=0.7,format=yuv420p[vout]`,
       ].join(";");
-      await run(this.ffmpegPath, [
+      await this.ff( [
         "-y",
         "-f",
         "lavfi",
@@ -312,7 +332,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
       `fade=t=in:st=0:d=0.7`,
       "format=yuv420p",
     ].join(",");
-    await run(this.ffmpegPath, [
+    await this.ff( [
       "-y",
       "-f",
       "lavfi",
@@ -333,7 +353,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
     fps: number,
   ): Promise<void> {
     if (clips.length === 1) {
-      await run(this.ffmpegPath, ["-y", "-i", clips[0], "-c", "copy", outPath]);
+      await this.ff( ["-y", "-i", clips[0], "-c", "copy", outPath]);
       return;
     }
 
@@ -361,7 +381,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
 
     if (filter.endsWith(";")) filter = filter.slice(0, -1);
 
-    await run(this.ffmpegPath, [
+    await this.ff( [
       "-y",
       ...inputs,
       "-filter_complex",
@@ -447,7 +467,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
     } else {
       args.push("-c:v", "copy", "-an", outPath);
     }
-    await run(this.ffmpegPath, args);
+    await this.ff( args);
   }
 
   private async burnSubtitles(
@@ -465,7 +485,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
       ? `ass='${escaped}':fontsdir='${fontsDir}'`
       : `subtitles='${escaped}':fontsdir='${fontsDir}':force_style='FontName=${REEL_FONT_FAMILY},FontSize=52,PrimaryColour=&H00FFFFFF&,OutlineColour=&H00000000&,BorderStyle=1,Outline=3,Shadow=0,MarginV=160,Alignment=2,Bold=1,PlayResX=1080,PlayResY=1920'`;
     try {
-      await run(this.ffmpegPath, [
+      await this.ff( [
         "-y",
         "-i",
         inputPath,
@@ -485,7 +505,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
           error: err instanceof Error ? err.message : String(err),
         }),
       );
-      await run(this.ffmpegPath, ["-y", "-i", inputPath, "-c", "copy", outPath]);
+      await this.ff( ["-y", "-i", inputPath, "-c", "copy", outPath]);
     }
   }
 
@@ -503,7 +523,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
       for (let i = 0; i < list.length; i++) {
         const src = this.storage.resolvePath(list[i]);
         const part = path.join(workDir, `narr-part-${i}.wav`);
-        await run(this.ffmpegPath, [
+        await this.ff( [
           "-y",
           "-i",
           src,
@@ -520,7 +540,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
         concat,
         parts.map((p) => `file '${p.replace(/\\/g, "/")}'`).join("\n"),
       );
-      await run(this.ffmpegPath, [
+      await this.ff( [
         "-y",
         "-f",
         "concat",
@@ -535,7 +555,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
       return out;
     }
     const out = path.join(workDir, "narration-single.wav");
-    await run(this.ffmpegPath, [
+    await this.ff( [
       "-y",
       "-i",
       resolved,
@@ -569,8 +589,16 @@ function drawTextFilter(
   return `drawtext=fontfile='${fontfile}':text='${escaped}':fontcolor=${color}:fontsize=${fontSize}:borderw=2:bordercolor=black@0.7:${box}:x=(w-text_w)/2:y=${y}`;
 }
 
-function run(bin: string, args: string[]): Promise<void> {
+function run(
+  bin: string,
+  args: string[],
+  signal?: AbortSignal,
+): Promise<void> {
   return new Promise((resolve, reject) => {
+    if (signal?.aborted) {
+      reject(new Error(`${bin} aborted`));
+      return;
+    }
     // -threads 1: protege VPS con poca RAM (p. ej. 1 GB).
     const withThreads =
       bin.includes("ffprobe") || args.includes("-threads")
@@ -580,11 +608,25 @@ function run(bin: string, args: string[]): Promise<void> {
       stdio: ["ignore", "ignore", "pipe"],
     });
     let err = "";
+    const onAbort = () => {
+      child.kill("SIGKILL");
+    };
+    if (signal) {
+      signal.addEventListener("abort", onAbort, { once: true });
+    }
     child.stderr.on("data", (d) => {
       err += String(d);
     });
-    child.on("error", (e) => reject(e));
+    child.on("error", (e) => {
+      signal?.removeEventListener("abort", onAbort);
+      reject(e);
+    });
     child.on("close", (code) => {
+      signal?.removeEventListener("abort", onAbort);
+      if (signal?.aborted) {
+        reject(new Error(`${bin} aborted`));
+        return;
+      }
       if (code === 0) resolve();
       else
         reject(

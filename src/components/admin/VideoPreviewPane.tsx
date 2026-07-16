@@ -18,6 +18,8 @@ type Props = {
   videoError: string | null;
   onVideoError: (msg: string | null) => void;
   onRegenerar: (job: AdminJob) => void;
+  onCancelar?: (job: AdminJob) => void;
+  cancelando?: boolean;
   highlight?: boolean;
 };
 
@@ -28,6 +30,8 @@ export function VideoPreviewPane({
   videoError,
   onVideoError,
   onRegenerar,
+  onCancelar,
+  cancelando,
   highlight,
 }: Props) {
   const [compartiendo, setCompartiendo] = useState(false);
@@ -122,7 +126,9 @@ export function VideoPreviewPane({
                 ? "Renderizando…"
                 : selected.status === "failed"
                   ? "Falló la generación"
-                  : "Sin MP4 aún"}
+                  : selected.status === "cancelled"
+                    ? "Generación cancelada"
+                    : "Sin MP4 aún"}
             </div>
           )}
         </div>
@@ -185,10 +191,25 @@ export function VideoPreviewPane({
             </div>
           )}
 
+          {(activo ||
+            selected.status === "queued" ||
+            selected.status === "running") &&
+            onCancelar && (
+              <button
+                type="button"
+                onClick={() => onCancelar(selected)}
+                disabled={cancelando}
+                className="mt-3 min-h-11 w-full rounded-full border border-carmesi/40 px-4 py-2 text-sm font-medium text-carmesi hover:bg-carmesi/10 disabled:opacity-50 sm:w-auto"
+              >
+                {cancelando ? "Cancelando…" : "Cancelar generación"}
+              </button>
+            )}
+
           <button
             type="button"
             onClick={() => onRegenerar(selected)}
-            className="mt-3 min-h-11 w-full rounded-full border border-linea px-4 py-2 text-sm font-medium text-tinta-suave hover:border-oro/40 hover:text-oro-claro sm:w-auto"
+            disabled={activo || cancelando}
+            className="mt-3 min-h-11 w-full rounded-full border border-linea px-4 py-2 text-sm font-medium text-tinta-suave hover:border-oro/40 hover:text-oro-claro disabled:opacity-50 sm:w-auto"
           >
             Regenerar esta crónica
           </button>

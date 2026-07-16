@@ -38,6 +38,7 @@ export type EngineRuntime = {
   getJob: (id: string) => Promise<JobView | null>;
   listJobs: (limit?: number) => Promise<JobView[]>;
   hasActiveJob: () => Promise<boolean>;
+  cancelJob: (id: string) => Promise<JobView | null>;
   resolveMp4Path: (jobId: string) => Promise<string | null>;
   processOne: (workerId?: string) => Promise<boolean>;
   seed: () => Promise<void>;
@@ -228,6 +229,7 @@ export async function createEngineRuntime(
   const getJob = (id: string) => queue.get(id);
   const listJobs = (limit?: number) => queue.list(limit);
   const hasActiveJob = () => queue.hasActiveJob();
+  const cancelJob = (id: string) => queue.cancel(id);
 
   const resolveMp4Path = async (jobId: string): Promise<string | null> => {
     const job = await queue.get(jobId);
@@ -269,6 +271,7 @@ export async function createEngineRuntime(
     getJob,
     listJobs,
     hasActiveJob,
+    cancelJob,
     resolveMp4Path,
     processOne,
     seed,

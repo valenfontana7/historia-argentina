@@ -38,4 +38,6 @@ export interface JobQueue {
     },
   ): Promise<void>;
   fail(jobId: string, error: string): Promise<void>;
+  /** Marca queued/running como cancelled. No-op si ya terminó. */
+  cancel(jobId: string): Promise<JobView | null>;
 }

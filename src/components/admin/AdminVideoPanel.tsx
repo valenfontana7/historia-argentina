@@ -48,6 +48,7 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
     () => !initialJobs.some((j) => j.status === "queued" || j.status === "running"),
   );
   const [previewHighlight, setPreviewHighlight] = useState(false);
+  const [cancelando, setCancelando] = useState(false);
 
   const progressRef = useRef<HTMLDivElement>(null);
   const previewMobileRef = useRef<HTMLDivElement>(null);
@@ -318,6 +319,40 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
     });
   }
 
+  async function cancelarJob(job: AdminJob) {
+    setError(null);
+    setCancelando(true);
+    try {
+      const res = await fetch(
+        `/api/admin/reels/jobs/${encodeURIComponent(job.id)}/cancel`,
+        { method: "POST" },
+      );
+      const data = (await res.json().catch(() => ({}))) as AdminJob & {
+        error?: string;
+        message?: string;
+      };
+      if (!res.ok) {
+        setError(
+          data.error ?? data.message ?? "No se pudo cancelar el job.",
+        );
+        return;
+      }
+      const normalizado = normalizeAdminJob(data);
+      setSelected(normalizado);
+      setSelectedId(normalizado.id);
+      setJobs((prev) => [
+        normalizado,
+        ...prev.filter((j) => j.id !== normalizado.id),
+      ]);
+      setMensaje("Generación cancelada.");
+      await refreshList();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setCancelando(false);
+    }
+  }
+
   const ctaLabel = iniciando || esperandoJob
     ? iniciando
       ? "Iniciando…"
@@ -361,7 +396,7 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
         type="button"
         onClick={() => void generar()}
         disabled={ctaDisabled}
-        className="mt-5 hidden min-h-11 w-full rounded-full border border-oro/50 bg-oro/10 px-5 py-2.5 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/20 disabled:opacity-50 lg:inline-flex lg:w-auto lg:items-center lg:justify-center"
+        className="mt-5 flex min-h-11 w-full items-center justify-center rounded-full border border-oro/50 bg-oro/10 px-5 py-2.5 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/20 disabled:opacity-50 lg:w-auto"
       >
         {ctaLabel}
       </button>
@@ -383,13 +418,19 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
           job={activo || selected?.status === "failed" ? selected : null}
           activo={activo}
           mensaje={mensaje}
+          onCancelar={
+            selected && activo
+              ? () => void cancelarJob(selected)
+              : undefined
+          }
+          cancelando={cancelando}
         />
       </div>
     </section>
   );
 
   return (
-    <div className="pb-28 lg:pb-0">
+    <div className="pb-36 lg:pb-0">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)] lg:items-start">
         <div className="space-y-6">
           {generateBlock}
@@ -402,6 +443,8 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
               videoError={videoError}
               onVideoError={setVideoError}
               onRegenerar={regenerarDesde}
+              onCancelar={(job) => void cancelarJob(job)}
+              cancelando={cancelando}
               highlight={previewHighlight}
             />
           </div>
@@ -428,6 +471,8 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
             videoError={videoError}
             onVideoError={setVideoError}
             onRegenerar={regenerarDesde}
+            onCancelar={(job) => void cancelarJob(job)}
+            cancelando={cancelando}
             highlight={previewHighlight}
           />
         </div>
@@ -437,23 +482,28 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
         className="fixed inset-x-0 bottom-0 z-40 border-t border-linea bg-fondo-2/95 px-4 pt-3 backdrop-blur-sm lg:hidden"
         style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
       >
-        {stickyDownloadUrl && !ocupado ? (
-          <a
-            href={stickyDownloadUrl}
-            className="flex min-h-12 w-full items-center justify-center rounded-full border border-oro/50 bg-oro/15 px-5 text-sm font-semibold text-oro-claro"
-          >
-            Descargar MP4
-          </a>
-        ) : (
+        <div className="flex flex-col gap-2">
+          {stickyDownloadUrl && !ocupado && (
+            <a
+              href={stickyDownloadUrl}
+              className="flex min-h-11 w-full items-center justify-center rounded-full border border-linea px-5 text-sm font-semibold text-tinta-suave"
+            >
+              Descargar MP4
+            </a>
+          )}
           <button
             type="button"
             onClick={() => void generar()}
             disabled={ctaDisabled}
             className="flex min-h-12 w-full items-center justify-center rounded-full border border-oro/50 bg-oro/15 px-5 text-sm font-semibold text-oro-claro disabled:opacity-50"
           >
-            {ctaLabel}
+            {ocupado
+              ? ctaLabel
+              : stickyDownloadUrl
+                ? "Generar otro reel"
+                : ctaLabel}
           </button>
-        )}
+        </div>
       </div>
     </div>
   );

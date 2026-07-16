@@ -26,7 +26,9 @@ export class FallbackMp4Renderer implements FfmpegRenderer {
   async render(
     manifest: VideoManifest,
     outputUri: string,
+    signal?: AbortSignal,
   ): Promise<RenderResult> {
+    if (signal?.aborted) throw new Error("render aborted");
     const outPath = this.storage.resolvePath(outputUri);
     await mkdir(path.dirname(outPath), { recursive: true });
     const durationSec =

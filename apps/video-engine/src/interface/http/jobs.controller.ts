@@ -19,6 +19,7 @@ import {
   type CreateJobRequest,
 } from "@museoargent/video-contracts";
 import type { EngineRuntime } from "../../runtime";
+import { abortJob } from "../../application/job-abort";
 
 export const ENGINE_RUNTIME = Symbol("ENGINE_RUNTIME");
 
@@ -69,6 +70,20 @@ export class JobsController {
     );
     const jobs = await this.engine.listJobs(limit);
     return { jobs };
+  }
+
+  @Post(":id/cancel")
+  async cancel(@Param("id") id: string) {
+    const existing = await this.engine.getJob(id);
+    if (!existing) throw new NotFoundException("Job not found");
+    if (existing.status !== "queued" && existing.status !== "running") {
+      return existing;
+    }
+    abortJob(id);
+    const cancelled = await this.engine.cancelJob(id);
+    if (!cancelled) throw new NotFoundException("Job not found");
+    console.info(JSON.stringify({ msg: "job cancelled", id }));
+    return cancelled;
   }
 
   @Get(":id/media")

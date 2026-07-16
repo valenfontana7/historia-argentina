@@ -62,6 +62,7 @@ O en compose, montá `./data:/data` y corrê el `find` sobre `./data/jobs`.
 - `NODE_OPTIONS=--max-old-space-size=384`
 - FFmpeg con `-threads 1`
 - **Un solo job** a la vez (HTTP 409 si hay otro en cola/running)
+- Encode por defecto: `veryfast` + CRF 22 (override con `VIDEO_X264_PRESET` / `VIDEO_X264_CRF` en el `.env` del engine). En 1 GB un reel ~40s puede llevar varios minutos solo en `render`.
 
 ## Smoke
 

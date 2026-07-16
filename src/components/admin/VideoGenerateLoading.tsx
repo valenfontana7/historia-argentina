@@ -10,6 +10,8 @@ type Props = {
   job: AdminJob | null;
   activo: boolean;
   mensaje?: string | null;
+  onCancelar?: () => void;
+  cancelando?: boolean;
 };
 
 export function VideoGenerateLoading({
@@ -17,6 +19,8 @@ export function VideoGenerateLoading({
   job,
   activo,
   mensaje,
+  onCancelar,
+  cancelando,
 }: Props) {
   if (!arrancando && !(job && activo)) return null;
 
@@ -48,8 +52,26 @@ export function VideoGenerateLoading({
         </div>
       )}
 
+      {job?.stage === "render" && activo && (
+        <p className="text-xs text-tinta-tenue">
+          El render en el VPS (1 GB) puede tardar 5–15 minutos. No regeneres
+          otro reel hasta que termine.
+        </p>
+      )}
+
       {job && (activo || job.stage || job.status === "failed") && (
         <VideoProgressCompact job={job} activo={activo} />
+      )}
+
+      {activo && onCancelar && (
+        <button
+          type="button"
+          onClick={onCancelar}
+          disabled={cancelando}
+          className="min-h-11 w-full rounded-full border border-carmesi/40 px-4 py-2 text-sm font-medium text-carmesi hover:bg-carmesi/10 disabled:opacity-50 sm:w-auto"
+        >
+          {cancelando ? "Cancelando…" : "Cancelar"}
+        </button>
       )}
     </div>
   );

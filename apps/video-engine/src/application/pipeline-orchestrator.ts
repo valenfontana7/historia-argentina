@@ -25,6 +25,15 @@ import {
   VoiceGenerator,
 } from "./stages/media-stages";
 import { SceneComposer } from "./stages/scene-composer";
+import {
+  clearJobAbort,
+  jobAbortSignal,
+  registerJobAbort,
+} from "./job-abort";
+import {
+  JobCancelledError,
+  isJobCancelledError,
+} from "./job-cancelled-error";
 
 export function mergeFormatProfile(
   formatId: VideoFormatId | string,
@@ -73,7 +82,11 @@ export class PipelineOrchestrator {
     const voice =
       useFake && this.deps.fakeVoice ? this.deps.fakeVoice : this.deps.voice;
 
+    const signal = registerJobAbort(job.id);
+
     try {
+      await this.throwIfCancelled(job.id);
+
       const exhibition = ExhibitionSchema.parse(job.exhibitionJson);
       const overrides =
         job.profileOverrides ?? (await this.loadProfileOverrides(job.id));
@@ -137,8 +150,10 @@ export class PipelineOrchestrator {
 
       const outputKey = `jobs/${job.id}/output.mp4`;
       const render: RenderResult = await this.timed(job.id, "render", timings, () =>
-        this.deps.renderer.render(manifest, outputKey),
+        this.deps.renderer.render(manifest, outputKey, signal),
       );
+
+      await this.throwIfCancelled(job.id);
 
       await this.deps.queue.complete(job.id, {
         outputMp4Uri: render.mp4Uri,
@@ -156,9 +171,28 @@ export class PipelineOrchestrator {
         },
       });
     } catch (err) {
+      if (isJobCancelledError(err) || signal.aborted) {
+        // cancel() ya persistió status=cancelled
+        return;
+      }
       const message = err instanceof Error ? err.message : String(err);
+      // FFmpeg killed by abort often surfaces as non-zero exit
+      const current = await this.deps.queue.get(job.id);
+      if (current?.status === "cancelled") return;
       await this.deps.queue.fail(job.id, message);
       throw err;
+    } finally {
+      clearJobAbort(job.id);
+    }
+  }
+
+  private async throwIfCancelled(jobId: string): Promise<void> {
+    if (jobAbortSignal(jobId)?.aborted) {
+      throw new JobCancelledError(jobId);
+    }
+    const view = await this.deps.queue.get(jobId);
+    if (view?.status === "cancelled") {
+      throw new JobCancelledError(jobId);
     }
   }
 
@@ -182,9 +216,11 @@ export class PipelineOrchestrator {
     timings: Record<string, number>,
     fn: () => Promise<T>,
   ): Promise<T> {
+    await this.throwIfCancelled(jobId);
     const t0 = Date.now();
     await this.deps.queue.markStage(jobId, stage);
     const result = await fn();
+    await this.throwIfCancelled(jobId);
     const ms = Date.now() - t0;
     timings[stage] = ms;
     await this.deps.queue.markStage(jobId, stage, ms);
