@@ -48,3 +48,4 @@ next-env.d.ts
 /apps/video-engine/src/generated/
 /apps/video-engine/dist/
 /packages/video-contracts/dist/
+/data/
