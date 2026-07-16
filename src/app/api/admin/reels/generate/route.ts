@@ -12,6 +12,7 @@ import {
   engineFetch,
   esRuntimeServerless,
   usarVideoEngineRemoto,
+  videoEngineUrlConfigurada,
 } from "@/lib/video/engine-client";
 import { exhibitionFromCronica } from "@/lib/video/exhibition-from-cronica";
 
@@ -48,7 +49,8 @@ type EnqueueResult =
   | { kind: "pending" };
 
 /**
- * POST /api/admin/reels/generate — remoto (VPS) o spawn local.
+ * POST /api/admin/reels/generate — en Vercel siempre proxy al VPS;
+ * en local puede spawnear el pipeline.
  */
 export async function POST(request: Request) {
   if (!(await sesionAdminValida())) {
@@ -70,19 +72,22 @@ export async function POST(request: Request) {
 
   const profileOverrides = buildProfileOverrides(body);
 
-  if (usarVideoEngineRemoto()) {
+  if (esRuntimeServerless()) {
+    if (!videoEngineUrlConfigurada()) {
+      return NextResponse.json(
+        {
+          ok: false,
+          mensaje:
+            "Falta VIDEO_ENGINE_URL pública del worker (VPS). La generación no corre en Vercel.",
+        },
+        { status: 501 },
+      );
+    }
     return enqueueRemoto(slug, body.force === true, formatId, profileOverrides);
   }
 
-  if (esRuntimeServerless()) {
-    return NextResponse.json(
-      {
-        ok: false,
-        mensaje:
-          "Configurá VIDEO_ENGINE_URL (URL pública del worker en tu VPS) y VIDEO_ENGINE_API_KEY en Vercel para generar reels en producción.",
-      },
-      { status: 501 },
-    );
+  if (usarVideoEngineRemoto()) {
+    return enqueueRemoto(slug, body.force === true, formatId, profileOverrides);
   }
 
   return enqueueLocal(slug, body, formatId);

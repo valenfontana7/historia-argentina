@@ -3,15 +3,24 @@ import { sesionAdminValida } from "@/lib/admin-auth";
 import { listJobsFromDisk } from "@/lib/admin-video-jobs";
 import {
   engineFetch,
+  esRuntimeServerless,
   usarVideoEngineRemoto,
+  videoEngineUrlConfigurada,
 } from "@/lib/video/engine-client";
 
 export const runtime = "nodejs";
 
-/** GET /api/admin/reels/jobs — lista jobs (disco local o engine remoto). */
+/** GET /api/admin/reels/jobs — en prod siempre el VPS; local puede usar disco. */
 export async function GET() {
   if (!(await sesionAdminValida())) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+  }
+
+  if (esRuntimeServerless() && !videoEngineUrlConfigurada()) {
+    return NextResponse.json(
+      { error: "Falta VIDEO_ENGINE_URL del worker VPS", jobs: [] },
+      { status: 501 },
+    );
   }
 
   if (usarVideoEngineRemoto()) {
@@ -37,7 +46,7 @@ export async function GET() {
   return NextResponse.json({ jobs });
 }
 
-/** POST /api/admin/reels/jobs — proxy opcional al video-engine Nest. */
+/** POST /api/admin/reels/jobs — proxy al video-engine. */
 export async function POST(request: Request) {
   if (!(await sesionAdminValida())) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });

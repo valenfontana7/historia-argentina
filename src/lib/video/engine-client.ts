@@ -1,5 +1,6 @@
 /**
- * Cliente HTTP hacia el video-engine remoto (VPS).
+ * Cliente HTTP hacia el video-engine (VPS).
+ * En Vercel / producción siempre se usa el engine remoto.
  * Auth admin la hace Next; hacia el engine va VIDEO_ENGINE_API_KEY.
  */
 
@@ -19,28 +20,39 @@ function esHostLocal(hostname: string): boolean {
   return h === "localhost" || h === "127.0.0.1" || h === "::1";
 }
 
-/**
- * Usar proxy HTTP al engine en vez de spawn local.
- * - En Vercel: solo si VIDEO_ENGINE_URL apunta a un host público.
- * - En local: si VIDEO_ENGINE_URL apunta fuera de localhost.
- */
-export function usarVideoEngineRemoto(): boolean {
-  const raw = process.env.VIDEO_ENGINE_URL?.trim();
-  if (!raw) return false;
-  try {
-    const host = new URL(raw).hostname;
-    if (esHostLocal(host)) return false;
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 export function esRuntimeServerless(): boolean {
   return (
     Boolean(process.env.VERCEL) ||
     Boolean(process.env.AWS_LAMBDA_FUNCTION_NAME)
   );
+}
+
+/**
+ * Proxy al video-engine en vez de spawn/disco local.
+ * - En Vercel: siempre (requiere VIDEO_ENGINE_URL pública).
+ * - En local: si VIDEO_ENGINE_URL apunta fuera de localhost.
+ */
+export function usarVideoEngineRemoto(): boolean {
+  if (esRuntimeServerless()) return true;
+  const raw = process.env.VIDEO_ENGINE_URL?.trim();
+  if (!raw) return false;
+  try {
+    return !esHostLocal(new URL(raw).hostname);
+  } catch {
+    return false;
+  }
+}
+
+/** VIDEO_ENGINE_URL configurada y usable en serverless. */
+export function videoEngineUrlConfigurada(): boolean {
+  const raw = process.env.VIDEO_ENGINE_URL?.trim();
+  if (!raw) return false;
+  try {
+    const host = new URL(raw).hostname;
+    return !esHostLocal(host);
+  } catch {
+    return false;
+  }
 }
 
 export async function engineFetch(

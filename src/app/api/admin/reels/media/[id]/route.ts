@@ -4,7 +4,9 @@ import { sesionAdminValida } from "@/lib/admin-auth";
 import { getJobFromDisk, mp4PathForJob } from "@/lib/admin-video-jobs";
 import {
   engineFetch,
+  esRuntimeServerless,
   usarVideoEngineRemoto,
+  videoEngineUrlConfigurada,
 } from "@/lib/video/engine-client";
 
 export const runtime = "nodejs";
@@ -12,7 +14,7 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 /**
- * GET /api/admin/reels/media/:id — sirve output.mp4 (disco o proxy al VPS).
+ * GET /api/admin/reels/media/:id — en prod proxy al VPS; local disco.
  * ?download=1 → Content-Disposition attachment.
  */
 export async function GET(
@@ -28,6 +30,13 @@ export async function GET(
   const wantsDownload =
     url.searchParams.get("download") === "1" ||
     url.searchParams.get("download") === "true";
+
+  if (esRuntimeServerless() && !videoEngineUrlConfigurada()) {
+    return NextResponse.json(
+      { error: "Falta VIDEO_ENGINE_URL del worker VPS" },
+      { status: 501 },
+    );
+  }
 
   if (usarVideoEngineRemoto()) {
     return proxyMediaFromEngine(id, request, wantsDownload);

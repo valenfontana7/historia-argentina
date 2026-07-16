@@ -3,12 +3,14 @@ import { sesionAdminValida } from "@/lib/admin-auth";
 import { getJobFromDisk } from "@/lib/admin-video-jobs";
 import {
   engineFetch,
+  esRuntimeServerless,
   usarVideoEngineRemoto,
+  videoEngineUrlConfigurada,
 } from "@/lib/video/engine-client";
 
 export const runtime = "nodejs";
 
-/** GET /api/admin/reels/jobs/:id — disco local o engine remoto. */
+/** GET /api/admin/reels/jobs/:id — en prod el VPS; local disco o engine. */
 export async function GET(
   _request: Request,
   context: { params: Promise<{ id: string }> },
@@ -18,6 +20,13 @@ export async function GET(
   }
 
   const { id } = await context.params;
+
+  if (esRuntimeServerless() && !videoEngineUrlConfigurada()) {
+    return NextResponse.json(
+      { error: "Falta VIDEO_ENGINE_URL del worker VPS" },
+      { status: 501 },
+    );
+  }
 
   if (usarVideoEngineRemoto()) {
     try {
