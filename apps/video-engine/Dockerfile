@@ -12,7 +12,8 @@ COPY package.json package-lock.json ./
 COPY packages/video-contracts/package.json ./packages/video-contracts/
 COPY apps/video-engine/package.json ./apps/video-engine/
 
-RUN npm ci -w @museoargent/video-contracts -w @museoargent/video-engine
+# Sin postinstall de la app Next (prisma root no está en esta imagen).
+RUN npm ci -w @museoargent/video-contracts -w @museoargent/video-engine --ignore-scripts
 
 COPY packages/video-contracts ./packages/video-contracts
 COPY apps/video-engine ./apps/video-engine
