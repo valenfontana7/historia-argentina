@@ -150,7 +150,7 @@ const cronicasBase: CronicaBase[] = [
     slug: "caseros",
     titulo: "Caseros",
     subtitulo:
-      "El 3 de febrero de 1852 el Ejército Grande quebró veinte años de orden rosista. Rosas se fue; quedó otra Argentina por armar.",
+      "El 3 de febrero de 1852 quebró veinte años de orden por arbitrio. Rosas se fue; abrió la puerta a la Organización Nacional.",
     kicker: "Crónica N.º 6 · Organización Nacional",
     periodo: "Enero a Febrero de 1852",
     duracion: "8 minutos",
@@ -450,12 +450,12 @@ const cronicasBase: CronicaBase[] = [
     slug: "la-conquista-del-desierto",
     titulo: "La Conquista del Desierto",
     subtitulo:
-      "Roca, la Patagonia y la herida que la Argentina todavía discute.",
+      "Tierra, propiedad y granero del mundo: la Patagonia y la herida que sigue abierta.",
     kicker: "Anticipo Mecenas · Crónica N.º 24",
     periodo: "1878 a 1885",
     duracion: "7 minutos",
     descripcion:
-      "Crónica exclusiva de la Conquista del Desierto: frontera móvil, campaña militar y memoria disputada.",
+      "Crónica de la Conquista del Desierto: frontera, títulos de propiedad, campaña militar y memoria disputada.",
     publicada: "2026-07-10",
     acceso: "anticipo",
     publicacionPublica: "2026-09-01",
@@ -466,7 +466,7 @@ const cronicasBase: CronicaBase[] = [
     slug: "rivadavia",
     titulo: "Rivadavia",
     subtitulo:
-      "El primer presidente unitario y la Constitución de 1826 que fracturó el país.",
+      "Modernizar con instituciones y comercio desde Buenos Aires: el experimento unitario que fracturó el país.",
     kicker: "Crónica N.º 19 · Organización Nacional",
     periodo: "1826 a 1827",
     duracion: "7 minutos",
@@ -527,7 +527,7 @@ const cronicasBase: CronicaBase[] = [
     slug: "federalizacion",
     titulo: "La Federalización",
     subtitulo:
-      "1880: Buenos Aires deja de ser provincia y nace la Capital Federal.",
+      "1880: capital neutral como infraestructura del orden nacional.",
     kicker: "Crónica N.º 21 · Organización Nacional",
     periodo: "Octubre de 1880",
     duracion: "7 minutos",
@@ -542,7 +542,7 @@ const cronicasBase: CronicaBase[] = [
     slug: "el-2001",
     titulo: "El 2001",
     subtitulo:
-      "Diciembre de 2001: corralito, cacerolazos y cinco presidentes en dos semanas.",
+      "Diciembre de 2001: corralito como ruptura del contrato del ahorro, cacerolazos y cinco presidentes.",
     kicker: "Crónica N.º 22 · La Argentina contemporánea",
     periodo: "Diciembre de 2001 a Enero de 2002",
     duracion: "7 minutos",
@@ -602,7 +602,7 @@ const cronicasBase: CronicaBase[] = [
     slug: "mitre",
     titulo: "Mitre",
     subtitulo:
-      "Historiador, general y presidente: el hombre que escribió la nación.",
+      "Estado nacional, prensa e instituciones después de Pavón.",
     kicker: "Crónica N.º 24 · Organización Nacional",
     periodo: "1852 a 1870",
     duracion: "7 minutos",
@@ -617,7 +617,7 @@ const cronicasBase: CronicaBase[] = [
     slug: "ley-saenz-pena",
     titulo: "La Ley Sáenz Peña",
     subtitulo:
-      "1912: voto secreto y obligatorio, la puerta que abrió la democracia moderna.",
+      "1912: el voto secreto como regla contra el fraude y el arbitrio.",
     kicker: "Crónica N.º 25 · La Argentina democrática",
     periodo: "Febrero de 1912 a Octubre de 1916",
     duracion: "7 minutos",
@@ -625,7 +625,7 @@ const cronicasBase: CronicaBase[] = [
       "La ley Sáenz Peña y el camino a las primeras elecciones limpias: el nacimiento del voto popular.",
     publicada: "2026-07-11",
     acceso: "publico",
-    protagonista: { slug: "hipolito-yrigoyen", etiqueta: "La ficha de Yrigoyen" },
+    protagonista: { slug: "roque-saenz-pena", etiqueta: "La ficha de Sáenz Peña" },
     visual: { varianteHero: "mayo", imagenHero: "saenz-pena-elecciones" },
   },
   {
@@ -775,7 +775,7 @@ const cronicasBase: CronicaBase[] = [
       "La convertibilidad económica: estabilidad, consumo y la crisis que abrió camino al 2001.",
     publicada: "2026-07-11",
     acceso: "publico",
-    protagonista: { slug: "juan-domingo-peron", etiqueta: "La ficha de Perón" },
+    protagonista: { slug: "alvaro-alsogaray", etiqueta: "La ficha de Alsogaray" },
     visual: { varianteHero: "mayo", imagenHero: "crisis-2001-diagrama" },
   },
   {
@@ -812,12 +812,12 @@ const cronicasBase: CronicaBase[] = [
     slug: "sarmiento",
     titulo: "Sarmiento",
     subtitulo:
-      "El maestro de América: educación, Facundo y la nación que quiso construir.",
+      "Escuelas, Facundo y el Código Civil bajo su presidencia: reglas para leer y para contratar.",
     kicker: "Crónica N.º 32 · Organización Nacional",
     periodo: "1811 a 1888",
     duracion: "7 minutos",
     descripcion:
-      "Domingo Faustino Sarmiento: el escritor del Facundo, el presidente de las escuelas y el Día del Maestro.",
+      "Domingo Faustino Sarmiento: Facundo, escuelas públicas y el mandato del Código Civil.",
     publicada: "2026-07-11",
     acceso: "publico",
     protagonista: { slug: "domingo-faustino-sarmiento", etiqueta: "La ficha de Sarmiento" },
@@ -857,12 +857,12 @@ const cronicasBase: CronicaBase[] = [
     slug: "roca",
     titulo: "Roca",
     subtitulo:
-      "El Zorro: dos presidencias, paz y administración, y el Estado moderno.",
+      "Paz y administración: tierra, inmigración y el reverso policial del orden.",
     kicker: "Crónica N.º 35 · Organización Nacional",
     periodo: "1843 a 1914",
     duracion: "7 minutos",
     descripcion:
-      "Julio Argentino Roca: Conquista del Desierto, federalización y el granero del mundo.",
+      "Julio Argentino Roca: Conquista del Desierto, granero del mundo y Ley de Residencia.",
     publicada: "2026-07-11",
     acceso: "publico",
     protagonista: { slug: "julio-argentino-roca", etiqueta: "La ficha de Roca" },
@@ -917,12 +917,12 @@ const cronicasBase: CronicaBase[] = [
     slug: "alfonsin",
     titulo: "Alfonsín",
     subtitulo:
-      "El presidente que devolvió la democracia y sentó a los militares en el banquillo.",
+      "República restaurada, juicio a las juntas y los límites del Austral ante la hiper.",
     kicker: "Exclusiva Mecenas · Crónica N.º 36",
     periodo: "1983 a 1989",
     duracion: "7 minutos",
     descripcion:
-      "Crónica exclusiva de Raúl Alfonsín: transición, Nunca Más y el juicio a las juntas.",
+      "Raúl Alfonsín: transición democrática, Nunca Más, Plan Austral e hiperinflación.",
     publicada: "2026-07-11",
     acceso: "mecenas",
     protagonista: { slug: "raul-alfonsin", etiqueta: "La ficha de Alfonsín" },
@@ -962,12 +962,12 @@ const cronicasBase: CronicaBase[] = [
     slug: "menem",
     titulo: "Menem",
     subtitulo:
-      "1989 a 1999: el peronismo que privatizó y abrió camino al 2001.",
+      "1989 a 1999: privatizaciones, convertibilidad como regla y el puente hacia el 2001.",
     kicker: "Crónica N.º 40 · La Argentina contemporánea",
     periodo: "1989 a 1999",
     duracion: "7 minutos",
     descripcion:
-      "Carlos Menem: hiperinflación, convertibilidad, consumo y el puente hacia la crisis del 2001.",
+      "Carlos Menem: hiperinflación, privatizaciones, convertibilidad y el costo de la estabilidad.",
     publicada: "2026-07-11",
     acceso: "publico",
     protagonista: { slug: "juan-domingo-peron", etiqueta: "La ficha de Perón" },
@@ -992,7 +992,7 @@ const cronicasBase: CronicaBase[] = [
     slug: "hiperinflacion",
     titulo: "La Hiperinflación",
     subtitulo:
-      "1989: el Rodrigazo, la entrega anticipada de Alfonsín y el puente a Menem.",
+      "1989: la moneda que dejó de ser regla, la entrega anticipada de Alfonsín y el puente a Menem.",
     kicker: "Exclusiva Mecenas · Crónica N.º 38",
     periodo: "1989 a 1990",
     duracion: "7 minutos",
@@ -1082,7 +1082,7 @@ const cronicasBase: CronicaBase[] = [
     slug: "frondizi",
     titulo: "Frondizi",
     subtitulo:
-      "1958 a 1962: desarrollismo, petróleo y el peronismo que votó sin Perón.",
+      "1958 a 1962: capitales, contratos petroleros y el costo político del desarrollismo.",
     kicker: "Crónica N.º 44 · La Argentina contemporánea",
     periodo: "1958 a 1962",
     duracion: "7 minutos",
@@ -1090,19 +1090,19 @@ const cronicasBase: CronicaBase[] = [
       "Arturo Frondizi y el desarrollismo: industria, contratos petroleros y el golpe que lo interrumpió.",
     publicada: "2026-07-11",
     acceso: "publico",
-    protagonista: { slug: "juan-domingo-peron", etiqueta: "La ficha de Perón" },
+    protagonista: { slug: "alvaro-alsogaray", etiqueta: "La ficha de Alsogaray" },
     visual: { varianteHero: "mayo", imagenHero: "frondizi-retrato" },
   },
   {
     slug: "illia",
     titulo: "Illia",
     subtitulo:
-      "1963 a 1966: la democracia radical entre Frondizi y Onganía.",
+      "1963 a 1966: honestidad republicana, contratos y el gobierno civil que terminó en el golpe.",
     kicker: "Crónica N.º 45 · La Argentina contemporánea",
     periodo: "1963 a 1966",
     duracion: "7 minutos",
     descripcion:
-      "Arturo Illia: austeridad, ley de petróleo y el gobierno civil que terminó en el golpe de 1966.",
+      "Arturo Illia: austeridad, ley de petróleo y legalidad ante el poder hasta el golpe de 1966.",
     publicada: "2026-07-11",
     acceso: "publico",
     protagonista: { slug: "hipolito-yrigoyen", etiqueta: "La ficha de Yrigoyen" },
@@ -1157,12 +1157,12 @@ const cronicasBase: CronicaBase[] = [
     slug: "macri",
     titulo: "Macri",
     subtitulo:
-      "2015 a 2019: Cambiemos, apertura y el fin del ciclo kirchnerista.",
+      "2015 a 2019: apertura con gradualismo y el costo de no anclar la moneda.",
     kicker: "Crónica N.º 47 · La Argentina contemporánea",
     periodo: "2015 a 2019",
     duracion: "7 minutos",
     descripcion:
-      "Mauricio Macri y Cambiemos: el cambio político que terminó doce años de kirchnerismo.",
+      "Mauricio Macri y Cambiemos: apertura, deuda y la lección de las reglas monetarias.",
     publicada: "2026-07-11",
     acceso: "publico",
     protagonista: { slug: "juan-domingo-peron", etiqueta: "La ficha de Perón" },
@@ -1187,7 +1187,7 @@ const cronicasBase: CronicaBase[] = [
     slug: "de-la-rua",
     titulo: "De la Rúa",
     subtitulo:
-      "1999 a 2001: la Alianza, la convertibilidad heredada y la renuncia.",
+      "1999 a 2001: convertibilidad bajo estrés y el umbral del corralito.",
     kicker: "Crónica N.º 49 · La Argentina contemporánea",
     periodo: "1999 a 2001",
     duracion: "7 minutos",
@@ -1255,7 +1255,7 @@ const cronicasBase: CronicaBase[] = [
       "Javier Milei: el balotaje de 2023 y el experimento político sin precedentes en la Argentina.",
     publicada: "2026-07-11",
     acceso: "publico",
-    protagonista: { slug: "juan-domingo-peron", etiqueta: "La ficha de Perón" },
+    protagonista: { slug: "juan-bautista-alberdi", etiqueta: "La ficha de Alberdi" },
     visual: { varianteHero: "mayo", imagenHero: "milei-retrato" },
   },
   {
@@ -1337,12 +1337,12 @@ const cronicasBase: CronicaBase[] = [
     slug: "rodrigazo",
     titulo: "El Rodrigazo",
     subtitulo:
-      "6 de junio de 1975: el ajuste que aceleró el caos de Isabel.",
+      "6 de junio de 1975: ajuste tardío, inflación como impuesto oculto y el caos de Isabel.",
     kicker: "Crónica N.º 55 · La Argentina contemporánea",
     periodo: "6 de junio de 1975",
     duracion: "7 minutos",
     descripcion:
-      "El Rodrigazo de 1975: inflación, saqueos y el colapso económico que precedió al golpe de 1976.",
+      "El Rodrigazo de 1975: desorden fiscal cobrado de golpe, saqueos y el umbral del golpe de 1976.",
     publicada: "2026-07-11",
     acceso: "publico",
     protagonista: { slug: "juan-domingo-peron", etiqueta: "La ficha de Perón" },
@@ -1397,12 +1397,12 @@ const cronicasBase: CronicaBase[] = [
     slug: "el-default",
     titulo: "El Default",
     subtitulo:
-      "23 de diciembre de 2001: la cesación de pagos más grande de la historia.",
+      "23 de diciembre de 2001: el colapso de la convertibilidad y el costo del default, sin romanticizar.",
     kicker: "Crónica N.º 57 · La Argentina contemporánea",
     periodo: "23 de diciembre de 2001",
     duracion: "7 minutos",
     descripcion:
-      "El default soberano de 2001: corralito, cinco presidentes y el colapso del modelo convertibilidad.",
+      "El default soberano de 2001: corralito, cesación de pagos y el fin del modelo convertibilidad.",
     publicada: "2026-07-11",
     acceso: "publico",
     protagonista: { slug: "raul-alfonsin", etiqueta: "La ficha de Alfonsín" },
@@ -1487,12 +1487,12 @@ const cronicasBase: CronicaBase[] = [
     slug: "celman",
     titulo: "Celman",
     subtitulo:
-      "1886 a 1890: la Generación del Ochenta y el estallido del Parque.",
+      "1886 a 1890: deuda, crisis Baring y el estallido del Parque.",
     kicker: "Crónica N.º 61 · La Argentina democrática",
     periodo: "1886 a 1890",
     duracion: "7 minutos",
     descripcion:
-      "Miguel Juárez Celman: opulencia oligárquica, fraude y la revuelta que abrió el camino al radicalismo.",
+      "Miguel Juárez Celman: opulencia a crédito, especulación y la revuelta que abrió el camino al radicalismo.",
     publicada: "2026-07-11",
     acceso: "publico",
     protagonista: { slug: "hipolito-yrigoyen", etiqueta: "La ficha de Yrigoyen" },
@@ -1527,6 +1527,96 @@ const cronicasBase: CronicaBase[] = [
     acceso: "mecenas",
     protagonista: { slug: "raul-alfonsin", etiqueta: "La ficha de Alfonsín" },
     visual: { varianteHero: "mayo", imagenHero: "massera-retrato" },
+  },
+  {
+    slug: "codigo-civil",
+    titulo: "El Código Civil",
+    subtitulo:
+      "1869 a 1871: Vélez Sarsfield ordenó propiedad, contratos y familia bajo una ley común.",
+    kicker: "Crónica N.º 62 · Organización Nacional",
+    periodo: "1869 a 1871",
+    duracion: "7 minutos",
+    descripcion:
+      "El Código Civil de Dalmacio Vélez Sarsfield: la infraestructura jurídica de la República liberal.",
+    publicada: "2026-07-16",
+    acceso: "publico",
+    protagonista: { slug: "dalmacio-velez-sarsfield", etiqueta: "La ficha de Vélez Sarsfield" },
+    visual: { varianteHero: "pampa", imagenHero: "velez-retrato" },
+  },
+  {
+    slug: "alsogaray",
+    titulo: "Alsogaray",
+    subtitulo:
+      "1959 a 1999: estabilidad monetaria, ajuste sin romanticismo y una voz liberal minoritaria.",
+    kicker: "Crónica N.º 63 · La Argentina contemporánea",
+    periodo: "1959 a 1999",
+    duracion: "7 minutos",
+    descripcion:
+      "Álvaro Alsogaray: ministro de Frondizi, fundador de la UCeDé y predicador de límites al Estado.",
+    publicada: "2026-07-16",
+    acceso: "publico",
+    protagonista: { slug: "alvaro-alsogaray", etiqueta: "La ficha de Alsogaray" },
+    visual: { varianteHero: "mayo", imagenHero: "alsogaray-retrato" },
+  },
+  {
+    slug: "ley-de-residencia",
+    titulo: "La Ley de Residencia",
+    subtitulo:
+      "1902: el orden que pedía inmigrantes se reservó el derecho de expulsarlos.",
+    kicker: "Crónica N.º 64 · La Argentina moderna",
+    periodo: "1902",
+    duracion: "7 minutos",
+    descripcion:
+      "La Ley 4144 de Residencia: poblar el granero del mundo y policiar a los «indeseables».",
+    publicada: "2026-07-16",
+    acceso: "publico",
+    protagonista: { slug: "julio-argentino-roca", etiqueta: "La ficha de Roca" },
+    visual: { varianteHero: "pampa", imagenHero: "roca-retrato" },
+  },
+  {
+    slug: "plan-austral",
+    titulo: "El Plan Austral",
+    subtitulo:
+      "1985 a 1988: el ancla heterodoxa de Alfonsín antes de la hiperinflación.",
+    kicker: "Crónica N.º 65 · La Argentina contemporánea",
+    periodo: "1985 a 1988",
+    duracion: "7 minutos",
+    descripcion:
+      "El Plan Austral: nueva moneda, precios congelados y reglas frágiles en democracia.",
+    publicada: "2026-07-16",
+    acceso: "publico",
+    protagonista: { slug: "raul-alfonsin", etiqueta: "La ficha de Alfonsín" },
+    visual: { varianteHero: "mayo", imagenHero: "transicion-alfonsin" },
+  },
+  {
+    slug: "privatizaciones",
+    titulo: "Las privatizaciones",
+    subtitulo:
+      "1989 a 1999: el Estado productor se vende; propiedad y competencia, aparte del 1 a 1.",
+    kicker: "Crónica N.º 66 · La Argentina contemporánea",
+    periodo: "1989 a 1999",
+    duracion: "7 minutos",
+    descripcion:
+      "Las privatizaciones de los noventa: Estado chico, costos sociales y la diferencia con la convertibilidad.",
+    publicada: "2026-07-16",
+    acceso: "publico",
+    protagonista: { slug: "alvaro-alsogaray", etiqueta: "La ficha de Alsogaray" },
+    visual: { varianteHero: "mayo", imagenHero: "menem-banda" },
+  },
+  {
+    slug: "crisis-del-tequila",
+    titulo: "La crisis del Tequila",
+    subtitulo:
+      "1994 a 1995: el shock mexicano pone a prueba el 1 a 1.",
+    kicker: "Crónica N.º 67 · La Argentina contemporánea",
+    periodo: "1994 a 1995",
+    duracion: "7 minutos",
+    descripcion:
+      "El efecto Tequila: corrida financiera, recesión y la primera gran prueba de la convertibilidad.",
+    publicada: "2026-07-16",
+    acceso: "publico",
+    protagonista: { slug: "alvaro-alsogaray", etiqueta: "La ficha de Alsogaray" },
+    visual: { varianteHero: "mayo", imagenHero: "crisis-2001-diagrama" },
   },
 ];
 
@@ -1641,6 +1731,12 @@ export const cargadores: Record<string, () => Promise<{ default: ComponentType }
   celman: () => import("@/content/cronicas/celman.mdx"),
   videla: () => import("@/content/cronicas/videla.mdx"),
   massera: () => import("@/content/cronicas/massera.mdx"),
+  "codigo-civil": () => import("@/content/cronicas/codigo-civil.mdx"),
+  alsogaray: () => import("@/content/cronicas/alsogaray.mdx"),
+  "ley-de-residencia": () => import("@/content/cronicas/ley-de-residencia.mdx"),
+  "plan-austral": () => import("@/content/cronicas/plan-austral.mdx"),
+  privatizaciones: () => import("@/content/cronicas/privatizaciones.mdx"),
+  "crisis-del-tequila": () => import("@/content/cronicas/crisis-del-tequila.mdx"),
 };
 
 export function obtenerCronica(slug: string): CronicaMeta | undefined {

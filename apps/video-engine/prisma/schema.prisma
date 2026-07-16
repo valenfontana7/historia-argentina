@@ -11,7 +11,12 @@ datasource db {
 enum VideoJobStatus {
   queued
   running
+  awaiting_script
+  awaiting_storyboard
+  awaiting_assets
   awaiting_review
+  awaiting_voice
+  awaiting_preview
   succeeded
   failed
   cancelled
@@ -24,6 +29,7 @@ enum VideoJobStage {
   voice
   assets
   review
+  preview
   subtitles
   music
   compose

@@ -97,6 +97,18 @@ export const imagenesPersonajes: Record<string, ImagenPersonaje> = {
     url: "https://upload.wikimedia.org/wikipedia/commons/2/22/Argentina.RaulAlfonsin.01.jpg",
     credito: "Wikimedia Commons",
   },
+  "dalmacio-velez-sarsfield": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Dalmacio_Velez_Sarsfield.jpg",
+    credito: "Wikimedia Commons",
+  },
+  "roque-saenz-pena": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/6/6c/Roque_Saenz_Pena.jpg",
+    credito: "Wikimedia Commons",
+  },
+  "alvaro-alsogaray": {
+    url: "https://upload.wikimedia.org/wikipedia/commons/7/72/%C3%81lvaro_Alsogaray_circa_1955.jpg",
+    credito: "Wikimedia Commons",
+  },
 };
 
 export function obtenerImagenPersonaje(slug: string): ImagenPersonaje | undefined {

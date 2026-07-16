@@ -50,7 +50,12 @@ export function pillStatus(status: string): string {
   switch (status) {
     case "succeeded":
       return "bg-oro/15 text-oro-claro";
+    case "awaiting_script":
+    case "awaiting_storyboard":
+    case "awaiting_assets":
     case "awaiting_review":
+    case "awaiting_voice":
+    case "awaiting_preview":
       return "bg-sky-500/15 text-sky-200";
     case "running":
     case "queued":

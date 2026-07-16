@@ -1,8 +1,10 @@
 # ADR: Motor de Generación Audiovisual
 
-**Estado:** Aceptado  
+**Estado:** Aceptado (parcialmente supersedido)  
 **Fecha:** 2026-07-16  
 **Contexto:** MuseoArgent (Next.js) necesita generar Reels/Shorts/TikTok desde exhibiciones estructuradas, con control total del pipeline y composición vía FFmpeg.
+
+> **Evolución de producto:** el flujo Autopilot punta a punta queda como modo `interactive: false`. El modelo Copilot Editorial (aprobación por etapas) está en [adr-video-engine-copilot.md](./adr-video-engine-copilot.md).
 
 ## Decisión
 

@@ -1,13 +1,18 @@
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import {
   DEFAULT_FORMAT_PROFILES,
   ExhibitionSchema,
+  normalizeResumePhase,
   type Exhibition,
+  type PreviewState,
   type ProfileOverrides,
   type SceneAssetBinding,
+  type ScriptDocument,
   type StoryboardDocument,
   type VideoFormatId,
   type VideoFormatProfile,
+  type VideoManifest,
+  type VoiceTrack,
 } from "@museoargent/video-contracts";
 import type { ClaimedJob, JobQueue } from "./ports/job-queue";
 import type { LlmProvider } from "./ports/llm-provider";
@@ -36,14 +41,23 @@ import {
   JobCancelledError,
   isJobCancelledError,
 } from "./job-cancelled-error";
+import { catalogItemsFromRecord, readImageCatalog } from "./job-draft";
 import {
-  bindingsFromDraft,
-  buildDraft,
-  catalogItemsFromRecord,
-  readImageCatalog,
-  readJobDraft,
-  writeJobDraft,
-} from "./job-draft";
+  bindingsToSceneAssets,
+  buildBindingsDoc,
+  previewUriForScene,
+  readBindings,
+  readPreviewState,
+  readScript,
+  readStoryboard,
+  readVoices,
+  writeBindings,
+  writePreviewState,
+  writeScript,
+  writeStoryboard,
+  writeVoices,
+} from "./job-artifacts";
+import { mergeMemory, readMemory } from "./editorial-memory";
 
 export function mergeFormatProfile(
   formatId: VideoFormatId | string,
@@ -91,6 +105,8 @@ export class PipelineOrchestrator {
     const llm = useFake && this.deps.fakeLlm ? this.deps.fakeLlm : this.deps.llm;
     const voice =
       useFake && this.deps.fakeVoice ? this.deps.fakeVoice : this.deps.voice;
+    const interactive = job.interactive !== false;
+    const phase = normalizeResumePhase(job.resumePhase);
 
     const signal = registerJobAbort(job.id);
 
@@ -102,10 +118,9 @@ export class PipelineOrchestrator {
         job.profileOverrides ?? (await this.loadProfileOverrides(job.id));
       const profile = mergeFormatProfile(job.formatId, overrides);
 
-      if (job.resumePhase === "render") {
-        await this.runRenderPhase({
+      if (phase === "render") {
+        await this.runFinalRenderPhase({
           job,
-          exhibition,
           profile,
           llm,
           voice,
@@ -116,63 +131,143 @@ export class PipelineOrchestrator {
         return;
       }
 
+      if (phase === "preview") {
+        await this.runPreviewPhase({
+          job,
+          profile,
+          interactive,
+          timings,
+          signal,
+        });
+        if (interactive) return;
+        await this.runFinalRenderPhase({
+          job,
+          profile,
+          llm,
+          voice,
+          timings,
+          started,
+          signal,
+        });
+        return;
+      }
+
+      if (phase === "voice") {
+        await this.runVoicePhase({
+          job,
+          voice,
+          interactive,
+          timings,
+        });
+        if (interactive) return;
+        await this.runPreviewPhase({
+          job,
+          profile,
+          interactive,
+          timings,
+          signal,
+        });
+        await this.runFinalRenderPhase({
+          job,
+          profile,
+          llm,
+          voice,
+          timings,
+          started,
+          signal,
+        });
+        return;
+      }
+
+      if (phase === "assets") {
+        await this.runAssetsPhase({
+          job,
+          exhibition,
+          interactive,
+          timings,
+        });
+        if (interactive) return;
+        await this.runPostAssetsAutopilot({
+          job,
+          profile,
+          llm,
+          voice,
+          timings,
+          started,
+          signal,
+        });
+        return;
+      }
+
+      if (phase === "storyboard") {
+        const script = await readScript(this.deps.storage, job.id);
+        if (!script) throw new Error(`Script no encontrado para job ${job.id}`);
+        await this.runStoryboardPhase({
+          job,
+          exhibition,
+          profile,
+          llm,
+          script,
+          interactive,
+          timings,
+        });
+        if (interactive) return;
+        await this.runAssetsPhase({
+          job,
+          exhibition,
+          interactive,
+          timings,
+        });
+        await this.runPostAssetsAutopilot({
+          job,
+          profile,
+          llm,
+          voice,
+          timings,
+          started,
+          signal,
+        });
+        return;
+      }
+
+      // phase === script (inicio)
       await this.timed(job.id, "ingest", timings, async () => undefined);
 
+      const memory = await readMemory(this.deps.storage, exhibition.id);
       const scriptGen = new ScriptGenerator(llm, this.deps.promptsRoot);
       const script = await this.timed(job.id, "script", timings, () =>
-        scriptGen.generate(exhibition, profile),
+        scriptGen.generate(exhibition, profile, { memory }),
       );
+      await writeScript(this.deps.storage, job.id, script);
 
-      const storyGen = new StoryboardGenerator(llm, this.deps.promptsRoot);
-      const storyboard = await this.timed(job.id, "storyboard", timings, () =>
-        storyGen.generate(exhibition, profile, script),
-      );
-
-      const assetSel = new AssetSelector(
-        this.deps.assets,
-        this.deps.ranker,
-        this.deps.config.assetScoreThreshold,
-      );
-      const assets = await this.timed(job.id, "assets", timings, () =>
-        assetSel.select(
-          storyboard,
-          exhibition.images.map((i) => i.assetId),
-          { yearEnd: exhibition.yearEnd },
-        ),
-      );
-
-      const catalogRecord = await readImageCatalog(this.deps.storage, job.id);
-      const draft = buildDraft({
-        storyboard,
-        bindings: assets,
-        musicCategoryHint:
-          storyboard.musicCategoryHint ?? script.musicCategoryHint,
-        catalog: catalogItemsFromRecord(catalogRecord),
-      });
-      await writeJobDraft(this.deps.storage, job.id, draft);
-
-      const interactive = job.interactive !== false;
       if (interactive) {
-        await this.deps.queue.markAwaitingReview(job.id);
+        await this.deps.queue.markAwaiting(job.id, "awaiting_script");
         console.info(
-          JSON.stringify({
-            msg: "job awaiting review",
-            id: job.id,
-            scenes: storyboard.scenes.length,
-          }),
+          JSON.stringify({ msg: "job awaiting_script", id: job.id }),
         );
         return;
       }
 
-      await this.runRenderFromDraft({
+      await this.runStoryboardPhase({
         job,
         exhibition,
         profile,
         llm,
+        script,
+        interactive,
+        timings,
+      });
+      await this.runAssetsPhase({
+        job,
+        exhibition,
+        interactive,
+        timings,
+      });
+      await this.runPostAssetsAutopilot({
+        job,
+        profile,
+        llm,
         voice,
-        storyboard,
-        assets,
-        musicCategoryHint: draft.musicCategoryHint,
         timings,
         started,
         signal,
@@ -183,7 +278,15 @@ export class PipelineOrchestrator {
       }
       const message = err instanceof Error ? err.message : String(err);
       const current = await this.deps.queue.get(job.id);
-      if (current?.status === "cancelled" || current?.status === "awaiting_review") {
+      if (
+        current?.status === "cancelled" ||
+        current?.status === "awaiting_script" ||
+        current?.status === "awaiting_storyboard" ||
+        current?.status === "awaiting_assets" ||
+        current?.status === "awaiting_review" ||
+        current?.status === "awaiting_voice" ||
+        current?.status === "awaiting_preview"
+      ) {
         return;
       }
       await this.deps.queue.fail(job.id, message);
@@ -193,9 +296,8 @@ export class PipelineOrchestrator {
     }
   }
 
-  private async runRenderPhase(input: {
+  private async runPostAssetsAutopilot(input: {
     job: ClaimedJob;
-    exhibition: Exhibition;
     profile: VideoFormatProfile;
     llm: LlmProvider;
     voice: VoiceProvider;
@@ -203,68 +305,176 @@ export class PipelineOrchestrator {
     started: number;
     signal: AbortSignal;
   }): Promise<void> {
-    const draft = await readJobDraft(this.deps.storage, input.job.id);
-    if (!draft) {
-      throw new Error(`Draft no encontrado para job ${input.job.id}`);
-    }
-    await this.runRenderFromDraft({
+    await this.runVoicePhase({
       job: input.job,
-      exhibition: input.exhibition,
+      voice: input.voice,
+      interactive: false,
+      timings: input.timings,
+    });
+    await this.runPreviewPhase({
+      job: input.job,
+      profile: input.profile,
+      interactive: false,
+      timings: input.timings,
+      signal: input.signal,
+    });
+    await this.runFinalRenderPhase({
+      job: input.job,
       profile: input.profile,
       llm: input.llm,
       voice: input.voice,
-      storyboard: draft.storyboard,
-      assets: bindingsFromDraft(draft),
-      musicCategoryHint: draft.musicCategoryHint,
       timings: input.timings,
       started: input.started,
       signal: input.signal,
     });
   }
 
-  private async runRenderFromDraft(input: {
+  private async runStoryboardPhase(input: {
     job: ClaimedJob;
     exhibition: Exhibition;
     profile: VideoFormatProfile;
     llm: LlmProvider;
-    voice: VoiceProvider;
-    storyboard: StoryboardDocument;
-    assets: SceneAssetBinding[];
-    musicCategoryHint?: StoryboardDocument["musicCategoryHint"];
+    script: ScriptDocument;
+    interactive: boolean;
     timings: Record<string, number>;
-    started: number;
-    signal: AbortSignal;
-  }): Promise<void> {
-    const voiceGen = new VoiceGenerator(input.voice, this.deps.storage);
-    const voices = await this.timed(input.job.id, "voice", input.timings, () =>
-      voiceGen.generate(input.job.id, input.storyboard),
+  }): Promise<StoryboardDocument> {
+    const memory = await readMemory(
+      this.deps.storage,
+      input.exhibition.id,
     );
+    const storyGen = new StoryboardGenerator(input.llm, this.deps.promptsRoot);
+    const storyboard = await this.timed(
+      input.job.id,
+      "storyboard",
+      input.timings,
+      () =>
+        storyGen.generate(input.exhibition, input.profile, input.script, {
+          memory,
+        }),
+    );
+    await writeStoryboard(this.deps.storage, input.job.id, storyboard);
+    if (input.interactive) {
+      await this.deps.queue.markAwaiting(input.job.id, "awaiting_storyboard");
+      console.info(
+        JSON.stringify({ msg: "job awaiting_storyboard", id: input.job.id }),
+      );
+    }
+    return storyboard;
+  }
+
+  private async runAssetsPhase(input: {
+    job: ClaimedJob;
+    exhibition: Exhibition;
+    interactive: boolean;
+    timings: Record<string, number>;
+  }): Promise<SceneAssetBinding[]> {
+    const storyboard = await readStoryboard(this.deps.storage, input.job.id);
+    if (!storyboard) {
+      throw new Error(`Storyboard no encontrado para job ${input.job.id}`);
+    }
+    const script = await readScript(this.deps.storage, input.job.id);
+
+    const assetSel = new AssetSelector(
+      this.deps.assets,
+      this.deps.ranker,
+      this.deps.config.assetScoreThreshold,
+    );
+    const assets = await this.timed(input.job.id, "assets", input.timings, () =>
+      assetSel.select(
+        storyboard,
+        input.exhibition.images.map((i) => i.assetId),
+        { yearEnd: input.exhibition.yearEnd },
+      ),
+    );
+
+    const catalogRecord = await readImageCatalog(
+      this.deps.storage,
+      input.job.id,
+    );
+    const doc = buildBindingsDoc({
+      bindings: assets,
+      catalog: catalogItemsFromRecord(catalogRecord),
+      musicCategoryHint:
+        storyboard.musicCategoryHint ?? script?.musicCategoryHint,
+    });
+    await writeBindings(this.deps.storage, input.job.id, doc);
+
+    if (input.interactive) {
+      await this.deps.queue.markAwaiting(input.job.id, "awaiting_assets");
+      console.info(
+        JSON.stringify({ msg: "job awaiting_assets", id: input.job.id }),
+      );
+    }
+    return assets;
+  }
+
+  private async runVoicePhase(input: {
+    job: ClaimedJob;
+    voice: VoiceProvider;
+    interactive: boolean;
+    timings: Record<string, number>;
+  }): Promise<VoiceTrack[]> {
+    const storyboard = await readStoryboard(this.deps.storage, input.job.id);
+    if (!storyboard) {
+      throw new Error(`Storyboard no encontrado para job ${input.job.id}`);
+    }
+
+    const voiceGen = new VoiceGenerator(input.voice, this.deps.storage);
+    const tracks = await this.timed(input.job.id, "voice", input.timings, () =>
+      voiceGen.generate(input.job.id, storyboard),
+    );
+    await writeVoices(this.deps.storage, input.job.id, { tracks });
+
+    if (input.interactive) {
+      await this.deps.queue.markAwaiting(input.job.id, "awaiting_voice");
+      console.info(
+        JSON.stringify({ msg: "job awaiting_voice", id: input.job.id }),
+      );
+    }
+    return tracks;
+  }
+
+  private async runPreviewPhase(input: {
+    job: ClaimedJob;
+    profile: VideoFormatProfile;
+    interactive: boolean;
+    timings: Record<string, number>;
+    signal: AbortSignal;
+  }): Promise<PreviewState> {
+    const storyboard = await readStoryboard(this.deps.storage, input.job.id);
+    const bindingsDoc = await readBindings(this.deps.storage, input.job.id);
+    const voicesDoc = await readVoices(this.deps.storage, input.job.id);
+    if (!storyboard || !bindingsDoc || !voicesDoc) {
+      throw new Error(`Artefactos incompletos para preview job ${input.job.id}`);
+    }
+    const assets = bindingsToSceneAssets(bindingsDoc);
+    const voices = voicesDoc.tracks;
 
     const subGen = new SubtitleGenerator(this.deps.storage);
     const subtitles = await this.timed(
       input.job.id,
       "subtitles",
       input.timings,
-      () => subGen.generate(input.job.id, input.storyboard, voices),
+      () => subGen.generate(input.job.id, storyboard, voices),
     );
 
     const musicSel = new MusicSelector(this.deps.music);
     const music = await this.timed(input.job.id, "music", input.timings, () =>
       musicSel.select(
-        input.musicCategoryHint ?? input.storyboard.musicCategoryHint,
+        bindingsDoc.musicCategoryHint ?? storyboard.musicCategoryHint,
       ),
     );
 
     const composer = new SceneComposer(this.deps.storage);
-    const { manifest, manifestUri } = await this.timed(
+    const { manifest } = await this.timed(
       input.job.id,
       "compose",
       input.timings,
       () =>
         composer.compose({
           jobId: input.job.id,
-          storyboard: input.storyboard,
-          assets: input.assets,
+          storyboard,
+          assets,
           voices,
           subtitles,
           music,
@@ -272,22 +482,161 @@ export class PipelineOrchestrator {
         }),
     );
 
+    const existing = await readPreviewState(this.deps.storage, input.job.id);
+    const lockedByScene = new Map(
+      (existing?.scenes ?? [])
+        .filter((s) => s.locked && !s.dirty)
+        .map((s) => [s.scene, s]),
+    );
+
+    const previewScenes: PreviewState["scenes"] = [];
+    await this.timed(input.job.id, "preview", input.timings, async () => {
+      for (let i = 0; i < manifest.scenes.length; i++) {
+        await this.throwIfCancelled(input.job.id);
+        const manifestScene = manifest.scenes[i];
+        const sceneNum = Number(manifestScene.id.replace("scene-", ""));
+        const uri = previewUriForScene(input.job.id, sceneNum);
+        const locked = lockedByScene.get(sceneNum);
+        if (locked) {
+          previewScenes.push({ ...locked, dirty: false });
+          continue;
+        }
+        await this.deps.renderer.renderSceneClip(
+          manifestScene,
+          uri,
+          manifest.format.fps,
+          input.signal,
+        );
+        previewScenes.push({
+          scene: sceneNum,
+          previewUri: uri,
+          locked: false,
+          dirty: false,
+        });
+      }
+    });
+
+    const state: PreviewState = { scenes: previewScenes };
+    await writePreviewState(this.deps.storage, input.job.id, state);
+
+    // Persistir manifest para el render final (reuso de audio/subs).
+    await this.deps.storage.put(
+      `jobs/${input.job.id}/manifest.json`,
+      JSON.stringify(manifest, null, 2),
+      "application/json",
+    );
+
+    if (input.interactive) {
+      await this.deps.queue.markAwaiting(input.job.id, "awaiting_preview");
+      console.info(
+        JSON.stringify({ msg: "job awaiting_preview", id: input.job.id }),
+      );
+    }
+    return state;
+  }
+
+  private async runFinalRenderPhase(input: {
+    job: ClaimedJob;
+    profile: VideoFormatProfile;
+    llm: LlmProvider;
+    voice: VoiceProvider;
+    timings: Record<string, number>;
+    started: number;
+    signal: AbortSignal;
+  }): Promise<void> {
+    const storyboard = await readStoryboard(this.deps.storage, input.job.id);
+    const bindingsDoc = await readBindings(this.deps.storage, input.job.id);
+    const voicesDoc = await readVoices(this.deps.storage, input.job.id);
+    if (!storyboard || !bindingsDoc || !voicesDoc) {
+      throw new Error(`Artefactos incompletos para render job ${input.job.id}`);
+    }
+    const assets = bindingsToSceneAssets(bindingsDoc);
+    const voices = voicesDoc.tracks;
+
+    let manifest: VideoManifest;
+    try {
+      const raw = await readFile(
+        this.deps.storage.resolvePath(`jobs/${input.job.id}/manifest.json`),
+        "utf8",
+      );
+      manifest = JSON.parse(raw) as VideoManifest;
+    } catch {
+      const subGen = new SubtitleGenerator(this.deps.storage);
+      const subtitles = await this.timed(
+        input.job.id,
+        "subtitles",
+        input.timings,
+        () => subGen.generate(input.job.id, storyboard, voices),
+      );
+      const musicSel = new MusicSelector(this.deps.music);
+      const music = await this.timed(input.job.id, "music", input.timings, () =>
+        musicSel.select(
+          bindingsDoc.musicCategoryHint ?? storyboard.musicCategoryHint,
+        ),
+      );
+      const composer = new SceneComposer(this.deps.storage);
+      const composed = await this.timed(
+        input.job.id,
+        "compose",
+        input.timings,
+        () =>
+          composer.compose({
+            jobId: input.job.id,
+            storyboard,
+            assets,
+            voices,
+            subtitles,
+            music,
+            cta: input.profile.cta,
+          }),
+      );
+      manifest = composed.manifest;
+    }
+
+    const previewState = await readPreviewState(this.deps.storage, input.job.id);
+    const clipUris: string[] = [];
+
+    await this.timed(input.job.id, "render", input.timings, async () => {
+      for (let i = 0; i < manifest.scenes.length; i++) {
+        await this.throwIfCancelled(input.job.id);
+        const manifestScene = manifest.scenes[i];
+        const sceneNum = Number(manifestScene.id.replace("scene-", ""));
+        const uri = previewUriForScene(input.job.id, sceneNum);
+        const prev = previewState?.scenes.find((s) => s.scene === sceneNum);
+        const reusable =
+          prev &&
+          !prev.dirty &&
+          (await fileExists(this.deps.storage.resolvePath(uri)));
+
+        if (!reusable) {
+          await this.deps.renderer.renderSceneClip(
+            manifestScene,
+            uri,
+            manifest.format.fps,
+            input.signal,
+          );
+        }
+        clipUris.push(uri);
+      }
+    });
+
     const outputKey = `jobs/${input.job.id}/output.mp4`;
-    const render: RenderResult = await this.timed(
-      input.job.id,
-      "render",
-      input.timings,
-      () => this.deps.renderer.render(manifest, outputKey, input.signal),
+    const render: RenderResult = await this.deps.renderer.stitchFromSceneClips(
+      clipUris,
+      manifest,
+      outputKey,
+      input.signal,
     );
 
     await this.throwIfCancelled(input.job.id);
 
+    const manifestUri = `jobs/${input.job.id}/manifest.json`;
     await this.deps.queue.complete(input.job.id, {
       outputMp4Uri: render.mp4Uri,
       outputBytes: render.bytes,
       outputDurationSec: render.durationSec,
       manifestUri,
-      assetsUsed: input.assets.map((a) => a.assetId),
+      assetsUsed: assets.map((a) => a.assetId),
       llmProvider: input.llm.name,
       llmModel: input.llm.model,
       ttsProvider: input.voice.name,
@@ -296,6 +645,11 @@ export class PipelineOrchestrator {
         ...input.timings,
         wall: Date.now() - input.started,
       },
+    });
+
+    await mergeMemory(this.deps.storage, input.job.exhibitionId, {
+      lastJobId: input.job.id,
+      preferredAssetIdsAppend: assets.map((a) => a.assetId),
     });
   }
 
@@ -354,6 +708,15 @@ export class PipelineOrchestrator {
     timings[stage] = ms;
     await this.deps.queue.markStage(jobId, stage, ms);
     return result;
+  }
+}
+
+async function fileExists(filePath: string): Promise<boolean> {
+  try {
+    await access(filePath);
+    return true;
+  } catch {
+    return false;
   }
 }
 

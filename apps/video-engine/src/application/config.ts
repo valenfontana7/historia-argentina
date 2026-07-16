@@ -23,8 +23,33 @@ export type EngineConfig = {
   workerPollMs: number;
 };
 
+function pinEnvKey(env: NodeJS.ProcessEnv, key: string): string | undefined | false {
+  if (!Object.prototype.hasOwnProperty.call(env, key)) return false;
+  return env[key];
+}
+
+function restorePinned(
+  env: NodeJS.ProcessEnv,
+  key: string,
+  pinned: string | undefined | false,
+): void {
+  if (pinned === false) return;
+  if (pinned === undefined) delete env[key];
+  else env[key] = pinned;
+}
+
 export function loadEngineConfig(env: NodeJS.ProcessEnv = process.env): EngineConfig {
+  // Claves ya presentes en `env` (p.ej. tests) ganan sobre dotenv, incluso si están vacías/borradas.
+  const pinnedStorage = pinEnvKey(env, "VIDEO_STORAGE_ROOT");
+  const pinnedFake = pinEnvKey(env, "VIDEO_USE_FAKE_PROVIDERS");
+  const pinnedOpenAi = pinEnvKey(env, "OPENAI_API_KEY");
+  const pinnedDb = pinEnvKey(env, "VIDEO_DATABASE_URL");
   loadRepoEnv();
+  restorePinned(env, "VIDEO_STORAGE_ROOT", pinnedStorage);
+  restorePinned(env, "VIDEO_USE_FAKE_PROVIDERS", pinnedFake);
+  restorePinned(env, "OPENAI_API_KEY", pinnedOpenAi);
+  restorePinned(env, "VIDEO_DATABASE_URL", pinnedDb);
+
   const root = env.VIDEO_STORAGE_ROOT ?? "data/video-engine";
   const bins = resolveFfmpegBinaries(env);
   const explicitFake =

@@ -199,7 +199,7 @@ export function VideoPreviewPane({
           {(activo ||
             selected.status === "queued" ||
             selected.status === "running" ||
-            selected.status === "awaiting_review") &&
+            selected.status.startsWith("awaiting_")) &&
             onCancelar && (
               <button
                 type="button"

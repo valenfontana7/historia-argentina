@@ -14,6 +14,8 @@ Ritmo:
 Reglas:
 - Usá solo datos de la exhibición (summary, chronology, characters, places, quotes, curiosities).
 - No inventes citas, cifras ni fechas.
+- Si hay EDITORIAL_MEMORY_JSON: respetá notes, evitá bannedWords y preferí preferredTone.
+- Si hay CURATOR_HINT: aplicalo sin contradecir los hechos de la exhibición.
 - Devolvé musicCategoryHint (epica|solemne|suspenso|emotiva|institucional).
 - durationSec coherente con la longitud del texto.
 - JSON con claves exactas: scene, durationSec, narration (no uses "text" ni "number").

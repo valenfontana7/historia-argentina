@@ -93,7 +93,7 @@ const DE_LA_RUA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Alianza",
-      texto: "1999 a 2001: la Alianza, la convertibilidad heredada y la renuncia. 10 de diciembre de 1999: De la Rúa asume con la convertibilidad heredada. Después de diez años de Menem, la Argentina votó cambio sin ruptura. Fernando de la Rúa (abogado radical, dos veces jefe de Gobierno porteño) ganó la presidencia con la Alianza frente al peronismo.",
+      texto: "1999 a 2001: convertibilidad bajo estrés y el umbral del corralito. 10 de diciembre de 1999: De la Rúa asume con la convertibilidad heredada. Después de diez años de Menem, la Argentina votó cambio sin ruptura. Fernando de la Rúa (abogado radical, dos veces jefe de Gobierno porteño) ganó la presidencia con la Alianza frente al peronismo.",
     },
     {
       estacion: 1,
@@ -177,7 +177,7 @@ const EL_DEFAULT: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La cesación de pagos",
-      texto: "23 de diciembre de 2001: la cesación de pagos más grande de la historia. 23 de diciembre de 2001: Argentina declara el default. El 23 de diciembre de 2001, el gobierno de Rodrigo Rua (interino tras la caída de De la Rúa) anunció la cesación de pagos de la deuda externa. Fue el default más grande de la historia: más de 100.000 millones de dólares.",
+      texto: "23 de diciembre de 2001: el colapso de la convertibilidad y el costo del default, sin romanticizar. 23 de diciembre de 2001: el costo del colapso, sin romanticizar el default. El 23 de diciembre de 2001, el gobierno de Adolfo Rodríguez Saá (interino tras la caída de De la Rúa) anunció la cesación de pagos de la deuda externa. Fue el default más grande de la historia: más de 100.000 millones de dólares.",
     },
     {
       estacion: 1,
@@ -192,7 +192,7 @@ const EL_DEFAULT: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Después del default",
-      texto: "2001 no terminó con la deuda. Empezó otra Argentina. La devaluación, los piquetes, las fábricas recuperadas, el kirchnerismo: todo nació del mismo colapso. El default fue el punto de quiebre financiero de una democracia que no cayó, pero salió transformada.",
+      texto: "2001 no terminó con la deuda. Empezó otra Argentina. La devaluación, los piquetes, las fábricas recuperadas, el kirchnerismo: todo nació del mismo colapso. El default fue el punto de quiebre financiero de una democracia que no cayó, pero salió transformada — y más desconfiada de las promesas de estabilidad eterna.",
     }
   ],
 };
@@ -373,7 +373,7 @@ const FEDERALIZACION: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Una ciudad, dos destinos",
-      texto: "1880: Buenos Aires deja de ser provincia y nace la Capital Federal. 1880: Buenos Aires deja de ser provincia y se convierte en capital de la Nación. Durante décadas, Buenos Aires fue provincia y capital a la vez. Controlaba el puerto, la aduana, las rentas.",
+      texto: "1880: capital neutral como infraestructura del orden nacional. 1880: Buenos Aires deja de ser provincia y se convierte en capital de la Nación. Durante décadas, Buenos Aires fue provincia y capital a la vez. Controlaba el puerto, la aduana, las rentas.",
     },
     {
       estacion: 1,
@@ -388,7 +388,7 @@ const FEDERALIZACION: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La capital que ordenó la Nación",
-      texto: "Federalizar Buenos Aires fue el paso que faltaba para cerrar la organización nacional. La federalización cerró el ciclo abierto en Caseros y Pavón: un país con Constitución, un presidente, un ejército nacional y ahora una capital neutral. Roca asumiría la presidencia ese mismo año.",
+      texto: "Federalizar Buenos Aires fue el paso que faltaba para cerrar la organización nacional. La federalización cerró el ciclo abierto en Caseros y Pavón: un país con Constitución, un presidente, un ejército nacional y ahora una capital neutral — infraestructura del orden liberal que Roca llamó paz y administración. Roca asumiría la presidencia ese mismo año.",
     }
   ],
 };
@@ -401,12 +401,12 @@ const FRONDIZI: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El desarrollismo",
-      texto: "1958 a 1962: desarrollismo, petróleo y el peronismo que votó sin Perón. 1 de mayo de 1958: Frondizi asume con el voto peronista y un plan industrial. Después de la Revolución Libertadora, el peronismo seguía proscripto pero vivo. En 1958, Arturo Frondizi (radical intransigente) ganó la presidencia con el apoyo encubierto del voto peronista y un proyecto que llamó desarrollismo: petróleo, acero, industria pesada, inversión extranjera.",
+      texto: "1958 a 1962: capitales, contratos petroleros y el costo político del desarrollismo. 1 de mayo de 1958: Frondizi asume con el voto peronista y un plan industrial. Después de la Revolución Libertadora, el peronismo seguía proscripto pero vivo. En 1958, Arturo Frondizi (radical intransigente) ganó la presidencia con el apoyo encubierto del voto peronista y un proyecto que llamó desarrollismo: petróleo, acero, industria pesada, inversión extranjera.",
     },
     {
       estacion: 1,
       titulo: "Petróleo y fábricas",
-      texto: "1958 a 1962: crecimiento, conflictos y el precio del acuerdo con las petroleras. Frondizi firmó contratos con compañías internacionales para explotar yacimientos. YPF siguió siendo estatal, pero el modelo abrió la puerta a capitales extranjeros.",
+      texto: "1958 a 1962: capitales, contratos petroleros y el precio político del desarrollismo. Frondizi firmó contratos con compañías internacionales para explotar yacimientos. YPF siguió siendo estatal, pero el modelo abrió la puerta a capitales extranjeros: reglas de inversión a cambio de petróleo y acero.",
     },
     {
       estacion: 2,
@@ -485,12 +485,12 @@ const HIPERINFLACION: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La hiperinflación",
-      texto: "1989: el Rodrigazo, la entrega anticipada de Alfonsín y el puente a Menem. 1989: la inflación que devoró salarios, ahorros y gobierno. A fines de los años ochenta, la hiperinflación se comió la Argentina. Precios que cambiaban por hora.",
+      texto: "1989: la moneda que dejó de ser regla, la entrega anticipada de Alfonsín y el puente a Menem. 1989: cuando la moneda dejó de ser regla, se rompió el contrato social. A fines de los años ochenta, la hiperinflación se comió la Argentina. Precios que cambiaban por hora.",
     },
     {
       estacion: 1,
-      titulo: "El verano del Rodrigazo",
-      texto: "Junio de 1989: el plan económico que aceleró el colapso. En junio de 1989, el ministro Juan Vital Sourrouille lanzó el Plan Primavera (conocido como Rodrigazo): ajuste brutal de precios y tarifas. La reacción social fue inmediata: saqueos, violencia, pánico.",
+      titulo: "El verano del colapso",
+      texto: "1989: saqueos, pánico y una moneda que ya no ordenaba la vida. Tras el fracaso del Plan Primavera (1988), en 1989 la espiral se desbocó: precios diarios, desabastecimiento, saqueos y pánico. Sin ancla monetaria, cada contrato —salario, alquiler, ahorro— se volvía una apuesta.",
     },
     {
       estacion: 2,
@@ -500,7 +500,7 @@ const HIPERINFLACION: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "De Alfonsín a Menem",
-      texto: "La crisis que abrió la década de 1990. Alfonsín dejó un legado democrático irreversible: memoria, juicio a las juntas, cultura de derechos humanos. Pero la hiperinflación destruyó su gobierno económico.",
+      texto: "La crisis que abrió la década de 1990. Alfonsín dejó un legado democrático irreversible: memoria, juicio a las juntas, cultura de derechos humanos. Pero la hiperinflación destruyó su gobierno económico y demostró un límite duro: sin moneda estable, la República pierde el piso donde se apoyan los derechos cotidianos.",
     }
   ],
 };
@@ -513,12 +513,12 @@ const ILLIA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La democracia radical",
-      texto: "1963 a 1966: la democracia radical entre Frondizi y Onganía. 12 de octubre de 1963: Illia asume con el 28 % de los votos. Después del golpe a Frondizi, la Argentina vivió meses de incertidumbre. En 1963, Arturo Illia (médico rural, radical austero) ganó las elecciones con el 28 % de los votos en un sistema que premiaba la pluralidad.",
+      texto: "1963 a 1966: honestidad republicana, contratos y el gobierno civil que terminó en el golpe. 1963: un presidente austero apuesta a la legalidad y a los contratos escritos. Después del golpe a Frondizi, la Argentina vivió meses de incertidumbre. En 1963, Arturo Illia (médico rural, radical austero) ganó las elecciones con el 28 % de los votos en un sistema que premiaba la pluralidad.",
     },
     {
       estacion: 1,
       titulo: "Austeridad y petróleo",
-      texto: "1963 a 1966: obras públicas, ley petrolera y un peronismo que no esperaba. Illia redujo el gasto, impulsó obras en el interior y sancionó la Ley de Petróleo para frenar contratos que consideraba lesivos. Para el radicalismo, era honestidad republicana.",
+      texto: "1963 a 1966: gasto contenido, ley petrolera y un país que pedía otro ritmo. Illia redujo el gasto, impulsó obras en el interior y sancionó la Ley de Petróleo para frenar contratos que consideraba lesivos. Para el radicalismo, era honestidad republicana: el Estado no debía improvisar sobre lo firmado ni sobre lo público.",
     },
     {
       estacion: 2,
@@ -765,7 +765,7 @@ const LEY_SAENZ_PENA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El voto que cambió todo",
-      texto: "1912: voto secreto y obligatorio, la puerta que abrió la democracia moderna. 1912: Roque Sáenz Peña rompió el fraude y abrió la democracia. Durante décadas, las elecciones argentinas fueron un teatro: el gobierno elegía al ganador, la oposición se abstuvo o conspiraba. La Ley Sáenz Peña de 1912 cambió las reglas: voto secreto y obligatorio para todos los varones.",
+      texto: "1912: el voto secreto como regla contra el fraude y el arbitrio. 1912: el voto secreto como regla contra el fraude y el arbitrio. Durante décadas, las elecciones argentinas fueron un teatro: el gobierno elegía al ganador, la oposición se abstuvo o conspiraba. La Ley Sáenz Peña de 1912 cambió las reglas: voto secreto y obligatorio para todos los varones.",
     },
     {
       estacion: 1,
@@ -780,7 +780,7 @@ const LEY_SAENZ_PENA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Yrigoyen y la democracia posible",
-      texto: "Cuatro años después, el pueblo eligió a Yrigoyen presidente. En 1916, Yrigoyen ganó las primeras elecciones presidenciales con voto secreto. Por primera vez en la historia argentina, el pueblo (no el fraude, no el acuerdo de cúpulas) decidió quién gobernaba.",
+      texto: "Cuatro años después, el pueblo eligió a Yrigoyen presidente. En 1916, Yrigoyen ganó las primeras elecciones presidenciales con voto secreto. Por primera vez en la historia argentina, el pueblo (no el fraude, no el acuerdo de cúpulas) decidió quién gobernaba bajo una regla escrita.",
     }
   ],
 };
@@ -1073,12 +1073,12 @@ const RIVADAVIA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El primer presidente unitario",
-      texto: "El primer presidente unitario y la Constitución de 1826 que fracturó el país. 1826: Rivadavia intenta modernizar la República desde Buenos Aires. Bernardino Rivadavia fue el primer presidente de las Provincias Unidas en tiempos de unificación. Su proyecto era ambicioso: constitución central, universidad, teatro, inmigración, reforma eclesiástica.",
+      texto: "Modernizar con instituciones y comercio desde Buenos Aires: el experimento unitario que fracturó el país. 1826: Rivadavia intenta modernizar la República desde Buenos Aires. Bernardino Rivadavia fue el primer presidente de las Provincias Unidas en tiempos de unificación. Su proyecto era ambicioso: constitución central, universidad, teatro, inmigración, reforma eclesiástica, comercio abierto.",
     },
     {
       estacion: 1,
       titulo: "Modernizar o fracturar",
-      texto: "Universidad, teatro, inmigración: un país que aún no existía. Rivadavia fundó la Universidad de Buenos Aires, impulsó el teatro Colón, abrió puertos a la inmigración y enfrentó a la Iglesia por el control de la educación. Para los unitarios, era el futuro.",
+      texto: "Universidad, teatro, inmigración: un país que aún no existía. Rivadavia fundó la Universidad de Buenos Aires, impulsó el teatro Colón, abrió puertos a la inmigración y al comercio, y enfrentó a la Iglesia por el control de la educación. Para los unitarios, era el futuro institucional.",
     },
     {
       estacion: 2,
@@ -1101,7 +1101,7 @@ const RODRIGAZO: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El Rodrigazo",
-      texto: "6 de junio de 1975: el ajuste que aceleró el caos de Isabel. 6 de junio de 1975: Celestino Rodrigo desata la inflación. En junio de 1975, el ministro de Economía Celestino Rodrigo anunció de un día para el otro un aumento masivo de tarifas y precios controlados. La medida se llamó Rodrigazo.",
+      texto: "6 de junio de 1975: ajuste tardío, inflación como impuesto oculto y el caos de Isabel. Junio de 1975: un ajuste tardío tras el desorden fiscal. La inflación cobró como impuesto oculto. En junio de 1975, el ministro de Economía Celestino Rodrigo anunció de un día para el otro un aumento masivo de tarifas y precios controlados. La medida se llamó Rodrigazo.",
     },
     {
       estacion: 1,

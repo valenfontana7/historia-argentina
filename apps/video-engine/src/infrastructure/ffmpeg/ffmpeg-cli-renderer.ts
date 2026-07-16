@@ -76,6 +76,89 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
     }
   }
 
+  async renderSceneClip(
+    scene: ManifestScene,
+    outputUri: string,
+    fps: number,
+    signal?: AbortSignal,
+  ): Promise<void> {
+    const ok = await this.healthcheck();
+    if (!ok) throw new MissingBinaryError(this.ffmpegPath);
+    if (signal?.aborted) throw new Error("render aborted");
+    this.activeSignal = signal;
+    try {
+      const outPath = this.storage.resolvePath(outputUri);
+      await mkdir(path.dirname(outPath), { recursive: true });
+      await this.renderScene(scene, outPath, fps);
+    } finally {
+      this.activeSignal = undefined;
+    }
+  }
+
+  async stitchFromSceneClips(
+    clipUris: string[],
+    manifest: VideoManifest,
+    outputUri: string,
+    signal?: AbortSignal,
+  ): Promise<RenderResult> {
+    const ok = await this.healthcheck();
+    if (!ok) throw new MissingBinaryError(this.ffmpegPath);
+    if (signal?.aborted) throw new Error("render aborted");
+    if (clipUris.length !== manifest.scenes.length) {
+      throw new Error(
+        `Clips (${clipUris.length}) no coinciden con escenas (${manifest.scenes.length})`,
+      );
+    }
+
+    this.activeSignal = signal;
+    try {
+      const outPath = this.storage.resolvePath(outputUri);
+      await mkdir(path.dirname(outPath), { recursive: true });
+      const workDir = path.join(path.dirname(outPath), "ffmpeg-work");
+      await mkdir(workDir, { recursive: true });
+      const fps = manifest.format.fps;
+
+      const sceneClips = clipUris.map((uri) => this.storage.resolvePath(uri));
+      if (manifest.branding) {
+        if (signal?.aborted) throw new Error("render aborted");
+        const brandPath = path.join(workDir, "brand.mp4");
+        await this.renderBranding(manifest, brandPath, fps);
+        sceneClips.push(brandPath);
+      }
+
+      const silentVideo = path.join(workDir, "silent.mp4");
+      await this.concatWithTransitions(
+        sceneClips,
+        manifest.scenes.map((s) => s.transition?.type ?? "fade"),
+        silentVideo,
+        fps,
+      );
+
+      const mixed = path.join(workDir, "mixed.mp4");
+      await this.mixAudio(manifest, silentVideo, mixed, workDir);
+
+      if (manifest.subtitles) {
+        await this.burnSubtitles(manifest.subtitles.uri, mixed, outPath);
+      } else {
+        await this.ff(["-y", "-i", mixed, "-c", "copy", outPath]);
+      }
+
+      if (signal?.aborted) throw new Error("render aborted");
+
+      const durationSec = await probeDuration(this.ffprobePath, outPath);
+      const bytes = (await stat(outPath)).size;
+      return {
+        mp4Uri: `file://${outPath}`,
+        width: W,
+        height: H,
+        durationSec,
+        bytes,
+      };
+    } finally {
+      this.activeSignal = undefined;
+    }
+  }
+
   async render(
     manifest: VideoManifest,
     outputUri: string,
@@ -91,7 +174,6 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
       await mkdir(path.dirname(outPath), { recursive: true });
       const workDir = path.join(path.dirname(outPath), "ffmpeg-work");
       await mkdir(workDir, { recursive: true });
-
       const fps = manifest.format.fps;
       const sceneClips: string[] = [];
 

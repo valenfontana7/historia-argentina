@@ -134,7 +134,7 @@ async function enqueueRemoto(
           (j) =>
             j.status === "queued" ||
             j.status === "running" ||
-            j.status === "awaiting_review",
+            (typeof j.status === "string" && j.status.startsWith("awaiting_")),
         );
         if (typeof activo?.id === "string") jobId = activo.id;
       } catch {

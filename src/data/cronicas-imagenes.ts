@@ -1142,6 +1142,20 @@ export const imagenesCronicas: Record<string, ImagenCronica> = {
     alt: "Emilio Massera en 1975, antes del golpe de Estado",
     tipo: "foto",
   },
+  "velez-retrato": {
+    id: "velez-retrato",
+    url: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Dalmacio_Velez_Sarsfield.jpg",
+    credito: "Wikimedia Commons",
+    alt: "Retrato de Dalmacio Vélez Sarsfield",
+    tipo: "pintura",
+  },
+  "alsogaray-retrato": {
+    id: "alsogaray-retrato",
+    url: "https://upload.wikimedia.org/wikipedia/commons/7/72/%C3%81lvaro_Alsogaray_circa_1955.jpg",
+    credito: "Wikimedia Commons",
+    alt: "Álvaro Alsogaray circa 1955",
+    tipo: "foto",
+  },
 };
 
 export function obtenerImagenCronica(id: string): ImagenCronica | undefined {

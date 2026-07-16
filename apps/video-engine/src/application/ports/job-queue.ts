@@ -1,5 +1,6 @@
 import type {
   CreateJobRequest,
+  JobStatus,
   JobView,
   PipelineStage,
   ProfileOverrides,
@@ -24,9 +25,27 @@ export interface JobQueue {
   hasActiveJob(): Promise<boolean>;
   claimNext(workerId: string): Promise<ClaimedJob | null>;
   markStage(jobId: string, stage: PipelineStage, timingMs?: number): Promise<void>;
-  /** Pausa tras draft: awaiting_review + hasDraft. */
+  /** Pausa humana en un awaiting_* y fija resumePhase. */
+  markAwaiting(
+    jobId: string,
+    status: Extract<
+      JobStatus,
+      | "awaiting_script"
+      | "awaiting_storyboard"
+      | "awaiting_assets"
+      | "awaiting_review"
+      | "awaiting_voice"
+      | "awaiting_preview"
+    >,
+  ): Promise<JobView | null>;
+  /** Reencola con nueva resumePhase tras approve. */
+  approvePhase(
+    jobId: string,
+    nextPhase: Exclude<ResumePhase, "draft">,
+  ): Promise<JobView | null>;
+  /** @deprecated use markAwaiting(awaiting_assets) */
   markAwaitingReview(jobId: string): Promise<JobView | null>;
-  /** Reencola fase render tras aprobación humana. */
+  /** @deprecated use approvePhase('render') */
   approveForRender(jobId: string): Promise<JobView | null>;
   appendEvent(jobId: string, level: string, message: string, data?: unknown): Promise<void>;
   complete(
@@ -45,8 +64,6 @@ export interface JobQueue {
     },
   ): Promise<void>;
   fail(jobId: string, error: string): Promise<void>;
-  /** Marca queued/running/awaiting_review como cancelled. No-op si ya terminó. */
   cancel(jobId: string): Promise<JobView | null>;
-  /** Restaura un JobView desde disco (post-reinicio). Opcional. */
   restore?(view: JobView): Promise<JobView>;
 }

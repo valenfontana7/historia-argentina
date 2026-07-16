@@ -3,8 +3,10 @@ import path from "node:path";
 import {
   JobViewSchema,
   type CreateJobRequest,
+  type JobStatus,
   type JobView,
   type PipelineStage,
+  type ResumePhase,
 } from "@museoargent/video-contracts";
 import type { ClaimedJob, JobQueue } from "../../application/ports/job-queue";
 import type { ObjectStorage } from "../../application/ports/object-storage";
@@ -109,16 +111,38 @@ export class PersistingJobQueue implements JobQueue {
     await this.persist(await this.inner.get(jobId));
   }
 
-  async markAwaitingReview(jobId: string): Promise<JobView | null> {
-    const view = await this.inner.markAwaitingReview(jobId);
+  async markAwaiting(
+    jobId: string,
+    status: Extract<
+      JobStatus,
+      | "awaiting_script"
+      | "awaiting_storyboard"
+      | "awaiting_assets"
+      | "awaiting_review"
+      | "awaiting_voice"
+      | "awaiting_preview"
+    >,
+  ): Promise<JobView | null> {
+    const view = await this.inner.markAwaiting(jobId, status);
     await this.persist(view);
     return view;
   }
 
-  async approveForRender(jobId: string): Promise<JobView | null> {
-    const view = await this.inner.approveForRender(jobId);
+  async approvePhase(
+    jobId: string,
+    nextPhase: Exclude<ResumePhase, "draft">,
+  ): Promise<JobView | null> {
+    const view = await this.inner.approvePhase(jobId, nextPhase);
     await this.persist(view);
     return view;
+  }
+
+  async markAwaitingReview(jobId: string): Promise<JobView | null> {
+    return this.markAwaiting(jobId, "awaiting_assets");
+  }
+
+  async approveForRender(jobId: string): Promise<JobView | null> {
+    return this.approvePhase(jobId, "render");
   }
 
   async appendEvent(
@@ -156,7 +180,12 @@ export class PersistingJobQueue implements JobQueue {
     if (
       view.status !== "queued" &&
       view.status !== "running" &&
-      view.status !== "awaiting_review"
+      view.status !== "awaiting_review" &&
+      view.status !== "awaiting_script" &&
+      view.status !== "awaiting_storyboard" &&
+      view.status !== "awaiting_assets" &&
+      view.status !== "awaiting_voice" &&
+      view.status !== "awaiting_preview"
     ) {
       return view;
     }

@@ -660,6 +660,86 @@ export const narrativaEfemerides: Record<string, NarrativaEfemeride> = {
     hook: "Nació en Salta Martín Miguel de Güemes.",
     giro: "Sin su guerra gaucha, el plan de San Martín hacia los Andes quedaba expuesto.",
   },
+  "1-de-febrero": {
+    hook: "En Cepeda, los federales derribaron el Directorio.",
+    giro: "Sin autoridad central, el Año XX enseñó el precio del vacío institucional.",
+  },
+  "4-de-febrero": {
+    hook: "La Asamblea liberó a los esclavos extranjeros que llegaran al territorio.",
+    giro: "Paso incompleto, pero la revolución empezó a medir la libertad también en cuerpos.",
+  },
+  "5-de-febrero": {
+    hook: "Victoria Ocampo impulsó el Fondo Nacional de las Artes.",
+    giro: "La cultura ganó una institución con reglas, no solo mecenas y censores.",
+  },
+  "6-de-febrero": {
+    hook: "Tras Caseros, Rosas partió al exilio bajo amparo británico.",
+    giro: "Terminó el poder personal: tocaba reinventar el país en Constitución.",
+  },
+  "7-de-febrero": {
+    hook: "Rivadavia asumió la primera presidencia de las Provincias Unidas.",
+    giro: "Universidad y crédito contra caudillos: el experimento unitario duró poco.",
+  },
+  "9-de-febrero": {
+    hook: "En los Corales, las Provincias Unidas golpearon al Imperio del Brasil.",
+    giro: "La guerra cisplatina se pelea también con escuadra: soberanía no es solo tierra.",
+  },
+  "10-de-febrero": {
+    hook: "Se sancionó la Ley Sáenz Peña: voto secreto y obligatorio.",
+    giro: "El fraude patriótico perdió su herramienta; Yrigoyen entraría por esa puerta.",
+  },
+  "11-de-febrero": {
+    hook: "La Asamblea del Año XIII aprobó la marcha que sería Himno.",
+    giro: "La revolución también se cantó: identidad en verso y música.",
+  },
+  "13-de-febrero": {
+    hook: "Belgrano pidió la escarapela celeste y blanca para sus tropas.",
+    giro: "El símbolo nació de una necesidad militar: distinguir amigos de realistas.",
+  },
+  "14-de-febrero": {
+    hook: "San Martín entró triunfal en Santiago tras Chacabuco.",
+    giro: "Chile libre era el peldaño hacia el Perú y el fin del poder español.",
+  },
+  "16-de-febrero": {
+    hook: "En Barranca Yaco asesinaron a Facundo Quiroga.",
+    giro: "La violencia de los caudillos terminó fortaleciendo a Rosas con más poder.",
+  },
+  "17-de-febrero": {
+    hook: "Murió Enrique Finochietto, cirujano e inventor de instrumental.",
+    giro: "El país también acumula capital humano: hospitales y oficio, no solo proclamas.",
+  },
+  "18-de-febrero": {
+    hook: "Nació Dalmacio Vélez Sarsfield, autor del Código Civil.",
+    giro: "Propiedad y contratos tendrían ley común: la República del orden privado.",
+  },
+  "19-de-febrero": {
+    hook: "Yrigoyen volvió de la prisión en Martín García.",
+    giro: "El golpe de 1930 había humillado al voto: empezaba la Década Infame.",
+  },
+  "21-de-febrero": {
+    hook: "Detuvieron a Galtieri en el retorno democrático.",
+    giro: "Malvinas y las juntas ya no se archivarían en silencio.",
+  },
+  "22-de-febrero": {
+    hook: "Quedó asentado el observatorio argentino en las Orcadas del Sur.",
+    giro: "Soberanía antártica con instrumentos y turnos de invierno, no solo banderas.",
+  },
+  "23-de-febrero": {
+    hook: "Se firmó el Tratado del Pilar entre Buenos Aires, Santa Fe y Entre Ríos.",
+    giro: "Otro pacto preexistente: el federalismo intentó nacer de acuerdos escritos.",
+  },
+  "24-de-febrero": {
+    hook: "Perón ganó su primera elección con el 52 % de los votos.",
+    giro: "Nació el peronismo en las urnas: masas, derechos laborales y Estado presente.",
+  },
+  "26-de-febrero": {
+    hook: "Un atentado destruyó la Embajada de Israel en Buenos Aires.",
+    giro: "29 muertos: la democracia abierta aprendió el costo de bajar la guardia.",
+  },
+  "28-de-febrero": {
+    hook: "Tras Cepeda, el vacío de poder del Año XX se consolidó.",
+    giro: "Sin Directorio ni Constitución, el país esperaba reglas — o un nuevo dueño.",
+  },
   "1-de-diciembre": {
     hook: "Lavalle derrocó a Dorrego y abrió la herida más profunda de las guerras civiles.",
     giro: "Doce días después el fusilamiento encendería la venganza federal y el camino de Rosas al poder.",

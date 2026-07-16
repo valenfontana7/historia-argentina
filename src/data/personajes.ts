@@ -330,9 +330,9 @@ export const personajes: Personaje[] = [
     nacimiento: { anio: 1780, lugar: "Buenos Aires" },
     muerte: { anio: 1845, lugar: "Cádiz, España" },
     resumen:
-      "Modernizador obsesivo y primer presidente de las Provincias Unidas. Su proyecto centralista duró un año y medio y encendió décadas de guerra civil.",
+      "Modernizador obsesivo y primer presidente de las Provincias Unidas. Apostó a universidad, inmigración y apertura comercial; su centralismo duró un año y medio y encendió décadas de guerra civil.",
     biografia: [
-      "Creía que la Argentina podía convertirse en una república europea por decreto. Como ministro de Buenos Aires en los años veinte fundó la Universidad, promovió la inmigración, reformó la Iglesia y trajo el crédito británico, incluido el célebre empréstito de la Baring Brothers.",
+      "Creía que la Argentina podía convertirse en una república abierta por decreto. Como ministro de Buenos Aires en los años veinte fundó la Universidad, promovió la inmigración, reformó la Iglesia y atrajo capitales extranjeros —incluido el célebre empréstito de la Baring Brothers—, apostando a comercio e instituciones antes que a caudillos.",
       "En 1826 fue elegido primer presidente de las Provincias Unidas y jugó todo a una carta: una constitución centralista que subordinaba las provincias a Buenos Aires. El interior, encabezado por los caudillos federales, la rechazó en bloque.",
       "Atrapado entre la guerra con Brasil y la rebelión interior, renunció en 1827. Murió en el exilio en Cádiz, pidiendo que ni sus restos volvieran a Buenos Aires. Volvieron, décadas después, al mausoleo de la plaza que hoy lleva el nombre de Miserere.",
     ],
@@ -385,11 +385,11 @@ export const personajes: Personaje[] = [
     nacimiento: { anio: 1793, lugar: "Buenos Aires" },
     muerte: { anio: 1877, lugar: "Southampton, Inglaterra" },
     resumen:
-      "Gobernó Buenos Aires con la suma del poder público durante casi dos décadas. Para unos, tirano sangriento; para otros, defensor de la soberanía. Nadie es neutral.",
+      "Gobernó Buenos Aires con la suma del poder público durante casi dos décadas: orden y soberanía para unos, arbitrio sin Constitución para otros. Nadie es neutral.",
     biografia: [
       "Estanciero, saladerista y jinete legendario, construyó su poder en la campaña bonaerense: conocía a los gauchos, hablaba su idioma y los encuadró en sus milicias. Llegó al gobierno en 1829 como el hombre de orden tras el caos del fusilamiento de Dorrego.",
-      "Desde 1835 gobernó con la suma del poder público y un aparato de propaganda y terror (la Mazorca) que no admitía disidencias: el punzó era obligatorio, los unitarios eran «salvajes» y el exilio o el degüello esperaban a los enemigos. A la vez, enfrentó bloqueos de Francia e Inglaterra, y la resistencia de la Vuelta de Obligado lo convirtió en símbolo de soberanía.",
-      "En 1852 su antiguo aliado Urquiza lo derrotó en Caseros. Se embarcó esa misma noche hacia Inglaterra, donde vivió sus últimos 25 años como chacarero pobre cerca de Southampton. Su figura sigue siendo la grieta original de la historia argentina.",
+      "Desde 1835 gobernó con la suma del poder público y un aparato de propaganda y terror (la Mazorca) que no admitía disidencias: el punzó era obligatorio, los unitarios eran «salvajes» y el exilio o el degüello esperaban a los enemigos. Concentró facultades que ninguna Constitución dividía. A la vez, enfrentó bloqueos de Francia e Inglaterra, y la resistencia de la Vuelta de Obligado lo convirtió en símbolo de soberanía.",
+      "En 1852 su antiguo aliado Urquiza lo derrotó en Caseros. Se embarcó esa misma noche hacia Inglaterra, donde vivió sus últimos 25 años como chacarero pobre cerca de Southampton. Su figura sigue siendo la grieta original de la historia argentina: el país que eligió después fue el de la Constitución, no el de un solo dueño del poder.",
     ],
     hitos: [
       { anio: 1793, texto: "Nace en Buenos Aires en una familia de estancieros." },
@@ -474,11 +474,11 @@ export const personajes: Personaje[] = [
     nacimiento: { anio: 1810, lugar: "San Miguel de Tucumán" },
     muerte: { anio: 1884, lugar: "Neuilly-sur-Seine, Francia" },
     resumen:
-      "Escribió las Bases sobre las que se redactó la Constitución de 1853. Pensó el país desde el exilio y murió en el exilio, peleado con casi todos.",
+      "Escribió las Bases que moldearon la Constitución de 1853: un programa de libertades económicas, inmigración y límites al poder. Pensó el país desde el exilio y murió en el exilio, peleado con casi todos.",
     biografia: [
       "Nació en 1810, el mismo año que la patria, y pasó fuera de ella la mayor parte de su vida. Desde el exilio chileno, cuando cayó Rosas, escribió en semanas las «Bases y puntos de partida para la organización política de la República Argentina», el texto que moldeó la Constitución de 1853.",
-      "Su fórmula («gobernar es poblar») resumía un programa: inmigración europea, ferrocarriles, libertades económicas y un ejecutivo fuerte pero constitucional. Fue diplomático de la Confederación de Urquiza en Europa y enemigo intelectual de Mitre y Sarmiento, contra quienes libró polémicas feroces.",
-      "Su condena de la Guerra del Paraguay lo volvió un apestado para la élite porteña, que lo trató de traidor. Murió cerca de París en 1884. La Constitución que inspiró, con reformas, sigue vigente.",
+      "Su fórmula («gobernar es poblar») resumía un programa liberal: atraer capital y gente, garantizar propiedad y contratos, abrir el comercio y sostener un ejecutivo fuerte pero constitucional. Fue diplomático de la Confederación de Urquiza en Europa y enemigo intelectual de Mitre y Sarmiento, contra quienes libró polémicas feroces.",
+      "Su condena de la Guerra del Paraguay lo volvió un apestado para la élite porteña, que lo trató de traidor. Murió cerca de París en 1884. La Constitución que inspiró, con reformas, sigue vigente: el país que soñó era uno de reglas, no de arbitrio.",
     ],
     hitos: [
       { anio: 1810, texto: "Nace en Tucumán, hijo de un comerciante vasco." },
@@ -625,11 +625,11 @@ export const personajes: Personaje[] = [
     nacimiento: { anio: 1895, lugar: "Lobos, Buenos Aires" },
     muerte: { anio: 1974, lugar: "Olivos, Buenos Aires" },
     resumen:
-      "Tres veces presidente y fundador del movimiento político más duradero de la Argentina. Desde 1945, toda la política argentina se define a favor o en contra de él.",
+      "Tres veces presidente y fundador del movimiento político más duradero de la Argentina. Amplió derechos laborales e industrializó; también expandió un Estado que la economía argentina nunca dejó de pelear.",
     biografia: [
       "Coronel del ejército, entendió antes que nadie que la Argentina industrial de los años cuarenta había creado un actor nuevo: los trabajadores urbanos. Desde la Secretaría de Trabajo construyó con ellos una alianza que cambió el país para siempre.",
-      "Encarcelado por sus pares, fue liberado por la movilización obrera del 17 de octubre de 1945, la fecha fundacional del peronismo. Como presidente amplió derechos laborales, impulsó la industrialización y, junto a Evita, consagró el voto femenino. Su gobierno fue también acusado de autoritarismo con la prensa y la oposición.",
-      "Derrocado y proscripto en 1955, gobernó el imaginario argentino durante 18 años de exilio. Volvió en 1973, fue elegido presidente por tercera vez con el 62 % de los votos y murió en el cargo un año después, dejando un país que todavía discute su herencia.",
+      "Encarcelado por sus pares, fue liberado por la movilización obrera del 17 de octubre de 1945, la fecha fundacional del peronismo. Como presidente amplió derechos laborales, impulsó la industrialización y, junto a Evita, consagró el voto femenino. Su gobierno fue también acusado de autoritarismo con la prensa y la oposición, y de hipertrofiar el Estado como herramienta permanente de poder.",
+      "Derrocado y proscripto en 1955, gobernó el imaginario argentino durante 18 años de exilio. Volvió en 1973, fue elegido presidente por tercera vez con el 62 % de los votos y murió en el cargo un año después, dejando un país que todavía discute su herencia: inclusión social versus costo fiscal e inflación.",
     ],
     hitos: [
       { anio: 1895, texto: "Nace en Lobos, provincia de Buenos Aires." },
@@ -718,6 +718,103 @@ export const personajes: Personaje[] = [
       linea: "El Juicio a las Juntas condena a los excomandantes de la dictadura, un hito mundial de derechos humanos.",
       cita: "Con la democracia se come, se cura y se educa.",
       contextoCita: "10 de diciembre de 1983",
+    },
+  },
+  {
+    slug: "dalmacio-velez-sarsfield",
+    nombre: "Dalmacio Vélez Sarsfield",
+    titulo: "El autor del Código Civil",
+    rol: "Jurista y legislador",
+    epoca: "organizacion",
+    nacimiento: { anio: 1800, lugar: "Amboy, Córdoba" },
+    muerte: { anio: 1875, lugar: "Buenos Aires" },
+    resumen:
+      "Redactó el Código Civil argentino: la ley común de la propiedad, los contratos y la familia que ordenó la vida privada de la República liberal.",
+    biografia: [
+      "Cordobés formado en derecho canónico y civil, transitó la política de la organización nacional como legislador y ministro. Su obra no fue un discurso: fue un código. Bajo la presidencia de Sarmiento presentó el proyecto que el Congreso sancionó en 1869 y que entró en vigor el 1 de enero de 1871.",
+      "El Código Civil puso en reglas lo que la Constitución había prometido en abstracción: propiedad segura, contratos exigibles, herencia y familia bajo un mismo derecho para todo el país. Fue la infraestructura jurídica del comercio y de la vida cotidiana durante más de un siglo.",
+      "También intervino en el Código de Comercio y en debates constitucionales. Murió en 1875, con la satisfacción de haber dejado al país un orden privado más estable que muchos gobiernos públicos.",
+    ],
+    hitos: [
+      { anio: 1800, texto: "Nace en Amboy, Córdoba." },
+      { anio: 1823, texto: "Se doctora en derecho; inicia una carrera de jurisconsulto y político." },
+      { anio: 1869, texto: "El Congreso sanciona su Código Civil." },
+      { anio: 1871, texto: "El Código entra en vigor: una ley común para la vida privada argentina." },
+      { anio: 1875, texto: "Muere en Buenos Aires a los 74 años." },
+    ],
+    aliados: ["domingo-faustino-sarmiento", "juan-bautista-alberdi", "bartolome-mitre"],
+    enemigos: [],
+    momento: {
+      anio: 1871,
+      linea: "Entra en vigor el Código Civil: propiedad, contratos y familia bajo una ley común.",
+    },
+  },
+  {
+    slug: "roque-saenz-pena",
+    nombre: "Roque Sáenz Peña",
+    titulo: "El presidente del voto secreto",
+    rol: "Abogado y presidente",
+    epoca: "moderna",
+    nacimiento: { anio: 1851, lugar: "Buenos Aires" },
+    muerte: { anio: 1914, lugar: "Buenos Aires" },
+    resumen:
+      "Impulsó la Ley Sáenz Peña de 1912: voto universal masculino, secreto y obligatorio. Apostó a que la República se legitimara en las urnas, no en el fraude.",
+    biografia: [
+      "Hijo de un presidente y abogado de formación, combatió en la Guerra del Pacífico del lado peruano y recorrió la diplomacia antes de llegar a la Casa Rosada. En 1910 asumió la presidencia con un mandato claro: terminar con el régimen del voto cantado y el fraude patriótico.",
+      "La ley 8871 de 1912 —voto secreto, obligatorio y universal para varones— no fue un detalle técnico: fue el umbral de la democracia de masas. Abrió el camino al triunfo de Yrigoyen en 1916 y obligó a la oligarquía a competir en serio.",
+      "Enfermo y desgastado, murió en 1914 sin ver el primer gobierno radical. Su legado no es un partido: es la regla de que el poder se dispute en secreto, entre ciudadanos, y no a voz alta ante el patrón de estancia.",
+    ],
+    hitos: [
+      { anio: 1851, texto: "Nace en Buenos Aires, hijo del presidente Luis Sáenz Peña." },
+      { anio: 1879, texto: "Participa en la Guerra del Pacífico; queda prisionero en Chile." },
+      { anio: 1910, texto: "Asume la presidencia de la Nación." },
+      { anio: 1912, texto: "Se sanciona la Ley Sáenz Peña: voto secreto y obligatorio." },
+      { anio: 1914, texto: "Muere en el cargo, en Buenos Aires." },
+    ],
+    aliados: ["hipolito-yrigoyen"],
+    enemigos: [],
+    frase: {
+      texto: "Que la Nación vote.",
+      contexto: "Espíritu de la reforma electoral que lleva su nombre.",
+    },
+    momento: {
+      anio: 1912,
+      linea: "Se sanciona la Ley Sáenz Peña: el voto deja de cantarse ante el patrón.",
+    },
+  },
+  {
+    slug: "alvaro-alsogaray",
+    nombre: "Álvaro Alsogaray",
+    titulo: "El liberal del siglo XX",
+    rol: "Militar, economista y político",
+    epoca: "contemporanea",
+    nacimiento: { anio: 1913, lugar: "Esperanza, Santa Fe" },
+    muerte: { anio: 2005, lugar: "Buenos Aires" },
+    resumen:
+      "Ministro de Economía y fundador de la UCeDé. Durante décadas predicó estabilidad monetaria, apertura y límites al Estado en un país que prefería el atajo estatista.",
+    biografia: [
+      "Ingeniero militar convertido en político, ocupó el Ministerio de Economía bajo Frondizi y Guido. Su frase («hay que pasar el invierno») condensó una cura amarga: ajustar cuentas públicas y precios relativos antes de prometer milagros.",
+      "Fundó la Unión del Centro Democrático y llevó al Congreso, entre 1983 y 1999, una voz minoritaria pero insistente: inflación como impuesto oculto, privatizaciones con reglas, y desconfianza frente al populismo fiscal. Fue el liberalismo económico argentino hecho partido, sin romanticismo.",
+      "Murió en 2005. Sus ideas —estabilidad, competencia, propiedad— volvieron una y otra vez al debate público cada vez que el país chocaba contra la misma pared monetaria.",
+    ],
+    hitos: [
+      { anio: 1913, texto: "Nace en Esperanza, Santa Fe." },
+      { anio: 1959, texto: "Asume como ministro de Economía de Arturo Frondizi." },
+      { anio: 1982, texto: "Fundación de la Unión del Centro Democrático (UCeDé)." },
+      { anio: 1983, texto: "Entra al Congreso con la democracia recuperada." },
+      { anio: 2005, texto: "Muere en Buenos Aires a los 91 años." },
+    ],
+    aliados: ["juan-bautista-alberdi"],
+    enemigos: [],
+    frase: {
+      texto: "Hay que pasar el invierno.",
+      contexto: "Frase asociada a su gestión económica: el ajuste antes de la recuperación.",
+    },
+    momento: {
+      anio: 1959,
+      linea: "Asume Economía bajo Frondizi y encarna el programa liberal de estabilización.",
+      cita: "Hay que pasar el invierno.",
+      contextoCita: "Consigna asociada a su gestión",
     },
   },
 ];

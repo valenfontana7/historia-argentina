@@ -432,6 +432,130 @@ export const recorridos: Recorrido[] = [
       },
     ],
   },
+  {
+    slug: "republica-liberal",
+    titulo: "La República de las reglas",
+    subtitulo:
+      "De las Bases al siglo XXI: Constitución, propiedad, voto secreto y el costo de gobernar sin límites.",
+    duracion: "45 minutos",
+    pasos: [
+      {
+        tipo: "persona",
+        slug: "juan-bautista-alberdi",
+        puente: "El pensador que escribió el país antes de que existiera.",
+      },
+      {
+        tipo: "cronica",
+        slug: "alberdi",
+        puente: "Las Bases: Estado limitado, comercio e inmigración.",
+      },
+      {
+        tipo: "cronica",
+        slug: "la-constitucion-de-1853",
+        puente: "De la pluma a la ley: reglas contra el arbitrio.",
+      },
+      {
+        tipo: "persona",
+        slug: "dalmacio-velez-sarsfield",
+        puente: "El jurista que bajó la Constitución a la vida privada.",
+      },
+      {
+        tipo: "cronica",
+        slug: "codigo-civil",
+        puente: "Propiedad y contratos bajo una ley común para todo el país.",
+      },
+      {
+        tipo: "cronica",
+        slug: "ley-de-residencia",
+        puente: "Orden e inmigración: el costo de la policía del Estado.",
+      },
+      {
+        tipo: "persona",
+        slug: "roque-saenz-pena",
+        puente: "El umbral electoral: que la Nación vote en secreto.",
+      },
+      {
+        tipo: "cronica",
+        slug: "ley-saenz-pena",
+        puente: "1912: el fraude patriótico pierde su herramienta.",
+      },
+      {
+        tipo: "cronica",
+        slug: "frondizi",
+        puente: "Desarrollismo y apertura: el país que quiso capitales.",
+      },
+      {
+        tipo: "persona",
+        slug: "alvaro-alsogaray",
+        puente: "El liberalismo económico del siglo XX, sin romanticismo.",
+      },
+      {
+        tipo: "cronica",
+        slug: "alsogaray",
+        puente: "Pasar el invierno: estabilizar antes de prometer milagros.",
+      },
+      {
+        tipo: "cronica",
+        slug: "illia",
+        puente: "Honestidad republicana ante el poder y los contratos.",
+      },
+      {
+        tipo: "cronica",
+        slug: "rodrigazo",
+        puente: "Ajuste tardío: la inflación cobra lo que el fisco postergó.",
+      },
+      {
+        tipo: "cronica",
+        slug: "plan-austral",
+        puente: "El ancla heterodoxa de Alfonsín antes del colapso.",
+      },
+      {
+        tipo: "cronica",
+        slug: "hiperinflacion",
+        puente: "Cuando la moneda deja de ser regla, se rompe el contrato social.",
+      },
+      {
+        tipo: "cronica",
+        slug: "menem",
+        puente: "Privatizaciones y convertibilidad: dos reformas, un mismo puente.",
+      },
+      {
+        tipo: "cronica",
+        slug: "privatizaciones",
+        puente: "Estado productor → propiedad privada con reglas — y costos.",
+      },
+      {
+        tipo: "cronica",
+        slug: "la-convertibilidad",
+        puente: "Estabilidad a cualquier precio — y el precio del default.",
+      },
+      {
+        tipo: "cronica",
+        slug: "crisis-del-tequila",
+        puente: "1995: la primera gran prueba de estrés del 1 a 1.",
+      },
+      {
+        tipo: "cronica",
+        slug: "el-2001",
+        puente: "El corralito: cuando el ahorro deja de ser propiedad exigible.",
+      },
+      {
+        tipo: "cronica",
+        slug: "el-default",
+        puente: "Cesación de pagos: el costo del colapso, sin romanticizar.",
+      },
+      {
+        tipo: "cronica",
+        slug: "milei",
+        puente: "2023: la apuesta libertaria condensó un siglo de debate.",
+      },
+      {
+        tipo: "periodo",
+        slug: "organizacion",
+        puente: "El arco empieza en la Organización Nacional: volvé al mapa de época.",
+      },
+    ],
+  },
 ];
 
 export function obtenerRecorrido(slug: string): Recorrido | undefined {

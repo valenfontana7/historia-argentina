@@ -14,6 +14,7 @@ export const PIPELINE_STAGE_ORDER: PipelineStage[] = [
   "assets",
   "review",
   "voice",
+  "preview",
   "subtitles",
   "music",
   "compose",

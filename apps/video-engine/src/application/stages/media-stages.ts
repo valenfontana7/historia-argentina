@@ -37,19 +37,25 @@ export class VoiceGenerator {
     private readonly storage: ObjectStorage,
   ) {}
 
+  async generateOne(
+    jobId: string,
+    scene: StoryboardDocument["scenes"][number],
+  ): Promise<VoiceTrack> {
+    const key = `jobs/${jobId}/voice/scene-${scene.scene}.mp3`;
+    return this.voice.synthesize({
+      text: scene.narration,
+      outputUri: key,
+      scene: scene.scene,
+    });
+  }
+
   async generate(
     jobId: string,
     storyboard: StoryboardDocument,
   ): Promise<VoiceTrack[]> {
     const tracks: VoiceTrack[] = [];
     for (const scene of storyboard.scenes) {
-      const key = `jobs/${jobId}/voice/scene-${scene.scene}.mp3`;
-      const track = await this.voice.synthesize({
-        text: scene.narration,
-        outputUri: key,
-        scene: scene.scene,
-      });
-      tracks.push(track);
+      tracks.push(await this.generateOne(jobId, scene));
     }
     return tracks;
   }

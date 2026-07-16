@@ -17,7 +17,7 @@ import {
 import { VideoGenerateLoading } from "./VideoGenerateLoading";
 import { VideoPreviewPane } from "./VideoPreviewPane";
 import { VideoJobHistory } from "./VideoJobHistory";
-import { ReelDraftReview } from "./ReelDraftReview";
+import { ReelCopilotWizard } from "./ReelCopilotWizard";
 
 type Props = {
   cronicas: CronicaOption[];
@@ -51,7 +51,7 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
         (j) =>
           j.status === "queued" ||
           j.status === "running" ||
-          j.status === "awaiting_review",
+          j.status.startsWith("awaiting_"),
       ),
   );
   const [previewHighlight, setPreviewHighlight] = useState(false);
@@ -60,6 +60,7 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
   const progressRef = useRef<HTMLDivElement>(null);
   const previewMobileRef = useRef<HTMLDivElement>(null);
   const previewDesktopRef = useRef<HTMLDivElement>(null);
+  const wizardRef = useRef<HTMLDivElement>(null);
   const prevStatus = useRef<string | undefined>(undefined);
 
   function scrollToPreview() {
@@ -72,9 +73,13 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  function scrollToWizard() {
+    wizardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   const activo =
     selected?.status === "queued" || selected?.status === "running";
-  const enRevision = selected?.status === "awaiting_review";
+  const enRevision = Boolean(selected?.status.startsWith("awaiting_"));
   const ocupado = iniciando || esperandoJob || activo;
 
   const refreshList = useCallback(async () => {
@@ -164,8 +169,8 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
       ...prev.filter((j) => j.id !== normalizado.id),
     ]);
     setMensaje(
-      normalizado.status === "awaiting_review"
-        ? `Borrador listo para revisar (${normalizado.id}).`
+      normalizado.status.startsWith("awaiting_")
+        ? `Listo para revisión (${normalizado.status}): ${normalizado.id}`
         : `Job ${normalizado.id} en cola.`,
     );
     setVideoError(null);
@@ -265,7 +270,7 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
               (j) =>
                 j.status === "queued" ||
                 j.status === "running" ||
-                j.status === "awaiting_review",
+                j.status.startsWith("awaiting_"),
             ) ?? null;
         }
         if (activo) {
@@ -383,8 +388,10 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
   const stickyDownloadUrl =
     playable && selected ? reelMediaUrl(selected.id, true) : null;
 
-  const generateBlock = (
-    <section className="rounded-sm border border-linea bg-fondo-2 p-5">
+  const cronicaTitulo = tituloDeSlug(cronicas, slug);
+
+  const generateInner = (
+    <>
       <h2 className="titulo-display text-xl font-semibold">Generar</h2>
       <p className="mt-2 text-sm text-tinta-suave">
         Reel vertical 1080×1920. Generá el borrador, revisá texto e imágenes, y
@@ -444,32 +451,61 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
           cancelando={cancelando}
         />
       </div>
-    </section>
+    </>
   );
 
   return (
     <div className="pb-36 lg:pb-0">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)] lg:items-start">
         <div className="space-y-6">
-          {generateBlock}
+          {enRevision ? (
+            <details className="rounded-sm border border-linea bg-fondo-2">
+              <summary className="cursor-pointer list-none px-5 py-4 text-sm font-semibold text-tinta marker:content-none [&::-webkit-details-marker]:hidden">
+                <span className="flex min-h-11 items-center justify-between gap-3">
+                  <span>
+                    Opciones de generación
+                    {cronicaTitulo ? (
+                      <span className="mt-0.5 block text-xs font-normal text-tinta-tenue">
+                        {cronicaTitulo}
+                      </span>
+                    ) : null}
+                  </span>
+                  <span className="shrink-0 text-xs font-normal text-tinta-tenue">
+                    Mostrar
+                  </span>
+                </span>
+              </summary>
+              <div className="border-t border-linea p-5">{generateInner}</div>
+            </details>
+          ) : (
+            <section className="rounded-sm border border-linea bg-fondo-2 p-5">
+              {generateInner}
+            </section>
+          )}
 
           {enRevision && selected && (
-            <ReelDraftReview
-              job={selected}
-              onJobUpdate={(updated) => {
-                setSelected(updated);
-                setSelectedId(updated.id);
-                setJobs((prev) => [
-                  updated,
-                  ...prev.filter((j) => j.id !== updated.id),
-                ]);
-                setMensaje("Borrador aprobado; renderizando…");
-                setError(null);
-              }}
-              onError={(message) => {
-                if (message) setError(message);
-              }}
-            />
+            <div ref={wizardRef} className="scroll-mt-20">
+              <ReelCopilotWizard
+                job={selected}
+                onJobUpdate={(updated) => {
+                  setSelected(updated);
+                  setSelectedId(updated.id);
+                  setJobs((prev) => [
+                    updated,
+                    ...prev.filter((j) => j.id !== updated.id),
+                  ]);
+                  setMensaje(
+                    updated.status === "queued" || updated.status === "running"
+                      ? "Aprobado; continuando pipeline…"
+                      : `Siguiente paso: ${updated.status}`,
+                  );
+                  setError(null);
+                }}
+                onError={(message) => {
+                  if (message) setError(message);
+                }}
+              />
+            </div>
           )}
 
           <div ref={previewMobileRef} className="scroll-mt-20 lg:hidden">
@@ -520,7 +556,7 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
         style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
       >
         <div className="flex flex-col gap-2">
-          {stickyDownloadUrl && !ocupado && (
+          {stickyDownloadUrl && !ocupado && !enRevision && (
             <a
               href={stickyDownloadUrl}
               className="flex min-h-11 w-full items-center justify-center rounded-full border border-linea px-5 text-sm font-semibold text-tinta-suave"
@@ -528,18 +564,28 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
               Descargar MP4
             </a>
           )}
-          <button
-            type="button"
-            onClick={() => void generar()}
-            disabled={ctaDisabled}
-            className="flex min-h-12 w-full items-center justify-center rounded-full border border-oro/50 bg-oro/15 px-5 text-sm font-semibold text-oro-claro disabled:opacity-50"
-          >
-            {ocupado
-              ? ctaLabel
-              : stickyDownloadUrl
-                ? "Generar otro reel"
-                : ctaLabel}
-          </button>
+          {enRevision ? (
+            <button
+              type="button"
+              onClick={scrollToWizard}
+              className="flex min-h-12 w-full items-center justify-center rounded-full border border-oro/50 bg-oro/15 px-5 text-sm font-semibold text-oro-claro"
+            >
+              Ir al paso de revisión
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => void generar()}
+              disabled={ctaDisabled}
+              className="flex min-h-12 w-full items-center justify-center rounded-full border border-oro/50 bg-oro/15 px-5 text-sm font-semibold text-oro-claro disabled:opacity-50"
+            >
+              {ocupado
+                ? ctaLabel
+                : stickyDownloadUrl
+                  ? "Generar otro reel"
+                  : ctaLabel}
+            </button>
+          )}
         </div>
       </div>
     </div>

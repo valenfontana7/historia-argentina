@@ -14,27 +14,35 @@ export class FakeLlmProvider implements LlmProvider {
   readonly name = "fake";
   readonly model = "fake-v1";
 
+  /** Último user prompt (tests de inyección de memoria). */
+  lastUserPrompt = "";
+
   async completeStructured<T>(input: {
     system: string;
     user: string;
     schema: z.ZodType<T>;
     schemaName: string;
   }): Promise<T> {
+    this.lastUserPrompt = input.user;
+
     if (input.schemaName === "ScriptDocument") {
       const exhibition = extractExhibition(input.user);
       const beats = exhibition.chronology.slice(0, 4);
+      const hintSuffix = input.user.includes("CURATOR_HINT:")
+        ? " (hint)"
+        : "";
       const scenes = [
         {
           scene: 1,
           durationSec: 6,
           narration: `${exhibition.title}: ${
             beats[0]?.detail ?? exhibition.summary.slice(0, 100)
-          }`,
+          }${hintSuffix}`,
         },
         ...beats.slice(0, 3).map((b, i) => ({
           scene: i + 2,
           durationSec: 6,
-          narration: b.detail ?? b.label,
+          narration: `${b.detail ?? b.label}${hintSuffix}`,
         })),
         {
           scene: Math.min(6, beats.length + 2),
@@ -49,7 +57,6 @@ export class FakeLlmProvider implements LlmProvider {
           narration: "Seguí explorando en MuseoArgent.",
         },
       ];
-      // Normalize scene numbers 1..n
       const doc: ScriptDocument = {
         musicCategoryHint: "epica",
         scenes: scenes.slice(0, 6).map((s, i) => ({
@@ -62,8 +69,31 @@ export class FakeLlmProvider implements LlmProvider {
     }
 
     if (input.schemaName === "StoryboardDocument") {
+      if (input.user.includes("TASK: Rewrite ONLY")) {
+        const sceneRaw = extractLabeledJson(input.user, "SCENE_JSON");
+        const scene = sceneRaw
+          ? (JSON.parse(sceneRaw) as StoryboardDocument["scenes"][number])
+          : null;
+        if (!scene) throw new Error("FakeLlm: SCENE_JSON missing");
+        const hintNote = input.user.includes("CURATOR_HINT:")
+          ? " [regen]"
+          : " [regen]";
+        const doc: StoryboardDocument = {
+          musicCategoryHint: "epica",
+          scenes: [
+            {
+              ...scene,
+              narration: `${scene.narration}${hintNote}`.slice(0, 220),
+              shotType: scene.shotType === "retrato" ? "plano-general" : "retrato",
+            },
+          ],
+        };
+        return StoryboardDocumentSchema.parse(doc) as T;
+      }
+
+      const scriptRaw = extractLabeledJson(input.user, "SCRIPT_JSON");
       const script = ScriptDocumentSchema.parse(
-        JSON.parse(extractJsonBlock(input.user) ?? "{}"),
+        JSON.parse(scriptRaw ?? "{}"),
       );
       const motions = [
         "kenBurns",
@@ -80,7 +110,13 @@ export class FakeLlmProvider implements LlmProvider {
           durationSec: s.durationSec,
           narration: s.narration,
           shotType:
-            i === 1 ? "mapa" : i === 2 ? "retrato" : i === 3 ? "documento" : "plano-general",
+            i === 1
+              ? "mapa"
+              : i === 2
+                ? "retrato"
+                : i === 3
+                  ? "documento"
+                  : "plano-general",
           assetHint: {
             preferredTypes:
               i === 1
@@ -111,9 +147,27 @@ export class FakeLlmProvider implements LlmProvider {
   }
 }
 
+function extractLabeledJson(user: string, label: string): string | null {
+  const marker = `${label}:`;
+  const idx = user.indexOf(marker);
+  if (idx < 0) return null;
+  const start = user.indexOf("{", idx + marker.length);
+  if (start < 0) return null;
+  let depth = 0;
+  for (let i = start; i < user.length; i++) {
+    const ch = user[i];
+    if (ch === "{") depth += 1;
+    else if (ch === "}") {
+      depth -= 1;
+      if (depth === 0) return user.slice(start, i + 1);
+    }
+  }
+  return null;
+}
+
 function extractExhibition(user: string): Exhibition {
-  const match = user.match(/EXHIBITION_JSON:\s*(\{[\s\S]*\})\s*$/);
-  if (!match) {
+  const raw = extractLabeledJson(user, "EXHIBITION_JSON");
+  if (!raw) {
     return {
       id: "unknown",
       slug: "unknown",
@@ -129,10 +183,5 @@ function extractExhibition(user: string): Exhibition {
       source: { type: "manual", externalId: "unknown" },
     };
   }
-  return JSON.parse(match[1]) as Exhibition;
-}
-
-function extractJsonBlock(user: string): string | null {
-  const match = user.match(/SCRIPT_JSON:\s*(\{[\s\S]*\})\s*$/);
-  return match?.[1] ?? null;
+  return JSON.parse(raw) as Exhibition;
 }

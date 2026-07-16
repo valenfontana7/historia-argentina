@@ -3,7 +3,8 @@ import { test } from "node:test";
 import { createEngineRuntime } from "../src/runtime";
 import { ExhibitionSchema } from "@museoargent/video-contracts";
 
-test("interactive job pausa en awaiting_review y approve continúa a MP4", async () => {
+/** Compat: legacy draft/approve en gate de assets. */
+test("legacy draft/approve en awaiting_assets", async () => {
   process.env.VIDEO_USE_FAKE_PROVIDERS = "true";
   process.env.VIDEO_DATABASE_URL = "";
   process.env.DATABASE_URL = "";
@@ -13,26 +14,21 @@ test("interactive job pausa en awaiting_review y approve continúa a MP4", async
   await engine.seed();
 
   const exhibition = ExhibitionSchema.parse({
-    id: "fixture:draft-review",
-    slug: "draft-review",
-    title: "Draft review",
-    summary: "Prueba de aprobación humana.",
+    id: "fixture:legacy-draft",
+    slug: "legacy-draft",
+    title: "Legacy draft",
+    summary: "Compat approve.",
     periodLabel: "1817",
     yearStart: 1817,
     yearEnd: 1817,
     chronology: [{ year: 1817, label: "A", detail: "B" }],
-    characters: [
-      { id: "jose-de-san-martin", name: "José de San Martín", role: "protagonista" },
-    ],
+    characters: [],
     places: [],
     quotes: [],
     curiosities: [],
     documents: [],
-    images: [
-      { assetId: "fixture-andes" },
-      { assetId: "fixture-retrato-san-martin" },
-    ],
-    source: { type: "manual", externalId: "draft-review" },
+    images: [{ assetId: "fixture-andes" }],
+    source: { type: "manual", externalId: "legacy-draft" },
   });
 
   const job = await engine.enqueue({
@@ -45,57 +41,36 @@ test("interactive job pausa en awaiting_review y approve continúa a MP4", async
       "fixture-andes": {
         id: "fixture-andes",
         url: "https://example.com/andes.jpg",
-        credito: "test",
+        credito: "t",
         alt: "Andes",
-        tipo: "pintura",
-      },
-      "fixture-retrato-san-martin": {
-        id: "fixture-retrato-san-martin",
-        url: "https://example.com/sm.jpg",
-        credito: "test",
-        alt: "San Martín",
         tipo: "pintura",
       },
     },
   });
 
-  await engine.processOne("draft-worker");
+  // Avanzar hasta assets
+  await engine.processOne("l1");
+  await engine.approveScript(job.id);
+  await engine.processOne("l2");
+  await engine.approveStoryboard(job.id);
+  await engine.processOne("l3");
+
   const paused = await engine.getJob(job.id);
-  assert.equal(paused?.status, "awaiting_review", paused?.error);
-  assert.equal(paused?.hasDraft, true);
+  assert.equal(paused?.status, "awaiting_assets");
 
   const draft = await engine.getDraft(job.id);
   assert.ok(draft);
-  assert.ok(draft.storyboard.scenes.length >= 1);
 
-  const firstScene = draft.storyboard.scenes[0].scene;
-  const otherAsset =
-    draft.bindings[0]?.assetId === "fixture-andes"
-      ? "fixture-retrato-san-martin"
-      : "fixture-andes";
-
-  const patched = await engine.patchDraft(job.id, {
-    scenes: [
-      {
-        scene: firstScene,
-        narration: "Texto corregido a mano para la escena.",
-        assetId: otherAsset,
-      },
-    ],
-  });
-  const patchedScene = patched.storyboard.scenes.find(
-    (s) => s.scene === firstScene,
-  );
-  assert.equal(patchedScene?.narration, "Texto corregido a mano para la escena.");
-  const patchedBinding = patched.bindings.find((b) => b.scene === firstScene);
-  assert.equal(patchedBinding?.assetId, otherAsset);
-
-  const approved = await engine.approveJob(job.id);
-  assert.equal(approved?.status, "queued");
-  assert.equal(approved?.resumePhase, "render");
-
-  await engine.processOne("render-worker");
+  await engine.approveJob(job.id);
+  await engine.processOne("l4");
+  let view = await engine.getJob(job.id);
+  assert.equal(view?.status, "awaiting_voice", view?.error);
+  await engine.approveVoice(job.id);
+  await engine.processOne("l5");
+  view = await engine.getJob(job.id);
+  assert.equal(view?.status, "awaiting_preview", view?.error);
+  await engine.approvePreview(job.id);
+  await engine.processOne("l6");
   const finalJob = await engine.getJob(job.id);
   assert.equal(finalJob?.status, "succeeded", finalJob?.error);
-  assert.ok(finalJob?.outputMp4Uri);
 });

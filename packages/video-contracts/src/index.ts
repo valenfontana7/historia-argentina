@@ -6,3 +6,4 @@ export * from "./media";
 export * from "./manifest";
 export * from "./asset";
 export * from "./job";
+export * from "./editorial-memory";

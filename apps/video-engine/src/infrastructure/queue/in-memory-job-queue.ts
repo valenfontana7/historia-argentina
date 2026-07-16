@@ -1,9 +1,13 @@
-import type {
-  CreateJobRequest,
-  JobMetrics,
-  JobView,
-  PipelineStage,
-  ResumePhase,
+import {
+  isAwaitingStatus,
+  isBusyStatus,
+  normalizeResumePhase,
+  type CreateJobRequest,
+  type JobMetrics,
+  type JobStatus,
+  type JobView,
+  type PipelineStage,
+  type ResumePhase,
 } from "@museoargent/video-contracts";
 import type { ClaimedJob, JobQueue } from "../../application/ports/job-queue";
 
@@ -58,19 +62,10 @@ function toView(job: InternalJob): JobView {
     updatedAt: job.updatedAt,
     hasDraft: job.hasDraft,
     interactive: job.interactive,
-    resumePhase: job.resumePhase,
+    resumePhase: normalizeResumePhase(job.resumePhase),
   };
 }
 
-function isBusyStatus(status: JobView["status"]): boolean {
-  return (
-    status === "queued" ||
-    status === "running" ||
-    status === "awaiting_review"
-  );
-}
-
-/** Cola en memoria para CI y desarrollo sin Postgres. */
 export class InMemoryJobQueue implements JobQueue {
   private readonly jobs = new Map<string, InternalJob>();
   private seq = 0;
@@ -111,7 +106,7 @@ export class InMemoryJobQueue implements JobQueue {
       pipelineVersion: request.pipelineVersion,
       profileOverrides: request.profileOverrides,
       interactive,
-      resumePhase: "draft",
+      resumePhase: "script",
       hasDraft: false,
       stageTimingsMs: {},
       createdAt: now,
@@ -152,7 +147,10 @@ export class InMemoryJobQueue implements JobQueue {
         job.status = "running";
         job.updatedAt = new Date().toISOString();
         job.lockedAt = job.updatedAt;
-        return { ...job };
+        return {
+          ...job,
+          resumePhase: normalizeResumePhase(job.resumePhase),
+        };
       }
     }
     return null;
@@ -172,23 +170,41 @@ export class InMemoryJobQueue implements JobQueue {
     }
   }
 
-  async markAwaitingReview(jobId: string): Promise<JobView | null> {
+  async markAwaiting(
+    jobId: string,
+    status: Extract<
+      JobStatus,
+      | "awaiting_script"
+      | "awaiting_storyboard"
+      | "awaiting_assets"
+      | "awaiting_review"
+      | "awaiting_voice"
+      | "awaiting_preview"
+    >,
+  ): Promise<JobView | null> {
     const job = this.jobs.get(jobId);
     if (!job) return null;
     if (job.status === "cancelled") return toView(job);
-    job.status = "awaiting_review";
+    job.status = status;
     job.stage = "review";
     job.hasDraft = true;
-    job.resumePhase = "draft";
+    if (status === "awaiting_script") job.resumePhase = "script";
+    else if (status === "awaiting_storyboard") job.resumePhase = "storyboard";
+    else if (status === "awaiting_voice") job.resumePhase = "voice";
+    else if (status === "awaiting_preview") job.resumePhase = "preview";
+    else job.resumePhase = "assets";
     job.updatedAt = new Date().toISOString();
     return toView(job);
   }
 
-  async approveForRender(jobId: string): Promise<JobView | null> {
+  async approvePhase(
+    jobId: string,
+    nextPhase: Exclude<ResumePhase, "draft">,
+  ): Promise<JobView | null> {
     const job = this.jobs.get(jobId);
     if (!job) return null;
-    if (job.status !== "awaiting_review") return toView(job);
-    job.resumePhase = "render";
+    if (!isAwaitingStatus(job.status)) return toView(job);
+    job.resumePhase = nextPhase;
     job.status = "queued";
     job.stage = "review";
     job.error = undefined;
@@ -196,14 +212,15 @@ export class InMemoryJobQueue implements JobQueue {
     return toView(job);
   }
 
-  async appendEvent(
-    _jobId: string,
-    _level: string,
-    _message: string,
-    _data?: unknown,
-  ): Promise<void> {
-    // no-op for memory queue; worker logs to stdout
+  async markAwaitingReview(jobId: string): Promise<JobView | null> {
+    return this.markAwaiting(jobId, "awaiting_assets");
   }
+
+  async approveForRender(jobId: string): Promise<JobView | null> {
+    return this.approvePhase(jobId, "render");
+  }
+
+  async appendEvent(): Promise<void> {}
 
   async complete(
     jobId: string,
@@ -254,7 +271,7 @@ export class InMemoryJobQueue implements JobQueue {
     if (
       job.status === "cancelled" ||
       job.status === "succeeded" ||
-      job.status === "awaiting_review"
+      isAwaitingStatus(job.status)
     ) {
       return;
     }
@@ -269,7 +286,7 @@ export class InMemoryJobQueue implements JobQueue {
     if (
       job.status !== "queued" &&
       job.status !== "running" &&
-      job.status !== "awaiting_review"
+      !isAwaitingStatus(job.status)
     ) {
       return toView(job);
     }
@@ -279,11 +296,6 @@ export class InMemoryJobQueue implements JobQueue {
     return toView(job);
   }
 
-  /**
-   * Recarga un job desde job.json tras reinicio.
-   * queued/running huérfanos → failed (el worker murió con el proceso).
-   * awaiting_review se preserva (espera humano).
-   */
   async restore(view: JobView): Promise<JobView> {
     const seqMatch = /^mem_(\d+)_/.exec(view.id);
     if (seqMatch) {
@@ -292,11 +304,15 @@ export class InMemoryJobQueue implements JobQueue {
 
     const orphan = view.status === "queued" || view.status === "running";
     const now = new Date().toISOString();
+    let status = orphan ? ("failed" as JobStatus) : view.status;
+    // Legacy awaiting_review → awaiting_assets
+    if (status === "awaiting_review") status = "awaiting_assets";
+
     const job: InternalJob = {
       id: view.id,
       exhibitionId: view.exhibitionId,
       formatId: view.formatId,
-      status: orphan ? "failed" : view.status,
+      status,
       stage: view.stage,
       error: orphan
         ? "Interrumpido por reinicio del worker"
@@ -316,8 +332,8 @@ export class InMemoryJobQueue implements JobQueue {
       ttsVoice: view.metrics?.ttsVoice,
       metrics: view.metrics,
       interactive: view.interactive !== false,
-      resumePhase: view.resumePhase ?? "draft",
-      hasDraft: view.hasDraft ?? view.status === "awaiting_review",
+      resumePhase: normalizeResumePhase(view.resumePhase),
+      hasDraft: view.hasDraft ?? isAwaitingStatus(status),
       createdAt: view.createdAt,
       updatedAt: orphan ? now : view.updatedAt,
     };

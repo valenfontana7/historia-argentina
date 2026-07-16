@@ -1,6 +1,10 @@
 import { mkdir, writeFile, stat } from "node:fs/promises";
 import path from "node:path";
-import type { RenderResult, VideoManifest } from "@museoargent/video-contracts";
+import type {
+  ManifestScene,
+  RenderResult,
+  VideoManifest,
+} from "@museoargent/video-contracts";
 import type { FfmpegRenderer } from "../../application/ports/ffmpeg-renderer";
 import type { ObjectStorage } from "../../application/ports/object-storage";
 
@@ -21,6 +25,27 @@ export class FallbackMp4Renderer implements FfmpegRenderer {
 
   async healthcheck(): Promise<boolean> {
     return true;
+  }
+
+  async renderSceneClip(
+    _scene: ManifestScene,
+    outputUri: string,
+    _fps: number,
+    signal?: AbortSignal,
+  ): Promise<void> {
+    if (signal?.aborted) throw new Error("render aborted");
+    const outPath = this.storage.resolvePath(outputUri);
+    await mkdir(path.dirname(outPath), { recursive: true });
+    await writeFile(outPath, MINIMAL_MP4);
+  }
+
+  async stitchFromSceneClips(
+    _clipUris: string[],
+    manifest: VideoManifest,
+    outputUri: string,
+    signal?: AbortSignal,
+  ): Promise<RenderResult> {
+    return this.render(manifest, outputUri, signal);
   }
 
   async render(

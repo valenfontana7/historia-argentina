@@ -18,3 +18,5 @@ shotType SOLO uno de: retrato | plano-general | detalle | mapa | documento | sim
 (nunca "plano-detalle"; usá "detalle").
 
 No inventes asset ids: solo hints.
+Si hay EDITORIAL_MEMORY_JSON: respetá notes/bannedWords/preferredTone y priorizá preferredAssetIds en assetHint.tags cuando encajen.
+Si hay CURATOR_HINT: aplicalo solo a la tarea pedida.
