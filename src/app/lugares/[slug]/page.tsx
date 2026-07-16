@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const lugar = obtenerLugar(slug);
   if (!lugar) return {};
   return construirMetadata({
-    titulo: `${lugar.nombre} — historia y personajes`,
+    titulo: `${lugar.nombre}: historia y personajes`,
     descripcion: lugar.descripcion,
     ruta: `/lugares/${slug}`,
     tipo: "article",

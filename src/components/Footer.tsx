@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MarcaSitio } from "@/components/portada/MarcaSitio";
 import { sitio } from "@/lib/site.config";
 
 type Props = {
@@ -11,9 +12,7 @@ export function Footer({ esMecenas }: Props) {
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
-            <p className="titulo-display text-2xl font-semibold text-tinta">
-              {sitio.nombre}
-            </p>
+            <MarcaSitio tamano="lg" />
             <p className="mt-3 text-sm leading-relaxed text-tinta-suave">
               {sitio.lema}. La historia argentina contada con el cuidado que se
               merece: visual, rigurosa y libre.

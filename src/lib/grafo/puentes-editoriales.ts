@@ -1,6 +1,6 @@
 /** Puentes narrativos editoriales: origen → { destinoSlug: texto puente }. */
 export const PUENTES_EDITORIALES: Record<string, Record<string, string>> = {
-  // —— Independencia y campañas ——
+  // Independencia y campañas
   "el-cruce-de-los-andes": {
     chacabuco: "Después del cruce, la primera gran victoria en suelo chileno",
     maipu: "La batalla que cerró la independencia de Chile",
@@ -80,7 +80,7 @@ export const PUENTES_EDITORIALES: Record<string, Record<string, string>> = {
     moderna: "La sala de la Argentina agroexportadora",
   },
 
-  // —— Peronismo y siglo XX ——
+  // Peronismo y siglo XX
   peron: {
     "eva-peron": "La compañera que transformó la política argentina",
     evita: "La exhibición de Evita: multitudes, voto y renuncia",
@@ -112,7 +112,7 @@ export const PUENTES_EDITORIALES: Record<string, Record<string, string>> = {
     contemporanea: "La sala de autoritarismos y resistencia",
   },
   menem: {
-    "la-convertibilidad": "El plan que sostuvo los noventa — hasta que no",
+    "la-convertibilidad": "El plan que sostuvo los noventa, hasta que no",
     "el-2001": "El colapso que cerró la década menemista",
     peron: "El peronismo que Menem transformó",
     contemporanea: "La sala de privatizaciones y crisis",
@@ -136,7 +136,7 @@ export const PUENTES_EDITORIALES: Record<string, Record<string, string>> = {
     contemporanea: "La sala del siglo XXI",
   },
 
-  // —— Dictadura, memoria y democracia ——
+  // Dictadura, memoria y democracia
   "el-proceso": {
     "las-madres": "Las madres que caminaron cuando el silencio era ley",
     conadep: "La comisión que documentó el horror",
@@ -180,7 +180,7 @@ export const PUENTES_EDITORIALES: Record<string, Record<string, string>> = {
     contemporanea: "La sala del autoritarismo reciente",
   },
 
-  // —— Panteón (retratos) ——
+  // Panteón (retratos)
   "jose-de-san-martin": {
     "el-cruce-de-los-andes": "La exhibición que cuenta cómo cruzó lo imposible",
     chacabuco: "La victoria que abrió el camino a Chile libre",
@@ -224,7 +224,7 @@ export const PUENTES_EDITORIALES: Record<string, Record<string, string>> = {
     moderna: "La sala de la Argentina que soñó educar",
   },
 
-  // —— Efemérides ——
+  // Efemérides
   "25-de-mayo": {
     "las-48-horas-de-mayo": "La exhibición de las 48 horas que cambiaron todo",
     "jose-de-san-martin": "El joven coronel que observaba desde lejos",

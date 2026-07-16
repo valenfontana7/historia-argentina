@@ -3,6 +3,7 @@ import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
+  transpilePackages: ["@museoargent/video-contracts"],
   images: {
     remotePatterns: [
       {

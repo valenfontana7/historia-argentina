@@ -20,7 +20,7 @@ export type EtapaConstitucion = {
 export const ETAPAS_CONSTITUCION: EtapaConstitucion[] = [
   {
     nombre: "Después de Caseros",
-    fecha: "1852 — 1853",
+    fecha: "1852 a 1853",
     detalle:
       "Rosas cae, pero el país sigue dividido. Urquiza necesita un marco legal: una Constitución que ordene la Confederación.",
   },
@@ -32,7 +32,7 @@ export const ETAPAS_CONSTITUCION: EtapaConstitucion[] = [
   },
   {
     nombre: "Las Bases de Alberdi",
-    fecha: "1852 — 1853",
+    fecha: "1852 a 1853",
     detalle:
       "Desde el exilio, Juan Bautista Alberdi escribe las Bases: federalismo, libertad de comercio, educación laica. El texto guía el Congreso.",
   },

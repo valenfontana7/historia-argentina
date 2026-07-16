@@ -217,7 +217,7 @@ body {
   outline: none;
 }
 
-/* View Transitions — cruzar puertas entre salas */
+/* View Transitions: cruzar puertas entre salas */
 @view-transition {
   navigation: auto;
 }

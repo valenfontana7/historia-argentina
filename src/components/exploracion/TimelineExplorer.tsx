@@ -57,7 +57,7 @@ export function TimelineExplorer({ anioInicial = 1810 }: Props) {
               <button
                 key={h.anio}
                 type="button"
-                title={`${h.anio} — ${h.label}`}
+                title={`${h.anio} a ${h.label}`}
                 onClick={() => actualizar(h.anio)}
                 className="absolute top-1/2 flex min-h-11 min-w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
                 style={{ left: `${hp}%` }}

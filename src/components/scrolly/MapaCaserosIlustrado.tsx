@@ -39,7 +39,7 @@ export const ETAPAS_CASEROS: EtapaCaseros[] = [
   },
   {
     nombre: "Rosas huye",
-    fecha: "3 — 4 de febrero de 1852",
+    fecha: "3 a 4 de febrero de 1852",
     detalle:
       "El Restaurador embarca hacia el exilio inglés. Buenos Aires abre las puertas al Ejército Grande.",
   },

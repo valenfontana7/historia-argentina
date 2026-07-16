@@ -52,7 +52,7 @@ export default function PeriodosPage() {
               >
                 <div>
                   <p className="kicker text-oro">
-                    {periodo.anioInicio} — {periodo.anioFin ?? "hoy"}
+                    {periodo.anioInicio} a {periodo.anioFin ?? "hoy"}
                   </p>
                   <h2 className="titulo-display mt-2 text-3xl font-medium text-tinta transition-colors group-hover:text-oro-claro">
                     {periodo.nombre}

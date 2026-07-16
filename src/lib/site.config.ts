@@ -17,6 +17,9 @@ export const sitio = {
     "Crónicas para leer con el scroll, fichas de personajes y una historia del día. Un museo digital de historia argentina, gratis y en español.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "") || URL_DEFAULT,
+  redes: {
+    instagram: "@museoargent",
+  },
   palabrasClave: [
     "historia argentina",
     "efemérides argentinas",

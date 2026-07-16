@@ -7,7 +7,7 @@ const FRASES_UI =
 export function prepararTextoTts(texto: string): string {
   return texto
     .replace(FRASES_UI, "")
-    .replace(/—/g, ", ")
+    .replace(/, /g, ", ")
     .replace(/[«»""]/g, "")
     .replace(/\s+/g, " ")
     .trim();

@@ -21,7 +21,7 @@ export type EtapaPavon = {
 export const ETAPAS_PAVON: EtapaPavon[] = [
   {
     nombre: "Dos Argentinas",
-    fecha: "1853 — 1859",
+    fecha: "1853 a 1859",
     detalle:
       "Buenos Aires quedó fuera de la Constitución. Urquiza gobierna la Confederación; Mitre lidera la resistencia porteña.",
   },
@@ -39,7 +39,7 @@ export const ETAPAS_PAVON: EtapaPavon[] = [
   },
   {
     nombre: "La Nación unificada",
-    fecha: "1861 — 1862",
+    fecha: "1861 a 1862",
     detalle:
       "Mitre asume como primer presidente de la Nación Argentina. El mapa político que Rosas y Urquiza habían disputado queda reordenado.",
   },

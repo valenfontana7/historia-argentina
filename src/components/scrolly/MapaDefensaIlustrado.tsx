@@ -6,7 +6,7 @@
 
 const VB = { w: 900, h: 560 };
 
-/** Hitos de la ciudad — oeste ← | → río */
+/** Hitos de la ciudad: oeste ← | → río */
 export const ILU_DEFENSA = {
   plazaMayor: { x: 700, y: 282, nombre: "Plaza Mayor y Fuerte" },
   santoDomingo: { x: 622, y: 342, nombre: "Santo Domingo" },
@@ -24,7 +24,7 @@ export type EtapaDefensa = {
 export const ETAPAS_DEFENSA: EtapaDefensa[] = [
   {
     nombre: "El desembarco",
-    fecha: "28 de junio — 1.º de julio de 1807",
+    fecha: "28 de junio: 1.º de julio de 1807",
     detalle:
       "Whitelocke desembarca en Ensenada con cerca de 10.000 veteranos y avanza por los pantanos del sur. Del otro lado lo espera una ciudad que un año antes ya expulsó a un ejército británico.",
   },
@@ -125,7 +125,7 @@ export function BaseMapaDefensa({ children }: BaseProps) {
       <rect width={VB.w} height={VB.h} fill="#080b10" />
       <rect width={VB.w} height={VB.h} fill="url(#patron-grano-defensa)" />
 
-      {/* Río de la Plata — margen este */}
+      {/* Río de la Plata: margen este */}
       <path
         d={`M748 0 C738 140 742 300 736 420 C734 470 738 520 744 560 L900 560 L900 0 Z`}
         fill="url(#grad-defensa-rio)"
@@ -188,7 +188,7 @@ export function BaseMapaDefensa({ children }: BaseProps) {
         )}
       </g>
 
-      {/* Plaza Mayor — vacío en la trama, frente al fuerte */}
+      {/* Plaza Mayor: vacío en la trama, frente al fuerte */}
       <rect x={678} y={260} width={44} height={44} fill="#0a0e16" stroke="#2a3548" strokeWidth="0.8" />
       <rect x={724} y={266} width={16} height={32} fill="#1a2434" stroke="#3a4a62" strokeWidth="0.8" />
 

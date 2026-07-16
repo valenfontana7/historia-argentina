@@ -20,7 +20,7 @@ type Props = {
 export function RecorridoPasos({ pasos, tituloRecorrido }: Props) {
   return (
     <div className="relative">
-      {/* Espina narrativa — desktop */}
+      {/* Espina narrativa: desktop */}
       <div
         aria-hidden
         className="absolute left-4 top-0 hidden h-full w-px bg-gradient-to-b from-oro/60 via-oro/20 to-transparent sm:left-6 lg:block"

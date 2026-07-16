@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("VIDEO_DATABASE_URL")
+}
+
+enum VideoJobStatus {
+  queued
+  running
+  succeeded
+  failed
+  cancelled
+}
+
+enum VideoJobStage {
+  ingest
+  script
+  storyboard
+  voice
+  assets
+  subtitles
+  music
+  compose
+  render
+}
+
+model VideoJob {
+  id               String         @id @default(cuid())
+  exhibitionId     String
+  formatId         String
+  status           VideoJobStatus @default(queued)
+  stage            VideoJobStage?
+  inputHash        String
+  promptVersion    String
+  pipelineVersion  String
+  exhibitionJson   Json
+  force            Boolean        @default(false)
+  useFakeProviders Boolean        @default(false)
+  llmProvider      String?
+  llmModel         String?
+  ttsProvider      String?
+  ttsVoice         String?
+  stageTimingsMs   Json?
+  assetsUsed       Json?
+  error            String?
+  outputMp4Uri     String?
+  outputBytes      Int?
+  outputDurationSec Float?
+  manifestUri      String?
+  lockedAt         DateTime?
+  startedAt        DateTime?
+  finishedAt       DateTime?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  events           VideoJobEvent[]
+
+  @@unique([exhibitionId, formatId, promptVersion, pipelineVersion])
+  @@index([status, createdAt])
+  @@index([status, lockedAt])
+}
+
+model VideoJobEvent {
+  id        String   @id @default(cuid())
+  jobId     String
+  job       VideoJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  level     String
+  message   String
+  data      Json?
+  createdAt DateTime @default(now())
+
+  @@index([jobId, createdAt])
+}
+
+model Asset {
+  id             String   @id
+  type           String
+  author         String?
+  license        String
+  dateLabel      String?
+  tags           String[] @default([])
+  characters     String[] @default([])
+  places         String[] @default([])
+  epoch          String?
+  weight         Float    @default(1)
+  orientation    String   @default("horizontal")
+  width          Int?
+  height         Int?
+  storageUri     String
+  sourceUrl      String?
+  checksum       String?
+  musicCategory  String?
+  durationSec    Float?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([type])
+  @@index([musicCategory])
+}

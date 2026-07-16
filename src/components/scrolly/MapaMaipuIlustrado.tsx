@@ -27,7 +27,7 @@ export const ETAPAS_MAIPU: EtapaMaipu[] = [
   },
   {
     nombre: "El rearme",
-    fecha: "Marzo — abril de 1818",
+    fecha: "Marzo a abril de 1818",
     detalle:
       "En pocas semanas, San Martín reconstruye el ejército. La segunda oportunidad será en los llanos de Maipú.",
   },

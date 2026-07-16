@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { sitio } from "@/lib/site.config";
+import { MarcaSitio } from "@/components/portada/MarcaSitio";
 
 const ENLACES_BASE = [
   { href: "/explorar", etiqueta: "Explorar" },
@@ -53,14 +53,7 @@ export function Header({ esMecenas }: Props) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-linea-suave bg-fondo/70 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-        <Link href="/" className="group flex items-baseline gap-3" onClick={cerrarMenu}>
-          <span className="titulo-display text-xl font-semibold tracking-tight text-tinta transition-colors group-hover:text-oro-claro">
-            {sitio.nombre}
-          </span>
-          <span className="hidden text-[0.65rem] uppercase tracking-[0.24em] text-tinta-tenue sm:inline">
-            {sitio.lema}
-          </span>
-        </Link>
+        <MarcaSitio mostrarLema tamano="md" onClick={cerrarMenu} />
 
         <nav className="hidden items-center gap-6 text-sm lg:flex" aria-label="Principal">
           {enlaces.map((enlace) => (

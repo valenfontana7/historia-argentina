@@ -7,7 +7,7 @@ import { listarMecenas } from "@/lib/mecenas-admin";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Admin — Personas Mecenas",
+  title: "Admin: Personas Mecenas",
   robots: { index: false, follow: false },
 };
 

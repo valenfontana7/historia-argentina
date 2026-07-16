@@ -1,6 +1,6 @@
 import type { AudioguiaExhibicion } from "@/data/audioguias-salas-manual";
 
-/** Guías editoriales curadas — tier C (exhibiciones narrativas). */
+/** Guías editoriales curadas: tier C (exhibiciones narrativas). */
 export const MANUAL_TIERC_INDICE: Record<string, AudioguiaExhibicion> = {
   celman: {
     cronicaSlug: "celman",

@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const num = parseInt(anio, 10);
   if (Number.isNaN(num)) return {};
   return construirMetadata({
-    titulo: `Argentina en ${num} — pasillo del tiempo`,
+    titulo: `Argentina en ${num}: pasillo del tiempo`,
     descripcion: `Qué pasaba en Argentina en ${num}. Acontecimientos, retratos y exhibiciones de un año en la historia.`,
     ruta: `/timelines/${anio}`,
     tipo: "article",

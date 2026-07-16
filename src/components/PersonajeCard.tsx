@@ -8,7 +8,7 @@ type PersonajeCardProps = {
 };
 
 export function PersonajeCard({ personaje }: PersonajeCardProps) {
-  const anios = `${personaje.nacimiento.anio} — ${personaje.muerte?.anio ?? "presente"}`;
+  const anios = `${personaje.nacimiento.anio} a ${personaje.muerte?.anio ?? "presente"}`;
   return (
     <TransicionLink
       href={`/panteon/${personaje.slug}`}

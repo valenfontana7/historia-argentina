@@ -13,7 +13,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const { slug } = await params;
   const personaje = obtenerPersonaje(slug);
   const anios = personaje
-    ? `${personaje.nacimiento.anio} — ${personaje.muerte?.anio ?? "presente"}`
+    ? `${personaje.nacimiento.anio} a ${personaje.muerte?.anio ?? "presente"}`
     : "";
 
   return new ImageResponse(

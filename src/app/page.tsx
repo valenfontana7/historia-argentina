@@ -26,7 +26,7 @@ import { sitio } from "@/lib/site.config";
 export const revalidate = 3600;
 
 export const metadata: Metadata = construirMetadata({
-  titulo: `${sitio.nombre} — ${sitio.lema}`,
+  titulo: `${sitio.nombre} | ${sitio.lema}`,
   descripcion: sitio.descripcion,
   ruta: "/",
 });
@@ -76,7 +76,10 @@ export default async function HomePage() {
       {anticipo.length > 0 && (
         <section className="border-b border-linea-suave bg-fondo-2">
           <div className="mx-auto max-w-6xl px-5 py-12">
-            <ExposicionesTemporales exposiciones={anticipo} esMecenas={esMecenas} />
+            <ExposicionesTemporales
+              exposiciones={anticipo}
+              esMecenas={esMecenas}
+            />
           </div>
         </section>
       )}
@@ -105,7 +108,10 @@ export default async function HomePage() {
                   {efemeride.fecha}
                 </p>
               </Reveal>
-              <Reveal delay={0.1} className="sm:border-l sm:border-linea sm:pl-10">
+              <Reveal
+                delay={0.1}
+                className="sm:border-l sm:border-linea sm:pl-10"
+              >
                 <h2 className="titulo-display max-w-xl text-3xl font-semibold leading-tight transition-colors group-hover:text-oro-claro">
                   {efemeride.titulo}
                 </h2>

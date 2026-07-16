@@ -6,7 +6,7 @@ import { opcionPorSlug } from "@/data/voto-fundador";
 import { prisma } from "@/lib/db";
 
 export const metadata = {
-  title: "Votá la próxima crónica",
+  title: "Votá la próxima exhibición",
   robots: { index: false },
 };
 
@@ -29,11 +29,11 @@ export default async function VotoFundadorPage() {
     <div className="mx-auto max-w-xl px-5 pb-28 pt-32">
       <p className="kicker text-oro">Mecenas fundador</p>
       <h1 className="titulo-display mt-4 text-4xl font-semibold">
-        ¿Qué crónica hacemos después?
+        ¿Qué exhibición abrimos después?
       </h1>
       <p className="mt-6 text-sm leading-relaxed text-tinta-suave">
-        Elegí la historia que más te gustaría leer. Tu voto nos ayuda a decidir
-        cuál producimos a continuación.
+        Elegí la sala que más te gustaría recorrer. Tu voto nos ayuda a decidir
+        qué producimos a continuación.
       </p>
       <FormularioVotoFundador opcionActual={opcionActual} />
       <p className="mt-12">

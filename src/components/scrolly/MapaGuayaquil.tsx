@@ -97,7 +97,7 @@ export function MapaGuayaquil() {
               <HitoGuayaquil {...ILU_GUAYAQUIL.guayaquil} color="var(--celeste)" lado="der" />
               <circle cx={420} cy={380} r={32} fill="var(--celeste)" opacity="0.1" />
               <text x={420} y={340} fill="var(--celeste)" fontSize="12" textAnchor="middle" fontWeight="500">
-                26 — 27 de julio · la entrevista
+                26 a 27 de julio · la entrevista
               </text>
             </g>
             <path

@@ -199,7 +199,7 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
 
       {cronicasRel.length > 0 && (
         <Reveal className="mt-14">
-          <p className="kicker">Crónicas relacionadas</p>
+          <p className="kicker">Exhibiciones relacionadas</p>
           <div className="mt-5 flex flex-wrap gap-3">
             {cronicasRel.map((c) => (
               <Link

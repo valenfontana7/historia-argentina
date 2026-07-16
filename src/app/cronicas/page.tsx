@@ -15,7 +15,7 @@ import type { Epoca } from "@/components/ui/Retrato";
 import type { AccesoCronica } from "@/content/cronicas/registro";
 
 export const metadata = construirMetadata({
-  titulo: "Exhibiciones — museo digital de historia argentina",
+  titulo: "Exhibiciones: museo digital de historia argentina",
   descripcion:
     "Salas inmersivas de la historia argentina: mapas animados, piezas del patrimonio y relatos que se recorren como una visita al museo.",
   ruta: "/cronicas",

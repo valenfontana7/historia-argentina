@@ -34,7 +34,7 @@ export default function Image() {
             La historia es gente
           </div>
           <div style={{ display: "flex", marginTop: 22, fontSize: 28, color: "#a59a86", maxWidth: 900 }}>
-            {personajes.length} personajes del relato nacional — fichas interactivas con biografías, aliados y enemigos.
+            {personajes.length} personajes del relato nacional: fichas interactivas con biografías, aliados y enemigos.
           </div>
           <div style={{ display: "flex", marginTop: 18, fontSize: 22, color: "#c6a15b" }}>{muestra}</div>
         </div>

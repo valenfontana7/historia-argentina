@@ -20,13 +20,13 @@ export type EtapaCastelli = {
 export const ETAPAS_CASTELLI: EtapaCastelli[] = [
   {
     nombre: "La revolución sale de Buenos Aires",
-    fecha: "Mayo — junio de 1810",
+    fecha: "Mayo a junio de 1810",
     detalle:
       "Tras el 25 de Mayo, la Primera Junta envía a Castelli al norte con un ejército de milicias. La revolución no puede quedarse en la ciudad: tiene que conquistar el interior.",
   },
   {
     nombre: "La marcha hacia el Alto Perú",
-    fecha: "Julio — agosto de 1810",
+    fecha: "Julio a agosto de 1810",
     detalle:
       "Castelli avanza por Córdoba y el noroeste. Su oratoria convence a algunos, aterroriza a otros. La revolución se expande por la fuerza y la palabra.",
   },
@@ -38,9 +38,9 @@ export const ETAPAS_CASTELLI: EtapaCastelli[] = [
   },
   {
     nombre: "El Alto Perú en llamas",
-    fecha: "1810 — 1811",
+    fecha: "1810 a 1811",
     detalle:
-      "Chuquisaca y La Paz se suman a la revolución. Castelli llega al límite de su poder — y de su salud. La contraofensiva realista vendrá pronto.",
+      "Chuquisaca y La Paz se suman a la revolución. Castelli llega al límite de su poder, y de su salud. La contraofensiva realista vendrá pronto.",
   },
 ];
 

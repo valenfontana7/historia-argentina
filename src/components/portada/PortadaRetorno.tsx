@@ -35,7 +35,7 @@ export function PortadaRetorno() {
         {progresoCronica && (
           <div className="mt-6 rounded-sm border border-linea bg-fondo-2 p-5">
             <p className="text-xs uppercase tracking-[0.2em] text-tinta-tenue">
-              Crónica en curso · {progresoCronica.porcentaje}% leída
+              Exhibición en curso · {progresoCronica.porcentaje}% recorrida
             </p>
             <Link
               href={progresoCronica.href}

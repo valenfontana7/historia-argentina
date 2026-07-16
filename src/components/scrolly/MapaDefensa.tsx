@@ -75,7 +75,7 @@ export function MapaDefensa() {
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden bg-[#080b10]">
         <div className="relative min-h-0 flex-1 px-3 pt-3 sm:px-6 sm:pt-5">
           <BaseMapaDefensa>
-            {/* Etapa 0 — desembarco y aproximación desde el sur */}
+            {/* Etapa 0: desembarco y aproximación desde el sur */}
             <path
               data-trazo-defensa="0"
               d={RUTA_DESEMBARCO}
@@ -91,7 +91,7 @@ export function MapaDefensa() {
               </text>
             </g>
 
-            {/* Etapa 1 — choque de Miserere */}
+            {/* Etapa 1: choque de Miserere */}
             <g data-capa-defensa="1">
               <HitoDefensa {...ILU_DEFENSA.miserere} color="#c8d0e0" lado="abajo" />
               <circle cx={196} cy={318} r={14} fill="var(--carmesi)" opacity="0.14" />
@@ -100,7 +100,7 @@ export function MapaDefensa() {
               </text>
             </g>
 
-            {/* Etapa 2 — las columnas entran a la cuadrícula */}
+            {/* Etapa 2, las columnas entran a la cuadrícula */}
             {COLUMNAS_DEFENSA.map((col, j) => (
               <path
                 key={j}
@@ -119,7 +119,7 @@ export function MapaDefensa() {
               </text>
             </g>
 
-            {/* Etapa 3 — la guerra de las azoteas: columnas destrozadas */}
+            {/* Etapa 3, la guerra de las azoteas: columnas destrozadas */}
             <g data-capa-defensa="3">
               {BAJAS_DEFENSA.map(([x, y], j) => (
                 <g key={j}>
@@ -134,7 +134,7 @@ export function MapaDefensa() {
               </text>
             </g>
 
-            {/* Etapa 4 — Santo Domingo */}
+            {/* Etapa 4: Santo Domingo */}
             <g data-capa-defensa="4">
               <HitoDefensa {...ILU_DEFENSA.santoDomingo} color="var(--oro-claro)" lado="abajo" />
               <circle
@@ -148,7 +148,7 @@ export function MapaDefensa() {
               />
             </g>
 
-            {/* Etapa 5 — capitulación en la Plaza Mayor */}
+            {/* Etapa 5: capitulación en la Plaza Mayor */}
             <g data-capa-defensa="5">
               <circle
                 cx={ILU_DEFENSA.plazaMayor.x}

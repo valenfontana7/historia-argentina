@@ -191,7 +191,7 @@ const MAYO: AudioguiaExhibicion = {
     {
       estacion: 4,
       titulo: "Los nueve del mediodía",
-      texto: "Veinticinco de mayo, mediodía: la Primera Junta quedó proclamada. No era independencia —todavía— pero era el fin del virreinato tal como lo conocían.",
+      texto: "Veinticinco de mayo, mediodía: la Primera Junta quedó proclamada. No era independencia (todavía) pero era el fin del virreinato tal como lo conocían.",
     },
     {
       estacion: 5,
@@ -359,7 +359,7 @@ const DESIERTO: AudioguiaExhibicion = {
     {
       estacion: 2,
       titulo: "El mapa del sur",
-      texto: "El mapa de esta sala dibuja las columnas de 1878 a 1885. Cada avance redibujaba el país que conocemos hoy — y dejaba heridas abiertas.",
+      texto: "El mapa de esta sala dibuja las columnas de 1878 a 1885. Cada avance redibujaba el país que conocemos hoy, y dejaba heridas abiertas.",
     },
     {
       estacion: 3,
@@ -560,7 +560,7 @@ const ITUZAINGO: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Del campo al machete rojo",
-      texto: "Ituzaingó no cerró el conflicto, pero forjó experiencia y liderazgos — entre ellos, un joven Juan Manuel de Rosas en logística y política.",
+      texto: "Ituzaingó no cerró el conflicto, pero forjó experiencia y liderazgos: entre ellos, un joven Juan Manuel de Rosas en logística y política.",
     },
   ],
 };
@@ -588,7 +588,7 @@ const CASTELLI: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "La caída del tribuno",
-      texto: "Castelli murió joven. Su legado es la idea de una revolución sin freno — y el recuerdo de que Mayo no terminó en la Plaza.",
+      texto: "Castelli murió joven. Su legado es la idea de una revolución sin freno, y el recuerdo de que Mayo no terminó en la Plaza.",
     },
   ],
 };
@@ -611,7 +611,7 @@ const EVITA: AudioguiaExhibicion = {
     {
       estacion: 2,
       titulo: "El Cabildo Abierto de 1951",
-      texto: "1951: multitudes pidieron que fuera vicepresidenta. El episodio muestra hasta dónde llegaba su capital político — y los límites del propio Perón.",
+      texto: "1951: multitudes pidieron que fuera vicepresidenta. El episodio muestra hasta dónde llegaba su capital político, y los límites del propio Perón.",
     },
     {
       estacion: 3,
@@ -644,7 +644,7 @@ const EL_2001: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "El país que salió distinto",
-      texto: "El 2001 no resolvió la deuda ni la pobreza, pero cambió el lenguaje político. La democracia sobrevivió — dañada, discutida, viva.",
+      texto: "El 2001 no resolvió la deuda ni la pobreza, pero cambió el lenguaje político. La democracia sobrevivió: dañada, discutida, viva.",
     },
   ],
 };

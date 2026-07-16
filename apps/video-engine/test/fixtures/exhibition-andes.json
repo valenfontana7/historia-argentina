@@ -1,0 +1,27 @@
+{
+  "id": "fixture:andes",
+  "slug": "el-cruce-de-los-andes",
+  "title": "El Cruce de los Andes",
+  "summary": "En 1817 el Ejército de los Andes cruzó la cordillera para libertar Chile.",
+  "periodLabel": "1817",
+  "yearStart": 1817,
+  "yearEnd": 1817,
+  "chronology": [
+    { "year": 1817, "label": "Partida", "detail": "Salida desde Mendoza." },
+    { "year": 1817, "label": "Cumbre", "detail": "El cruce por Uspallata." }
+  ],
+  "characters": [
+    { "id": "jose-de-san-martin", "name": "José de San Martín", "role": "protagonista" }
+  ],
+  "places": [{ "id": "mendoza", "name": "Mendoza" }],
+  "quotes": [],
+  "curiosities": ["El cruce tomó cerca de un mes."],
+  "documents": [],
+  "images": [
+    { "assetId": "fixture-andes" },
+    { "assetId": "fixture-retrato-san-martin" },
+    { "assetId": "fixture-mapa" },
+    { "assetId": "fixture-documento" }
+  ],
+  "source": { "type": "manual", "externalId": "fixture-andes" }
+}

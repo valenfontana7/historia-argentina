@@ -9,6 +9,10 @@ import { RecientementeVisitado } from "@/components/engagement/RecientementeVisi
 import { BotonCompartir } from "@/components/BotonCompartir";
 import { PersonajeCard } from "@/components/PersonajeCard";
 import { MomentoDefinitorio } from "@/components/panteon/MomentoDefinitorio";
+import {
+  GaleriaRelaciones,
+  ListaVitrinasPanteon,
+} from "@/components/panteon/GaleriaRelaciones";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Retrato } from "@/components/ui/Retrato";
 import { LineaDeVida } from "@/components/ui/LineaDeVida";
@@ -50,7 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const personaje = obtenerPersonaje(slug);
   if (!personaje) return {};
   return construirMetadata({
-    titulo: `${personaje.nombre} — biografía, batallas y frases`,
+    titulo: `${personaje.nombre}: biografía, batallas y frases`,
     descripcion: personaje.resumen,
     ruta: `/panteon/${slug}`,
     tipo: "article",
@@ -65,7 +69,7 @@ export default async function PersonajePage({ params }: Props) {
 
   const aliados = obtenerVarios(personaje.aliados);
   const enemigos = obtenerVarios(personaje.enemigos);
-  const anios = `${personaje.nacimiento.anio} — ${personaje.muerte?.anio ?? "presente"}`;
+  const anios = `${personaje.nacimiento.anio} a ${personaje.muerte?.anio ?? "presente"}`;
   const imagen = obtenerImagenPersonaje(slug);
   const nodo = obtenerNodo("persona", slug);
   const salidas = obtenerSalidasPagina(nodo);
@@ -179,7 +183,7 @@ export default async function PersonajePage({ params }: Props) {
                   tipo="persona"
                 />
                 <BotonCompartir
-                  titulo={`${personaje.nombre} — ${personaje.titulo}`}
+                  titulo={`${personaje.nombre}: ${personaje.titulo}`}
                   texto={personaje.resumen}
                   ruta={`/panteon/${slug}`}
                   utmCampaign="panteon"
@@ -217,52 +221,12 @@ export default async function PersonajePage({ params }: Props) {
           </Reveal>
 
           <aside className="space-y-12">
-            {aliados.length > 0 && (
-              <Reveal>
-                <h2 className="kicker">Aliados</h2>
-                <ul className="mt-5 space-y-3">
-                  {aliados.map((a) => (
-                    <li key={a.slug}>
-                      <Link
-                        href={`/panteon/${a.slug}`}
-                        className="group flex flex-col gap-1 border-b border-linea-suave pb-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
-                      >
-                        <span className="text-tinta transition-colors group-hover:text-oro-claro">
-                          {a.nombre}
-                        </span>
-                        <span className="shrink-0 text-xs text-tinta-tenue">
-                          {a.titulo}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            )}
-            {enemigos.length > 0 && (
-              <Reveal>
-                <h2 className="kicker" style={{ color: "var(--carmesi)" }}>
-                  Enemigos
-                </h2>
-                <ul className="mt-5 space-y-3">
-                  {enemigos.map((e) => (
-                    <li key={e.slug}>
-                      <Link
-                        href={`/panteon/${e.slug}`}
-                        className="group flex flex-col gap-1 border-b border-linea-suave pb-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
-                      >
-                        <span className="text-tinta transition-colors group-hover:text-carmesi">
-                          {e.nombre}
-                        </span>
-                        <span className="shrink-0 text-xs text-tinta-tenue">
-                          {e.titulo}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            )}
+            <GaleriaRelaciones titulo="Aliados" personajes={aliados} tono="oro" />
+            <GaleriaRelaciones
+              titulo="Enemigos"
+              personajes={enemigos}
+              tono="carmesi"
+            />
           </aside>
         </div>
 
@@ -282,49 +246,22 @@ export default async function PersonajePage({ params }: Props) {
 
         <PosicionEnTimeline anio={personaje.nacimiento.anio} />
 
-        {efemerides.length > 0 && (
-          <section className="mt-16">
-            <Reveal>
-              <h2 className="titulo-display text-2xl font-medium text-oro">
-                Efemérides vinculadas
-              </h2>
-            </Reveal>
-            <ul className="mt-6 space-y-3">
-              {efemerides.map((e) => (
-                <li key={e.slug}>
-                  <Link
-                    href={rutaDeNodo(e)}
-                    className="text-sm text-tinta-suave transition-colors hover:text-oro-claro"
-                  >
-                    {e.titulo} ({e.anio}) →
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+        <ListaVitrinasPanteon
+          titulo="Piezas del día vinculadas"
+          items={efemerides.map((e) => ({
+            href: rutaDeNodo(e),
+            titulo: e.titulo,
+            meta: String(e.anio),
+          }))}
+        />
 
-        {cronicasRel.length > 0 && (
-          <section className="mt-16">
-            <Reveal>
-              <h2 className="titulo-display text-2xl font-medium text-oro">
-                {TITULO_EXHIBICIONES_PROTAGONIZADAS}
-              </h2>
-            </Reveal>
-            <ul className="mt-6 space-y-3">
-              {cronicasRel.map((c) => (
-                <li key={c.slug}>
-                  <Link
-                    href={rutaDeNodo(c)}
-                    className="text-sm text-tinta-suave transition-colors hover:text-oro-claro"
-                  >
-                    {c.titulo} →
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+        <ListaVitrinasPanteon
+          titulo={TITULO_EXHIBICIONES_PROTAGONIZADAS}
+          items={cronicasRel.map((c) => ({
+            href: rutaDeNodo(c),
+            titulo: c.titulo,
+          }))}
+        />
 
         {salidas.length > 0 && (
           <SalidasDeSala salidas={salidas} tituloExhibicion={personaje.nombre} />

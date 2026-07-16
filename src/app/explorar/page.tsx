@@ -11,7 +11,7 @@ import { migajasJsonLd } from "@/lib/seo/jsonld";
 import Link from "next/link";
 
 export const metadata: Metadata = construirMetadata({
-  titulo: "Plano del museo — explorar la historia argentina",
+  titulo: "Plano del museo: explorar la historia argentina",
   descripcion:
     "Salas por época, colecciones temáticas, retratos y piezas del patrimonio. Elegí por dónde empezar tu visita.",
   ruta: "/explorar",

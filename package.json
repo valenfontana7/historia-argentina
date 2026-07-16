@@ -2,6 +2,10 @@
   "name": "historia-argentina",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
@@ -16,12 +20,21 @@
     "piezas:indexar": "npx tsx scripts/piezas-indexar.ts",
     "audioguias:indexar": "npx tsx scripts/audioguias-indexar.ts",
     "escenas:extraer": "npx tsx scripts/escenas-extraer.ts",
-    "efemerides:validar": "npx tsx scripts/efemerides-validar-narrativa.ts"
+    "efemerides:validar": "npx tsx scripts/efemerides-validar-narrativa.ts",
+    "video:contracts:build": "npm run build -w @museoargent/video-contracts",
+    "video:engine:build": "npm run build -w @museoargent/video-engine",
+    "video:engine:start": "npm run start -w @museoargent/video-engine",
+    "video:engine:cli": "npm run cli -w @museoargent/video-engine --",
+    "video:engine:test": "npm run test -w @museoargent/video-contracts && npm run test -w @museoargent/video-engine",
+    "video:prisma:generate": "npm run prisma:generate -w @museoargent/video-engine",
+    "video:export-exhibition": "npx tsx scripts/export-exhibition.ts",
+    "video:generate": "npx tsx scripts/video-generate.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
+    "@museoargent/video-contracts": "*",
     "@next/mdx": "^16.2.10",
     "@prisma/client": "^6.19.3",
     "@vercel/analytics": "^2.0.1",

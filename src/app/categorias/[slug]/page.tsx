@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cat = obtenerCategoria(slug);
   if (!cat) return {};
   return construirMetadata({
-    titulo: `${cat.nombre} — historia argentina`,
+    titulo: `${cat.nombre}: historia argentina`,
     descripcion: cat.descripcion,
     ruta: `/categorias/${slug}`,
     tipo: "article",
@@ -94,18 +94,25 @@ export default async function CategoriaPage({ params }: Props) {
         {eventos.length > 0 && (
           <section className="mt-16">
             <Reveal>
-              <h2 className="titulo-display text-2xl font-medium text-oro">Eventos</h2>
+              <h2 className="titulo-display text-2xl font-medium text-oro">
+                Piezas del día en esta colección
+              </h2>
             </Reveal>
-            <ul className="mt-8 space-y-4">
+            <ul className="mt-8 grid gap-4 sm:grid-cols-2">
               {eventos.map((e) => (
                 <li key={e.dia}>
                   <Link
                     href={`/hoy/${e.dia}`}
-                    className="group block border-b border-linea-suave pb-4"
+                    className="group flex h-full flex-col rounded-sm border border-linea bg-fondo-2 p-5 transition-colors hover:border-oro/40"
                   >
-                    <span className="text-xs text-oro">{e.anio}</span>
-                    <p className="mt-1 text-tinta transition-colors group-hover:text-oro-claro">
+                    <span className="text-[0.6rem] uppercase tracking-[0.18em] text-oro">
+                      {e.anio}
+                    </span>
+                    <p className="mt-2 text-sm font-medium text-tinta transition-colors group-hover:text-oro-claro">
                       {e.titulo}
+                    </p>
+                    <p className="mt-auto pt-4 text-[0.65rem] uppercase tracking-[0.16em] text-tinta-tenue group-hover:text-oro">
+                      Ver vitrina →
                     </p>
                   </Link>
                 </li>

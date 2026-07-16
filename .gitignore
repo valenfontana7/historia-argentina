@@ -42,3 +42,9 @@ yarn-error.log*
 next-env.d.ts
 /src/generated/prisma
 .prisma/
+
+# video engine
+/data/video-engine/
+/apps/video-engine/src/generated/
+/apps/video-engine/dist/
+/packages/video-contracts/dist/

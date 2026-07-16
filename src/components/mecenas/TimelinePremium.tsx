@@ -116,7 +116,7 @@ export function TimelinePremium({ esMecenas }: Props) {
             className="w-24 rounded-sm border border-linea bg-fondo px-3 py-2 text-sm"
             aria-label="Desde año"
           />
-          <span className="self-center text-tinta-tenue">—</span>
+          <span className="self-center text-tinta-tenue">, </span>
           <input
             type="number"
             value={hasta}

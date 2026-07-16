@@ -1,5 +1,5 @@
 /**
- * Mapa ilustrado de la Conquista del Desierto (1878 — 1885).
+ * Mapa ilustrado de la Conquista del Desierto (1878 a 1885).
  */
 
 const VB = { w: 900, h: 560 };
@@ -21,25 +21,25 @@ export type EtapaDesierto = {
 export const ETAPAS_DESIERTO: EtapaDesierto[] = [
   {
     nombre: "La frontera móvil",
-    fecha: "1870 — 1878",
+    fecha: "1870 a 1878",
     detalle:
       "Después de la unificación, el Estado argentino mira al sur. Millones de hectáreas fuera del control efectivo. Roca, ministro de Guerra, diseña la campaña.",
   },
   {
     nombre: "La Conquista del Desierto",
-    fecha: "1878 — 1884",
+    fecha: "1878 a 1884",
     detalle:
       "Columnas militares avanzan por la Patagonia con fusiles, caballos y telégrafo. Incorporan territorio al mapa. Desposeen y someten a los pueblos originarios.",
   },
   {
     nombre: "La Patagonia argentina",
-    fecha: "1884 — 1885",
+    fecha: "1884 a 1885",
     detalle:
       "Se crean gobernaciones, fuertes y líneas férreas. La tierra se reparte entre terratenientes y colonos. Argentina se vuelve granero del mundo.",
   },
   {
     nombre: "La herida abierta",
-    fecha: "1885 — hoy",
+    fecha: "1885 a hoy",
     detalle:
       "La campaña se celebró como progreso. También dejó desplazamiento, violencia y memoria disputada. La Argentina moderna nació con esa sombra.",
   },

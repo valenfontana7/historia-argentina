@@ -71,7 +71,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <div style={{ display: "flex", width: 64, height: 2, background: "#c6a15b" }} />
           <div style={{ display: "flex", fontSize: 24, color: "#a59a86" }}>
-            {`Lectura: ${cronica?.duracion ?? ""}`}
+            {`Visita: ${cronica?.duracion ?? ""}`}
           </div>
         </div>
       </div>

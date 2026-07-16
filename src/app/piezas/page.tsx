@@ -19,7 +19,7 @@ import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 
 export const metadata: Metadata = construirMetadata({
-  titulo: "La colección — piezas del patrimonio",
+  titulo: "La colección: piezas del patrimonio",
   descripcion:
     "Grabados, pinturas, mapas y fotografías históricas del museo digital Argent.",
   ruta: "/piezas",

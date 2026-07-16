@@ -113,7 +113,7 @@ const PATAGONIA: AudioguiaRecorrido = {
     {
       estacion: 3,
       titulo: "La Conquista del Desierto",
-      texto: "Entre 1878 y 1885, el Estado argentino avanza sobre el sur. El mapa que conocemos hoy se dibuja en esos años — y la herida sigue abierta.",
+      texto: "Entre 1878 y 1885, el Estado argentino avanza sobre el sur. El mapa que conocemos hoy se dibuja en esos años, y la herida sigue abierta.",
     },
     {
       estacion: 4,

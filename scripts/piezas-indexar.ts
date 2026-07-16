@@ -96,7 +96,7 @@ function main() {
     .map(([id, slugs]) => `  "${id}": ${JSON.stringify(slugs)},`)
     .join("\n");
 
-  const contenido = `/** Generado por scripts/piezas-indexar.ts — no editar a mano. */
+  const contenido = `/** Generado por scripts/piezas-indexar.ts: no editar a mano. */
 export const exhibicionesPorPiezaMdx: Record<string, readonly string[]> = {
 ${lineas}
 };

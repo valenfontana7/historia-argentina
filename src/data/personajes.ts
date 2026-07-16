@@ -69,7 +69,7 @@ export const personajes: Personaje[] = [
     },
     momento: {
       anio: 1817,
-      linea: "Cruza los Andes con más de 5.000 hombres — la operación que validó su plan continental.",
+      linea: "Cruza los Andes con más de 5.000 hombres, la operación que validó su plan continental.",
       cita: "Serás lo que debas ser, y si no, no serás nada.",
       contextoCita: "Máxima de José de San Martín",
     },
@@ -233,7 +233,7 @@ export const personajes: Personaje[] = [
     enemigos: ["juan-jose-castelli", "mariano-moreno"],
     momento: {
       anio: 1807,
-      linea: "Dirige la defensa de Buenos Aires contra la segunda invasión inglesa — y demuestra que el virreinato puede autogobernarse.",
+      linea: "Dirige la defensa de Buenos Aires contra la segunda invasión inglesa, y demuestra que el virreinato puede autogobernarse.",
     },
   },
   {
@@ -304,11 +304,11 @@ export const personajes: Personaje[] = [
     nacimiento: { anio: 1786, lugar: "Buenos Aires" },
     muerte: { anio: 1868, lugar: "Buenos Aires" },
     resumen:
-      "En su salón se conspiró, se debatió y —según la tradición— se cantó por primera vez el Himno Nacional. Sus cartas son la mejor crónica de medio siglo argentino.",
+      "En su salón se conspiró, se debatió y (según la tradición) se cantó por primera vez el Himno Nacional. Sus cartas son la mejor crónica de medio siglo argentino.",
     biografia: [
       "A los 14 años desafió a sus padres y al orden colonial entero: se negó a un matrimonio arreglado y litigó ante el virrey para casarse con el hombre que amaba. Ganó. Esa mezcla de inteligencia y coraje definió su vida.",
       "Su casa de la calle Umquera fue el salón donde se cruzaron todos los protagonistas de la Revolución. La tradición ubica allí, el 14 de mayo de 1813, la primera interpretación del Himno Nacional, con Mariquita al clave.",
-      "Vivió la Independencia, la anarquía, Rosas —de quien fue opositora y exiliada— y la Organización Nacional. Sus cartas, lúcidas y mordaces, son uno de los grandes documentos del siglo XIX argentino.",
+      "Vivió la Independencia, la anarquía, Rosas (de quien fue opositora y exiliada) y la Organización Nacional. Sus cartas, lúcidas y mordaces, son uno de los grandes documentos del siglo XIX argentino.",
     ],
     hitos: [
       { anio: 1786, texto: "Nace en Buenos Aires, hija de una familia acaudalada del virreinato." },
@@ -388,7 +388,7 @@ export const personajes: Personaje[] = [
       "Gobernó Buenos Aires con la suma del poder público durante casi dos décadas. Para unos, tirano sangriento; para otros, defensor de la soberanía. Nadie es neutral.",
     biografia: [
       "Estanciero, saladerista y jinete legendario, construyó su poder en la campaña bonaerense: conocía a los gauchos, hablaba su idioma y los encuadró en sus milicias. Llegó al gobierno en 1829 como el hombre de orden tras el caos del fusilamiento de Dorrego.",
-      "Desde 1835 gobernó con la suma del poder público y un aparato de propaganda y terror —la Mazorca— que no admitía disidencias: el punzó era obligatorio, los unitarios eran «salvajes» y el exilio o el degüello esperaban a los enemigos. A la vez, enfrentó bloqueos de Francia e Inglaterra, y la resistencia de la Vuelta de Obligado lo convirtió en símbolo de soberanía.",
+      "Desde 1835 gobernó con la suma del poder público y un aparato de propaganda y terror (la Mazorca) que no admitía disidencias: el punzó era obligatorio, los unitarios eran «salvajes» y el exilio o el degüello esperaban a los enemigos. A la vez, enfrentó bloqueos de Francia e Inglaterra, y la resistencia de la Vuelta de Obligado lo convirtió en símbolo de soberanía.",
       "En 1852 su antiguo aliado Urquiza lo derrotó en Caseros. Se embarcó esa misma noche hacia Inglaterra, donde vivió sus últimos 25 años como chacarero pobre cerca de Southampton. Su figura sigue siendo la grieta original de la historia argentina.",
     ],
     hitos: [
@@ -407,7 +407,7 @@ export const personajes: Personaje[] = [
     },
     momento: {
       anio: 1852,
-      linea: "Derrotado en Caseros por Urquiza, parte al exilio esa misma noche — y cierra dos décadas de rosismo.",
+      linea: "Derrotado en Caseros por Urquiza, parte al exilio esa misma noche, y cierra dos décadas de rosismo.",
     },
   },
   {
@@ -477,7 +477,7 @@ export const personajes: Personaje[] = [
       "Escribió las Bases sobre las que se redactó la Constitución de 1853. Pensó el país desde el exilio y murió en el exilio, peleado con casi todos.",
     biografia: [
       "Nació en 1810, el mismo año que la patria, y pasó fuera de ella la mayor parte de su vida. Desde el exilio chileno, cuando cayó Rosas, escribió en semanas las «Bases y puntos de partida para la organización política de la República Argentina», el texto que moldeó la Constitución de 1853.",
-      "Su fórmula —«gobernar es poblar»— resumía un programa: inmigración europea, ferrocarriles, libertades económicas y un ejecutivo fuerte pero constitucional. Fue diplomático de la Confederación de Urquiza en Europa y enemigo intelectual de Mitre y Sarmiento, contra quienes libró polémicas feroces.",
+      "Su fórmula («gobernar es poblar») resumía un programa: inmigración europea, ferrocarriles, libertades económicas y un ejecutivo fuerte pero constitucional. Fue diplomático de la Confederación de Urquiza en Europa y enemigo intelectual de Mitre y Sarmiento, contra quienes libró polémicas feroces.",
       "Su condena de la Guerra del Paraguay lo volvió un apestado para la élite porteña, que lo trató de traidor. Murió cerca de París en 1884. La Constitución que inspiró, con reformas, sigue vigente.",
     ],
     hitos: [
@@ -527,7 +527,7 @@ export const personajes: Personaje[] = [
     },
     momento: {
       anio: 1845,
-      linea: "Publica el Facundo en el exilio chileno — el libro que inventó la dicotomía civilización o barbarie.",
+      linea: "Publica el Facundo en el exilio chileno, el libro que inventó la dicotomía civilización o barbarie.",
       cita: "Las ideas no se matan.",
       contextoCita: "Carta al exilio, 1840",
     },
@@ -571,7 +571,7 @@ export const personajes: Personaje[] = [
       "El político más hábil de su siglo: comandó la Conquista del Desierto, presidió dos veces el país y construyó el orden que hizo de Argentina un granero del mundo.",
     biografia: [
       "Militar de carrera desde los 15 años, comandó en 1879 la campaña militar sobre la Patagonia conocida como Conquista del Desierto: incorporó millones de hectáreas al Estado y a la vez desposeyó y sometió a los pueblos originarios, una herida que la Argentina todavía discute.",
-      "Con ese prestigio llegó dos veces a la presidencia. Bajo su lema —«paz y administración»— el país se transformó: capital federalizada, educación laica y obligatoria, registro civil, ferrocarriles, inmigración masiva. Argentina pasó a ser uno de los países de mayor crecimiento del planeta.",
+      "Con ese prestigio llegó dos veces a la presidencia. Bajo su lema («paz y administración») el país se transformó: capital federalizada, educación laica y obligatoria, registro civil, ferrocarriles, inmigración masiva. Argentina pasó a ser uno de los países de mayor crecimiento del planeta.",
       "Lo llamaban el Zorro porque nunca daba una pelea que no tuviera ganada de antemano. Manejó la política argentina durante tres décadas, casi siempre desde las sombras. Murió en 1914, cuando el orden conservador que había construido empezaba a resquebrajarse.",
     ],
     hitos: [
@@ -613,7 +613,7 @@ export const personajes: Personaje[] = [
     enemigos: ["julio-argentino-roca"],
     momento: {
       anio: 1930,
-      linea: "Derrocado por el primer golpe de Estado de la historia argentina — y cae la democracia que él había inaugurado en 1916.",
+      linea: "Derrocado por el primer golpe de Estado de la historia argentina, y cae la democracia que él había inaugurado en 1916.",
     },
   },
   {
@@ -645,7 +645,7 @@ export const personajes: Personaje[] = [
     enemigos: [],
     momento: {
       anio: 1945,
-      linea: "El 17 de octubre, una movilización obrera exige y logra su liberación — fecha fundacional del peronismo.",
+      linea: "El 17 de octubre, una movilización obrera exige y logra su liberación: fecha fundacional del peronismo.",
     },
   },
   {
@@ -679,7 +679,7 @@ export const personajes: Personaje[] = [
     },
     momento: {
       anio: 1947,
-      linea: "Impulsa la ley de voto femenino — y abre la política argentina a millones de mujeres.",
+      linea: "Impulsa la ley de voto femenino, y abre la política argentina a millones de mujeres.",
       cita: "Donde existe una necesidad, nace un derecho.",
       contextoCita: "Fundación Eva Perón",
     },
@@ -697,7 +697,7 @@ export const personajes: Personaje[] = [
     biografia: [
       "Abogado radical de Chascomús, durante la dictadura defendió presos políticos y presentó hábeas corpus cuando hacerlo era jugarse la vida. En 1983, con el país quebrado por el terrorismo de Estado y la derrota de Malvinas, ganó la presidencia recitando el preámbulo de la Constitución como una oración laica.",
       "Su decisión más trascendente fue también la más riesgosa: crear la CONADEP, que documentó la desaparición de miles de personas en el informe «Nunca Más», y llevar a juicio civil a las juntas militares. En 1985, por primera vez en el mundo, tribunales civiles de un país condenaban a sus propios dictadores.",
-      "Gobernó acosado por alzamientos militares y una economía en llamas que lo obligó a entregar el poder seis meses antes. Pero cuando murió, en 2009, el país entero —peronistas incluidos— lo despidió como lo que fue: el fundador de la democracia argentina moderna, ininterrumpida desde 1983.",
+      "Gobernó acosado por alzamientos militares y una economía en llamas que lo obligó a entregar el poder seis meses antes. Pero cuando murió, en 2009, el país entero (peronistas incluidos) lo despidió como lo que fue: el fundador de la democracia argentina moderna, ininterrumpida desde 1983.",
     ],
     hitos: [
       { anio: 1927, texto: "Nace en Chascomús, provincia de Buenos Aires." },
@@ -715,7 +715,7 @@ export const personajes: Personaje[] = [
     },
     momento: {
       anio: 1985,
-      linea: "El Juicio a las Juntas condena a los excomandantes de la dictadura — un hito mundial de derechos humanos.",
+      linea: "El Juicio a las Juntas condena a los excomandantes de la dictadura, un hito mundial de derechos humanos.",
       cita: "Con la democracia se come, se cura y se educa.",
       contextoCita: "10 de diciembre de 1983",
     },

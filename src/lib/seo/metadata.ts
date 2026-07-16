@@ -58,9 +58,7 @@ export function construirMetadata(pagina: MetaPagina): Metadata {
   const keywords = pagina.palabrasClave ?? [...sitio.palabrasClave];
 
   const title: Metadata["title"] =
-    pagina.ruta === "/"
-      ? { absolute: pagina.titulo }
-      : pagina.titulo;
+    pagina.ruta === "/" ? { absolute: pagina.titulo } : pagina.titulo;
 
   return {
     title,
@@ -91,8 +89,8 @@ export function construirMetadata(pagina: MetaPagina): Metadata {
 export const metadataSitio: Metadata = {
   metadataBase: new URL(sitio.url),
   title: {
-    default: `${sitio.nombre} — ${sitio.lema}`,
-    template: `%s — ${sitio.nombre}`,
+    default: `${sitio.nombre} | ${sitio.lema}`,
+    template: `%s | ${sitio.nombre}`,
   },
   description: sitio.descripcion,
   keywords: [...sitio.palabrasClave],
@@ -106,7 +104,7 @@ export const metadataSitio: Metadata = {
     languages: { "es-AR": sitio.url },
   },
   openGraph: {
-    title: `${sitio.nombre} — ${sitio.lema}`,
+    title: `${sitio.nombre} | ${sitio.lema}`,
     description: sitio.descripcion,
     url: sitio.url,
     siteName: sitio.nombre,
@@ -123,7 +121,7 @@ export const metadataSitio: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${sitio.nombre} — ${sitio.lema}`,
+    title: `${sitio.nombre} | ${sitio.lema}`,
     description: sitio.descripcion,
     images: [`${sitio.url}/opengraph-image`],
   },
@@ -134,6 +132,5 @@ export const metadataSitio: Metadata = {
     ],
     apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
   },
-  manifest: "/manifest.webmanifest",
   ...(verificacionBusqueda() && { verification: verificacionBusqueda() }),
 };

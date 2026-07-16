@@ -1,4 +1,4 @@
-/** Generado por scripts/audioguias-indexar.ts — tier B enriquecido */
+/** Generado por scripts/audioguias-indexar.ts: tier B enriquecido */
 import type { AudioguiaExhibicion } from "@/data/audioguias-salas-manual";
 
 const ALBERTO_FERNANDEZ: AudioguiaExhibicion = {
@@ -9,12 +9,12 @@ const ALBERTO_FERNANDEZ: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Frente de Todos",
-      texto: "2019 — 2023: Frente de Todos, pandemia y el retorno del peronismo. 10 de diciembre de 2019: el peronismo vuelve con Alberto y Cristina. En 2019, Alberto Fernández —ex jefe de Gabinete de Néstor Kirchner— ganó la presidencia con el Frente de Todos. Cristina Fernández fue su vicepresidenta.",
+      texto: "2019 a 2023: Frente de Todos, pandemia y el retorno del peronismo. 10 de diciembre de 2019: el peronismo vuelve con Alberto y Cristina. En 2019, Alberto Fernández (ex jefe de Gabinete de Néstor Kirchner) ganó la presidencia con el Frente de Todos. Cristina Fernández fue su vicepresidenta.",
     },
     {
       estacion: 1,
       titulo: "Pandemia e inflación",
-      texto: "2020 — 2023: COVID, deuda y una economía que no encontró rumbo. Meses después de asumir, llegó la pandemia de COVID-19. Alberto impuso una cuarentena estricta que salvó vidas pero golpeó la actividad.",
+      texto: "2020 a 2023: COVID, deuda y una economía que no encontró rumbo. Meses después de asumir, llegó la pandemia de COVID-19. Alberto impuso una cuarentena estricta que salvó vidas pero golpeó la actividad.",
     },
     {
       estacion: 2,
@@ -37,12 +37,12 @@ const AMIA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El atentado",
-      texto: "18 de julio de 1994: el atentado que la democracia no resolvió. 18 de julio de 1994: una bomba destruye la AMIA en plena democracia. El 18 de julio de 1994, una bomba destruyó la sede de la AMIA —Asociación Mutual Israelita Argentina— en Buenos Aires. 85 personas murieron.",
+      texto: "18 de julio de 1994: el atentado que la democracia no resolvió. 18 de julio de 1994: una bomba destruye la AMIA en plena democracia. El 18 de julio de 1994, una bomba destruyó la sede de la AMIA (Asociación Mutual Israelita Argentina) en Buenos Aires. 85 personas murieron.",
     },
     {
       estacion: 1,
       titulo: "Justicia truncada",
-      texto: "1994 — hoy: investigaciones, encubrimiento y una herida abierta. La investigación del atentado estuvo marcada por negligencias, encubrimientos y muertes sospechosas de testigos y fiscales. El caso AMIA se convirtió en símbolo de impunidad: un crimen que la democracia no pudo resolver.",
+      texto: "1994 a hoy: investigaciones, encubrimiento y una herida abierta. La investigación del atentado estuvo marcada por negligencias, encubrimientos y muertes sospechosas de testigos y fiscales. El caso AMIA se convirtió en símbolo de impunidad: un crimen que la democracia no pudo resolver.",
     },
     {
       estacion: 2,
@@ -65,7 +65,7 @@ const CAMPORA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Cámpora al gobierno",
-      texto: "11 de marzo de 1973: Cámpora al gobierno, Perón a la presidencia. 11 de marzo de 1973: el peronismo vuelve a ganar elecciones. Después de 18 años de proscripción, el peronismo volvió a las urnas en 1973. Héctor José Cámpora —dentista, dirigente histórico, hombre de confianza de Perón— ganó la presidencia con una consigna que resumía todo: «Cámpora al gobierno, Perón a la presidencia».",
+      texto: "11 de marzo de 1973: Cámpora al gobierno, Perón a la presidencia. 11 de marzo de 1973: el peronismo vuelve a ganar elecciones. Después de 18 años de proscripción, el peronismo volvió a las urnas en 1973. Héctor José Cámpora (dentista, dirigente histórico, hombre de confianza de Perón) ganó la presidencia con una consigna que resumía todo: «Cámpora al gobierno, Perón a la presidencia».",
     },
     {
       estacion: 1,
@@ -80,7 +80,7 @@ const CAMPORA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Del dentista a la tormenta",
-      texto: "Cámpora abrió la puerta. Perón entró en un país en guerra. Para entender el retorno de Perón, hay que leer a Cámpora: el presidente que devolvió legitimidad electoral al peronismo y se retiró a tiempo para que el líder exiliado compitiera y ganara. Lo que vino después —violencia, Triple A, golpe de 1976— no borra lo que significó marzo de 1973: la política volvió a contar.",
+      texto: "Cámpora abrió la puerta. Perón entró en un país en guerra. Para entender el retorno de Perón, hay que leer a Cámpora: el presidente que devolvió legitimidad electoral al peronismo y se retiró a tiempo para que el líder exiliado compitiera y ganara. Lo que vino después (violencia, Triple A, golpe de 1976) no borra lo que significó marzo de 1973: la política volvió a contar.",
     }
   ],
 };
@@ -93,12 +93,12 @@ const DE_LA_RUA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Alianza",
-      texto: "1999 — 2001: la Alianza, la convertibilidad heredada y la renuncia. 10 de diciembre de 1999: De la Rúa asume con la convertibilidad heredada. Después de diez años de Menem, la Argentina votó cambio sin ruptura. Fernando de la Rúa —abogado radical, dos veces jefe de Gobierno porteño— ganó la presidencia con la Alianza frente al peronismo.",
+      texto: "1999 a 2001: la Alianza, la convertibilidad heredada y la renuncia. 10 de diciembre de 1999: De la Rúa asume con la convertibilidad heredada. Después de diez años de Menem, la Argentina votó cambio sin ruptura. Fernando de la Rúa (abogado radical, dos veces jefe de Gobierno porteño) ganó la presidencia con la Alianza frente al peronismo.",
     },
     {
       estacion: 1,
       titulo: "Del modelo al abismo",
-      texto: "1999 — 2001: déficit, fuga de capitales y cacerolas en la calle. De la Rúa no pudo sostener el modelo. La recesión profundizó, el desempleo creció y la fuga de capitales tensionó las reservas.",
+      texto: "1999 a 2001: déficit, fuga de capitales y cacerolas en la calle. De la Rúa no pudo sostener el modelo. La recesión profundizó, el desempleo creció y la fuga de capitales tensionó las reservas.",
     },
     {
       estacion: 2,
@@ -177,7 +177,7 @@ const EL_DEFAULT: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La cesación de pagos",
-      texto: "23 de diciembre de 2001: la cesación de pagos más grande de la historia. 23 de diciembre de 2001: Argentina declara el default. El 23 de diciembre de 2001, el gobierno de Rodrigo Rua —interino tras la caída de De la Rúa— anunció la cesación de pagos de la deuda externa. Fue el default más grande de la historia: más de 100.000 millones de dólares.",
+      texto: "23 de diciembre de 2001: la cesación de pagos más grande de la historia. 23 de diciembre de 2001: Argentina declara el default. El 23 de diciembre de 2001, el gobierno de Rodrigo Rua (interino tras la caída de De la Rúa) anunció la cesación de pagos de la deuda externa. Fue el default más grande de la historia: más de 100.000 millones de dólares.",
     },
     {
       estacion: 1,
@@ -192,7 +192,7 @@ const EL_DEFAULT: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Después del default",
-      texto: "2001 no terminó con la deuda. Empezó otra Argentina. La devaluación, los piquetes, las fábricas recuperadas, el kirchnerismo: todo nació del mismo colapso. El default fue el punto de quiebre financiero de una democracia que no cayó —pero salió transformada.",
+      texto: "2001 no terminó con la deuda. Empezó otra Argentina. La devaluación, los piquetes, las fábricas recuperadas, el kirchnerismo: todo nació del mismo colapso. El default fue el punto de quiebre financiero de una democracia que no cayó, pero salió transformada.",
     }
   ],
 };
@@ -210,7 +210,7 @@ const EL_FACUNDO: AudioguiaExhibicion = {
     {
       estacion: 1,
       titulo: "Caudillos, pampa y ley",
-      texto: "El interior que Rosas dominaba y Sarmiento quería transformar. El Facundo narra el mundo de los caudillos: hombres que eran ley, ejército y gobierno a la vez. Facundo Quiroga —el Tigre de los Llanos— es el arquetipo.",
+      texto: "El interior que Rosas dominaba y Sarmiento quería transformar. El Facundo narra el mundo de los caudillos: hombres que eran ley, ejército y gobierno a la vez. Facundo Quiroga (el Tigre de los Llanos) es el arquetipo.",
     },
     {
       estacion: 2,
@@ -238,7 +238,7 @@ const EL_RETORNO: AudioguiaExhibicion = {
     {
       estacion: 1,
       titulo: "El tercer mandato",
-      texto: "1973 — 1974: victoria electoral y fractura interna. En octubre de 1973, Perón ganó las elecciones con el 62 % de los votos. Pero el peronismo estaba roto: sindicalistas, guerrilleros, burocracia, jóvenes militantes.",
+      texto: "1973 a 1974: victoria electoral y fractura interna. En octubre de 1973, Perón ganó las elecciones con el 62 % de los votos. Pero el peronismo estaba roto: sindicalistas, guerrilleros, burocracia, jóvenes militantes.",
     },
     {
       estacion: 2,
@@ -294,7 +294,7 @@ const EMBAJADA: AudioguiaExhibicion = {
     {
       estacion: 1,
       titulo: "Impunidad y sospecha",
-      texto: "1992 — hoy: un caso que la justicia no cerró. La investigación apuntó a Hezbollah y a complicidad local. Pero el caso estuvo marcado por irregularidades, muertes de testigos y acuerdos internacionales controvertidos —como el memorándum con Irán de 2013, anulado después.",
+      texto: "1992 a hoy: un caso que la justicia no cerró. La investigación apuntó a Hezbollah y a complicidad local. Pero el caso estuvo marcado por irregularidades, muertes de testigos y acuerdos internacionales controvertidos, como el memorándum con Irán de 2013, anulado después.",
     },
     {
       estacion: 2,
@@ -317,7 +317,7 @@ const ERP: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El ERP",
-      texto: "La guerrilla marxista que eligió las armas en los setenta. 1970: el Ejército Revolucionario del Pueblo elige las armas. En los años setenta, la violencia política no fue solo de Montoneros. El ERP —Ejército Revolucionario del Pueblo— fue una guerrilla marxista-leninista liderada por Mario Roberto Santucho.",
+      texto: "La guerrilla marxista que eligió las armas en los setenta. 1970: el Ejército Revolucionario del Pueblo elige las armas. En los años setenta, la violencia política no fue solo de Montoneros. El ERP (Ejército Revolucionario del Pueblo) fue una guerrilla marxista-leninista liderada por Mario Roberto Santucho.",
     },
     {
       estacion: 1,
@@ -345,12 +345,12 @@ const FABRICAS_RECUPERADAS: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Las fábricas sin dueño",
-      texto: "2002 — 2015: cooperativas, autogestión y la economía del post-2001. 2002: los trabajadores ocupan la producción cuando el patrón desaparece. Después del 2001, cientos de empresas cerraron o abandonaron a sus empleados. En lugar de esperar, los trabajadores ocuparon las plantas y formaron cooperativas.",
+      texto: "2002 a 2015: cooperativas, autogestión y la economía del post-2001. 2002: los trabajadores ocupan la producción cuando el patrón desaparece. Después del 2001, cientos de empresas cerraron o abandonaron a sus empleados. En lugar de esperar, los trabajadores ocuparon las plantas y formaron cooperativas.",
     },
     {
       estacion: 1,
       titulo: "De Zanon al Congreso",
-      texto: "2002 — 2015: leyes, conflictos y un modelo alternativo. Zanón en Neuquén se convirtió en símbolo: miles de obreros ceramistas recuperaron la planta y la mantuvieron en producción. Otras empresas siguieron el mismo camino: Brukman, Grissinópoli, FaSinPat.",
+      texto: "2002 a 2015: leyes, conflictos y un modelo alternativo. Zanón en Neuquén se convirtió en símbolo: miles de obreros ceramistas recuperaron la planta y la mantuvieron en producción. Otras empresas siguieron el mismo camino: Brukman, Grissinópoli, FaSinPat.",
     },
     {
       estacion: 2,
@@ -401,12 +401,12 @@ const FRONDIZI: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El desarrollismo",
-      texto: "1958 — 1962: desarrollismo, petróleo y el peronismo que votó sin Perón. 1 de mayo de 1958: Frondizi asume con el voto peronista y un plan industrial. Después de la Revolución Libertadora, el peronismo seguía proscripto pero vivo. En 1958, Arturo Frondizi —radical intransigente— ganó la presidencia con el apoyo encubierto del voto peronista y un proyecto que llamó desarrollismo: petróleo, acero, industria pesada, inversión extranjera.",
+      texto: "1958 a 1962: desarrollismo, petróleo y el peronismo que votó sin Perón. 1 de mayo de 1958: Frondizi asume con el voto peronista y un plan industrial. Después de la Revolución Libertadora, el peronismo seguía proscripto pero vivo. En 1958, Arturo Frondizi (radical intransigente) ganó la presidencia con el apoyo encubierto del voto peronista y un proyecto que llamó desarrollismo: petróleo, acero, industria pesada, inversión extranjera.",
     },
     {
       estacion: 1,
       titulo: "Petróleo y fábricas",
-      texto: "1958 — 1962: crecimiento, conflictos y el precio del acuerdo con las petroleras. Frondizi firmó contratos con compañías internacionales para explotar yacimientos. YPF siguió siendo estatal, pero el modelo abrió la puerta a capitales extranjeros.",
+      texto: "1958 a 1962: crecimiento, conflictos y el precio del acuerdo con las petroleras. Frondizi firmó contratos con compañías internacionales para explotar yacimientos. YPF siguió siendo estatal, pero el modelo abrió la puerta a capitales extranjeros.",
     },
     {
       estacion: 2,
@@ -429,7 +429,7 @@ const GALTIERI: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Galtieri",
-      texto: "1981 — 1982: el dictador que apostó a Malvinas y perdió todo. 22 de diciembre de 1981: el último presidente de la dictadura. A fines de 1981, Leopoldo Galtieri asumió la presidencia de facto. La dictadura llevaba cinco años en el poder y enfrentaba inflación, protestas y un país cansado del terror.",
+      texto: "1981 a 1982: el dictador que apostó a Malvinas y perdió todo. 22 de diciembre de 1981: el último presidente de la dictadura. A fines de 1981, Leopoldo Galtieri asumió la presidencia de facto. La dictadura llevaba cinco años en el poder y enfrentaba inflación, protestas y un país cansado del terror.",
     },
     {
       estacion: 1,
@@ -462,7 +462,7 @@ const GUEMES: AudioguiaExhibicion = {
     {
       estacion: 1,
       titulo: "Seis años de guerra irregular",
-      texto: "1815 — 1821: Salta como escudo del norte argentino. Güemes financió la guerra con sus propias estancias. Reclutó gauchos, impuso cuotas a los hacendados, enfrentó a Buenos Aires cuando le faltaba plata.",
+      texto: "1815 a 1821: Salta como escudo del norte argentino. Güemes financió la guerra con sus propias estancias. Reclutó gauchos, impuso cuotas a los hacendados, enfrentó a Buenos Aires cuando le faltaba plata.",
     },
     {
       estacion: 2,
@@ -490,12 +490,12 @@ const HIPERINFLACION: AudioguiaExhibicion = {
     {
       estacion: 1,
       titulo: "El verano del Rodrigazo",
-      texto: "Junio de 1989: el plan económico que aceleró el colapso. En junio de 1989, el ministro Juan Vital Sourrouille lanzó el Plan Primavera —conocido como Rodrigazo—: ajuste brutal de precios y tarifas. La reacción social fue inmediata: saqueos, violencia, pánico.",
+      texto: "Junio de 1989: el plan económico que aceleró el colapso. En junio de 1989, el ministro Juan Vital Sourrouille lanzó el Plan Primavera (conocido como Rodrigazo): ajuste brutal de precios y tarifas. La reacción social fue inmediata: saqueos, violencia, pánico.",
     },
     {
       estacion: 2,
       titulo: "El gráfico del colapso",
-      texto: "1989 — 1990: cuando el peso dejó de valer nada.",
+      texto: "1989 a 1990: cuando el peso dejó de valer nada.",
     },
     {
       estacion: 3,
@@ -513,12 +513,12 @@ const ILLIA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La democracia radical",
-      texto: "1963 — 1966: la democracia radical entre Frondizi y Onganía. 12 de octubre de 1963: Illia asume con el 28 % de los votos. Después del golpe a Frondizi, la Argentina vivió meses de incertidumbre. En 1963, Arturo Illia —médico rural, radical austero— ganó las elecciones con el 28 % de los votos en un sistema que premiaba la pluralidad.",
+      texto: "1963 a 1966: la democracia radical entre Frondizi y Onganía. 12 de octubre de 1963: Illia asume con el 28 % de los votos. Después del golpe a Frondizi, la Argentina vivió meses de incertidumbre. En 1963, Arturo Illia (médico rural, radical austero) ganó las elecciones con el 28 % de los votos en un sistema que premiaba la pluralidad.",
     },
     {
       estacion: 1,
       titulo: "Austeridad y petróleo",
-      texto: "1963 — 1966: obras públicas, ley petrolera y un peronismo que no esperaba. Illia redujo el gasto, impulsó obras en el interior y sancionó la Ley de Petróleo para frenar contratos que consideraba lesivos. Para el radicalismo, era honestidad republicana.",
+      texto: "1963 a 1966: obras públicas, ley petrolera y un peronismo que no esperaba. Illia redujo el gasto, impulsó obras en el interior y sancionó la Ley de Petróleo para frenar contratos que consideraba lesivos. Para el radicalismo, era honestidad republicana.",
     },
     {
       estacion: 2,
@@ -541,12 +541,12 @@ const ISABEL: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La presidenta",
-      texto: "1974 — 1976: la primera mujer presidenta y el camino al último golpe. 1 de julio de 1974: Isabel asume tras la muerte de Perón. Cuando Perón murió el 1 de julio de 1974, María Estela Martínez de Perón —«Isabel»— asumió la presidencia. Fue la primera mujer en gobernar un país de América.",
+      texto: "1974 a 1976: la primera mujer presidenta y el camino al último golpe. 1 de julio de 1974: Isabel asume tras la muerte de Perón. Cuando Perón murió el 1 de julio de 1974, María Estela Martínez de Perón («Isabel») asumió la presidencia. Fue la primera mujer en gobernar un país de América.",
     },
     {
       estacion: 1,
       titulo: "Caos y entrega",
-      texto: "1974 — 1976: un gobierno sin control sobre la violencia ni la economía. Isabel no tuvo el liderazgo ni el apoyo interno para contener la espiral. La Triple A operó con impunidad.",
+      texto: "1974 a 1976: un gobierno sin control sobre la violencia ni la economía. Isabel no tuvo el liderazgo ni el apoyo interno para contener la espiral. La Triple A operó con impunidad.",
     },
     {
       estacion: 2,
@@ -625,12 +625,12 @@ const LA_CONVERTIBILIDAD: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Un peso, un dólar",
-      texto: "1991 — 2001: un peso, un dólar, y el colapso que terminó en el corralito. 1991: Argentina fijó su moneda al dólar y creyó que el caos había terminado. Después de décadas de inflación, hiperinflación y planes económicos fallidos, el gobierno de Carlos Menem implementó la convertibilidad: un peso valía exactamente un dólar. La estabilidad llegó.",
+      texto: "1991 a 2001: un peso, un dólar, y el colapso que terminó en el corralito. 1991: Argentina fijó su moneda al dólar y creyó que el caos había terminado. Después de décadas de inflación, hiperinflación y planes económicos fallidos, el gobierno de Carlos Menem implementó la convertibilidad: un peso valía exactamente un dólar. La estabilidad llegó.",
     },
     {
       estacion: 1,
       titulo: "La década del dólar barato",
-      texto: "1991 — 1998: estabilidad, privatizaciones y consumo. La convertibilidad trajo estabilidad de precios y acceso al crédito en dólares. Argentina privatizó empresas estatales, abrió la economía y vivió una década de consumo.",
+      texto: "1991 a 1998: estabilidad, privatizaciones y consumo. La convertibilidad trajo estabilidad de precios y acceso al crédito en dólares. Argentina privatizó empresas estatales, abrió la economía y vivió una década de consumo.",
     },
     {
       estacion: 2,
@@ -640,7 +640,7 @@ const LA_CONVERTIBILIDAD: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Del 1 a 1 al corralito",
-      texto: "2001: la convertibilidad terminó como empezó la hiperinflación — en crisis. En 2001, la convertibilidad colapsó. El corralito congeló los ahorros.",
+      texto: "2001: la convertibilidad terminó como empezó la hiperinflación: en crisis. En 2001, la convertibilidad colapsó. El corralito congeló los ahorros.",
     }
   ],
 };
@@ -653,12 +653,12 @@ const LA_PANDEMIA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El virus",
-      texto: "2020 — 2021: COVID-19, cuarentena y la Argentina aislada. 11 de marzo de 2020: la OMS declara pandemia. Argentina cierra. En marzo de 2020, la COVID-19 llegó a la Argentina. Alberto Fernández decretó una cuarentena estricta —una de las más largas del mundo— para frenar el contagio.",
+      texto: "2020 a 2021: COVID-19, cuarentena y la Argentina aislada. 11 de marzo de 2020: la OMS declara pandemia. Argentina cierra. En marzo de 2020, la COVID-19 llegó a la Argentina. Alberto Fernández decretó una cuarentena estricta (una de las más largas del mundo) para frenar el contagio.",
     },
     {
       estacion: 1,
       titulo: "Vidas y economía",
-      texto: "2020 — 2021: salvar vidas, pagar el costo. La cuarentena redujo muertes en la primera ola, pero paralizó comercios, escuelas y fábricas. El Estado distribuyó ATP —ayuda a empresas para sostener salarios— y amplió gasto social.",
+      texto: "2020 a 2021: salvar vidas, pagar el costo. La cuarentena redujo muertes en la primera ola, pero paralizó comercios, escuelas y fábricas. El Estado distribuyó ATP (ayuda a empresas para sostener salarios) y amplió gasto social.",
     },
     {
       estacion: 2,
@@ -709,12 +709,12 @@ const LANUSSE: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Granaderos a política",
-      texto: "1971 — 1973: el general que convocó elecciones y abrió el retorno de Perón. 1971: Lanusse reemplaza a Onganía y promete elecciones. Cuando Alejandro Lanusse asumió en 1971, la Revolución Argentina llevaba cinco años en el poder. Onganía había caído.",
+      texto: "1971 a 1973: el general que convocó elecciones y abrió el retorno de Perón. 1971: Lanusse reemplaza a Onganía y promete elecciones. Cuando Alejandro Lanusse asumió en 1971, la Revolución Argentina llevaba cinco años en el poder. Onganía había caído.",
     },
     {
       estacion: 1,
       titulo: "Hacia el retorno",
-      texto: "1971 — 1973: elecciones, fractura y la puerta a Perón. Lanusse convocó elecciones legislativas en 1971 y presidenciales en 1973. El peronismo volvió a competir.",
+      texto: "1971 a 1973: elecciones, fractura y la puerta a Perón. Lanusse convocó elecciones legislativas en 1971 y presidenciales en 1973. El peronismo volvió a competir.",
     },
     {
       estacion: 2,
@@ -737,12 +737,12 @@ const LEVINGSTON: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El general interino",
-      texto: "1970 — 1971: el general interino de la Revolución Argentina. 1970: Levingston reemplaza a Onganía en la Revolución Argentina. En junio de 1970, otro general ocupó la presidencia de facto: Roberto Marcelo Levingston. Había sido comandante del Ejército.",
+      texto: "1970 a 1971: el general interino de la Revolución Argentina. 1970: Levingston reemplaza a Onganía en la Revolución Argentina. En junio de 1970, otro general ocupó la presidencia de facto: Roberto Marcelo Levingston. Había sido comandante del Ejército.",
     },
     {
       estacion: 1,
       titulo: "Argentinización y tensión",
-      texto: "1970 — 1971: economía, conflicto y el ascenso de Lanusse. Levingston lanzó la Argentinización de empresas extranjeras y abrió conversaciones con sectores políticos. No alcanzó.",
+      texto: "1970 a 1971: economía, conflicto y el ascenso de Lanusse. Levingston lanzó la Argentinización de empresas extranjeras y abrió conversaciones con sectores políticos. No alcanzó.",
     },
     {
       estacion: 2,
@@ -765,7 +765,7 @@ const LEY_SAENZ_PENA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El voto que cambió todo",
-      texto: "1912: voto secreto y obligatorio — la puerta que abrió la democracia moderna. 1912: Roque Sáenz Peña rompió el fraude y abrió la democracia. Durante décadas, las elecciones argentinas fueron un teatro: el gobierno elegía al ganador, la oposición se abstuvo o conspiraba. La Ley Sáenz Peña de 1912 cambió las reglas: voto secreto y obligatorio para todos los varones.",
+      texto: "1912: voto secreto y obligatorio, la puerta que abrió la democracia moderna. 1912: Roque Sáenz Peña rompió el fraude y abrió la democracia. Durante décadas, las elecciones argentinas fueron un teatro: el gobierno elegía al ganador, la oposición se abstuvo o conspiraba. La Ley Sáenz Peña de 1912 cambió las reglas: voto secreto y obligatorio para todos los varones.",
     },
     {
       estacion: 1,
@@ -780,7 +780,7 @@ const LEY_SAENZ_PENA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "Yrigoyen y la democracia posible",
-      texto: "Cuatro años después, el pueblo eligió a Yrigoyen presidente. En 1916, Yrigoyen ganó las primeras elecciones presidenciales con voto secreto. Por primera vez en la historia argentina, el pueblo —no el fraude, no el acuerdo de cúpulas— decidió quién gobernaba.",
+      texto: "Cuatro años después, el pueblo eligió a Yrigoyen presidente. En 1916, Yrigoyen ganó las primeras elecciones presidenciales con voto secreto. Por primera vez en la historia argentina, el pueblo (no el fraude, no el acuerdo de cúpulas) decidió quién gobernaba.",
     }
   ],
 };
@@ -808,7 +808,7 @@ const LINIERS: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "El héroe que la revolución mató",
-      texto: "Liniers hizo posible Mayo sin saberlo — y murió combatiéndolo. La paradoja de Liniers resume la historia argentina: el hombre que demostró que el virreinato podía autogobernarse fue ejecutado por quienes aprendieron esa lección en sus milicias. Sin Liniers no hay Reconquista.",
+      texto: "Liniers hizo posible Mayo sin saberlo, y murió combatiéndolo. La paradoja de Liniers resume la historia argentina: el hombre que demostró que el virreinato podía autogobernarse fue ejecutado por quienes aprendieron esa lección en sus milicias. Sin Liniers no hay Reconquista.",
     }
   ],
 };
@@ -877,12 +877,12 @@ const MASSERA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El almirante",
-      texto: "1976 — 1978: el almirante de la ESMA y los vuelos de la muerte. 1976: Massera y la Armada en el corazón del Proceso. La Junta Militar de 1976 tenía tres cabezas: Videla (Ejército), Massera (Armada) y Agosti (Aeronáutica). Emilio Eduardo Massera no fue un figurante.",
+      texto: "1976 a 1978: el almirante de la ESMA y los vuelos de la muerte. 1976: Massera y la Armada en el corazón del Proceso. La Junta Militar de 1976 tenía tres cabezas: Videla (Ejército), Massera (Armada) y Agosti (Aeronáutica). Emilio Eduardo Massera no fue un figurante.",
     },
     {
       estacion: 1,
       titulo: "La ESMA y los vuelos",
-      texto: "1976 — 1983: la Armada en la cúpula del horror. Bajo Massera, la ESMA funcionó como fábrica de desaparecidos: tortura, embarazos interrumpidos, bebés robados, vuelos de la muerte hacia el Río de la Plata. La Task Force 3.2.2 operó con método y con presupuesto.",
+      texto: "1976 a 1983: la Armada en la cúpula del horror. Bajo Massera, la ESMA funcionó como fábrica de desaparecidos: tortura, embarazos interrumpidos, bebés robados, vuelos de la muerte hacia el Río de la Plata. La Task Force 3.2.2 operó con método y con presupuesto.",
     },
     {
       estacion: 2,
@@ -938,7 +938,7 @@ const ONGANIA: AudioguiaExhibicion = {
     {
       estacion: 1,
       titulo: "Orden sin democracia",
-      texto: "1966 — 1973: el peronismo proscripto y la sociedad bajo control. Onganía disolvió el Congreso, intervino universidades y sindicatos, censuró la prensa. El peronismo seguía proscripto desde 1955.",
+      texto: "1966 a 1973: el peronismo proscripto y la sociedad bajo control. Onganía disolvió el Congreso, intervino universidades y sindicatos, censuró la prensa. El peronismo seguía proscripto desde 1955.",
     },
     {
       estacion: 2,
@@ -961,12 +961,12 @@ const PARAGUAY: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Triple Alianza",
-      texto: "1865 — 1870: la Triple Alianza y la campaña más sangrienta del continente. 1865: Argentina, Brasil y Uruguay declaran la guerra a Paraguay. En 1865, Argentina, Brasil y Uruguay sellaron un tratado secreto para derrocar al presidente paraguayo Francisco Solano López. Lo que siguió fue la campaña más larga y mortífera de la historia sudamericana.",
+      texto: "1865 a 1870: la Triple Alianza y la campaña más sangrienta del continente. 1865: Argentina, Brasil y Uruguay declaran la guerra a Paraguay. En 1865, Argentina, Brasil y Uruguay sellaron un tratado secreto para derrocar al presidente paraguayo Francisco Solano López. Lo que siguió fue la campaña más larga y mortífera de la historia sudamericana.",
     },
     {
       estacion: 1,
       titulo: "La guerra más sangrienta",
-      texto: "Más de 300.000 muertos, la mayoría paraguayos. La Triple Alianza movilizó ejércitos enormes contra un Paraguay aislado. Las batallas —Tuyutí, Curupaytí, Humaitá, Piribebuy— dejaron un saldo brutal.",
+      texto: "Más de 300.000 muertos, la mayoría paraguayos. La Triple Alianza movilizó ejércitos enormes contra un Paraguay aislado. Las batallas (Tuyutí, Curupaytí, Humaitá, Piribebuy) dejaron un saldo brutal.",
     },
     {
       estacion: 2,
@@ -989,12 +989,12 @@ const PATAGONIA_REBELDE: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La huelga del fin del mundo",
-      texto: "1920 — 1922: la huelga obrera del sur que Yrigoyen reprimió con fusilamientos. 1920: obreros de Santa Cruz exigen jornada de ocho horas en la Patagonia. En la Patagonia australes, lejos de Buenos Aires, obreros de frigoríficos y estancias iniciaron una huelga en 1920. Pedían jornada de ocho horas, mejor salario, sindicato libre.",
+      texto: "1920 a 1922: la huelga obrera del sur que Yrigoyen reprimió con fusilamientos. 1920: obreros de Santa Cruz exigen jornada de ocho horas en la Patagonia. En la Patagonia australes, lejos de Buenos Aires, obreros de frigoríficos y estancias iniciaron una huelga en 1920. Pedían jornada de ocho horas, mejor salario, sindicato libre.",
     },
     {
       estacion: 1,
       titulo: "Soldados contra obreros",
-      texto: "1921 — 1922: el ejército fusila huelguistas en Santa Cruz. El ejército bajo Héctor Varela aplastó la huelga con fusilamientos masivos. Obreros fueron detenidos, identificados, ejecutados.",
+      texto: "1921 a 1922: el ejército fusila huelguistas en Santa Cruz. El ejército bajo Héctor Varela aplastó la huelga con fusilamientos masivos. Obreros fueron detenidos, identificados, ejecutados.",
     },
     {
       estacion: 2,
@@ -1017,12 +1017,12 @@ const PIQUETEROS: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La calle después del 2001",
-      texto: "2002 — 2015: la calle que nació del colapso del 2001. 2002: los piquetes nacen del colapso y de la necesidad. Después del corralito de 2001, miles de argentinos perdieron empleo de un día para el otro. En barrios del conurbano y del interior, surgió una forma nueva de protesta: el piquete —el corte de ruta como último recurso para exigir trabajo, comida o planes sociales.",
+      texto: "2002 a 2015: la calle que nació del colapso del 2001. 2002: los piquetes nacen del colapso y de la necesidad. Después del corralito de 2001, miles de argentinos perdieron empleo de un día para el otro. En barrios del conurbano y del interior, surgió una forma nueva de protesta: el piquete, el corte de ruta como último recurso para exigir trabajo, comida o planes sociales.",
     },
     {
       estacion: 1,
       titulo: "Planes y política",
-      texto: "2002 — 2015: de la emergencia a la institucionalización. Los gobiernos de Kirchner y Cristina expandieron los planes sociales y negociaron con las organizaciones piqueteras. Para muchos, fue inclusión.",
+      texto: "2002 a 2015: de la emergencia a la institucionalización. Los gobiernos de Kirchner y Cristina expandieron los planes sociales y negociaron con las organizaciones piqueteras. Para muchos, fue inclusión.",
     },
     {
       estacion: 2,
@@ -1088,7 +1088,7 @@ const RIVADAVIA: AudioguiaExhibicion = {
     {
       estacion: 3,
       titulo: "De Rivadavia a la Nación",
-      texto: "El unitarismo que volvería con Mitre y la Constitución de 1853. Rivadavia murió en el exilio español, lejos del país que quiso transformar. Pero muchas de sus ideas —educación pública, inmigración, instituciones— volvieron con Alberdi, con Mitre, con la Constitución de 1853.",
+      texto: "El unitarismo que volvería con Mitre y la Constitución de 1853. Rivadavia murió en el exilio español, lejos del país que quiso transformar. Pero muchas de sus ideas (educación pública, inmigración, instituciones) volvieron con Alberdi, con Mitre, con la Constitución de 1853.",
     }
   ],
 };
@@ -1167,7 +1167,7 @@ const SEMANA_TRAGICA: AudioguiaExhibicion = {
     {
       estacion: 2,
       titulo: "Yrigoyen y la herida",
-      texto: "El presidente que llegó con el voto popular no pudo —o no quiso— frenar la masacre.",
+      texto: "El presidente que llegó con el voto popular no pudo (o no quiso) frenar la masacre.",
     },
     {
       estacion: 3,
@@ -1185,12 +1185,12 @@ const TRIPLE_A: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Triple A",
-      texto: "1973 — 1975: López Rega y el terror parapolicial del tercer peronismo. 1973: López Rega arma la Alianza Anticomunista Argentina. Cuando Perón volvió en 1973, el poder no estaba solo en la Casa Rosada. José López Rega —ministro de Bienestar Social, fundador de la Triple A (Alianza Anticomunista Argentina)— operaba en la sombra con cobertura estatal.",
+      texto: "1973 a 1975: López Rega y el terror parapolicial del tercer peronismo. 1973: López Rega arma la Alianza Anticomunista Argentina. Cuando Perón volvió en 1973, el poder no estaba solo en la Casa Rosada. José López Rega (ministro de Bienestar Social, fundador de la Triple A (Alianza Anticomunista Argentina)) operaba en la sombra con cobertura estatal.",
     },
     {
       estacion: 1,
       titulo: "Terror desde el Estado",
-      texto: "1973 — 1975: la violencia de derecha que alimentó la espiral. Mientras Montoneros y otros grupos armados actuaban en la calle, la Triple A respondía con método. Sus acciones fueron atribuidas a «patriotas»; muchas tenían rastro institucional.",
+      texto: "1973 a 1975: la violencia de derecha que alimentó la espiral. Mientras Montoneros y otros grupos armados actuaban en la calle, la Triple A respondía con método. Sus acciones fueron atribuidas a «patriotas»; muchas tenían rastro institucional.",
     },
     {
       estacion: 2,
@@ -1213,12 +1213,12 @@ const VIDELA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Videla",
-      texto: "1976 — 1981: el general que encabezó el Proceso de Reorganización Nacional. 24 de marzo de 1976: el general que encabezó el golpe. Cuando los tanques salieron a la calle el 24 de marzo de 1976, Jorge Rafael Videla era el rostro del golpe. General del Ejército, católico, disciplinado, convencido de que la Argentina necesitaba un «Proceso de Reorganización Nacional».",
+      texto: "1976 a 1981: el general que encabezó el Proceso de Reorganización Nacional. 24 de marzo de 1976: el general que encabezó el golpe. Cuando los tanques salieron a la calle el 24 de marzo de 1976, Jorge Rafael Videla era el rostro del golpe. General del Ejército, católico, disciplinado, convencido de que la Argentina necesitaba un «Proceso de Reorganización Nacional».",
     },
     {
       estacion: 1,
       titulo: "Terror de Estado",
-      texto: "1976 — 1981: desapariciones, censura y economía de guerra. Bajo Videla funcionó un aparato represivo sistemático: secuestros, tortura, centros clandestinos, vuelos de la muerte. Miles de personas desaparecieron.",
+      texto: "1976 a 1981: desapariciones, censura y economía de guerra. Bajo Videla funcionó un aparato represivo sistemático: secuestros, tortura, centros clandestinos, vuelos de la muerte. Miles de personas desaparecieron.",
     },
     {
       estacion: 2,

@@ -24,7 +24,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = construirMetadata({
   titulo: "Membresía Mecenas",
   descripcion:
-    "Sostené Argent y accedé a crónicas exclusivas, mapa completo y recorridos especiales.",
+    "Sostené Argent y accedé a salas privadas, mapa completo y visitas guiadas especiales.",
   ruta: "/membresia",
 });
 

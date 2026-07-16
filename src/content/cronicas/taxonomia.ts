@@ -1,6 +1,6 @@
 import type { Epoca } from "@/components/ui/Retrato";
 
-/** Metadata estructurada por slug — complementa el copy editorial en registro.ts */
+/** Metadata estructurada por slug: complementa el copy editorial en registro.ts */
 export type TaxonomiaCronica = {
   epoca: Epoca;
   categorias: string[];

@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!pieza) return {};
   return construirMetadata({
     titulo: pieza.alt,
-    descripcion: `${ETIQUETAS_TIPO_PIEZA[pieza.tipo]} — ${pieza.credito}`,
+    descripcion: `${ETIQUETAS_TIPO_PIEZA[pieza.tipo]}: ${pieza.credito}`,
     ruta: `/piezas/${id}`,
     tipo: "article",
     imagen: pieza.url,

@@ -29,7 +29,7 @@ export default async function AdminDashboardPage() {
       <div>
         <h1 className="titulo-display text-3xl font-semibold">Panel de admin</h1>
         <p className="mt-2 text-sm text-tinta-suave">
-          Resumen de Argent — membresía, boletín y estado de planes.
+          Resumen de Argent: membresía, boletín y estado de planes.
         </p>
       </div>
 
@@ -54,6 +54,23 @@ export default async function AdminDashboardPage() {
             className="inline-flex rounded-full border border-oro/50 px-5 py-2 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10"
           >
             Ver personas
+          </Link>
+        </div>
+      </section>
+
+      <section className="rounded-sm border border-linea bg-fondo-2 p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="titulo-display text-xl font-semibold">Video / Reels</h2>
+            <p className="mt-2 text-sm text-tinta-suave">
+              Generá MP4 verticales desde exhibiciones (FFmpeg).
+            </p>
+          </div>
+          <Link
+            href="/admin/video"
+            className="inline-flex rounded-full border border-oro/50 px-5 py-2 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10"
+          >
+            Abrir generador
           </Link>
         </div>
       </section>

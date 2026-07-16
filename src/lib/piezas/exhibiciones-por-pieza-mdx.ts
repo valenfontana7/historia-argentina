@@ -1,4 +1,4 @@
-/** Generado por scripts/piezas-indexar.ts — no editar a mano. */
+/** Generado por scripts/piezas-indexar.ts: no editar a mano. */
 export const exhibicionesPorPiezaMdx: Record<string, readonly string[]> = {
   "alberdi-bases": ["alberdi"],
   "alberdi-retrato": ["la-constitucion-de-1853"],

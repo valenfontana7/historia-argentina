@@ -1,4 +1,4 @@
-/** Registro paramétrico de escenas comparador — generado por scripts/escenas-extraer.ts
+/** Registro paramétrico de escenas comparador: generado por scripts/escenas-extraer.ts
  *
  * Para agregar una escena nueva: añadir entrada acá y validar con npm run cronicas:validar.
  * Las escenas con mapas SVG custom viven en EscenasCruce, EscenasMayo, etc.
@@ -74,7 +74,7 @@ export const ESCENAS_COMPARADOR: Record<string, EscenaComparadorDef> = {
   FacundoVivo: { imagenId: "facundo-retrato", pie: "Facundo Quiroga: caudillo del interior, aliado y amenaza" },
   FederalCapital: { imagenId: "federal-escudo", pie: "La federalización de 1880: nace la Capital Federal" },
   FederalProvincia: { imagenId: "federal-plano", pie: "Buenos Aires provincia: la ciudad y su campaña en un solo territorio" },
-  FrondiziEconomia: { imagenId: "frondizi-grafico", pie: "1958 — 1962: crecimiento industrial y tensión social" },
+  FrondiziEconomia: { imagenId: "frondizi-grafico", pie: "1958 a 1962: crecimiento industrial y tensión social" },
   FrondiziPresidente: { imagenId: "frondizi-retrato", pie: "Arturo Frondizi: el desarrollismo que apostó al petróleo y a la industria" },
   GaltieriDictador: { imagenId: "galtieri-retrato", pie: "Leopoldo Galtieri: el último presidente de la dictadura" },
   GaltieriMalvinas: { imagenId: "malvinas-desembarco", pie: "2 de abril de 1982: la apuesta desesperada de un régimen acorralado" },
@@ -87,7 +87,7 @@ export const ESCENAS_COMPARADOR: Record<string, EscenaComparadorDef> = {
   GuemesCaudillo: { imagenId: "gaucha-guemes", pie: "Güemes: el caudillo gaucho que defendió Salta con montoneras" },
   GuemesFrontera: { imagenId: "jujuy-quebrada", pie: "La frontera norte: geografía convertida en arma" },
   HiperinflacionAlfonsin: { imagenId: "transicion-1985", pie: "Alfonsín deja la presidencia con la democracia intacta" },
-  HiperinflacionGrafico: { imagenId: "hiperinflacion-grafico", pie: "1989 — 1990: la inflación que devoró salarios y ahorros" },
+  HiperinflacionGrafico: { imagenId: "hiperinflacion-grafico", pie: "1989 a 1990: la inflación que devoró salarios y ahorros" },
   HuaquiAltiplano: { imagenId: "jujuy-quebrada", pie: "El Alto Perú: el cementerio de los ejércitos patriotas" },
   HuaquiDerrota: { imagenId: "belgrano-retrato", pie: "Belgrano y Castelli: la derrota que cambió la estrategia de la revolución" },
   IlliaObra: { imagenId: "illia-obra", pie: "Illia gobernó con austeridad y ley de petróleo en un país fracturado" },
@@ -145,7 +145,7 @@ export const ESCENAS_COMPARADOR: Record<string, EscenaComparadorDef> = {
   PandemiaCuarentena: { imagenId: "pandemia-cuarentena", pie: "Marzo de 2020: la cuarentena más larga del mundo" },
   PandemiaGobierno: { imagenId: "alberto-fernandez-2020", pie: "Alberto Fernández gobernó la Argentina en plena pandemia global" },
   ParaguayCampo: { imagenId: "paraguay-tuyuti", pie: "Tuyutí: la batalla más sangrienta de la guerra del Paraguay" },
-  ParaguayMapa: { imagenId: "paraguay-mapa", pie: "1864 — 1870: Argentina, Brasil y Uruguay contra Paraguay" },
+  ParaguayMapa: { imagenId: "paraguay-mapa", pie: "1864 a 1870: Argentina, Brasil y Uruguay contra Paraguay" },
   PatagoniaHuelga: { imagenId: "patagonia-huelga", pie: "Obreros de la Patagonia: huelga en Santa Cruz, 1920" },
   PatagoniaRepresion: { imagenId: "patagonia-monumento", pie: "La represión: el monumento que recuerda a los huelguistas fusilados" },
   PavonMitre: { imagenId: "mitre-retrato", pie: "Mitre: el proyecto unitario que triunfó en Pavón" },
@@ -179,7 +179,7 @@ export const ESCENAS_COMPARADOR: Record<string, EscenaComparadorDef> = {
   SemanaHuelga: { imagenId: "semana-tragica-huelga", pie: "La huelga metalúrgica: obreros y chóferes en las calles de Buenos Aires" },
   SemanaRepresion: { imagenId: "semana-tragica-velorio", pie: "La represión: velorios en los sindicatos y sangre en los barrios" },
   SufragioFraudulento: { imagenId: "golpe-1930-plaza", pie: "Antes de 1912: elecciones amañadas y el pueblo fuera del poder" },
-  SufragioSecreto: { imagenId: "saenz-pena-elecciones", pie: "1912: voto secreto y obligatorio — el mapa que cambió la Argentina" },
+  SufragioSecreto: { imagenId: "saenz-pena-elecciones", pie: "1912: voto secreto y obligatorio, el mapa que cambió la Argentina" },
   TransicionDemocracia: { imagenId: "transicion-alfonsin", pie: "10 de diciembre de 1983: Alfonsín devuelve la democracia" },
   TransicionDictadura: { imagenId: "memoria-golpe", pie: "La dictadura: terror de Estado y Plaza de Mayo vigilada" },
   TripleARega: { imagenId: "lopez-rega", pie: "José López Rega: el poder en la sombra del tercer peronismo" },

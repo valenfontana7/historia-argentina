@@ -20,7 +20,7 @@ export type EtapaItuzaingo = {
 export const ETAPAS_ITUZAINGO: EtapaItuzaingo[] = [
   {
     nombre: "La guerra con Brasil",
-    fecha: "1825 — 1827",
+    fecha: "1825 a 1827",
     detalle:
       "Las Provincias Unidas enfrentan al Imperio del Brasil por la Banda Oriental. Rivadavia gobierna y la guerra se traba en el litoral.",
   },
@@ -38,7 +38,7 @@ export const ETAPAS_ITUZAINGO: EtapaItuzaingo[] = [
   },
   {
     nombre: "El preludio del rosismo",
-    fecha: "1827 — 1835",
+    fecha: "1827 a 1835",
     detalle:
       "Ituzaingó no resolvió la guerra, pero forjó a una generación militar. Rosas volvería del campo de batalla hacia el poder absoluto.",
   },

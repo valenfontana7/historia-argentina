@@ -22,7 +22,7 @@ export type EtapaChacabuco = {
 export const ETAPAS_CHACABUCO: EtapaChacabuco[] = [
   {
     nombre: "Tras el cruce",
-    fecha: "Enero — febrero de 1817",
+    fecha: "Enero a febrero de 1817",
     detalle:
       "El Ejército de los Andes desciende del paso. San Martín reagrupa en el valle de Los Andes: la cordillera quedó atrás, pero el realismo sigue en pie.",
   },

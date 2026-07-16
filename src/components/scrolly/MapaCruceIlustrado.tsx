@@ -130,12 +130,12 @@ export function BaseMapaCruce({ children }: BaseProps) {
       <rect width={VB.w} height={VB.h} fill="#060910" />
       <rect width={VB.w} height={VB.h} fill="url(#patron-grano-cruce)" />
 
-      {/* Chile — valle central */}
+      {/* Chile: valle central */}
       <path
         d="M0 0 L372 0 L372 560 L0 560 Z"
         fill="url(#grad-cruce-chile)"
       />
-      {/* Cuyo — llanura oriental */}
+      {/* Cuyo: llanura oriental */}
       <path
         d="M372 0 L900 0 L900 560 L372 560 Z"
         fill="url(#grad-cruce-cuyo)"
@@ -158,7 +158,7 @@ export function BaseMapaCruce({ children }: BaseProps) {
         opacity="0.35"
       />
 
-      {/* Desierto de Atacama — banda árida al norte */}
+      {/* Desierto de Atacama: banda árida al norte */}
       <rect x="0" y="0" width="372" height="120" fill="#121018" opacity="0.55" />
       <text x="148" y="42" fill="#5a5048" fontSize="9" letterSpacing="4" opacity="0.75">
         DESIERTO DE ATACAMA
@@ -174,7 +174,7 @@ export function BaseMapaCruce({ children }: BaseProps) {
         PACÍFICO
       </text>
 
-      {/* Cordillera — franja central dramática con nieve */}
+      {/* Cordillera: franja central dramática con nieve */}
       <g aria-hidden>
         <path
           d="M388 28 L398 140 L392 260 L405 380 L398 520"

@@ -37,7 +37,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", fontSize: 34, color: "#c6a15b" }}>
-            {periodo?.anioInicio} — {periodo?.anioFin ?? "hoy"}
+            {periodo?.anioInicio} a {periodo?.anioFin ?? "hoy"}
           </div>
           <div style={{ display: "flex", marginTop: 14, fontSize: 80, fontWeight: 700, lineHeight: 1.02 }}>
             {periodo?.nombre ?? "Sala histórica"}

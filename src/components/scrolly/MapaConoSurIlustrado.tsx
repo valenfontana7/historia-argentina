@@ -6,7 +6,7 @@
 
 const VB = { w: 720, h: 440 };
 
-/** Posiciones ilustrativas (x, y) — oeste ← | → este */
+/** Posiciones ilustrativas (x, y): oeste ← | → este */
 export const ILU = {
   lima: { x: 92, y: 48, nombre: "Lima" },
   huaqui: { x: 178, y: 82, nombre: "Huaqui" },
@@ -114,14 +114,14 @@ export function BaseMapaConoSur({ children, className = "" }: BaseProps) {
       {/* Marco decorativo de atlas */}
       <MarcoAtlas />
 
-      {/* Altiplano — meseta con relieve sugerido */}
+      {/* Altiplano: meseta con relieve sugerido */}
       <ellipse cx="200" cy="98" rx="128" ry="62" fill="url(#grad-altiplano)" opacity="0.92" />
       <ellipse cx="200" cy="98" rx="128" ry="62" fill="url(#patron-rayado)" opacity="0.5" />
       <text x="200" y="92" fill="#4a5868" fontSize="9" letterSpacing="4" textAnchor="middle" opacity="0.9">
         ALTO PERÚ
       </text>
 
-      {/* Chile — franja costera reconocible */}
+      {/* Chile: franja costera reconocible */}
       <path
         id="silueta-chile"
         d="M108 28 C138 26 168 32 198 48 C212 88 218 138 228 188 C234 238 242 288 252 338 C252 368 228 382 188 388 C148 392 118 388 98 378 C92 318 88 248 92 178 C96 108 100 58 108 28 Z"
@@ -137,7 +137,7 @@ export function BaseMapaConoSur({ children, className = "" }: BaseProps) {
         opacity="0.4"
       />
 
-      {/* Argentina — silueta compuesta para lectura inmediata */}
+      {/* Argentina: silueta compuesta para lectura inmediata */}
       <path
         id="silueta-argentina"
         d="M218 32 C268 28 318 38 378 48 C448 58 518 78 568 108 C598 138 608 178 602 228 C592 278 568 318 532 352 C488 388 428 408 358 412 C298 414 252 398 228 362 C208 318 198 268 202 218 C206 168 212 118 218 72 Z"
@@ -155,7 +155,7 @@ export function BaseMapaConoSur({ children, className = "" }: BaseProps) {
         opacity="0.45"
       />
 
-      {/* Mesopotamia — protuberancia noreste */}
+      {/* Mesopotamia: protuberancia noreste */}
       <path
         d="M568 108 C592 118 612 138 618 168 C612 188 588 198 562 188 C548 168 558 128 568 108 Z"
         fill="#161e2a"
@@ -164,7 +164,7 @@ export function BaseMapaConoSur({ children, className = "" }: BaseProps) {
         opacity="0.85"
       />
 
-      {/* Río de la Plata — ancla visual de Buenos Aires */}
+      {/* Río de la Plata: ancla visual de Buenos Aires */}
       <path
         d="M532 258 C552 268 572 282 598 302 C608 318 612 332 602 342"
         fill="none"
@@ -182,7 +182,7 @@ export function BaseMapaConoSur({ children, className = "" }: BaseProps) {
         opacity="0.4"
       />
 
-      {/* Cordillera — protagonista visual */}
+      {/* Cordillera: protagonista visual */}
       <Cordillera />
 
       {/* Etiquetas regionales */}
@@ -222,7 +222,7 @@ function OlasMar({ x0, ancho, invertir = false }: { x0: number; ancho: number; i
   );
 }
 
-/** Borde doble con esquinas — estética de mapa antiguo. */
+/** Borde doble con esquinas: estética de mapa antiguo. */
 function MarcoAtlas() {
   const m = 18;
   const w = VB.w - m * 2;

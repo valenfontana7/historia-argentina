@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { animate, useReducedMotion } from "framer-motion";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { obtenerImagenCronica } from "@/data/cronicas-imagenes";
 import { marcarVisitaOnboarding } from "@/lib/engagement/storage";
 
 type Props = {
@@ -11,11 +13,15 @@ type Props = {
   hoyTitulo: string;
 };
 
-/** Portada del sitio: cielo nocturno, sol de mayo insinuado y titular editorial. */
+/** Cabildo abierto del 22 de mayo de 1810: Pedro Subercaseaux. */
+const HERO_IMAGEN_ID = "mayo-cabildo";
+
+/** Portada: pintura del Cabildo de Mayo de fondo, titular editorial y CTAs. */
 export function HeroPortada({ cronicaSlug, hoyHref, hoyTitulo }: Props) {
   const reducido = useReducedMotion();
   const rootRef = useRef<HTMLElement>(null);
   const [esMecenas, setEsMecenas] = useState(false);
+  const imagen = obtenerImagenCronica(HERO_IMAGEN_ID);
 
   // Post-hidratación: anima en el DOM sin estilos initial de SSR (evita #418).
   useLayoutEffect(() => {
@@ -57,7 +63,7 @@ export function HeroPortada({ cronicaSlug, hoyHref, hoyTitulo }: Props) {
   }, []);
 
   const cronicaHref = esMecenas ? "/mecenas" : `/cronicas/${cronicaSlug}`;
-  const cronicaCta = esMecenas ? "Ir a tu museo →" : "Empezar la crónica →";
+  const cronicaCta = esMecenas ? "Ir a tu museo →" : "Comenzar la visita →";
 
   const alEmpezar = () => {
     if (!esMecenas) marcarVisitaOnboarding();
@@ -66,55 +72,33 @@ export function HeroPortada({ cronicaSlug, hoyHref, hoyTitulo }: Props) {
   return (
     <section
       ref={rootRef}
-      className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden"
+      className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-fondo"
     >
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 90% 60% at 50% 110%, rgba(198,161,91,0.16) 0%, transparent 55%), linear-gradient(180deg, #05070d 0%, #0b0e18 55%, #0c0a08 100%)",
-        }}
-      />
-      <svg aria-hidden className="absolute inset-0 h-full w-full opacity-60" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-        {Array.from({ length: 110 }, (_, i) => {
-          const x = (i * 149.7) % 1200;
-          const y = (i * 97.3) % 560;
-          return (
-            <circle
-              key={i}
-              cx={x}
-              cy={y}
-              r={0.5 + ((i * 7) % 9) / 11}
-              fill="#dfe7f4"
-              opacity={0.2 + ((i * 13) % 11) / 18}
-            />
-          );
-        })}
-      </svg>
-      <svg
-        aria-hidden
-        className="absolute bottom-[-14rem] left-1/2 w-[44rem] -translate-x-1/2 opacity-[0.16]"
-        viewBox="0 0 400 400"
-      >
-        {Array.from({ length: 32 }, (_, i) => {
-          const angulo = (i / 32) * Math.PI * 2;
-          const largo = i % 2 === 0 ? 190 : 150;
-          return (
-            <line
-              key={i}
-              x1={200 + Math.cos(angulo) * 80}
-              y1={200 + Math.sin(angulo) * 80}
-              x2={200 + Math.cos(angulo) * largo}
-              y2={200 + Math.sin(angulo) * largo}
-              stroke="var(--oro)"
-              strokeWidth={i % 2 === 0 ? 3 : 1.6}
-            />
-          );
-        })}
-        <circle cx={200} cy={200} r={64} fill="none" stroke="var(--oro)" strokeWidth={3} />
-      </svg>
+      {imagen && (
+        <div className="absolute inset-0" aria-hidden>
+          <Image
+            src={imagen.url}
+            alt=""
+            fill
+            unoptimized
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_35%] scale-105 sepia-[0.25] contrast-[1.05] brightness-[0.55]"
+          />
+          {/* Velos museográficos: contraste del copy + fundido inferior */}
+          <div className="absolute inset-0 bg-linear-to-b from-fondo/70 via-fondo/45 to-fondo/85" />
+          <div className="absolute inset-0 bg-linear-to-t from-fondo via-transparent to-fondo/40" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 70% 55% at 50% 40%, transparent 0%, rgba(12,10,8,0.45) 100%)",
+            }}
+          />
+        </div>
+      )}
 
-      <div className="relative z-10 mx-auto max-w-4xl px-5 pb-24 pt-32 text-center">
+      <div className="relative z-10 mx-auto max-w-4xl px-5 pb-28 pt-32 text-center sm:pb-32">
         <p className="kicker" data-hero-anim>
           Un museo digital de historia argentina
         </p>
@@ -128,8 +112,8 @@ export function HeroPortada({ cronicaSlug, hoyHref, hoyTitulo }: Props) {
           className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-tinta-suave sm:text-xl"
           data-hero-anim
         >
-          Leé crónicas con imágenes y mapas, conocé personajes del Panteón y
-          descubrí qué pasó un día como hoy. Todo gratis para empezar.
+          Recorré exhibiciones con mapas e imágenes, conocé los rostros del
+          Panteón y descubrí qué pasó un día como hoy. Todo gratis para empezar.
         </p>
 
         <div
@@ -167,11 +151,16 @@ export function HeroPortada({ cronicaSlug, hoyHref, hoyTitulo }: Props) {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-center">
+      <div className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-center sm:bottom-8">
         <p className="text-[0.6rem] uppercase tracking-[0.3em] text-tinta-tenue">
           Deslizá
         </p>
-        <div className="mx-auto mt-2 h-9 w-px animate-pulse bg-gradient-to-b from-oro to-transparent" />
+        <div className="mx-auto mt-2 h-8 w-px animate-pulse bg-linear-to-b from-oro via-celeste/50 to-transparent" />
+        {imagen && (
+          <p className="mt-3 max-w-56 text-[0.55rem] leading-snug tracking-wide text-tinta-tenue/80">
+            {imagen.alt}
+          </p>
+        )}
       </div>
     </section>
   );

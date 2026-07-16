@@ -6,9 +6,9 @@ export type EnlaceHito = {
   href: string;
 };
 
-/** Resuelve un hito de período (ej. "1810 — Revolución de Mayo") a una URL interna. */
+/** Resuelve un hito de período (ej. "1810: Revolución de Mayo") a una URL interna. */
 export function enlaceDeHitoPeriodo(texto: string): EnlaceHito | null {
-  const matchAnio = texto.match(/^(\d{4})\s*—\s*(.+)$/);
+  const matchAnio = texto.match(/^(\d{4})\s*, \s*(.+)$/);
   if (!matchAnio) return null;
 
   const anio = Number(matchAnio[1]);

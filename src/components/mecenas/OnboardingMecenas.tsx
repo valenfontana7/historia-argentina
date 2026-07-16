@@ -17,9 +17,9 @@ type Item = {
 const ITEMS: Item[] = [
   {
     id: "cronica",
-    label: "Leé tu crónica exclusiva",
+    label: "Entrá a una sala privada",
     href: "/mecenas",
-    descripcion: "Empezá por la crónica destacada de arriba.",
+    descripcion: "Empezá por la exhibición destacada de arriba.",
   },
   {
     id: "mapa",
@@ -29,9 +29,9 @@ const ITEMS: Item[] = [
   },
   {
     id: "recorrido",
-    label: "Probá un recorrido especial",
+    label: "Probá una visita guiada especial",
     href: "/recorridos",
-    descripcion: "Historias paso a paso solo para mecenas.",
+    descripcion: "Recorridos con audioguía solo para mecenas.",
   },
   {
     id: "carta",

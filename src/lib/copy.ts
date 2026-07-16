@@ -40,7 +40,7 @@ export const COMPARATIVA_MEMBRESIA = [
   { aspecto: "Mapa", gratis: "7 lugares destacados", mecenas: "Mapa completo + filtros" },
   { aspecto: "Pasillo del tiempo", gratis: "Explorar por año", mecenas: "Comparar años y rangos" },
   { aspecto: "Retratos y pieza del día", gratis: "Todo gratis", mecenas: "Todo gratis" },
-  { aspecto: "Carta y créditos", gratis: "—", mecenas: "Carta mensual + tu nombre" },
+  { aspecto: "Carta y créditos", gratis: "-", mecenas: "Carta mensual + tu nombre" },
 ] as const;
 
 export const BENEFICIOS_PLAN_FUNDADOR = [
@@ -57,14 +57,14 @@ export const DESCRIPCION_PLAN_MENSUAL =
 export const DESCRIPCION_PLAN_FUNDADOR =
   "Para quienes ayudan a que Argent exista. Incluye voto sobre la próxima exhibición.";
 
-/** Vocabulario museográfico — salas, exhibiciones, visitas guiadas. */
+/** Vocabulario museográfico: salas, exhibiciones, visitas guiadas. */
 export const MIGA_SALAS = "Salas";
 export const KICKER_SALAS = "Salas permanentes";
 export const TITULO_SALAS = "Salas permanentes";
 export const DESCRIPCION_SALAS =
   "Argentina no se construyó de un golpe. Recorré las cinco grandes salas que dieron forma al país.";
 export const METADATA_SALAS = {
-  titulo: "Salas permanentes — historia argentina",
+  titulo: "Salas permanentes: historia argentina",
   descripcion: DESCRIPCION_SALAS,
 } as const;
 export const TITULO_EXHIBICIONES_SALA = "Exhibiciones de esta sala";
@@ -77,7 +77,7 @@ export const TITULO_VISITAS_GUIADAS = "Visitas guiadas";
 export const DESCRIPCION_VISITAS_GUIADAS =
   "Caminá la historia en orden: cada estación te lleva a la siguiente. Hay visitas gratuitas y tres exclusivas para mecenas.";
 export const METADATA_VISITAS_GUIADAS = {
-  titulo: "Visitas guiadas — historia argentina",
+  titulo: "Visitas guiadas: historia argentina",
   descripcion: DESCRIPCION_VISITAS_GUIADAS,
 } as const;
 export const CTA_INICIAR_VISITA = "Iniciar visita →";

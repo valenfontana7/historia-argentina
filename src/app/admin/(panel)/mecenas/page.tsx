@@ -11,7 +11,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Admin — Mecenas",
+  title: "Admin: Mecenas",
   robots: { index: false, follow: false },
 };
 

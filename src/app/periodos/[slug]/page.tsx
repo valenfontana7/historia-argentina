@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const periodo = obtenerPeriodo(slug);
   if (!periodo) return {};
   return construirMetadata({
-    titulo: `${periodo.nombre} — historia argentina`,
+    titulo: `${periodo.nombre}: historia argentina`,
     descripcion: periodo.descripcion,
     ruta: `/periodos/${slug}`,
     tipo: "article",
@@ -71,7 +71,7 @@ export default async function PeriodoPage({ params }: Props) {
         <MigasDePan migajas={migajas} />
         <Reveal>
           <p className="kicker">
-            {periodo.anioInicio} — {periodo.anioFin ?? "presente"}
+            {periodo.anioInicio} a {periodo.anioFin ?? "presente"}
           </p>
           <h1 className="titulo-display mt-4 text-5xl font-semibold sm:text-6xl">
             {periodo.nombre}

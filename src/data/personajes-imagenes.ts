@@ -1,6 +1,6 @@
 /**
  * Retratos históricos desde Wikimedia Commons.
- * URLs verificadas vía Wikipedia (es) — formato thumb/960px para compatibilidad.
+ * URLs verificadas vía Wikipedia (es): formato thumb/960px para compatibilidad.
  */
 
 export type ImagenPersonaje = {

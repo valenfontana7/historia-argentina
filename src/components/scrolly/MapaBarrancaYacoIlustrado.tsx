@@ -19,7 +19,7 @@ export type EtapaBarrancaYaco = {
 export const ETAPAS_YACO: EtapaBarrancaYaco[] = [
   {
     nombre: "El Tigre de los Llanos",
-    fecha: "1830 — 1834",
+    fecha: "1830 a 1834",
     detalle:
       "Facundo Quiroga domina La Rioja y el interior con fierro y caballos. Para Rosas, es aliado incómodo; para los unitarios, enemigo mortal.",
   },
@@ -37,7 +37,7 @@ export const ETAPAS_YACO: EtapaBarrancaYaco[] = [
   },
   {
     nombre: "El mito que quedó",
-    fecha: "1835 — 1845",
+    fecha: "1835 a 1845",
     detalle:
       "Sarmiento escribirá el Facundo diez años después. Barranca Yaco no fue solo un asesinato: fue el fin de un tipo de poder en el interior.",
   },

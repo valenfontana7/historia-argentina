@@ -24,13 +24,13 @@ export type EtapaCongreso = {
 export const ETAPAS_CONGRESO: EtapaCongreso[] = [
   {
     nombre: "Los diputados llegan",
-    fecha: "Marzo — junio 1816",
+    fecha: "Marzo a junio 1816",
     detalle:
       "Desde provincias lejanas, los representantes cruzan caminos inseguros hacia Tucumán. El Congreso se abre el 24 de marzo.",
   },
   {
     nombre: "Debates bajo techo de adobe",
-    fecha: "Abril — junio 1816",
+    fecha: "Abril a junio 1816",
     detalle:
       "Monarquía incaica, república, forma de gobierno: se discute todo. Afuera, la guerra no espera.",
   },
@@ -42,7 +42,7 @@ export const ETAPAS_CONGRESO: EtapaCongreso[] = [
   },
   {
     nombre: "La noticia se esparce",
-    fecha: "Julio — agosto 1816",
+    fecha: "Julio a agosto 1816",
     detalle:
       "Jinetes y mensajeros llevan el Acta al norte, al litoral y a Cuyo. La independencia deja de ser un rumor.",
   },

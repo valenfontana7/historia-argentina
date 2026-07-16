@@ -75,7 +75,7 @@ export async function enviarMagicLink(email: string, token: string, next?: strin
     {
       from: remitente(),
       to: [email],
-      subject: "Tu acceso de mecenas — Argent",
+      subject: "Tu acceso de mecenas: Argent",
       html,
     },
     { idempotencyKey: idempotencyDesdeToken("magic", email, token) },
@@ -111,7 +111,7 @@ export async function enviarMagicLinkAdmin(email: string, token: string) {
     {
       from: remitente(),
       to: [email],
-      subject: "Acceso de creador — Argent",
+      subject: "Acceso de creador: Argent",
       html,
     },
     { idempotencyKey: idempotencyDesdeToken("admin-magic", email, token) },
@@ -157,7 +157,7 @@ export async function enviarConfirmacionMecenas(
     {
       from: remitente(),
       to: [email],
-      subject: "Confirmación de suscripción — Argent",
+      subject: "Confirmación de suscripción: Argent",
       html,
     },
     { idempotencyKey: idempotencyDesdeToken("confirmacion", email, token) },
@@ -198,7 +198,7 @@ export async function enviarBienvenidaMecenas(email: string, plan: string) {
     {
       from: remitente(),
       to: [email],
-      subject: "Bienvenido a Mecenas — Argent",
+      subject: "Bienvenido a Mecenas: Argent",
       html,
     },
     { idempotencyKey: `bienvenida/${email}/${plan}` },

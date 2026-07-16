@@ -20,7 +20,7 @@ export type EtapaSalta = {
 export const ETAPAS_SALTA: EtapaSalta[] = [
   {
     nombre: "Después de Tucumán",
-    fecha: "Octubre 1812 — enero 1813",
+    fecha: "Octubre 1812: enero 1813",
     detalle:
       "Belgrano reorganiza el Ejército del Norte. La victoria de Tucumán abrió una ventana: ahora hay que rematar al enemigo en Salta.",
   },
@@ -38,7 +38,7 @@ export const ETAPAS_SALTA: EtapaSalta[] = [
   },
   {
     nombre: "La rendición total",
-    fecha: "Febrero — marzo de 1813",
+    fecha: "Febrero a marzo de 1813",
     detalle:
       "La noticia recorre el territorio. El norte, que parecía perdido un año antes, vuelve a ser patriota.",
   },

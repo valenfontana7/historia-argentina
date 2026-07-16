@@ -12,7 +12,7 @@ type Props = {
   volverA: string;
 };
 
-/** Comentario curatorial extendido — completo para mecenas, teaser para visitantes. */
+/** Comentario curatorial extendido: completo para mecenas, teaser para visitantes. */
 export function ComentarioCuratorial({ meta, desbloqueado, volverA }: Props) {
   const accederHref = `/membresia/acceder?next=${encodeURIComponent(volverA)}`;
 

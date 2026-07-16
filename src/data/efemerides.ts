@@ -75,7 +75,7 @@ const efemeridesBase: Efemeride[] = [
     titulo: "Pedro de Mendoza funda la primera Buenos Aires",
     categoria: "Fundaciones",
     historia: [
-      "El adelantado Pedro de Mendoza, enfermo y al frente de una expedición enorme para su época —unos 1.500 hombres—, funda a orillas del Río de la Plata el puerto de Santa María del Buen Ayre.",
+      "El adelantado Pedro de Mendoza, enfermo y al frente de una expedición enorme para su época (unos 1.500 hombres), funda a orillas del Río de la Plata el puerto de Santa María del Buen Ayre.",
       "La ciudad durará poco: el hambre y el conflicto con los querandíes la convertirán en un infierno, y en 1541 será abandonada e incendiada por sus propios pobladores. Buenos Aires tendrá que nacer dos veces: la definitiva llegará con Juan de Garay en 1580.",
     ],
     relacionados: ["santiago-de-liniers"],
@@ -202,7 +202,7 @@ const efemeridesBase: Efemeride[] = [
     categoria: "Batallas",
     historia: [
       "En los llanos de Maipú, a las puertas de Santiago, San Martín destroza al ejército realista que un mes antes había estado a punto de aniquilar la Revolución en Cancha Rayada. En seis horas, el poder español en Chile deja de existir.",
-      "En el campo de batalla, O'Higgins —herido en un brazo— abraza a San Martín: «¡Gloria al salvador de Chile!». El abrazo de Maipú queda como símbolo de la hermandad de las dos naciones. El camino a Lima, por fin, está abierto.",
+      "En el campo de batalla, O'Higgins (herido en un brazo) abraza a San Martín: «¡Gloria al salvador de Chile!». El abrazo de Maipú queda como símbolo de la hermandad de las dos naciones. El camino a Lima, por fin, está abierto.",
     ],
     relacionados: ["jose-de-san-martin"],
   },
@@ -258,7 +258,7 @@ const efemeridesBase: Efemeride[] = [
     categoria: "Personajes",
     historia: [
       "En Los Toldos, un pueblo de la pampa bonaerense, nace María Eva Duarte, la menor de cinco hermanos de una familia pobre. A los 15 años se irá a Buenos Aires con un sueño de actriz.",
-      "Una década más tarde será Evita: la mujer más poderosa y más amada —y más odiada— de la Argentina, motor del voto femenino y de una obra social sin precedentes. Moriría a los 33 años, convertida en el mito político más perdurable del país.",
+      "Una década más tarde será Evita: la mujer más poderosa y más amada (y más odiada) de la Argentina, motor del voto femenino y de una obra social sin precedentes. Moriría a los 33 años, convertida en el mito político más perdurable del país.",
     ],
     relacionados: ["eva-peron"],
   },
@@ -300,7 +300,7 @@ const efemeridesBase: Efemeride[] = [
     categoria: "Independencia",
     historia: [
       "Tras una semana de presión criolla, cae el virrey Cisneros y asume la Primera Junta de gobierno patrio, presidida por Cornelio Saavedra, con Mariano Moreno y Juan José Paso como secretarios. En la plaza, según la tradición, llovizna y hay escarapelas.",
-      "Nadie habla todavía de independencia —se gobierna en nombre de Fernando VII—, pero el poder ya cambió de manos para siempre. Seis años después, en Tucumán, la máscara caerá del todo.",
+      "Nadie habla todavía de independencia (se gobierna en nombre de Fernando VII), pero el poder ya cambió de manos para siempre. Seis años después, en Tucumán, la máscara caerá del todo.",
     ],
     relacionados: ["cornelio-saavedra", "mariano-moreno", "manuel-belgrano", "juan-jose-castelli"],
   },
@@ -355,7 +355,7 @@ const efemeridesBase: Efemeride[] = [
     titulo: "Juan de Garay funda Buenos Aires por segunda vez",
     categoria: "Fundaciones",
     historia: [
-      "Cuarenta y cuatro años después del fracaso de Pedro de Mendoza, Juan de Garay baja desde Asunción con unas sesenta familias —la mayoría criollas— y funda la Ciudad de la Trinidad y Puerto de Santa María de los Buenos Aires.",
+      "Cuarenta y cuatro años después del fracaso de Pedro de Mendoza, Juan de Garay baja desde Asunción con unas sesenta familias (la mayoría criollas) y funda la Ciudad de la Trinidad y Puerto de Santa María de los Buenos Aires.",
       "Esta vez la ciudad sobrevive. El trazado en damero de Garay, con su plaza mayor frente al río, sigue siendo el corazón de la Buenos Aires actual: la Plaza de Mayo.",
     ],
     relacionados: ["santiago-de-liniers", "cornelio-saavedra"],
@@ -411,7 +411,7 @@ const efemeridesBase: Efemeride[] = [
     titulo: "Muere Manuel Belgrano, el creador de la bandera",
     categoria: "Personajes",
     historia: [
-      "En una Buenos Aires sumida en la anarquía —ese año la provincia llegó a tener tres gobernadores en un solo día—, muere Manuel Belgrano, pobre y casi olvidado. Paga a su médico con un reloj de oro, lo último que le queda.",
+      "En una Buenos Aires sumida en la anarquía (ese año la provincia llegó a tener tres gobernadores en un solo día), muere Manuel Belgrano, pobre y casi olvidado. Paga a su médico con un reloj de oro, lo último que le queda.",
       "Un solo diario registra la noticia. El tiempo pondría las cosas en su lugar: la bandera que creó a orillas del Paraná es hoy el símbolo mayor del país, y cada 20 de junio la Argentina celebra el Día de la Bandera en su honor.",
     ],
     relacionados: ["manuel-belgrano"],
@@ -439,7 +439,7 @@ const efemeridesBase: Efemeride[] = [
     titulo: "La Defensa: Buenos Aires en armas",
     categoria: "Batallas",
     historia: [
-      "Casi 10.000 soldados británicos —la mayor fuerza que Gran Bretaña haya enviado hasta entonces a América del Sur— asaltan Buenos Aires. Los espera una ciudad entera convertida en fortaleza: milicias criollas, vecinos, mujeres y esclavos combaten desde azoteas y balcones.",
+      "Casi 10.000 soldados británicos (la mayor fuerza que Gran Bretaña haya enviado hasta entonces a América del Sur) asaltan Buenos Aires. Los espera una ciudad entera convertida en fortaleza: milicias criollas, vecinos, mujeres y esclavos combaten desde azoteas y balcones.",
       "El avance británico se desangra calle por calle bajo una lluvia de balas, piedras y aceite hirviendo. En dos días de combate, la ciudad indefendible se vuelve invencible. La capitulación llegará el 7 de julio.",
     ],
     relacionados: ["santiago-de-liniers", "cornelio-saavedra"],
@@ -454,7 +454,7 @@ const efemeridesBase: Efemeride[] = [
     categoria: "Batallas",
     historia: [
       "El general John Whitelocke firma la capitulación: sus tropas, deshechas en los combates callejeros de la Defensa, se retiran del Río de la Plata y devuelven también Montevideo. Buenos Aires, sin ayuda de España, ha derrotado dos veces al mayor imperio del mundo.",
-      "La victoria cambia algo más profundo que el mapa militar: los criollos descubren que pueden defenderse —y por lo tanto gobernarse— solos. Las milicias nacidas en las Invasiones Inglesas serán, tres años después, el músculo de la Revolución de Mayo. De regreso en Londres, Whitelocke será juzgado y declarado «inepto para servir al rey».",
+      "La victoria cambia algo más profundo que el mapa militar: los criollos descubren que pueden defenderse (y por lo tanto gobernarse) solos. Las milicias nacidas en las Invasiones Inglesas serán, tres años después, el músculo de la Revolución de Mayo. De regreso en Londres, Whitelocke será juzgado y declarado «inepto para servir al rey».",
     ],
     relacionados: ["santiago-de-liniers", "cornelio-saavedra"],
   },
@@ -594,7 +594,7 @@ const efemeridesBase: Efemeride[] = [
     categoria: "Política",
     historia: [
       "Un alzamiento cívico-militar iniciado en Córdoba termina, en pocos días, con la renuncia de Perón, que se asila en la cañonera paraguaya Paraguay. Comienza un exilio de 18 años que pasará por Asunción, Caracas, Ciudad Trujillo y Madrid.",
-      "El nuevo régimen proscribe al peronismo: prohibido nombrar a Perón, a Evita, exhibir sus imágenes o cantar la marcha. La proscripción del movimiento mayoritario marcará a fuego —y a sangre— las dos décadas siguientes de la vida argentina.",
+      "El nuevo régimen proscribe al peronismo: prohibido nombrar a Perón, a Evita, exhibir sus imágenes o cantar la marcha. La proscripción del movimiento mayoritario marcará a fuego (y a sangre) las dos décadas siguientes de la vida argentina.",
     ],
     relacionados: ["juan-domingo-peron", "eva-peron"],
   },
@@ -622,7 +622,7 @@ const efemeridesBase: Efemeride[] = [
     categoria: "Batallas",
     historia: [
       "Desobedeciendo la orden de Buenos Aires de retirarse a Córdoba, Belgrano decide dar batalla en Tucumán con un ejército de soldados bisoños y gauchos armados con lanzas y cuchillos atados a cañas. Enfrenta a las tropas realistas de Pío Tristán, superiores en número y experiencia.",
-      "La batalla es caótica —una estampida de caballos y hasta una nube de langostas se cruzan en la jornada—, pero al caer la tarde los realistas se retiran. La Revolución estaba a una derrota de morir en el norte; Belgrano la salvó desobedeciendo.",
+      "La batalla es caótica (una estampida de caballos y hasta una nube de langostas se cruzan en la jornada), pero al caer la tarde los realistas se retiran. La Revolución estaba a una derrota de morir en el norte; Belgrano la salvó desobedeciendo.",
     ],
     relacionados: ["manuel-belgrano"],
   },
@@ -719,7 +719,7 @@ const efemeridesBase: Efemeride[] = [
     titulo: "La Vuelta de Obligado",
     categoria: "Batallas",
     historia: [
-      "En un recodo del Paraná, las baterías de Lucio Mansilla —tres cadenas atravesadas en el río y unos mil hombres— enfrentan durante siete horas a la flota anglo-francesa más poderosa que haya navegado aguas americanas.",
+      "En un recodo del Paraná, las baterías de Lucio Mansilla (tres cadenas atravesadas en el río y unos mil hombres) enfrentan durante siete horas a la flota anglo-francesa más poderosa que haya navegado aguas americanas.",
       "La batalla se pierde, pero la resistencia es tan feroz que la intervención europea termina en fracaso político: años después, Gran Bretaña y Francia firmarán la paz reconociendo la soberanía argentina sobre sus ríos interiores. San Martín, desde Europa, elogió la defensa. Hoy es el Día de la Soberanía Nacional.",
     ],
     relacionados: ["juan-manuel-de-rosas", "jose-de-san-martin"],
@@ -734,7 +734,7 @@ const efemeridesBase: Efemeride[] = [
     categoria: "Política",
     historia: [
       "Raúl Alfonsín recibe los atributos presidenciales y cierra la dictadura más sangrienta de la historia argentina. Desde el Cabildo, ante una plaza repleta, no da un discurso político: recita el preámbulo de la Constitución, «un rezo laico para todos los argentinos».",
-      "Cinco días después firmará el decreto que crea la CONADEP y ordena juzgar a las juntas militares. El 10 de diciembre —también Día Internacional de los Derechos Humanos— es hoy el Día de la Restauración de la Democracia.",
+      "Cinco días después firmará el decreto que crea la CONADEP y ordena juzgar a las juntas militares. El 10 de diciembre (también Día Internacional de los Derechos Humanos) es hoy el Día de la Restauración de la Democracia.",
     ],
     relacionados: ["raul-alfonsin"],
   },
@@ -789,7 +789,7 @@ const efemeridesBase: Efemeride[] = [
     titulo: "Se instala el Primer Triunvirato",
     categoria: "Política",
     historia: [
-      "Tras la caída de la Junta Grande, tres hombres —Rivadavia, Galicchio y Chacabuco— asumen el gobierno de las Provincias Unidas. El Triunvirato intentará dar orden a una revolución aún sin rumbo claro.",
+      "Tras la caída de la Junta Grande, tres hombres (Rivadavia, Galicchio y Chacabuco) asumen el gobierno de las Provincias Unidas. El Triunvirato intentará dar orden a una revolución aún sin rumbo claro.",
       "En sus dieciséis meses creará la Biblioteca Pública, la Escuela de Náutica y encargará a Belgrano la expedición al norte. También destituirá a Liniers y enfrentará la oposición de Artigas en el Litoral.",
     ],
     relacionados: ["bernardino-rivadavia", "manuel-belgrano", "santiago-de-liniers"],
@@ -911,14 +911,14 @@ const efemeridesBase: Efemeride[] = [
     numero: 1,
     mes: 1,
     fecha: "1 de enero",
-    anio: 1831,
-    titulo: "Muere el general Manuel Dorrego",
+    anio: 1871,
+    titulo: "Entra en vigor el Código Civil",
     categoria: "Política",
     historia: [
-      "En la Plaza de la Victoria de Buenos Aires, el gobernador federal Manuel Dorrego es fusilado por orden de Juan Lavalle, en uno de los crímenes más recordados de las guerras civiles.",
-      "Su muerte encendió la resistencia federal en el interior y convirtió a Dorrego en mártir de la causa que enfrentaba al centralismo porteño.",
+      "Comienza a regir el Código Civil redactado por Dalmacio Vélez Sarsfield, sancionado dos años antes. Familia, contratos y propiedad pasan a una ley común para todo el país.",
+      "Junto a la Constitución, el Código es la otra columna del orden liberal: la Argentina moderna también se construye en los artículos de un libro de leyes.",
     ],
-    relacionados: ["manuel-dorrego", "juan-manuel-de-rosas", "juan-facundo-quiroga"],
+    relacionados: ["domingo-faustino-sarmiento", "bartolome-mitre", "juan-bautista-alberdi"],
   },
   {
     dia: "18-de-marzo",

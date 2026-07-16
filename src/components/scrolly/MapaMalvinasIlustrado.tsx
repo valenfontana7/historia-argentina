@@ -33,7 +33,7 @@ export const ETAPAS_MALVINAS: EtapaMalvinas[] = [
   },
   {
     nombre: "El choque en el Atlántico",
-    fecha: "Mayo — junio de 1982",
+    fecha: "Mayo a junio de 1982",
     detalle:
       "Submarinos, portaaviones, aviones. 74 días de combate en un teatro remoto que el país sigue en la memoria.",
   },

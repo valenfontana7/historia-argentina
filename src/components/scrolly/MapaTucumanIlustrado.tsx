@@ -22,7 +22,7 @@ export type EtapaTucuman = {
 export const ETAPAS_TUCUMAN: EtapaTucuman[] = [
   {
     nombre: "El Éxodo Jujeño",
-    fecha: "Julio — agosto de 1812",
+    fecha: "Julio a agosto de 1812",
     detalle:
       "Belgrano evacúa Jujuy y quema la tierra. Miles de civiles marchan al sur. La ciudad queda vacía para frenar al enemigo.",
   },
@@ -34,7 +34,7 @@ export const ETAPAS_TUCUMAN: EtapaTucuman[] = [
   },
   {
     nombre: "La batalla",
-    fecha: "24 — 25 de septiembre de 1812",
+    fecha: "24 a 25 de septiembre de 1812",
     detalle:
       "Soldados bisoños, gauchos con lanzas y cuchillos atados a cañas enfrentan a Pío Tristán. La geografía y la desobediencia salvan la Revolución.",
   },

@@ -46,13 +46,13 @@ export const ETAPAS_MAYO: EtapaMayo[] = [
     nombre: "La Junta que no convenció",
     fecha: "24 de mayo · noche",
     detalle:
-      "Se proclama una Junta con Cisneros a la cabeza —un arreglo que salva las formas y mata la revolución. La Plaza lo rechaza a gritos. Pasquines, peticiones, más milicias. La noche del 24 al 25 la ciudad no duerme: el poder está en la calle, no en el acta.",
+      "Se proclama una Junta con Cisneros a la cabeza, un arreglo que salva las formas y mata la revolución. La Plaza lo rechaza a gritos. Pasquines, peticiones, más milicias. La noche del 24 al 25 la ciudad no duerme: el poder está en la calle, no en el acta.",
   },
   {
     nombre: "El mediodía del 25",
     fecha: "25 de mayo · mañana",
     detalle:
-      "Nuevas sesiones, nuevas listas. Moreno, Belgrano, Castelli, Matheu, Alberti, Paso, Larrea, Azcuénaga y Saavedra como presidente. Nueve vocales. El nombre cambia —Primera Junta— y el mensaje también: el virreinato ya no tiene dueño legítimo.",
+      "Nuevas sesiones, nuevas listas. Moreno, Belgrano, Castelli, Matheu, Alberti, Paso, Larrea, Azcuénaga y Saavedra como presidente. Nueve vocales. El nombre cambia (Primera Junta) y el mensaje también: el virreinato ya no tiene dueño legítimo.",
   },
   {
     nombre: "El Fuerte cambia de manos",

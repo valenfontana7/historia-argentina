@@ -26,17 +26,17 @@ function rutaPorDefecto(esMecenas: boolean, cronicaDestacadaSlug: string): Ruta 
       kicker: "Tu museo",
       titulo: "Seguí donde lo dejaste",
       descripcion:
-        "Tus crónicas exclusivas, recorridos especiales y tu espacio de mecenas te esperan.",
+        "Tus salas privadas, visitas guiadas especiales y tu pasaporte de mecenas te esperan.",
       cta: "Ir a tu museo →",
     };
   }
   return {
     href: `/cronicas/${cronicaDestacadaSlug}`,
     kicker: "Empezá acá",
-    titulo: "Leé una crónica con mapas y fotos",
+    titulo: "Entrá a una exhibición inmersiva",
     descripcion:
-      "Es la forma más simple de conocer Argent: una historia que vas leyendo y mirando, como un documental.",
-    cta: "Empezar la crónica →",
+      "La forma más simple de conocer Argent: una sala con mapas, piezas y relato, como un documental que se camina.",
+    cta: "Comenzar la visita →",
   };
 }
 
@@ -69,10 +69,10 @@ export function RutaRecomendada({ cronicaDestacadaSlug }: Props) {
         setRuta({
           href: "/hoy",
           kicker: "Volvé por acá",
-          titulo: "La historia de hoy",
+          titulo: "La pieza del día",
           descripcion:
-            "Cada día hay una historia argentina para leer. Si hoy aún no tiene la nuestra, te mostramos otra parecida.",
-          cta: "Leer la historia del día →",
+            "Cada día el museo abre una vitrina: un día de la historia argentina. Si hoy aún no tiene la nuestra, te mostramos otra parecida.",
+          cta: "Ver la pieza del día →",
         });
         return;
       }

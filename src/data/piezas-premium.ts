@@ -1,4 +1,4 @@
-/** Colecciones curadas de piezas con comentario editorial — exclusivas mecenas. */
+/** Colecciones curadas de piezas con comentario editorial: exclusivas mecenas. */
 
 export type ColeccionPremium = {
   id: string;
@@ -68,7 +68,7 @@ export const PIEZAS_PREMIUM: Record<string, PiezaPremiumMeta> = {
     coleccionId: "nacion",
     teaser: "La entrevista de Guayaquil sigue siendo una zona gris de la historiografía.",
     comentario:
-      "La entrevista de Guayaquil sigue siendo una zona gris de la historiografía: no hay acta firmada, solo memorias cruzadas y reproches posteriores. Esta escena ilustra el choque de dos proyectos americanos — el protectorado de San Martín y la Gran Colombia de Bolívar — que nunca se reconciliaron del todo. Por eso la pieza funciona como puerta hacia toda la campaña continental.",
+      "La entrevista de Guayaquil sigue siendo una zona gris de la historiografía: no hay acta firmada, solo memorias cruzadas y reproches posteriores. Esta escena ilustra el choque de dos proyectos americanos (el protectorado de San Martín y la Gran Colombia de Bolívar) que nunca se reconciliaron del todo. Por eso la pieza funciona como puerta hacia toda la campaña continental.",
   },
   "andes-cruce": {
     id: "andes-cruce",
@@ -82,7 +82,7 @@ export const PIEZAS_PREMIUM: Record<string, PiezaPremiumMeta> = {
     coleccionId: "campanas",
     teaser: "Chacabuco en un grabado europeo: la victoria vista desde lejos.",
     comentario:
-      "Chacabuco en un grabado europeo: la victoria vista desde lejos, con uniformes limpios y composición teatral. Sirve para preguntarse qué partes de la batalla real desaparecen cuando el relato viaja al otro lado del Atlántico — y por qué esas imágenes alimentaron el mito del Libertador.",
+      "Chacabuco en un grabado europeo: la victoria vista desde lejos, con uniformes limpios y composición teatral. Sirve para preguntarse qué partes de la batalla real desaparecen cuando el relato viaja al otro lado del Atlántico, y por qué esas imágenes alimentaron el mito del Libertador.",
   },
   "chacabuco-realista": {
     id: "chacabuco-realista",
@@ -96,21 +96,21 @@ export const PIEZAS_PREMIUM: Record<string, PiezaPremiumMeta> = {
     coleccionId: "campanas",
     teaser: "La batalla de Salta reunió en un mismo campo a Güemes, Belgrano y milicias locales.",
     comentario:
-      "La batalla de Salta reunió en un mismo campo a Güemes, Belgrano y milicias locales. El grabado enfatiza la caballería en terreno abierto — el tipo de combate que Belgrano aprendió a evitar después de Huaqui. Es una pieza puente entre el norte rebelde y la reconquista de Tucumán.",
+      "La batalla de Salta reunió en un mismo campo a Güemes, Belgrano y milicias locales. El grabado enfatiza la caballería en terreno abierto, el tipo de combate que Belgrano aprendió a evitar después de Huaqui. Es una pieza puente entre el norte rebelde y la reconquista de Tucumán.",
   },
   "evita-multitud": {
     id: "evita-multitud",
     coleccionId: "memoria",
     teaser: "Evita no hablaba solo a los sindicatos: construía una multitud visible.",
     comentario:
-      "Evita no hablaba solo a los sindicatos: construía una multitud visible. Esta fotografía captura la escala del peronismo como fenómeno urbano — Plaza de Mayo, banderas, cuerpos apretados. Leela junto a la pieza del voto femenino: el mismo movimiento que movilizaba calles también redefinía ciudadanía.",
+      "Evita no hablaba solo a los sindicatos: construía una multitud visible. Esta fotografía captura la escala del peronismo como fenómeno urbano: Plaza de Mayo, banderas, cuerpos apretados. Leela junto a la pieza del voto femenino: el mismo movimiento que movilizaba calles también redefinía ciudadanía.",
   },
   "memoria-golpe": {
     id: "memoria-golpe",
     coleccionId: "memoria",
     teaser: "El golpe de 1976 no empezó con tanques en la tele.",
     comentario:
-      "El golpe de 1976 no empezó con tanques en la tele: empezó con un silencio administrativo, listas y un país cansado de la violencia. Esta imagen pertenece al archivo de lo que vino después — memoria, juicio, Nunca Más — y por eso está en la colección de democracia recuperada.",
+      "El golpe de 1976 no empezó con tanques en la tele: empezó con un silencio administrativo, listas y un país cansado de la violencia. Esta imagen pertenece al archivo de lo que vino después (memoria, juicio, Nunca Más) y por eso está en la colección de democracia recuperada.",
   },
   "conadep-sabato": {
     id: "conadep-sabato",
@@ -124,7 +124,7 @@ export const PIEZAS_PREMIUM: Record<string, PiezaPremiumMeta> = {
     coleccionId: "memoria",
     teaser: "Alfonsín asumió con una deuda imposible: democracia sin impunidad total.",
     comentario:
-      "Alfonsín asumió con una deuda imposible: democracia sin impunidad total, economía en ruinas, militares aún fuertes. Esta imagen resume el tono de los primeros años del retorno — esperanza contenida, no euforia. Conecta directamente con las salas de hiperinflación y el menemismo que vino después.",
+      "Alfonsín asumió con una deuda imposible: democracia sin impunidad total, economía en ruinas, militares aún fuertes. Esta imagen resume el tono de los primeros años del retorno: esperanza contenida, no euforia. Conecta directamente con las salas de hiperinflación y el menemismo que vino después.",
   },
 };
 

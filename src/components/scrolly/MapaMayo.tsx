@@ -75,7 +75,7 @@ export function MapaMayo() {
       envoltorioRef={envoltorio}
     >
       <BaseMapaMayo>
-            {/* Etapa 0 — rumor desde tertulias */}
+            {/* Etapa 0: rumor desde tertulias */}
             <path
               data-trazo-mayo="0"
               d={RUTA_RUMOR}
@@ -94,7 +94,7 @@ export function MapaMayo() {
               </text>
             </g>
 
-            {/* Etapa 1 — cabildo abierto */}
+            {/* Etapa 1: cabildo abierto */}
             <g data-capa-mayo="1">
               <HitoMayo {...ILU_MAYO.cabildo} color="var(--celeste)" lado="abajo" />
               <circle cx={648} cy={318} r={18} fill="var(--celeste)" opacity="0.1" />
@@ -103,7 +103,7 @@ export function MapaMayo() {
               </text>
             </g>
 
-            {/* Etapas 2–4 — milicias convergen */}
+            {/* Etapas 2–4: milicias convergen */}
             {RUTAS_MILICIAS.map((ruta, j) => (
               <path
                 key={j}
@@ -132,7 +132,7 @@ export function MapaMayo() {
               </text>
             </g>
 
-            {/* Etapa 5 — Primera Junta en el Fuerte */}
+            {/* Etapa 5: Primera Junta en el Fuerte */}
             <path
               data-trazo-mayo="5"
               d={RUTA_FUERTE}

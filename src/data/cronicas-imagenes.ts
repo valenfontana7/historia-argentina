@@ -1,5 +1,5 @@
 /**
- * Imágenes históricas para crónicas — Wikimedia Commons (dominio público).
+ * Imágenes históricas para crónicas: Wikimedia Commons (dominio público).
  * URLs verificadas vía API de Commons (thumb 1280px cuando existe).
  */
 
@@ -65,7 +65,7 @@ export const imagenesCronicas: Record<string, ImagenCronica> = {
   },
   "mayo-cabildo": {
     id: "mayo-cabildo",
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Cabildoabierto-Subercaseaux.jpg/1280px-Cabildoabierto-Subercaseaux.jpg",
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Cabildoabierto-Subercaseaux.jpg/1920px-Cabildoabierto-Subercaseaux.jpg",
     credito: "Wikimedia Commons · Pedro Subercaseaux",
     alt: "Cabildo abierto del 22 de mayo de 1810",
     tipo: "pintura",
@@ -683,7 +683,7 @@ export const imagenesCronicas: Record<string, ImagenCronica> = {
     id: "paraguay-mapa",
     url: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Map_of_the_Paraguayan_War_1864-1870.png",
     credito: "Wikimedia Commons",
-    alt: "Mapa de la Guerra del Paraguay, 1864 — 1870",
+    alt: "Mapa de la Guerra del Paraguay, 1864 a 1870",
     tipo: "mapa",
   },
   "paraguay-tuyuti": {
@@ -746,14 +746,14 @@ export const imagenesCronicas: Record<string, ImagenCronica> = {
     id: "hiperinflacion-grafico",
     url: "https://upload.wikimedia.org/wikipedia/commons/f/f7/Inflaci%C3%B3n_e_hiperinflaci%C3%B3n_en_Argentina_1989_1990.png",
     credito: "Wikimedia Commons",
-    alt: "Gráfico de inflación e hiperinflación en Argentina, 1989 — 1990",
+    alt: "Gráfico de inflación e hiperinflación en Argentina, 1989 a 1990",
     tipo: "mapa",
   },
   "peron-1973": {
     id: "peron-1973",
     url: "https://upload.wikimedia.org/wikipedia/commons/6/62/Juan_Domingo_Peron_1973_-1977.png",
     credito: "Wikimedia Commons",
-    alt: "Juan Domingo Perón en su tercer mandato, 1973 — 1974",
+    alt: "Juan Domingo Perón en su tercer mandato, 1973 a 1974",
     tipo: "foto",
   },
   "azucena-villaflor": {
@@ -816,7 +816,7 @@ export const imagenesCronicas: Record<string, ImagenCronica> = {
     id: "illia-obra",
     url: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Arturo_Illia_1963_a_1966.jpg",
     credito: "Wikimedia Commons",
-    alt: "Arturo Illia durante su presidencia, 1963 — 1966",
+    alt: "Arturo Illia durante su presidencia, 1963 a 1966",
     tipo: "foto",
   },
   "cristina-retrato": {

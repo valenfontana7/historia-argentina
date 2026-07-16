@@ -6,7 +6,7 @@
 
 const VB = { w: 720, h: 440 };
 
-/** Posiciones ilustrativas — oeste ← | → este */
+/** Posiciones ilustrativas: oeste ← | → este */
 export const ILU_PLATA = {
   buenosAires: { x: 152, y: 232, nombre: "Buenos Aires" },
   lasConchas: { x: 118, y: 192, nombre: "Las Conchas" },
@@ -90,7 +90,7 @@ export function BaseMapaPlata({ children, className = "" }: BaseProps) {
         />
       ))}
 
-      {/* Banda Oriental — orilla norte */}
+      {/* Banda Oriental: orilla norte */}
       <path
         d="M0 0 L720 0 L720 118 C640 128 560 132 502 140 C420 118 330 124 258 140 C190 152 130 166 88 178 C60 172 30 160 0 148 Z"
         fill="url(#grad-plata-tierra)"
@@ -99,7 +99,7 @@ export function BaseMapaPlata({ children, className = "" }: BaseProps) {
         filter="url(#sombra-plata)"
       />
 
-      {/* Provincia de Buenos Aires — orilla sur */}
+      {/* Provincia de Buenos Aires: orilla sur */}
       <path
         d="M0 262 C40 252 90 240 118 228 C138 220 148 228 152 240 C176 252 200 262 218 272 C258 288 290 300 308 312 C348 342 388 380 420 440 L0 440 Z"
         fill="url(#grad-plata-tierra)"
@@ -222,7 +222,7 @@ export function RutaPlata({ d, color, grosor = 2.5, punteada = false, glow }: Ru
   );
 }
 
-/** Velero estilizado — la flota invasora o los transportes de la Reconquista. */
+/** Velero estilizado, la flota invasora o los transportes de la Reconquista. */
 export function Velero({ x, y, color = "#8fb8d8" }: { x: number; y: number; color?: string }) {
   return (
     <g transform={`translate(${x}, ${y})`} opacity="0.85">

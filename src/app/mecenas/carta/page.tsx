@@ -5,7 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { obtenerMecenasActivo, obtenerSesion } from "@/lib/auth";
 
 export const metadata: Metadata = {
-  title: "Carta del mecenas — Julio 2026",
+  title: "Carta del mecenas: Julio 2026",
   robots: { index: false },
 };
 
@@ -28,29 +28,28 @@ export default async function CartaMecenasPage() {
         <div className="prosa capitular border border-linea bg-fondo-2 p-8 sm:p-10">
           <p>
             Gracias por sostener Argent. Con tu membresía tenés el mapa histórico
-            completo, dos crónicas que solo ven los mecenas y dos recorridos
-            especiales para recorrer la historia paso a paso.
+            completo, salas privadas exclusivas, visitas guiadas especiales con
+            audioguía y la colección de piezas comentadas.
           </p>
           <p>
             El resto del museo sigue abierto para todos: el Panteón, lugares,
-            cinco recorridos gratis y la historia del día. Tu aporte suma
-            contenido exclusivo y herramientas extra para explorar.
+            visitas guiadas gratuitas y la pieza del día. Tu aporte suma salas
+            privadas y herramientas extra para explorar.
           </p>
           <p>
-            Hoy hay dos crónicas públicas y dos exclusivas para mecenas. Seguimos
-            sumando historias nuevas; cuando haya una lista, la vas a ver acá
-            primero.
+            Seguimos abriendo exhibiciones nuevas; cuando haya una lista, la vas
+            a ver acá primero.
           </p>
           {mecenas.esFundador && (
             <p>
               Como fundador, podés{" "}
               <Link href="/mecenas/voto" className="text-oro-claro hover:text-oro">
-                votar qué crónica hacemos después
+                votar qué exhibición abrimos después
               </Link>
               .
             </p>
           )}
-          <p className="text-oro-claro">— El equipo de Argent</p>
+          <p className="text-oro-claro">El equipo de Argent</p>
         </div>
       </Reveal>
       <div className="mt-10 flex flex-wrap gap-4">

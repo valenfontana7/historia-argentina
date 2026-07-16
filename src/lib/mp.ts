@@ -69,7 +69,7 @@ export async function crearCheckout(planId: PlanId, email: string) {
     const preapproval = new PreApproval(clienteMp());
     const result = await preapproval.create({
       body: {
-        reason: `${plan.nombre} — ${sitio.nombre}`,
+        reason: `${plan.nombre} a ${sitio.nombre}`,
         auto_recurring: {
           frequency: 1,
           frequency_type: "months",
@@ -100,7 +100,7 @@ export async function crearCheckout(planId: PlanId, email: string) {
       items: [
         {
           id: plan.id,
-          title: `${plan.nombre} — ${sitio.nombre}`,
+          title: `${plan.nombre} a ${sitio.nombre}`,
           description: plan.descripcion,
           quantity: 1,
           unit_price: precio,

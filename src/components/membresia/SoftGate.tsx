@@ -11,7 +11,7 @@ import {
 type Props = {
   titulo: string;
   volverA?: string;
-  /** Duración estimada de lectura (ej. "8 minutos"). */
+  /** Duración estimada de la visita (ej. "8 minutos"). */
   duracion?: string;
   /** Dato de impacto para teaser. */
   datoTeaser?: string;

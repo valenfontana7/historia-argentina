@@ -300,6 +300,13 @@ Criterio: primero lo que cambia la *sensación* con menor esfuerzo, después lo 
 15. **Exposiciones temporales** (activar el flag `anticipo`).
 16. Colecciones de piezas premium y sellos de visita para mecenas.
 
+### Extensiones posteriores (julio 2026)
+
+17. **Fase 5–6:** audioguías en las 99 salas; colección premium de piezas comentadas.
+18. **Fase 7–8:** consolidación paramétrica de escenas comparador; puentes editoriales ampliados.
+19. **Fase 9 — Coherencia museográfica:** barrido de copy blog→museo en superficies de alto tráfico; `VitrinaContexto` en ~25 exhibiciones clave; friso temporal con espina y retratos; hubs de colección sin listas changelog.
+20. **Fase 10 — Densidad editorial:** `VitrinaContexto` en las 99 exhibiciones; Panteón con galería de aliados/enemigos, línea de vida museográfica y vitrinas de exhibiciones/efemérides.
+
 ### Qué NO se hace
 
 - No se cambian URLs ni se rompe el SEO existente.

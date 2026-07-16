@@ -41,7 +41,7 @@ const lines = Object.entries(sorted).map(
     `  ${name}: { imagenId: ${JSON.stringify(imagenId)}, pie: ${JSON.stringify(pie)} },`,
 );
 
-const contenido = `/** Registro paramétrico de escenas comparador — generado por scripts/escenas-extraer.ts */
+const contenido = `/** Registro paramétrico de escenas comparador: generado por scripts/escenas-extraer.ts */
 
 export type EscenaComparadorDef = {
   imagenId: string;

@@ -24,9 +24,9 @@ export const periodos: Periodo[] = [
       "Las ciudades del interior, los estancias del litoral y los pueblos de misiones construyeron una identidad propia mucho antes de que alguien pronunciara la palabra independencia.",
     ],
     eventosDestacados: [
-      "1536 — Primera fundación de Buenos Aires",
-      "1776 — Creación del Virreinato del Río de la Plata",
-      "1806-1807 — Invasiones Inglesas",
+      "1536: Primera fundación de Buenos Aires",
+      "1776: Creación del Virreinato del Río de la Plata",
+      "1806-1807: Invasiones Inglesas",
     ],
   },
   {
@@ -41,9 +41,9 @@ export const periodos: Periodo[] = [
       "San Martín cruzó los Andes, Belgrano izó la bandera y Moreno escribió con fuego. La independencia se conquistó en batalla y se discutió en salones.",
     ],
     eventosDestacados: [
-      "1810 — Revolución de Mayo",
-      "1816 — Declaración de la Independencia",
-      "1817 — Cruce de los Andes",
+      "1810: Revolución de Mayo",
+      "1816: Declaración de la Independencia",
+      "1817: Cruce de los Andes",
     ],
   },
   {
@@ -58,9 +58,9 @@ export const periodos: Periodo[] = [
       "La Constitución de 1853, la batalla de Caseros y la federalización de Buenos Aires cerraron, a golpes, la etapa de anarquía.",
     ],
     eventosDestacados: [
-      "1853 — Constitución Nacional",
-      "1852 — Batalla de Caseros",
-      "1880 — Federalización de Buenos Aires",
+      "1853: Constitución Nacional",
+      "1852: Batalla de Caseros",
+      "1880: Federalización de Buenos Aires",
     ],
   },
   {
@@ -75,9 +75,9 @@ export const periodos: Periodo[] = [
       "La Generación del '80 construyó instituciones, ferrocarriles y una identidad nacional que mezclaba europeísmo y campaña.",
     ],
     eventosDestacados: [
-      "1916 — Primera presidencia de Yrigoyen",
-      "1930 — Primer golpe de Estado",
-      "1943 — Revolución del '43",
+      "1916: Primera presidencia de Yrigoyen",
+      "1930: Primer golpe de Estado",
+      "1943: Revolución del '43",
     ],
   },
   {
@@ -92,9 +92,9 @@ export const periodos: Periodo[] = [
       "El 18 de julio de 1994, el 24 de marzo de 1976 y el 10 de diciembre de 1983 son fechas que marcan la memoria colectiva de millones.",
     ],
     eventosDestacados: [
-      "1946 — Primer gobierno de Perón",
-      "1983 — Retorno a la democracia",
-      "2001 — Crisis y estallido social",
+      "1946: Primer gobierno de Perón",
+      "1983: Retorno a la democracia",
+      "2001: Crisis y estallido social",
     ],
   },
 ];

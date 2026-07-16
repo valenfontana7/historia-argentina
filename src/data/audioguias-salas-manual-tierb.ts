@@ -1,6 +1,6 @@
 import type { AudioguiaExhibicion } from "@/data/audioguias-salas-manual";
 
-/** Guías editoriales curadas — tier B (exhibiciones visuales). */
+/** Guías editoriales curadas: tier B (exhibiciones visuales). */
 export const MANUAL_TIERB_INDICE: Record<string, AudioguiaExhibicion> = {
   belgrano: {
     cronicaSlug: "belgrano",
@@ -214,7 +214,7 @@ export const MANUAL_TIERB_INDICE: Record<string, AudioguiaExhibicion> = {
       {
         estacion: 3,
         titulo: "Del menemismo al 2001",
-        texto: "La convertibilidad sostuvo el modelo hasta que no pudo más. Menem dejó un país distinto — y una crisis que explotaría en diciembre de 2001.",
+        texto: "La convertibilidad sostuvo el modelo hasta que no pudo más. Menem dejó un país distinto, y una crisis que explotaría en diciembre de 2001.",
       },
     ],
   },

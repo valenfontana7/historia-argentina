@@ -47,7 +47,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Cinco mil hombres, una cordillera de más de cuatro mil metros y un plan que nadie creyó posible. La historia de la operación militar más audaz de América.",
     kicker: "Crónica N.º 1 · La Independencia",
-    periodo: "Enero — Febrero de 1817",
+    periodo: "Enero a Febrero de 1817",
     duracion: "8 minutos",
     descripcion:
       "La historia completa del cruce de los Andes: el plan continental de San Martín, la guerra de zapa, las seis rutas del Ejército de los Andes y la victoria de Chacabuco, contada como una experiencia visual interactiva.",
@@ -62,7 +62,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Dos veces desembarcó el ejército más poderoso del mundo en Buenos Aires. Dos veces lo expulsó una ciudad sin murallas, peleando desde las azoteas.",
     kicker: "Crónica N.º 2 · Las Invasiones Inglesas",
-    periodo: "Junio de 1806 — Julio de 1807",
+    periodo: "Junio de 1806 a Julio de 1807",
     duracion: "8 minutos",
     descripcion:
       "La historia completa de las Invasiones Inglesas: la caída de Buenos Aires en 48 horas, la Reconquista de Liniers, el nacimiento de las milicias criollas y la guerra de las azoteas que humilló a Whitelocke, contada como una experiencia visual interactiva.",
@@ -77,7 +77,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Del cabildo abierto a la Primera Junta: cómo una ciudad armada aprovechó la prisión de un rey para tomar el poder.",
     kicker: "Exclusiva Mecenas · Mayo de 1810",
-    periodo: "22 — 25 de mayo de 1810",
+    periodo: "22 a 25 de mayo de 1810",
     duracion: "8 minutos",
     descripcion:
       "Una crónica exclusiva para mecenas sobre las cuarenta y ocho horas que terminaron con el virreinato en Buenos Aires: milicias, cabildo abierto y la continuidad secreta con las Invasiones Inglesas.",
@@ -92,7 +92,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Belgrano quema la tierra, evacúa una ciudad entera y convierte la geografía en arma contra el ejército realista.",
     kicker: "Exclusiva Mecenas · Julio de 1812",
-    periodo: "Julio — Agosto de 1812",
+    periodo: "Julio a Agosto de 1812",
     duracion: "6 minutos",
     descripcion:
       "Crónica exclusiva sobre la evacuación de Jujuy: la decisión más dura de Belgrano antes de la batalla de Tucumán, contada como experiencia inmersiva.",
@@ -107,7 +107,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Güemes convierte Salta en un escudo vivo: montoneras, caballos y una guerra que el ejército regular no sabía pelear.",
     kicker: "Exclusiva Mecenas · Crónica N.º 3",
-    periodo: "1815 — 1821",
+    periodo: "1815 a 1821",
     duracion: "7 minutos",
     descripcion:
       "La guerra gaucha de Martín Miguel de Güemes: cómo una provincia entera sostuvo el norte con caballería irregular mientras los ejércitos formales se deshacían.",
@@ -122,7 +122,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "En el Alto Perú, cuando los ejércitos patriotas se quebraban, una comandanta armó otra resistencia.",
     kicker: "Exclusiva Mecenas · Crónica N.º 4",
-    periodo: "1810 — 1825",
+    periodo: "1810 a 1825",
     duracion: "7 minutos",
     descripcion:
       "La crónica de Juana Azurduy: guerrilla, mando y combate en el Alto Perú, lejos del bronce y cerca de la guerra real de la Independencia.",
@@ -137,7 +137,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "En Tucumán, un Congreso frágil escribió en tinta lo que la Revolución venía peleando con fusiles.",
     kicker: "Crónica N.º 5 · La Independencia",
-    periodo: "Marzo — Julio de 1816",
+    periodo: "Marzo a Julio de 1816",
     duracion: "8 minutos",
     descripcion:
       "La historia del Congreso de Tucumán y el Acta de la Independencia: diputados en camino, debates y el 9 de julio que cambió el mapa político de América del Sur.",
@@ -152,7 +152,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El 3 de febrero de 1852 el Ejército Grande quebró veinte años de orden rosista. Rosas se fue; quedó otra Argentina por armar.",
     kicker: "Crónica N.º 6 · Organización Nacional",
-    periodo: "Enero — Febrero de 1852",
+    periodo: "Enero a Febrero de 1852",
     duracion: "8 minutos",
     descripcion:
       "La batalla de Caseros contada como experiencia visual: el avance de Urquiza, el choque en las lomas y la caída de Juan Manuel de Rosas.",
@@ -182,7 +182,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Siete horas de resistencia en el Paraná: cuando Rosas defendió la soberanía contra el bloqueo anglofrancés.",
     kicker: "Crónica N.º 8 · Organización Nacional",
-    periodo: "18 — 20 de noviembre de 1845",
+    periodo: "18 a 20 de noviembre de 1845",
     duracion: "8 minutos",
     descripcion:
       "La Vuelta de Obligado contada como experiencia visual: cadenas en el recodo del Paraná, baterías de ribera y el día que hoy es la Soberanía Nacional.",
@@ -197,7 +197,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Belgrano desobedece la orden de retirarse y convierte el Éxodo Jujeño en victoria.",
     kicker: "Crónica N.º 9 · La Independencia",
-    periodo: "24 — 25 de septiembre de 1812",
+    periodo: "24 a 25 de septiembre de 1812",
     duracion: "7 minutos",
     descripcion:
       "La batalla de Tucumán: del Éxodo a la desobediencia de Belgrano, contada como crónica inmersiva con mapa y comparador visual.",
@@ -212,7 +212,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Del voto femenino al Cabildo Abierto: la mujer que convirtió el peronismo en movimiento de masas.",
     kicker: "Crónica N.º 10 · El peronismo",
-    periodo: "1945 — 1952",
+    periodo: "1945 a 1952",
     duracion: "8 minutos",
     descripcion:
       "Crónica de Eva Perón: voto femenino, Fundación, multitudes y la renuncia del Cabildo Abierto de 1951.",
@@ -227,7 +227,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Del desembarco del 2 de abril a la rendición del 14 de junio: la guerra de Malvinas como herida nacional.",
     kicker: "Crónica N.º 11 · La Argentina contemporánea",
-    periodo: "2 de abril — 14 de junio de 1982",
+    periodo: "2 de abril a 14 de junio de 1982",
     duracion: "8 minutos",
     descripcion:
       "La guerra de Malvinas en 74 días: Operación Rosario, el Atlántico Sur y la rendición que marcó una generación.",
@@ -242,7 +242,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Del golpe del 24 de marzo al 10 de diciembre de 1983: memoria, verdad y retorno de la democracia.",
     kicker: "Exclusiva Mecenas · Crónica N.º 12",
-    periodo: "24 de marzo de 1976 — 10 de diciembre de 1983",
+    periodo: "24 de marzo de 1976 a 10 de diciembre de 1983",
     duracion: "8 minutos",
     descripcion:
       "Crónica exclusiva sobre la última dictadura, el informe Nunca Más y el día en que la democracia volvió a la Plaza de Mayo.",
@@ -407,7 +407,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "La entrevista en la que San Martín renunció al poder y eligió el exilio antes que la guerra civil.",
     kicker: "Exclusiva Mecenas · Crónica N.º 23",
-    periodo: "26 — 27 de julio de 1822",
+    periodo: "26 a 27 de julio de 1822",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de la entrevista de Guayaquil: San Martín, Bolívar y el misterio que cerró una era.",
@@ -437,7 +437,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "La guerra que llegó a cada barrio argentino en abril de 1982.",
     kicker: "Crónica N.º 18 · La Argentina contemporánea",
-    periodo: "Abril — Junio de 1982",
+    periodo: "Abril a Junio de 1982",
     duracion: "7 minutos",
     descripcion:
       "Malvinas desde la Plaza de Mayo y la movilización civil: complemento a la crónica del frente.",
@@ -452,7 +452,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Roca, la Patagonia y la herida que la Argentina todavía discute.",
     kicker: "Anticipo Mecenas · Crónica N.º 24",
-    periodo: "1878 — 1885",
+    periodo: "1878 a 1885",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de la Conquista del Desierto: frontera móvil, campaña militar y memoria disputada.",
@@ -468,7 +468,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El primer presidente unitario y la Constitución de 1826 que fracturó el país.",
     kicker: "Crónica N.º 19 · Organización Nacional",
-    periodo: "1826 — 1827",
+    periodo: "1826 a 1827",
     duracion: "7 minutos",
     descripcion:
       "Bernardino Rivadavia: modernización, centralismo y el proyecto que el interior rechazó.",
@@ -499,7 +499,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "La Gazeta, la censura y la revolución de ideas que pensó la Argentina antes de existir.",
     kicker: "Exclusiva Mecenas · Crónica N.º 26",
-    periodo: "1810 — 1811",
+    periodo: "1810 a 1811",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Mariano Moreno: el cerebro de Mayo, la prensa libre y el legado intelectual.",
@@ -514,7 +514,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Enero de 1919: la huelga metalúrgica que dejó cientos de muertos en Buenos Aires.",
     kicker: "Crónica N.º 20 · La Argentina democrática",
-    periodo: "7 — 14 de enero de 1919",
+    periodo: "7 a 14 de enero de 1919",
     duracion: "7 minutos",
     descripcion:
       "La Semana Trágica contada como crónica inmersiva: huelga, represión y la democracia herida.",
@@ -544,7 +544,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Diciembre de 2001: corralito, cacerolazos y cinco presidentes en dos semanas.",
     kicker: "Crónica N.º 22 · La Argentina contemporánea",
-    periodo: "Diciembre de 2001 — Enero de 2002",
+    periodo: "Diciembre de 2001 a Enero de 2002",
     duracion: "7 minutos",
     descripcion:
       "La crisis del 2001: el colapso económico que sacudió la democracia argentina.",
@@ -574,7 +574,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El caudillo federal fusilado en 1828: el mártir que abrió la era rosista.",
     kicker: "Exclusiva Mecenas · Crónica N.º 28",
-    periodo: "1827 — 1828",
+    periodo: "1827 a 1828",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Manuel Dorrego: federalismo, guerra civil y el crimen que cambió la Argentina.",
@@ -589,7 +589,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Veinte años de machete rojo: el poder absoluto de Juan Manuel de Rosas.",
     kicker: "Crónica N.º 23 · Organización Nacional",
-    periodo: "1835 — 1852",
+    periodo: "1835 a 1852",
     duracion: "7 minutos",
     descripcion:
       "El rosismo contado como crónica inmersiva: orden, terror y la caída en Caseros.",
@@ -604,7 +604,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Historiador, general y presidente: el hombre que escribió la nación.",
     kicker: "Crónica N.º 24 · Organización Nacional",
-    periodo: "1852 — 1870",
+    periodo: "1852 a 1870",
     duracion: "7 minutos",
     descripcion:
       "Bartolomé Mitre: de Caseros a la guerra del Paraguay, la crónica del primer presidente unitario.",
@@ -617,9 +617,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "ley-saenz-pena",
     titulo: "La Ley Sáenz Peña",
     subtitulo:
-      "1912: voto secreto y obligatorio — la puerta que abrió la democracia moderna.",
+      "1912: voto secreto y obligatorio, la puerta que abrió la democracia moderna.",
     kicker: "Crónica N.º 25 · La Argentina democrática",
-    periodo: "Febrero de 1912 — Octubre de 1916",
+    periodo: "Febrero de 1912 a Octubre de 1916",
     duracion: "7 minutos",
     descripcion:
       "La ley Sáenz Peña y el camino a las primeras elecciones limpias: el nacimiento del voto popular.",
@@ -634,7 +634,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Bases y puntos de partida: el pensador que escribió la Constitución desde el exilio.",
     kicker: "Exclusiva Mecenas · Crónica N.º 29",
-    periodo: "1852 — 1853",
+    periodo: "1852 a 1853",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Juan Bautista Alberdi: las Bases, el federalismo liberal y el arquitecto invisible de 1853.",
@@ -647,9 +647,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "patagonia-rebelde",
     titulo: "Patagonia rebelde",
     subtitulo:
-      "1920 — 1922: la huelga obrera del sur que Yrigoyen reprimió con fusilamientos.",
+      "1920 a 1922: la huelga obrera del sur que Yrigoyen reprimió con fusilamientos.",
     kicker: "Exclusiva Mecenas · Crónica N.º 30",
-    periodo: "1920 — 1922",
+    periodo: "1920 a 1922",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de la Patagonia rebelde: huelga, ejército y la herida que el radicalismo no cerró.",
@@ -679,7 +679,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "10 de diciembre de 1983: Alfonsín devuelve la democracia después de la dictadura.",
     kicker: "Crónica N.º 27 · La Argentina contemporánea",
-    periodo: "1983 — 1985",
+    periodo: "1983 a 1985",
     duracion: "7 minutos",
     descripcion:
       "La transición democrática de 1983: del horror de la dictadura al juicio a las juntas militares.",
@@ -694,7 +694,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El caudillo de Entre Ríos que armó el Ejército Grande y derribó a Rosas.",
     kicker: "Crónica N.º 28 · Organización Nacional",
-    periodo: "1851 — 1852",
+    periodo: "1851 a 1852",
     duracion: "7 minutos",
     descripcion:
       "Justo José de Urquiza: el Pacto de Palermo, el Ejército Grande y la caída del rosismo.",
@@ -709,7 +709,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El orador que llevó la revolución de Mayo al Alto Perú.",
     kicker: "Exclusiva Mecenas · Crónica N.º 31",
-    periodo: "1810 — 1811",
+    periodo: "1810 a 1811",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Juan José Castelli: la revolución del norte, Cochabamba y la caída del tribuno.",
@@ -724,7 +724,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El caudillo gaucho que defendió Salta durante seis años de guerra irregular.",
     kicker: "Exclusiva Mecenas · Crónica N.º 32",
-    periodo: "1815 — 1821",
+    periodo: "1815 a 1821",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Martín Miguel de Güemes: montoneras, frontera norte y el escudo de la revolución.",
@@ -754,7 +754,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El coronel de granaderos que comandó las milicias del 25 de Mayo.",
     kicker: "Crónica N.º 30 · La Independencia",
-    periodo: "Mayo — diciembre de 1810",
+    periodo: "Mayo a diciembre de 1810",
     duracion: "7 minutos",
     descripcion:
       "Cornelio Saavedra: milicias, Primera Junta y el militar sin el cual no hubo Revolución de Mayo.",
@@ -767,9 +767,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "la-convertibilidad",
     titulo: "La Convertibilidad",
     subtitulo:
-      "1991 — 2001: un peso, un dólar, y el colapso que terminó en el corralito.",
+      "1991 a 2001: un peso, un dólar, y el colapso que terminó en el corralito.",
     kicker: "Crónica N.º 31 · La Argentina contemporánea",
-    periodo: "1991 — 2002",
+    periodo: "1991 a 2002",
     duracion: "7 minutos",
     descripcion:
       "La convertibilidad económica: estabilidad, consumo y la crisis que abrió camino al 2001.",
@@ -784,7 +784,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "La anfitriona de la patria: el salón donde se conspiró la revolución.",
     kicker: "Exclusiva Mecenas · Crónica N.º 33",
-    periodo: "1786 — 1868",
+    periodo: "1786 a 1868",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Mariquita Sánchez: tertulias, himno y la voz femenina de la Independencia.",
@@ -799,7 +799,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El héroe de la Reconquista que terminó fusilado por la Revolución.",
     kicker: "Exclusiva Mecenas · Crónica N.º 34",
-    periodo: "1806 — 1810",
+    periodo: "1806 a 1810",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Santiago de Liniers: Reconquista, virreinato y la paradoja de Mayo.",
@@ -814,7 +814,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El maestro de América: educación, Facundo y la nación que quiso construir.",
     kicker: "Crónica N.º 32 · Organización Nacional",
-    periodo: "1811 — 1888",
+    periodo: "1811 a 1888",
     duracion: "7 minutos",
     descripcion:
       "Domingo Faustino Sarmiento: el escritor del Facundo, el presidente de las escuelas y el Día del Maestro.",
@@ -829,7 +829,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El primer presidente elegido por voto popular y el primer golpe de Estado.",
     kicker: "Crónica N.º 33 · La Argentina democrática",
-    periodo: "1916 — 1930",
+    periodo: "1916 a 1930",
     duracion: "7 minutos",
     descripcion:
       "Hipólito Yrigoyen: radicalismo, YPF, el plebiscito de 1928 y la caída del 6 de septiembre.",
@@ -842,9 +842,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "paraguay",
     titulo: "La Guerra del Paraguay",
     subtitulo:
-      "1865 — 1870: la Triple Alianza y la campaña más sangrienta del continente.",
+      "1865 a 1870: la Triple Alianza y la campaña más sangrienta del continente.",
     kicker: "Crónica N.º 34 · Organización Nacional",
-    periodo: "1865 — 1870",
+    periodo: "1865 a 1870",
     duracion: "7 minutos",
     descripcion:
       "La guerra del Paraguay: Mitre, la Triple Alianza y la herida que marcó la Argentina moderna.",
@@ -859,7 +859,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El Zorro: dos presidencias, paz y administración, y el Estado moderno.",
     kicker: "Crónica N.º 35 · Organización Nacional",
-    periodo: "1843 — 1914",
+    periodo: "1843 a 1914",
     duracion: "7 minutos",
     descripcion:
       "Julio Argentino Roca: Conquista del Desierto, federalización y el granero del mundo.",
@@ -874,7 +874,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El general que no quiso ser militar: bandera, norte y desobediencia.",
     kicker: "Crónica N.º 36 · La Independencia",
-    periodo: "1770 — 1820",
+    periodo: "1770 a 1820",
     duracion: "7 minutos",
     descripcion:
       "Manuel Belgrano: economista, creador de la bandera y comandante del Ejército del Norte.",
@@ -904,7 +904,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Del coronel de 1943 al movimiento que definió el siglo XX argentino.",
     kicker: "Exclusiva Mecenas · Crónica N.º 35",
-    periodo: "1943 — 1974",
+    periodo: "1943 a 1974",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Juan Domingo Perón: el 17 de Octubre, tres presidencias y el movimiento que no terminó.",
@@ -919,7 +919,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "El presidente que devolvió la democracia y sentó a los militares en el banquillo.",
     kicker: "Exclusiva Mecenas · Crónica N.º 36",
-    periodo: "1983 — 1989",
+    periodo: "1983 a 1989",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Raúl Alfonsín: transición, Nunca Más y el juicio a las juntas.",
@@ -962,9 +962,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "menem",
     titulo: "Menem",
     subtitulo:
-      "1989 — 1999: el peronismo que privatizó y abrió camino al 2001.",
+      "1989 a 1999: el peronismo que privatizó y abrió camino al 2001.",
     kicker: "Crónica N.º 40 · La Argentina contemporánea",
-    periodo: "1989 — 1999",
+    periodo: "1989 a 1999",
     duracion: "7 minutos",
     descripcion:
       "Carlos Menem: hiperinflación, convertibilidad, consumo y el puente hacia la crisis del 2001.",
@@ -979,7 +979,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "28 de junio de 1966: la Revolución Argentina y el autoritarismo moderno.",
     kicker: "Exclusiva Mecenas · Crónica N.º 37",
-    periodo: "1966 — 1970",
+    periodo: "1966 a 1970",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva del golpe de 1966: Onganía, Illia derrocado y el camino al Proceso.",
@@ -994,7 +994,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "1989: el Rodrigazo, la entrega anticipada de Alfonsín y el puente a Menem.",
     kicker: "Exclusiva Mecenas · Crónica N.º 38",
-    periodo: "1989 — 1990",
+    periodo: "1989 a 1990",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de la hiperinflación: el colapso económico que abrió la década de 1990.",
@@ -1009,7 +1009,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "1973: Perón vuelve al país después de 18 años de proscripción.",
     kicker: "Crónica N.º 41 · La Argentina contemporánea",
-    periodo: "1972 — 1974",
+    periodo: "1972 a 1974",
     duracion: "7 minutos",
     descripcion:
       "El regreso de Perón en 1973: victoria electoral, fractura interna y la puerta al golpe de 1976.",
@@ -1024,7 +1024,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "30 de abril de 1977: el pañuelo blanco contra el terror de Estado.",
     kicker: "Crónica N.º 42 · La Argentina contemporánea",
-    periodo: "1977 — 1983",
+    periodo: "1977 a 1983",
     duracion: "7 minutos",
     descripcion:
       "Las Madres de Plaza de Mayo: la resistencia civil que no dejó olvidar a los desaparecidos.",
@@ -1037,9 +1037,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "kirchner",
     titulo: "Kirchner",
     subtitulo:
-      "2003 — 2010: el peronismo que salió del colapso del 2001.",
+      "2003 a 2010: el peronismo que salió del colapso del 2001.",
     kicker: "Crónica N.º 43 · La Argentina contemporánea",
-    periodo: "2003 — 2010",
+    periodo: "2003 a 2010",
     duracion: "7 minutos",
     descripcion:
       "Néstor Kirchner: reactivación económica, memoria y el modelo que definió el siglo XXI.",
@@ -1069,7 +1069,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "La guerrilla peronista que fracturó los setenta y alimentó el horror.",
     kicker: "Exclusiva Mecenas · Crónica N.º 40",
-    periodo: "1970 — 1976",
+    periodo: "1970 a 1976",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Montoneros: violencia política, idealismo y el camino al Proceso.",
@@ -1082,9 +1082,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "frondizi",
     titulo: "Frondizi",
     subtitulo:
-      "1958 — 1962: desarrollismo, petróleo y el peronismo que votó sin Perón.",
+      "1958 a 1962: desarrollismo, petróleo y el peronismo que votó sin Perón.",
     kicker: "Crónica N.º 44 · La Argentina contemporánea",
-    periodo: "1958 — 1962",
+    periodo: "1958 a 1962",
     duracion: "7 minutos",
     descripcion:
       "Arturo Frondizi y el desarrollismo: industria, contratos petroleros y el golpe que lo interrumpió.",
@@ -1097,9 +1097,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "illia",
     titulo: "Illia",
     subtitulo:
-      "1963 — 1966: la democracia radical entre Frondizi y Onganía.",
+      "1963 a 1966: la democracia radical entre Frondizi y Onganía.",
     kicker: "Crónica N.º 45 · La Argentina contemporánea",
-    periodo: "1963 — 1966",
+    periodo: "1963 a 1966",
     duracion: "7 minutos",
     descripcion:
       "Arturo Illia: austeridad, ley de petróleo y el gobierno civil que terminó en el golpe de 1966.",
@@ -1112,9 +1112,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "cristina",
     titulo: "Cristina",
     subtitulo:
-      "2007 — 2015: la continuidad del kirchnerismo y la Argentina polarizada.",
+      "2007 a 2015: la continuidad del kirchnerismo y la Argentina polarizada.",
     kicker: "Crónica N.º 46 · La Argentina contemporánea",
-    periodo: "2007 — 2015",
+    periodo: "2007 a 2015",
     duracion: "7 minutos",
     descripcion:
       "Cristina Fernández de Kirchner: el ciclo K en su etapa más disputada y más electoralmente fuerte.",
@@ -1127,9 +1127,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "triple-a",
     titulo: "La Triple A",
     subtitulo:
-      "1973 — 1975: López Rega y el terror parapolicial del tercer peronismo.",
+      "1973 a 1975: López Rega y el terror parapolicial del tercer peronismo.",
     kicker: "Exclusiva Mecenas · Crónica N.º 41",
-    periodo: "1973 — 1975",
+    periodo: "1973 a 1975",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de la Triple A: la Alianza Anticomunista Argentina y la violencia antes del Proceso.",
@@ -1142,9 +1142,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "isabel",
     titulo: "Isabel",
     subtitulo:
-      "1974 — 1976: la primera mujer presidenta y el camino al último golpe.",
+      "1974 a 1976: la primera mujer presidenta y el camino al último golpe.",
     kicker: "Exclusiva Mecenas · Crónica N.º 42",
-    periodo: "1974 — 1976",
+    periodo: "1974 a 1976",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de María Estela Martínez de Perón: fragilidad, caos y la puerta al 24 de marzo.",
@@ -1157,9 +1157,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "macri",
     titulo: "Macri",
     subtitulo:
-      "2015 — 2019: Cambiemos, apertura y el fin del ciclo kirchnerista.",
+      "2015 a 2019: Cambiemos, apertura y el fin del ciclo kirchnerista.",
     kicker: "Crónica N.º 47 · La Argentina contemporánea",
-    periodo: "2015 — 2019",
+    periodo: "2015 a 2019",
     duracion: "7 minutos",
     descripcion:
       "Mauricio Macri y Cambiemos: el cambio político que terminó doce años de kirchnerismo.",
@@ -1187,9 +1187,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "de-la-rua",
     titulo: "De la Rúa",
     subtitulo:
-      "1999 — 2001: la Alianza, la convertibilidad heredada y la renuncia.",
+      "1999 a 2001: la Alianza, la convertibilidad heredada y la renuncia.",
     kicker: "Crónica N.º 49 · La Argentina contemporánea",
-    periodo: "1999 — 2001",
+    periodo: "1999 a 2001",
     duracion: "7 minutos",
     descripcion:
       "Fernando de la Rúa: el radical que no pudo sostener el modelo y abrió la puerta al colapso del 2001.",
@@ -1217,9 +1217,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "galtieri",
     titulo: "Galtieri",
     subtitulo:
-      "1981 — 1982: el dictador que apostó a Malvinas y perdió todo.",
+      "1981 a 1982: el dictador que apostó a Malvinas y perdió todo.",
     kicker: "Exclusiva Mecenas · Crónica N.º 44",
-    periodo: "1981 — 1982",
+    periodo: "1981 a 1982",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Leopoldo Galtieri: la apuesta de Malvinas y el fin acelerado del Proceso.",
@@ -1232,9 +1232,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "alberto-fernandez",
     titulo: "Alberto Fernández",
     subtitulo:
-      "2019 — 2023: Frente de Todos, pandemia y el retorno del peronismo.",
+      "2019 a 2023: Frente de Todos, pandemia y el retorno del peronismo.",
     kicker: "Crónica N.º 50 · La Argentina contemporánea",
-    periodo: "2019 — 2023",
+    periodo: "2019 a 2023",
     duracion: "7 minutos",
     descripcion:
       "Alberto Fernández: el peronismo que volvió en 2019 y dejó paso a una nueva ruptura política.",
@@ -1247,9 +1247,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "milei",
     titulo: "Milei",
     subtitulo:
-      "2023 — hoy: La Libertad Avanza y la ruptura libertaria.",
+      "2023 a hoy: La Libertad Avanza y la ruptura libertaria.",
     kicker: "Crónica N.º 51 · La Argentina contemporánea",
-    periodo: "2023 — 2025",
+    periodo: "2023 a 2025",
     duracion: "7 minutos",
     descripcion:
       "Javier Milei: el balotaje de 2023 y el experimento político sin precedentes en la Argentina.",
@@ -1262,9 +1262,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "piqueteros",
     titulo: "Los Piqueteros",
     subtitulo:
-      "2002 — 2015: la calle que nació del colapso del 2001.",
+      "2002 a 2015: la calle que nació del colapso del 2001.",
     kicker: "Crónica N.º 52 · La Argentina contemporánea",
-    periodo: "2002 — 2015",
+    periodo: "2002 a 2015",
     duracion: "7 minutos",
     descripcion:
       "Los piqueteros: cortes de ruta, planes sociales y la protesta que transformó la política argentina.",
@@ -1277,9 +1277,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "conadep",
     titulo: "La CONADEP",
     subtitulo:
-      "1983 — 1984: Sábato, Nunca Más y la verdad sobre la dictadura.",
+      "1983 a 1984: Sábato, Nunca Más y la verdad sobre la dictadura.",
     kicker: "Exclusiva Mecenas · Crónica N.º 45",
-    periodo: "1983 — 1984",
+    periodo: "1983 a 1984",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de la CONADEP: el informe Nunca Más y la documentación del terror de Estado.",
@@ -1307,9 +1307,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "fabricas-recuperadas",
     titulo: "Fábricas Recuperadas",
     subtitulo:
-      "2002 — 2015: cooperativas, autogestión y la economía del post-2001.",
+      "2002 a 2015: cooperativas, autogestión y la economía del post-2001.",
     kicker: "Crónica N.º 53 · La Argentina contemporánea",
-    periodo: "2002 — 2015",
+    periodo: "2002 a 2015",
     duracion: "7 minutos",
     descripcion:
       "Las fábricas recuperadas: cuando los trabajadores ocuparon la producción después del colapso.",
@@ -1322,9 +1322,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "la-pandemia",
     titulo: "La Pandemia",
     subtitulo:
-      "2020 — 2021: COVID-19, cuarentena y la Argentina aislada.",
+      "2020 a 2021: COVID-19, cuarentena y la Argentina aislada.",
     kicker: "Crónica N.º 54 · La Argentina contemporánea",
-    periodo: "2020 — 2021",
+    periodo: "2020 a 2021",
     duracion: "7 minutos",
     descripcion:
       "La pandemia de COVID-19 en Argentina: cuarentena, vacunas y la prueba de un gobierno en crisis.",
@@ -1382,9 +1382,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "lanusse",
     titulo: "Lanusse",
     subtitulo:
-      "1971 — 1973: el general que convocó elecciones y abrió el retorno de Perón.",
+      "1971 a 1973: el general que convocó elecciones y abrió el retorno de Perón.",
     kicker: "Crónica N.º 56 · La Argentina contemporánea",
-    periodo: "1971 — 1973",
+    periodo: "1971 a 1973",
     duracion: "7 minutos",
     descripcion:
       "Alejandro Lanusse: de la Revolución Argentina a las urnas que devolvieron el peronismo.",
@@ -1429,7 +1429,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "La guerrilla marxista que eligió las armas en los setenta.",
     kicker: "Exclusiva Mecenas · Crónica N.º 49",
-    periodo: "1970 — 1976",
+    periodo: "1970 a 1976",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva del ERP: Santucho, Operación Independencia y la escalada al Proceso.",
@@ -1444,7 +1444,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "Centro clandestino de detención: el horror en plena Ciudad de Buenos Aires.",
     kicker: "Exclusiva Mecenas · Crónica N.º 50",
-    periodo: "1976 — 1983",
+    periodo: "1976 a 1983",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de la ESMA: tortura, vuelos de la muerte y memoria que no cierra.",
@@ -1457,9 +1457,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "levingston",
     titulo: "Levingston",
     subtitulo:
-      "1970 — 1971: el general interino de la Revolución Argentina.",
+      "1970 a 1971: el general interino de la Revolución Argentina.",
     kicker: "Crónica N.º 59 · La Argentina contemporánea",
-    periodo: "1970 — 1971",
+    periodo: "1970 a 1971",
     duracion: "7 minutos",
     descripcion:
       "Roberto Levingston: entre Onganía y Lanusse, el puente militar hacia las elecciones de 1973.",
@@ -1474,7 +1474,7 @@ const cronicasBase: CronicaBase[] = [
     subtitulo:
       "11 de marzo de 1973: Cámpora al gobierno, Perón a la presidencia.",
     kicker: "Crónica N.º 60 · La Argentina contemporánea",
-    periodo: "Marzo — Julio de 1973",
+    periodo: "Marzo a Julio de 1973",
     duracion: "7 minutos",
     descripcion:
       "Héctor Cámpora: el presidente que devolvió el peronismo a las urnas y abrió la puerta al retorno.",
@@ -1487,9 +1487,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "celman",
     titulo: "Celman",
     subtitulo:
-      "1886 — 1890: la Generación del Ochenta y el estallido del Parque.",
+      "1886 a 1890: la Generación del Ochenta y el estallido del Parque.",
     kicker: "Crónica N.º 61 · La Argentina democrática",
-    periodo: "1886 — 1890",
+    periodo: "1886 a 1890",
     duracion: "7 minutos",
     descripcion:
       "Miguel Juárez Celman: opulencia oligárquica, fraude y la revuelta que abrió el camino al radicalismo.",
@@ -1502,9 +1502,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "videla",
     titulo: "Videla",
     subtitulo:
-      "1976 — 1981: el general que encabezó el Proceso de Reorganización Nacional.",
+      "1976 a 1981: el general que encabezó el Proceso de Reorganización Nacional.",
     kicker: "Exclusiva Mecenas · Crónica N.º 51",
-    periodo: "1976 — 1981",
+    periodo: "1976 a 1981",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Jorge Rafael Videla: el rostro del golpe y el terror de Estado.",
@@ -1517,9 +1517,9 @@ const cronicasBase: CronicaBase[] = [
     slug: "massera",
     titulo: "Massera",
     subtitulo:
-      "1976 — 1978: el almirante de la ESMA y los vuelos de la muerte.",
+      "1976 a 1978: el almirante de la ESMA y los vuelos de la muerte.",
     kicker: "Exclusiva Mecenas · Crónica N.º 52",
-    periodo: "1976 — 1978",
+    periodo: "1976 a 1978",
     duracion: "7 minutos",
     descripcion:
       "Crónica exclusiva de Emilio Massera: la Armada, la Junta Militar y el horror de la ESMA.",

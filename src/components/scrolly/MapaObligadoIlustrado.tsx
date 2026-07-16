@@ -40,7 +40,7 @@ export const ETAPAS_OBLIGADO: EtapaObligado[] = [
   },
   {
     nombre: "Retirada enemiga",
-    fecha: "20 — 21 de noviembre de 1845",
+    fecha: "20 a 21 de noviembre de 1845",
     detalle:
       "La flota rompe las cadenas y sigue aguas arriba, pero la batalla se convierte en símbolo. Hoy es el Día de la Soberanía Nacional.",
   },

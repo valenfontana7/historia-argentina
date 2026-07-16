@@ -11,6 +11,7 @@ const links = [
   { href: "/admin", label: "Inicio", match: "exact" as const },
   { href: "/admin/mecenas", label: "Planes", match: "planes" as const },
   { href: "/admin/mecenas/personas", label: "Personas", match: "prefix" as const },
+  { href: "/admin/video", label: "Video", match: "prefix" as const },
 ] as const;
 
 function linkActivo(pathname: string, href: string, match: (typeof links)[number]["match"]): boolean {
@@ -37,7 +38,7 @@ export function AdminNav({ email }: Props) {
   }
 
   return (
-    <header className="border-b border-linea bg-fondo-2">
+    <header className="sticky top-0 z-30 border-b border-linea bg-fondo-2/95 pt-[env(safe-area-inset-top)] backdrop-blur-sm">
       <div className="mx-auto flex max-w-5xl flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="kicker text-[0.65rem]">Admin</p>

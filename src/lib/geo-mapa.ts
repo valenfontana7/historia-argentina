@@ -87,11 +87,11 @@ export const CONO_SUR = {
   mendoza: { lat: -32.89, lon: -68.844, nombre: "Mendoza" },
   santiago: { lat: -33.449, lon: -70.669, nombre: "Santiago" },
   lima: { lat: -12.046, lon: -77.043, nombre: "Lima" },
-  /** Batalla del 20 jun 1811 — Guaqui, La Paz (Bolivia), junto al Titicaca. */
+  /** Batalla del 20 jun 1811: Guaqui, La Paz (Bolivia), junto al Titicaca. */
   huaqui: { lat: -16.629, lon: -68.919, nombre: "Huaqui · 1811" },
-  /** Batalla del 1 oct 1813 — pampa de Vilcapugio, Oruro (Bolivia). */
+  /** Batalla del 1 oct 1813: pampa de Vilcapugio, Oruro (Bolivia). */
   vilcapugio: { lat: -19.039, lon: -66.559, nombre: "Vilcapugio · 1813" },
-  /** Batalla del 14 nov 1813 — llanos de Ayohuma, Potosí (Bolivia). */
+  /** Batalla del 14 nov 1813: llanos de Ayohuma, Potosí (Bolivia). */
   ayohuma: { lat: -18.855, lon: -66.127, nombre: "Ayohuma · 1813" },
 } as const satisfies Record<string, PuntoGeo>;
 

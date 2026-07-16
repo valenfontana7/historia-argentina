@@ -10,7 +10,7 @@ import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 
 export const metadata: Metadata = construirMetadata({
-  titulo: "Línea del tiempo — historia argentina",
+  titulo: "Línea del tiempo: historia argentina",
   descripcion:
     "Explorá la historia argentina año por año: eventos, personajes y períodos en un timeline interactivo.",
   ruta: "/timelines",

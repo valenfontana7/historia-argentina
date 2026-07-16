@@ -224,7 +224,7 @@ function main() {
     escribirArchivo(
       join(ROOT, "src/data/audioguias-salas-curadas-tiera.ts"),
       "CURADAS_TIERA_INDICE",
-      "Generado por scripts/audioguias-indexar.ts — tier A restante",
+      "Generado por scripts/audioguias-indexar.ts: tier A restante",
       tierA,
       "B",
     );
@@ -233,7 +233,7 @@ function main() {
   escribirArchivo(
     OUTPUT_B,
     "CURADAS_TIERB_INDICE",
-    "Generado por scripts/audioguias-indexar.ts — tier B enriquecido",
+    "Generado por scripts/audioguias-indexar.ts: tier B enriquecido",
     tierB,
     "B",
   );
@@ -242,14 +242,14 @@ function main() {
     escribirArchivo(
       OUTPUT_C,
       "GENERADO_INDICE",
-      "Generado por scripts/audioguias-indexar.ts — tier C narrativo",
+      "Generado por scripts/audioguias-indexar.ts: tier C narrativo",
       tierC,
       "C",
     );
   } else {
     writeFileSync(
       OUTPUT_C,
-      `/** Generado por scripts/audioguias-indexar.ts — tier C cubierto por manual. */
+      `/** Generado por scripts/audioguias-indexar.ts: tier C cubierto por manual. */
 import type { AudioguiaExhibicion } from "@/data/audioguias-salas-manual";
 
 export const GENERADO_INDICE: Record<string, AudioguiaExhibicion> = {};

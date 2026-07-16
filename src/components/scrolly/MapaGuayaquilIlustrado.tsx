@@ -20,13 +20,13 @@ export type EtapaGuayaquil = {
 export const ETAPAS_GUAYAQUIL: EtapaGuayaquil[] = [
   {
     nombre: "El Libertador del Sur",
-    fecha: "1817 — 1821",
+    fecha: "1817 a 1821",
     detalle:
       "San Martín cruza los Andes, libera Chile y Perú. Bolívar avanza desde el norte. Dos ejércitos, dos proyectos: ¿quién manda en la independencia?",
   },
   {
     nombre: "La cita en Guayaquil",
-    fecha: "26 — 27 de julio de 1822",
+    fecha: "26 a 27 de julio de 1822",
     detalle:
       "En la casa de la viuda de Rodríguez, San Martín y Bolívar se reúnen en secreto. Nadie sabe exactamente qué dijeron. El mundo entero especula.",
   },
@@ -38,7 +38,7 @@ export const ETAPAS_GUAYAQUIL: EtapaGuayaquil[] = [
   },
   {
     nombre: "El silencio del héroe",
-    fecha: "1824 — 1850",
+    fecha: "1824 a 1850",
     detalle:
       "Bolívar sigue peleando. San Martín parte a Europa y nunca vuelve. Guayaquil queda como el misterio que cerró una era.",
   },

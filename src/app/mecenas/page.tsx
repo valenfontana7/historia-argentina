@@ -24,7 +24,7 @@ import {
 import { planes } from "@/lib/membresia.config";
 
 export const metadata = {
-  title: "Tu visita — Mecenas",
+  title: "Tu visita: Mecenas",
   robots: { index: false },
 };
 

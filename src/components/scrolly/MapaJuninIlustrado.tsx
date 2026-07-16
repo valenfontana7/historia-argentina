@@ -20,7 +20,7 @@ export type EtapaJunin = {
 export const ETAPAS_JUNIN: EtapaJunin[] = [
   {
     nombre: "El ejército en el Perú",
-    fecha: "1821 — 1823",
+    fecha: "1821 a 1823",
     detalle:
       "San Martín libera Lima pero no puede terminar la guerra. El Ejército del Perú queda en la meseta, agotado, esperando la batalla que decida el destino del virreinato.",
   },

@@ -20,7 +20,7 @@ export type EtapaAyacucho = {
 export const ETAPAS_AYACUCHO: EtapaAyacucho[] = [
   {
     nombre: "Tras Junín",
-    fecha: "Agosto — noviembre de 1824",
+    fecha: "Agosto a noviembre de 1824",
     detalle:
       "La victoria de Junín quebró al ejército realista. Antonio José de Sucre reorganiza el Ejército Unido Libertador y avanza hacia el Cuzco.",
   },
@@ -38,7 +38,7 @@ export const ETAPAS_AYACUCHO: EtapaAyacucho[] = [
   },
   {
     nombre: "Fin del imperio",
-    fecha: "1824 — 1825",
+    fecha: "1824 a 1825",
     detalle:
       "Ayacucho selló la independencia del Perú y del continente. El imperio español en América terminó en un altiplano peruano.",
   },

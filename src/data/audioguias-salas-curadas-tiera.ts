@@ -1,4 +1,4 @@
-/** Generado por scripts/audioguias-indexar.ts — tier A restante */
+/** Generado por scripts/audioguias-indexar.ts: tier A restante */
 import type { AudioguiaExhibicion } from "@/data/audioguias-salas-manual";
 
 const BARRANCA_YACO: AudioguiaExhibicion = {
