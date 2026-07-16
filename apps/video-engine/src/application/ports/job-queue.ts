@@ -17,6 +17,8 @@ export type ClaimedJob = JobView & {
 export interface JobQueue {
   enqueue(request: CreateJobRequest & { inputHash: string; promptVersion: string; pipelineVersion: string }): Promise<JobView>;
   get(jobId: string): Promise<JobView | null>;
+  list(limit?: number): Promise<JobView[]>;
+  hasActiveJob(): Promise<boolean>;
   claimNext(workerId: string): Promise<ClaimedJob | null>;
   markStage(jobId: string, stage: PipelineStage, timingMs?: number): Promise<void>;
   appendEvent(jobId: string, level: string, message: string, data?: unknown): Promise<void>;

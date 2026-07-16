@@ -1,21 +1,14 @@
 import { NextResponse } from "next/server";
 import { sesionAdminValida } from "@/lib/admin-auth";
 import { getJobFromDisk } from "@/lib/admin-video-jobs";
+import {
+  engineFetch,
+  usarVideoEngineRemoto,
+} from "@/lib/video/engine-client";
 
 export const runtime = "nodejs";
 
-function engineBase(): string {
-  return (process.env.VIDEO_ENGINE_URL ?? "http://127.0.0.1:4100").replace(
-    /\/$/,
-    "",
-  );
-}
-
-function engineKey(): string {
-  return process.env.VIDEO_ENGINE_API_KEY ?? "dev-video-engine-key";
-}
-
-/** GET /api/admin/reels/jobs/:id — job.json del disco; fallback Nest. */
+/** GET /api/admin/reels/jobs/:id — disco local o engine remoto. */
 export async function GET(
   _request: Request,
   context: { params: Promise<{ id: string }> },
@@ -25,15 +18,32 @@ export async function GET(
   }
 
   const { id } = await context.params;
+
+  if (usarVideoEngineRemoto()) {
+    try {
+      const res = await engineFetch(`/jobs/${encodeURIComponent(id)}`);
+      const data = await res.json().catch(() => ({ error: "Invalid response" }));
+      return NextResponse.json(data, { status: res.status });
+    } catch (err) {
+      return NextResponse.json(
+        {
+          error:
+            err instanceof Error
+              ? `Engine offline: ${err.message}`
+              : "Engine offline",
+        },
+        { status: 502 },
+      );
+    }
+  }
+
   const fromDisk = await getJobFromDisk(id);
   if (fromDisk) {
     return NextResponse.json(fromDisk);
   }
 
   try {
-    const res = await fetch(`${engineBase()}/jobs/${encodeURIComponent(id)}`, {
-      headers: { "x-api-key": engineKey() },
-    });
+    const res = await engineFetch(`/jobs/${encodeURIComponent(id)}`);
     if (res.ok) {
       const data = await res.json();
       return NextResponse.json(data, { status: res.status });

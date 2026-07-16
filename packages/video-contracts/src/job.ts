@@ -29,12 +29,23 @@ export const ProfileOverridesSchema = z.object({
   narrativePace: NarrativePaceSchema.optional(),
 });
 
+/** Metadatos de imagen para cachear assets en el worker (URLs Wikimedia, etc.). */
+export const ImageCatalogEntrySchema = z.object({
+  id: z.string().min(1),
+  url: z.string().url(),
+  credito: z.string(),
+  alt: z.string(),
+  tipo: z.enum(["grabado", "pintura", "mapa", "foto"]),
+});
+
 export const CreateJobRequestSchema = z.object({
   exhibition: ExhibitionSchema,
   formatId: VideoFormatIdSchema.default("reel"),
   force: z.boolean().default(false),
   useFakeProviders: z.boolean().optional(),
   profileOverrides: ProfileOverridesSchema.optional(),
+  /** Catálogo de piezas referenciadas por exhibition.images[].assetId */
+  imageCatalog: z.record(z.string(), ImageCatalogEntrySchema).optional(),
 });
 
 export const JobMetricsSchema = z.object({
@@ -68,6 +79,7 @@ export const JobViewSchema = z.object({
 export type JobStatus = z.infer<typeof JobStatusSchema>;
 export type PipelineStage = z.infer<typeof PipelineStageSchema>;
 export type ProfileOverrides = z.infer<typeof ProfileOverridesSchema>;
+export type ImageCatalogEntry = z.infer<typeof ImageCatalogEntrySchema>;
 export type CreateJobRequest = z.infer<typeof CreateJobRequestSchema>;
 export type JobMetrics = z.infer<typeof JobMetricsSchema>;
 export type JobView = z.infer<typeof JobViewSchema>;

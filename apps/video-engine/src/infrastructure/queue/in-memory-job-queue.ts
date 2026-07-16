@@ -115,6 +115,22 @@ export class InMemoryJobQueue implements JobQueue {
     return job ? toView(job) : null;
   }
 
+  async list(limit = 50): Promise<JobView[]> {
+    const views = [...this.jobs.values()].map(toView);
+    views.sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    );
+    return views.slice(0, limit);
+  }
+
+  async hasActiveJob(): Promise<boolean> {
+    for (const job of this.jobs.values()) {
+      if (job.status === "queued" || job.status === "running") return true;
+    }
+    return false;
+  }
+
   async claimNext(_workerId: string): Promise<ClaimedJob | null> {
     for (const job of this.jobs.values()) {
       if (job.status === "queued") {

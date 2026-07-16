@@ -32,6 +32,14 @@ export class PersistingJobQueue implements JobQueue {
     return this.inner.get(jobId);
   }
 
+  async list(limit?: number): Promise<JobView[]> {
+    return this.inner.list(limit);
+  }
+
+  async hasActiveJob(): Promise<boolean> {
+    return this.inner.hasActiveJob();
+  }
+
   async claimNext(workerId: string): Promise<ClaimedJob | null> {
     const claimed = await this.inner.claimNext(workerId);
     if (claimed) {

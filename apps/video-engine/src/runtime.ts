@@ -36,6 +36,9 @@ export type EngineRuntime = {
   promptsRoot: string;
   enqueue: (request: CreateJobRequest) => Promise<JobView>;
   getJob: (id: string) => Promise<JobView | null>;
+  listJobs: (limit?: number) => Promise<JobView[]>;
+  hasActiveJob: () => Promise<boolean>;
+  resolveMp4Path: (jobId: string) => Promise<string | null>;
   processOne: (workerId?: string) => Promise<boolean>;
   seed: () => Promise<void>;
   prepareExhibitionAssets: (
@@ -115,9 +118,9 @@ export async function createEngineRuntime(
   let innerQueue: JobQueue = new InMemoryJobQueue();
   if (config.databaseUrl) {
     try {
-      // Prisma client is generated into src/generated/prisma (gitignored).
+      // Prisma client: src/generated (tsx) o dist/generated (node tras build).
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const mod = require("../generated/prisma") as {
+      const mod = require(path.join(__dirname, "generated/prisma")) as {
         PrismaClient: new (args?: {
           datasources?: { db?: { url?: string } };
         }) => ConstructorParameters<typeof PostgresJobQueue>[0];
@@ -201,8 +204,10 @@ export async function createEngineRuntime(
   const enqueue = async (request: CreateJobRequest): Promise<JobView> => {
     const formatId = request.formatId ?? "reel";
     const profile = DEFAULT_FORMAT_PROFILES[formatId];
+    const { imageCatalog: _catalog, ...queueRequest } = request;
+    void _catalog;
     const job = await queue.enqueue({
-      ...request,
+      ...queueRequest,
       formatId,
       useFakeProviders:
         request.useFakeProviders ?? config.useFakeProvidersDefault,
@@ -221,6 +226,30 @@ export async function createEngineRuntime(
   };
 
   const getJob = (id: string) => queue.get(id);
+  const listJobs = (limit?: number) => queue.list(limit);
+  const hasActiveJob = () => queue.hasActiveJob();
+
+  const resolveMp4Path = async (jobId: string): Promise<string | null> => {
+    const job = await queue.get(jobId);
+    if (!job?.outputMp4Uri) {
+      const fallback = path.join(storageRoot, "jobs", jobId, "output.mp4");
+      try {
+        const { stat } = await import("node:fs/promises");
+        await stat(fallback);
+        return fallback;
+      } catch {
+        return null;
+      }
+    }
+    const resolved = storage.resolvePath(job.outputMp4Uri);
+    try {
+      const { stat } = await import("node:fs/promises");
+      await stat(resolved);
+      return resolved;
+    } catch {
+      return null;
+    }
+  };
 
   const processOne = async (workerId = "worker-1"): Promise<boolean> => {
     const job = await queue.claimNext(workerId);
@@ -238,6 +267,9 @@ export async function createEngineRuntime(
     promptsRoot,
     enqueue,
     getJob,
+    listJobs,
+    hasActiveJob,
+    resolveMp4Path,
     processOne,
     seed,
     prepareExhibitionAssets,

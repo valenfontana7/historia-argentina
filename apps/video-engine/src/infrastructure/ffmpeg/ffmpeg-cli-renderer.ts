@@ -571,7 +571,14 @@ function drawTextFilter(
 
 function run(bin: string, args: string[]): Promise<void> {
   return new Promise((resolve, reject) => {
-    const child = spawn(bin, args, { stdio: ["ignore", "ignore", "pipe"] });
+    // -threads 1: protege VPS con poca RAM (p. ej. 1 GB).
+    const withThreads =
+      bin.includes("ffprobe") || args.includes("-threads")
+        ? args
+        : ["-threads", "1", ...args];
+    const child = spawn(bin, withThreads, {
+      stdio: ["ignore", "ignore", "pipe"],
+    });
     let err = "";
     child.stderr.on("data", (d) => {
       err += String(d);

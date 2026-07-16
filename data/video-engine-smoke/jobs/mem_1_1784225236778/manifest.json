@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "format": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "aspectRatio": "9:16"
+  },
+  "scenes": [
+    {
+      "id": "scene-1",
+      "durationSec": 2.0142857142857142,
+      "layers": [
+        {
+          "id": "img-1",
+          "kind": "image",
+          "uri": "file://c:\\Users\\Valen\\OneDrive\\Desktop\\Valen\\Proyectos\\historia-argentina\\data\\video-engine-smoke\\library\\fixture-andes.png"
+        }
+      ],
+      "animations": [
+        {
+          "type": "kenBurns",
+          "startSec": 0,
+          "intensity": 0.14
+        }
+      ],
+      "transition": {
+        "type": "fade",
+        "durationSec": 0.4
+      }
+    },
+    {
+      "id": "scene-2",
+      "durationSec": 3.398730158730159,
+      "layers": [
+        {
+          "id": "img-2",
+          "kind": "image",
+          "uri": "file://c:\\Users\\Valen\\OneDrive\\Desktop\\Valen\\Proyectos\\historia-argentina\\data\\video-engine-smoke\\library\\fixture-mapa.png"
+        },
+        {
+          "id": "txt-2",
+          "kind": "text",
+          "text": "Un capítulo decisivo de la",
+          "y": 240,
+          "fontSize": 48
+        }
+      ],
+      "animations": [
+        {
+          "type": "zoomIn",
+          "startSec": 0,
+          "intensity": 0.1
+        }
+      ],
+      "transition": {
+        "type": "crossfade",
+        "durationSec": 0.4
+      }
+    },
+    {
+      "id": "scene-3",
+      "durationSec": 2.7989569160997734,
+      "layers": [
+        {
+          "id": "img-3",
+          "kind": "image",
+          "uri": "file://c:\\Users\\Valen\\OneDrive\\Desktop\\Valen\\Proyectos\\historia-argentina\\data\\video-engine-smoke\\library\\fixture-retrato-san-martin.png"
+        },
+        {
+          "id": "txt-3",
+          "kind": "text",
+          "text": "MuseoArgent",
+          "y": 240,
+          "fontSize": 48
+        }
+      ],
+      "animations": [
+        {
+          "type": "panRight",
+          "startSec": 0,
+          "intensity": 0.08
+        }
+      ],
+      "transition": {
+        "type": "crossfade",
+        "durationSec": 0.4
+      }
+    }
+  ],
+  "audio": [
+    {
+      "role": "narration",
+      "uri": "file://c:\\Users\\Valen\\OneDrive\\Desktop\\Valen\\Proyectos\\historia-argentina\\data\\video-engine-smoke\\jobs\\mem_1_1784225236778\\voice\\playlist.json",
+      "gainDb": 0
+    },
+    {
+      "role": "music",
+      "uri": "file://c:\\Users\\Valen\\OneDrive\\Desktop\\Valen\\Proyectos\\historia-argentina\\data\\video-engine-smoke\\library\\music-epica.mp3",
+      "gainDb": -22
+    }
+  ],
+  "subtitles": {
+    "format": "ass",
+    "uri": "file://c:\\Users\\Valen\\OneDrive\\Desktop\\Valen\\Proyectos\\historia-argentina\\data\\video-engine-smoke\\jobs\\mem_1_1784225236778\\subs\\captions.ass"
+  },
+  "branding": {
+    "endCardDurationSec": 3.2,
+    "layers": [
+      {
+        "id": "brand-bg",
+        "kind": "solid",
+        "color": "#0c0a08"
+      },
+      {
+        "id": "brand-logo",
+        "kind": "image",
+        "uri": "file://c:\\Users\\Valen\\OneDrive\\Desktop\\Valen\\Proyectos\\historia-argentina\\apps\\video-engine\\assets\\brand\\marca-a.png",
+        "y": 620,
+        "width": 220,
+        "height": 220
+      },
+      {
+        "id": "brand-text",
+        "kind": "text",
+        "text": "MuseoArgent",
+        "fontSize": 72,
+        "y": 900
+      },
+      {
+        "id": "brand-handle",
+        "kind": "text",
+        "text": "@museoargent",
+        "fontSize": 40,
+        "y": 990
+      },
+      {
+        "id": "brand-cta",
+        "kind": "text",
+        "text": "Seguí explorando · @museoargent",
+        "fontSize": 36,
+        "y": 1120
+      },
+      {
+        "id": "brand-url",
+        "kind": "text",
+        "text": "museoargent.com.ar",
+        "fontSize": 28,
+        "y": 1220
+      }
+    ]
+  }
+}

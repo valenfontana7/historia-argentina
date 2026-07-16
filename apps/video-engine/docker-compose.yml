@@ -1,0 +1,27 @@
+# Desde la raíz del monorepo:
+#   docker compose -f apps/video-engine/docker-compose.yml up -d --build
+services:
+  video-engine:
+    build:
+      context: ../..
+      dockerfile: apps/video-engine/Dockerfile
+    image: museoargent-video-engine:latest
+    ports:
+      - "4100:4100"
+    env_file:
+      - .env
+    environment:
+      VIDEO_STORAGE_ROOT: /data
+      VIDEO_ENGINE_PORT: "4100"
+      NODE_OPTIONS: --max-old-space-size=384
+    volumes:
+      - video-data:/data
+    restart: unless-stopped
+    # Un solo worker: no escalar replicas en VPS 1 GB
+    deploy:
+      resources:
+        limits:
+          memory: 900M
+
+volumes:
+  video-data:

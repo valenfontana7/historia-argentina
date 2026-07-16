@@ -5,6 +5,7 @@ import type {
   VideoFormatId,
 } from "@museoargent/video-contracts";
 import type { PrismaClient, VideoJob } from "../../generated/prisma";
+
 import type { ClaimedJob, JobQueue } from "../../application/ports/job-queue";
 
 function mapJob(job: VideoJob): JobView {
@@ -121,6 +122,21 @@ export class PostgresJobQueue implements JobQueue {
   async get(jobId: string): Promise<JobView | null> {
     const job = await this.prisma.videoJob.findUnique({ where: { id: jobId } });
     return job ? mapJob(job) : null;
+  }
+
+  async list(limit = 50): Promise<JobView[]> {
+    const rows = await this.prisma.videoJob.findMany({
+      orderBy: { updatedAt: "desc" },
+      take: limit,
+    });
+    return rows.map(mapJob);
+  }
+
+  async hasActiveJob(): Promise<boolean> {
+    const n = await this.prisma.videoJob.count({
+      where: { status: { in: ["queued", "running"] } },
+    });
+    return n > 0;
   }
 
   async claimNext(workerId: string): Promise<ClaimedJob | null> {

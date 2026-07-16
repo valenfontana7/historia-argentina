@@ -9,16 +9,12 @@
 import path from "node:path";
 import { config as loadDotenv } from "dotenv";
 import {
-  ExhibitionSchema,
   NarrativePaceSchema,
   VideoFormatIdSchema,
   type ProfileOverrides,
   type VideoFormatId,
 } from "@museoargent/video-contracts";
-import { cronicas } from "../src/content/cronicas/registro";
-import { imagenesCronicas } from "../src/data/cronicas-imagenes";
-import { obtenerAudioguiaSala } from "../src/data/audioguias-salas";
-import { piezasDeExhibicion } from "../src/lib/piezas/indice";
+import { exhibitionFromCronica } from "../src/lib/video/exhibition-from-cronica";
 import { createEngineRuntime } from "../apps/video-engine/src/runtime";
 
 loadDotenv({ path: path.resolve(process.cwd(), ".env"), override: false });
@@ -43,57 +39,18 @@ async function main() {
   console.info(JSON.stringify({ msg: "generate starting", slug }));
 
   const profileOverrides = buildProfileOverrides(args);
-
-  const cronica = cronicas.find((c) => c.slug === slug);
-  if (!cronica) {
+  const built = exhibitionFromCronica(slug);
+  if (!built) {
     console.error(`Crónica no encontrada: ${slug}`);
     process.exit(1);
   }
-
-  const guia = obtenerAudioguiaSala(slug);
-  const piezas = piezasDeExhibicion(slug);
-  const imageIds = piezas.map((p) => p.id);
-  if (
-    cronica.visual.imagenHero &&
-    !imageIds.includes(cronica.visual.imagenHero)
-  ) {
-    imageIds.unshift(cronica.visual.imagenHero);
-  }
-
-  const exhibition = ExhibitionSchema.parse({
-    id: `cronica:${cronica.slug}`,
-    slug: cronica.slug,
-    title: cronica.titulo,
-    summary: cronica.descripcion,
-    periodLabel: cronica.periodo,
-    yearStart: cronica.anioInicio,
-    yearEnd: cronica.anioFin,
-    chronology: (guia?.segmentos ?? []).map((s) => ({
-      label: s.titulo,
-      detail: s.texto,
-    })),
-    characters: cronica.protagonista
-      ? [
-          {
-            id: cronica.protagonista.slug,
-            name: cronica.protagonista.etiqueta,
-            role: "protagonista",
-          },
-        ]
-      : [],
-    places: [],
-    quotes: [],
-    curiosities: [],
-    documents: [],
-    images: imageIds.map((assetId) => ({ assetId })),
-    source: { type: "cronica", externalId: cronica.slug },
-  });
+  const { exhibition, imageCatalog } = built;
 
   console.info(
     JSON.stringify({
       msg: "video:generate start",
       slug,
-      images: imageIds.length,
+      images: exhibition.images.length,
       formatId,
       profileOverrides: profileOverrides ?? null,
       llmModel: process.env.OPENAI_LLM_MODEL ?? null,
@@ -123,12 +80,11 @@ async function main() {
     useFakeProviders: engine.config.useFakeProvidersDefault,
     profileOverrides,
   });
-  // Emitir id YA: el admin espera este log (cache de assets puede tardar >60s).
   console.info(JSON.stringify({ msg: "job enqueued", id: job.id }));
 
   const cached = await engine.prepareExhibitionAssets(
     exhibition,
-    imagenesCronicas,
+    imageCatalog,
   );
   console.info(JSON.stringify({ msg: "assets cached", cached }));
 

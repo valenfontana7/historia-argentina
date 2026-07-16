@@ -2,13 +2,18 @@ import { open, stat } from "node:fs/promises";
 import { NextResponse } from "next/server";
 import { sesionAdminValida } from "@/lib/admin-auth";
 import { getJobFromDisk, mp4PathForJob } from "@/lib/admin-video-jobs";
+import {
+  engineFetch,
+  usarVideoEngineRemoto,
+} from "@/lib/video/engine-client";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 /**
- * GET /api/admin/reels/media/:id — sirve output.mp4 con Range.
- * ?download=1 → Content-Disposition attachment (guardar desde iPhone/desktop).
+ * GET /api/admin/reels/media/:id — sirve output.mp4 (disco o proxy al VPS).
+ * ?download=1 → Content-Disposition attachment.
  */
 export async function GET(
   request: Request,
@@ -23,6 +28,10 @@ export async function GET(
   const wantsDownload =
     url.searchParams.get("download") === "1" ||
     url.searchParams.get("download") === "true";
+
+  if (usarVideoEngineRemoto()) {
+    return proxyMediaFromEngine(id, request, wantsDownload);
+  }
 
   let filePath: string;
   try {
@@ -92,6 +101,60 @@ export async function GET(
       "Content-Disposition": disposition,
     },
   });
+}
+
+async function proxyMediaFromEngine(
+  id: string,
+  request: Request,
+  wantsDownload: boolean,
+) {
+  const qs = wantsDownload ? "?download=1" : "";
+  const headers: HeadersInit = {};
+  const range = request.headers.get("range");
+  if (range) headers.Range = range;
+
+  try {
+    const res = await engineFetch(
+      `/jobs/${encodeURIComponent(id)}/media${qs}`,
+      { headers },
+    );
+    if (!res.ok) {
+      const errBody = await res.text().catch(() => "");
+      return NextResponse.json(
+        { error: errBody || `Media ${res.status}` },
+        { status: res.status },
+      );
+    }
+
+    const outHeaders = new Headers();
+    const pass = [
+      "content-type",
+      "content-length",
+      "content-range",
+      "accept-ranges",
+      "content-disposition",
+      "cache-control",
+    ];
+    for (const h of pass) {
+      const v = res.headers.get(h);
+      if (v) outHeaders.set(h, v);
+    }
+
+    return new NextResponse(res.body, {
+      status: res.status,
+      headers: outHeaders,
+    });
+  } catch (err) {
+    return NextResponse.json(
+      {
+        error:
+          err instanceof Error
+            ? `Engine offline: ${err.message}`
+            : "Engine offline",
+      },
+      { status: 502 },
+    );
+  }
 }
 
 function downloadFilename(slug: string, jobId: string): string {

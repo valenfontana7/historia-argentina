@@ -1,18 +1,24 @@
 import { spawn, type ChildProcess } from "node:child_process";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import {
+  NarrativePaceSchema,
+  type ProfileOverrides,
+  type VideoFormatId,
+} from "@museoargent/video-contracts";
 import { sesionAdminValida } from "@/lib/admin-auth";
 import { cronicas } from "@/content/cronicas/registro";
+import {
+  engineFetch,
+  esRuntimeServerless,
+  usarVideoEngineRemoto,
+} from "@/lib/video/engine-client";
+import { exhibitionFromCronica } from "@/lib/video/exhibition-from-cronica";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
 
 const ENQUEUE_TIMEOUT_MS = 120_000;
-
-/** Vercel (y similares) no permiten spawn + FFmpeg + disco persistente. */
-function esRuntimeServerless(): boolean {
-  return Boolean(process.env.VERCEL) || Boolean(process.env.AWS_LAMBDA_FUNCTION_NAME);
-}
 
 const FORMAT_IDS = new Set([
   "reel",
@@ -42,9 +48,7 @@ type EnqueueResult =
   | { kind: "pending" };
 
 /**
- * POST /api/admin/reels/generate — arranca el pipeline en background y
- * responde apenas aparece `{ "msg": "job enqueued", "id": "..." }`.
- * Si el arranque tarda más del timeout pero el hijo sigue vivo → pending.
+ * POST /api/admin/reels/generate — remoto (VPS) o spawn local.
  */
 export async function POST(request: Request) {
   if (!(await sesionAdminValida())) {
@@ -60,26 +64,105 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, mensaje: "Crónica no encontrada." }, { status: 404 });
   }
 
+  const formatId = (
+    body.formatId && FORMAT_IDS.has(body.formatId) ? body.formatId : "reel"
+  ) as VideoFormatId;
+
+  const profileOverrides = buildProfileOverrides(body);
+
+  if (usarVideoEngineRemoto()) {
+    return enqueueRemoto(slug, body.force === true, formatId, profileOverrides);
+  }
+
   if (esRuntimeServerless()) {
     return NextResponse.json(
       {
         ok: false,
         mensaje:
-          "La generación de reels no corre en Vercel (necesita FFmpeg, tsx y disco local). Generá en tu máquina con el panel en localhost o: npm run video:generate -- " +
-          slug,
+          "Configurá VIDEO_ENGINE_URL (URL pública del worker en tu VPS) y VIDEO_ENGINE_API_KEY en Vercel para generar reels en producción.",
       },
       { status: 501 },
     );
   }
 
+  return enqueueLocal(slug, body, formatId);
+}
+
+async function enqueueRemoto(
+  slug: string,
+  force: boolean,
+  formatId: VideoFormatId,
+  profileOverrides: ProfileOverrides | undefined,
+) {
+  const built = exhibitionFromCronica(slug);
+  if (!built) {
+    return NextResponse.json({ ok: false, mensaje: "Crónica no encontrada." }, { status: 404 });
+  }
+
+  try {
+    const res = await engineFetch("/jobs", {
+      method: "POST",
+      body: JSON.stringify({
+        exhibition: built.exhibition,
+        formatId,
+        force,
+        profileOverrides,
+        imageCatalog: built.imageCatalog,
+      }),
+    });
+    const data = (await res.json().catch(() => ({}))) as {
+      id?: string;
+      message?: string;
+      mensaje?: string;
+    };
+    if (res.status === 409) {
+      return NextResponse.json(
+        {
+          ok: false,
+          mensaje:
+            data.message ??
+            data.mensaje ??
+            "Ya hay un reel en generación. Esperá a que termine.",
+        },
+        { status: 409 },
+      );
+    }
+    if (!res.ok || typeof data.id !== "string") {
+      return NextResponse.json(
+        {
+          ok: false,
+          mensaje:
+            data.message ??
+            data.mensaje ??
+            `El video-engine respondió ${res.status}.`,
+        },
+        { status: res.status >= 400 ? res.status : 502 },
+      );
+    }
+    return NextResponse.json({ ok: true, jobId: data.id });
+  } catch (err) {
+    return NextResponse.json(
+      {
+        ok: false,
+        mensaje:
+          err instanceof Error
+            ? `No se pudo contactar el video-engine: ${err.message}`
+            : String(err),
+      },
+      { status: 502 },
+    );
+  }
+}
+
+async function enqueueLocal(
+  slug: string,
+  body: GenerateBody,
+  formatId: VideoFormatId,
+) {
   const root = process.cwd();
   const script = path.join(root, "scripts", "video-generate.ts");
-  // Usar node + tsx del proyecto (evita `npx` que intenta escribir en $HOME).
   const args = ["--import", "tsx", script, slug];
   if (body.force) args.push("--force");
-
-  const formatId =
-    body.formatId && FORMAT_IDS.has(body.formatId) ? body.formatId : "reel";
   args.push("--format", formatId);
 
   if (
@@ -92,20 +175,12 @@ export async function POST(request: Request) {
   if (body.narrativePace && PACES.has(body.narrativePace)) {
     args.push("--pace", body.narrativePace);
   }
-  if (body.cta?.trim()) {
-    args.push("--cta", body.cta.trim());
-  }
-  if (body.tone?.trim()) {
-    args.push("--tone", body.tone.trim());
-  }
+  if (body.cta?.trim()) args.push("--cta", body.cta.trim());
+  if (body.tone?.trim()) args.push("--tone", body.tone.trim());
 
   const childEnv: NodeJS.ProcessEnv = { ...process.env };
-  if (body.llmModel?.trim()) {
-    childEnv.OPENAI_LLM_MODEL = body.llmModel.trim();
-  }
-  if (body.ttsVoice?.trim()) {
-    childEnv.OPENAI_TTS_VOICE = body.ttsVoice.trim();
-  }
+  if (body.llmModel?.trim()) childEnv.OPENAI_LLM_MODEL = body.llmModel.trim();
+  if (body.ttsVoice?.trim()) childEnv.OPENAI_TTS_VOICE = body.ttsVoice.trim();
   if (body.ttsInstructions?.trim()) {
     childEnv.OPENAI_TTS_INSTRUCTIONS = body.ttsInstructions.trim();
   }
@@ -132,6 +207,24 @@ export async function POST(request: Request) {
   }
 }
 
+function buildProfileOverrides(body: GenerateBody): ProfileOverrides | undefined {
+  const overrides: ProfileOverrides = {};
+  if (
+    typeof body.targetDurationSec === "number" &&
+    Number.isFinite(body.targetDurationSec) &&
+    body.targetDurationSec > 0
+  ) {
+    overrides.targetDurationSec = Math.round(body.targetDurationSec);
+  }
+  if (body.narrativePace) {
+    const pace = NarrativePaceSchema.safeParse(body.narrativePace);
+    if (pace.success) overrides.narrativePace = pace.data;
+  }
+  if (body.cta?.trim()) overrides.cta = body.cta.trim();
+  if (body.tone?.trim()) overrides.tone = body.tone.trim();
+  return Object.keys(overrides).length ? overrides : undefined;
+}
+
 function spawnUntilEnqueued(
   cmd: string,
   args: string[],
@@ -152,16 +245,13 @@ function spawnUntilEnqueued(
     const timeout = setTimeout(() => {
       if (settled) return;
       settled = true;
-      // El hijo sigue en background: el cliente recuperará el job por slug.
       unrefChild(child);
       resolve({ kind: "pending" });
     }, ENQUEUE_TIMEOUT_MS);
 
     const onChunk = (chunk: Buffer | string) => {
       buffer += String(chunk);
-      if (buffer.length > 200_000) {
-        buffer = buffer.slice(-50_000);
-      }
+      if (buffer.length > 200_000) buffer = buffer.slice(-50_000);
       const id = extractEnqueuedId(buffer);
       if (id && !settled) {
         settled = true;
