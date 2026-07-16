@@ -3,6 +3,7 @@ import type {
   JobMetrics,
   JobView,
   PipelineStage,
+  ResumePhase,
 } from "@museoargent/video-contracts";
 import type { ClaimedJob, JobQueue } from "../../application/ports/job-queue";
 
@@ -20,6 +21,9 @@ type InternalJob = ClaimedJob & {
   ttsVoice?: string;
   lockedAt?: string;
   profileOverrides?: CreateJobRequest["profileOverrides"];
+  interactive: boolean;
+  resumePhase: ResumePhase;
+  hasDraft?: boolean;
 };
 
 function toView(job: InternalJob): JobView {
@@ -52,7 +56,18 @@ function toView(job: InternalJob): JobView {
     },
     createdAt: job.createdAt,
     updatedAt: job.updatedAt,
+    hasDraft: job.hasDraft,
+    interactive: job.interactive,
+    resumePhase: job.resumePhase,
   };
+}
+
+function isBusyStatus(status: JobView["status"]): boolean {
+  return (
+    status === "queued" ||
+    status === "running" ||
+    status === "awaiting_review"
+  );
 }
 
 /** Cola en memoria para CI y desarrollo sin Postgres. */
@@ -67,7 +82,7 @@ export class InMemoryJobQueue implements JobQueue {
       pipelineVersion: string;
     },
   ): Promise<JobView> {
-    const key = `${request.exhibition.id}:${request.formatId}:${request.promptVersion}:${request.pipelineVersion}`;
+    const interactive = request.interactive !== false;
     if (!request.force) {
       for (const job of this.jobs.values()) {
         if (
@@ -75,9 +90,7 @@ export class InMemoryJobQueue implements JobQueue {
           job.formatId === request.formatId &&
           job.promptVersion === request.promptVersion &&
           job.pipelineVersion === request.pipelineVersion &&
-          (job.status === "queued" ||
-            job.status === "running" ||
-            job.status === "succeeded")
+          (isBusyStatus(job.status) || job.status === "succeeded")
         ) {
           return toView(job);
         }
@@ -97,6 +110,9 @@ export class InMemoryJobQueue implements JobQueue {
       promptVersion: request.promptVersion,
       pipelineVersion: request.pipelineVersion,
       profileOverrides: request.profileOverrides,
+      interactive,
+      resumePhase: "draft",
+      hasDraft: false,
       stageTimingsMs: {},
       createdAt: now,
       updatedAt: now,
@@ -106,7 +122,6 @@ export class InMemoryJobQueue implements JobQueue {
       },
     };
     this.jobs.set(id, job);
-    void key;
     return toView(job);
   }
 
@@ -126,7 +141,7 @@ export class InMemoryJobQueue implements JobQueue {
 
   async hasActiveJob(): Promise<boolean> {
     for (const job of this.jobs.values()) {
-      if (job.status === "queued" || job.status === "running") return true;
+      if (isBusyStatus(job.status)) return true;
     }
     return false;
   }
@@ -155,6 +170,30 @@ export class InMemoryJobQueue implements JobQueue {
     if (typeof timingMs === "number") {
       job.stageTimingsMs[stage] = timingMs;
     }
+  }
+
+  async markAwaitingReview(jobId: string): Promise<JobView | null> {
+    const job = this.jobs.get(jobId);
+    if (!job) return null;
+    if (job.status === "cancelled") return toView(job);
+    job.status = "awaiting_review";
+    job.stage = "review";
+    job.hasDraft = true;
+    job.resumePhase = "draft";
+    job.updatedAt = new Date().toISOString();
+    return toView(job);
+  }
+
+  async approveForRender(jobId: string): Promise<JobView | null> {
+    const job = this.jobs.get(jobId);
+    if (!job) return null;
+    if (job.status !== "awaiting_review") return toView(job);
+    job.resumePhase = "render";
+    job.status = "queued";
+    job.stage = "review";
+    job.error = undefined;
+    job.updatedAt = new Date().toISOString();
+    return toView(job);
   }
 
   async appendEvent(
@@ -212,7 +251,13 @@ export class InMemoryJobQueue implements JobQueue {
   async fail(jobId: string, error: string): Promise<void> {
     const job = this.jobs.get(jobId);
     if (!job) return;
-    if (job.status === "cancelled" || job.status === "succeeded") return;
+    if (
+      job.status === "cancelled" ||
+      job.status === "succeeded" ||
+      job.status === "awaiting_review"
+    ) {
+      return;
+    }
     job.status = "failed";
     job.error = error;
     job.updatedAt = new Date().toISOString();
@@ -221,12 +266,62 @@ export class InMemoryJobQueue implements JobQueue {
   async cancel(jobId: string): Promise<JobView | null> {
     const job = this.jobs.get(jobId);
     if (!job) return null;
-    if (job.status !== "queued" && job.status !== "running") {
+    if (
+      job.status !== "queued" &&
+      job.status !== "running" &&
+      job.status !== "awaiting_review"
+    ) {
       return toView(job);
     }
     job.status = "cancelled";
     job.error = "Cancelado por el admin";
     job.updatedAt = new Date().toISOString();
+    return toView(job);
+  }
+
+  /**
+   * Recarga un job desde job.json tras reinicio.
+   * queued/running huérfanos → failed (el worker murió con el proceso).
+   * awaiting_review se preserva (espera humano).
+   */
+  async restore(view: JobView): Promise<JobView> {
+    const seqMatch = /^mem_(\d+)_/.exec(view.id);
+    if (seqMatch) {
+      this.seq = Math.max(this.seq, Number(seqMatch[1]));
+    }
+
+    const orphan = view.status === "queued" || view.status === "running";
+    const now = new Date().toISOString();
+    const job: InternalJob = {
+      id: view.id,
+      exhibitionId: view.exhibitionId,
+      formatId: view.formatId,
+      status: orphan ? "failed" : view.status,
+      stage: view.stage,
+      error: orphan
+        ? "Interrumpido por reinicio del worker"
+        : view.error,
+      outputMp4Uri: view.outputMp4Uri,
+      manifestUri: view.manifestUri,
+      exhibitionJson: { id: view.exhibitionId },
+      useFakeProviders: false,
+      inputHash: "restored",
+      promptVersion: view.metrics?.promptVersion ?? "unknown",
+      pipelineVersion: view.metrics?.pipelineVersion ?? "unknown",
+      stageTimingsMs: view.metrics?.stageTimingsMs ?? {},
+      assetsUsed: view.metrics?.assetsUsed,
+      llmProvider: view.metrics?.llmProvider,
+      llmModel: view.metrics?.llmModel,
+      ttsProvider: view.metrics?.ttsProvider,
+      ttsVoice: view.metrics?.ttsVoice,
+      metrics: view.metrics,
+      interactive: view.interactive !== false,
+      resumePhase: view.resumePhase ?? "draft",
+      hasDraft: view.hasDraft ?? view.status === "awaiting_review",
+      createdAt: view.createdAt,
+      updatedAt: orphan ? now : view.updatedAt,
+    };
+    this.jobs.set(job.id, job);
     return toView(job);
   }
 }

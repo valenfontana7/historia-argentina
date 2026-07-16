@@ -3,6 +3,7 @@ import type {
   JobView,
   PipelineStage,
   ProfileOverrides,
+  ResumePhase,
 } from "@museoargent/video-contracts";
 
 export type ClaimedJob = JobView & {
@@ -12,6 +13,8 @@ export type ClaimedJob = JobView & {
   promptVersion: string;
   pipelineVersion: string;
   profileOverrides?: ProfileOverrides;
+  interactive: boolean;
+  resumePhase: ResumePhase;
 };
 
 export interface JobQueue {
@@ -21,6 +24,10 @@ export interface JobQueue {
   hasActiveJob(): Promise<boolean>;
   claimNext(workerId: string): Promise<ClaimedJob | null>;
   markStage(jobId: string, stage: PipelineStage, timingMs?: number): Promise<void>;
+  /** Pausa tras draft: awaiting_review + hasDraft. */
+  markAwaitingReview(jobId: string): Promise<JobView | null>;
+  /** Reencola fase render tras aprobación humana. */
+  approveForRender(jobId: string): Promise<JobView | null>;
   appendEvent(jobId: string, level: string, message: string, data?: unknown): Promise<void>;
   complete(
     jobId: string,
@@ -38,6 +45,8 @@ export interface JobQueue {
     },
   ): Promise<void>;
   fail(jobId: string, error: string): Promise<void>;
-  /** Marca queued/running como cancelled. No-op si ya terminó. */
+  /** Marca queued/running/awaiting_review como cancelled. No-op si ya terminó. */
   cancel(jobId: string): Promise<JobView | null>;
+  /** Restaura un JobView desde disco (post-reinicio). Opcional. */
+  restore?(view: JobView): Promise<JobView>;
 }

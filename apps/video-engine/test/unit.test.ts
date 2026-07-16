@@ -1,8 +1,14 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { AssetSelector } from "../src/application/stages/media-stages";
 import { splitNarrationIntoCues, toSrt, toVtt } from "../src/application/stages/subtitle-splitter";
 import { cronicaToExhibition } from "../src/infrastructure/adapters/cronica-to-exhibition";
-import { HeuristicAssetRanker } from "../src/infrastructure/assets/in-memory-asset-library";
+import { ORIGEN_CONTEMPORANEA_TAG } from "../src/infrastructure/assets/cache-exhibition-assets";
+import {
+  HeuristicAssetRanker,
+  InMemoryAssetLibrary,
+} from "../src/infrastructure/assets/in-memory-asset-library";
+import type { StoryboardDocument } from "@museoargent/video-contracts";
 
 test("subtitle splitter no corta frases cortas", () => {
   const cues = splitNarrationIntoCues(
@@ -80,4 +86,82 @@ test("HeuristicAssetRanker prioriza tipo y personaje", async () => {
   );
   assert.equal(ranked[0].asset.id, "b");
   assert.ok(ranked[0].score > ranked[1].score);
+});
+
+const miniStoryboard = {
+  scenes: [
+    {
+      scene: 1,
+      narration: "Cruzaron la cordillera a caballo.",
+      durationSec: 4,
+      shotType: "plano-general",
+      motion: "kenBurns",
+      transition: "cut",
+      assetHint: {
+        preferredTypes: ["pintura", "fotografia"],
+        tags: ["andes"],
+        characters: [],
+        places: [],
+      },
+    },
+  ],
+} as StoryboardDocument;
+
+test("AssetSelector excluye origen contemporánea si yearEnd < 1900", async () => {
+  const library = new InMemoryAssetLibrary();
+  await library.upsert({
+    id: "andes-cruce",
+    type: "pintura",
+    license: "CC0",
+    tags: ["pintura", "andes"],
+    characters: [],
+    places: [],
+    weight: 1.4,
+    orientation: "horizontal",
+    storageUri: "file://pintura",
+  });
+  await library.upsert({
+    id: "andes-uspallata",
+    type: "fotografia",
+    license: "CC0",
+    tags: ["foto", ORIGEN_CONTEMPORANEA_TAG, "andes"],
+    characters: [],
+    places: [],
+    weight: 1.4,
+    orientation: "horizontal",
+    storageUri: "file://foto-moderna",
+  });
+
+  const selector = new AssetSelector(library, new HeuristicAssetRanker(), 0.1);
+  const bindings = await selector.select(
+    miniStoryboard,
+    ["andes-cruce", "andes-uspallata"],
+    { yearEnd: 1817 },
+  );
+  assert.equal(bindings.length, 1);
+  assert.equal(bindings[0].assetId, "andes-cruce");
+});
+
+test("AssetSelector permite origen contemporánea si yearEnd >= 1900", async () => {
+  const library = new InMemoryAssetLibrary();
+  await library.upsert({
+    id: "paisaje-actual",
+    type: "fotografia",
+    license: "CC0",
+    tags: ["foto", ORIGEN_CONTEMPORANEA_TAG, "paisaje"],
+    characters: [],
+    places: [],
+    weight: 1.4,
+    orientation: "horizontal",
+    storageUri: "file://foto-moderna",
+  });
+
+  const selector = new AssetSelector(library, new HeuristicAssetRanker(), 0.1);
+  const bindings = await selector.select(
+    miniStoryboard,
+    ["paisaje-actual"],
+    { yearEnd: 1952 },
+  );
+  assert.equal(bindings.length, 1);
+  assert.equal(bindings[0].assetId, "paisaje-actual");
 });

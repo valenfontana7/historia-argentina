@@ -15,8 +15,10 @@ import {
   REEL_W,
   buildBlurBgFilterComplex,
   buildCoverFilter,
+  buildLetterboxFilter,
   buildSceneLookFilters,
   buildZoompan,
+  isFastRender,
   mapXfade,
   orientationFromSize,
   shouldUseBlurBackground,
@@ -32,20 +34,24 @@ import {
 const W = REEL_W;
 const H = REEL_H;
 
-/** Encode: en VPS 1 GB preferí velocidad (veryfast); local puede forzar medium. */
-const X264_PRESET = process.env.VIDEO_X264_PRESET?.trim() || "veryfast";
-const X264_CRF = process.env.VIDEO_X264_CRF?.trim() || "22";
-
-const X264_ARGS = [
-  "-c:v",
-  "libx264",
-  "-crf",
-  X264_CRF,
-  "-preset",
-  X264_PRESET,
-  "-pix_fmt",
-  "yuv420p",
-] as const;
+/** Evaluado en cada render (después de loadRepoEnv). */
+function x264Args(): string[] {
+  const preset =
+    process.env.VIDEO_X264_PRESET?.trim() ||
+    (isFastRender() ? "ultrafast" : "medium");
+  const crf =
+    process.env.VIDEO_X264_CRF?.trim() || (isFastRender() ? "23" : "18");
+  return [
+    "-c:v",
+    "libx264",
+    "-crf",
+    crf,
+    "-preset",
+    preset,
+    "-pix_fmt",
+    "yuv420p",
+  ];
+}
 
 export class FfmpegCliRenderer implements FfmpegRenderer {
   private activeSignal?: AbortSignal;
@@ -159,6 +165,10 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
       const img = this.storage.resolvePath(imageLayer.uri);
       const orientation = await this.probeOrientation(img);
       const useBlur = shouldUseBlurBackground(orientation);
+      const frameFilter =
+        orientation === "horizontal" && isFastRender()
+          ? buildLetterboxFilter()
+          : buildCoverFilter();
 
       if (useBlur) {
         const complex = [
@@ -167,7 +177,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
             ? `[framed]${look}${text},format=yuv420p[vout]`
             : `[framed]${zoom},${look}${text},format=yuv420p[vout]`,
         ].join(";");
-        await this.ff( [
+        await this.ff([
           "-y",
           "-loop",
           "1",
@@ -182,14 +192,14 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
           "-r",
           String(fps),
           "-an",
-          ...X264_ARGS,
+          ...x264Args(),
           outPath,
         ]);
         return;
       }
 
       const chain = [
-        buildCoverFilter(),
+        frameFilter,
         zoom === "null" ? null : zoom,
         look,
         textLayer?.text
@@ -204,7 +214,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
         .filter(Boolean)
         .join(",");
 
-      await this.ff( [
+      await this.ff([
         "-y",
         "-loop",
         "1",
@@ -217,7 +227,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
         "-r",
         String(fps),
         "-an",
-        ...X264_ARGS,
+        ...x264Args(),
         outPath,
       ]);
       return;
@@ -235,7 +245,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
         ? `${drawTextFilter(textLayer.text, textLayer.y ?? 900, textLayer.fontSize ?? 56)},${look},format=yuv420p`
         : `${look},format=yuv420p`,
       "-an",
-      ...X264_ARGS,
+      ...x264Args(),
       outPath,
     ]);
   }
@@ -321,7 +331,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
         "-r",
         String(fps),
         "-an",
-        ...X264_ARGS,
+        ...x264Args(),
         outPath,
       ]);
       return;
@@ -341,7 +351,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
       "-vf",
       vf,
       "-an",
-      ...X264_ARGS,
+      ...x264Args(),
       outPath,
     ]);
   }
@@ -391,7 +401,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
       "-r",
       String(fps),
       "-an",
-      ...X264_ARGS,
+      ...x264Args(),
       outPath,
     ]);
   }
@@ -491,7 +501,7 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
         inputPath,
         "-vf",
         vf,
-        ...X264_ARGS,
+        ...x264Args(),
         "-c:a",
         "copy",
         "-movflags",
@@ -599,14 +609,19 @@ function run(
       reject(new Error(`${bin} aborted`));
       return;
     }
+    // Menos spam en stderr (evita OOM en renders largos en VPS 1 GB).
+    const quietArgs = bin.includes("ffprobe")
+      ? args
+      : ["-hide_banner", "-loglevel", "error", "-nostats", ...args];
     // -threads 1: protege VPS con poca RAM (p. ej. 1 GB).
     const withThreads =
-      bin.includes("ffprobe") || args.includes("-threads")
-        ? args
-        : ["-threads", "1", ...args];
+      bin.includes("ffprobe") || quietArgs.includes("-threads")
+        ? quietArgs
+        : ["-threads", "1", ...quietArgs];
     const child = spawn(bin, withThreads, {
       stdio: ["ignore", "ignore", "pipe"],
     });
+    const MAX_ERR = 16_384;
     let err = "";
     const onAbort = () => {
       child.kill("SIGKILL");
@@ -616,6 +631,7 @@ function run(
     }
     child.stderr.on("data", (d) => {
       err += String(d);
+      if (err.length > MAX_ERR) err = err.slice(-MAX_ERR);
     });
     child.on("error", (e) => {
       signal?.removeEventListener("abort", onAbort);

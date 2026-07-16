@@ -4,6 +4,8 @@ import {
   ExhibitionSchema,
   type Exhibition,
   type ProfileOverrides,
+  type SceneAssetBinding,
+  type StoryboardDocument,
   type VideoFormatId,
   type VideoFormatProfile,
 } from "@museoargent/video-contracts";
@@ -34,6 +36,14 @@ import {
   JobCancelledError,
   isJobCancelledError,
 } from "./job-cancelled-error";
+import {
+  bindingsFromDraft,
+  buildDraft,
+  catalogItemsFromRecord,
+  readImageCatalog,
+  readJobDraft,
+  writeJobDraft,
+} from "./job-draft";
 
 export function mergeFormatProfile(
   formatId: VideoFormatId | string,
@@ -87,10 +97,24 @@ export class PipelineOrchestrator {
     try {
       await this.throwIfCancelled(job.id);
 
-      const exhibition = ExhibitionSchema.parse(job.exhibitionJson);
+      const exhibition = await this.loadExhibition(job);
       const overrides =
         job.profileOverrides ?? (await this.loadProfileOverrides(job.id));
       const profile = mergeFormatProfile(job.formatId, overrides);
+
+      if (job.resumePhase === "render") {
+        await this.runRenderPhase({
+          job,
+          exhibition,
+          profile,
+          llm,
+          voice,
+          timings,
+          started,
+          signal,
+        });
+        return;
+      }
 
       await this.timed(job.id, "ingest", timings, async () => undefined);
 
@@ -104,11 +128,6 @@ export class PipelineOrchestrator {
         storyGen.generate(exhibition, profile, script),
       );
 
-      const voiceGen = new VoiceGenerator(voice, this.deps.storage);
-      const voices = await this.timed(job.id, "voice", timings, () =>
-        voiceGen.generate(job.id, storyboard),
-      );
-
       const assetSel = new AssetSelector(
         this.deps.assets,
         this.deps.ranker,
@@ -118,72 +137,166 @@ export class PipelineOrchestrator {
         assetSel.select(
           storyboard,
           exhibition.images.map((i) => i.assetId),
+          { yearEnd: exhibition.yearEnd },
         ),
       );
 
-      const subGen = new SubtitleGenerator(this.deps.storage);
-      const subtitles = await this.timed(job.id, "subtitles", timings, () =>
-        subGen.generate(job.id, storyboard, voices),
-      );
+      const catalogRecord = await readImageCatalog(this.deps.storage, job.id);
+      const draft = buildDraft({
+        storyboard,
+        bindings: assets,
+        musicCategoryHint:
+          storyboard.musicCategoryHint ?? script.musicCategoryHint,
+        catalog: catalogItemsFromRecord(catalogRecord),
+      });
+      await writeJobDraft(this.deps.storage, job.id, draft);
 
-      const musicSel = new MusicSelector(this.deps.music);
-      const music = await this.timed(job.id, "music", timings, () =>
-        musicSel.select(storyboard.musicCategoryHint ?? script.musicCategoryHint),
-      );
-
-      const composer = new SceneComposer(this.deps.storage);
-      const { manifest, manifestUri } = await this.timed(
-        job.id,
-        "compose",
-        timings,
-        () =>
-          composer.compose({
-            jobId: job.id,
-            storyboard,
-            assets,
-            voices,
-            subtitles,
-            music,
-            cta: profile.cta,
+      const interactive = job.interactive !== false;
+      if (interactive) {
+        await this.deps.queue.markAwaitingReview(job.id);
+        console.info(
+          JSON.stringify({
+            msg: "job awaiting review",
+            id: job.id,
+            scenes: storyboard.scenes.length,
           }),
-      );
+        );
+        return;
+      }
 
-      const outputKey = `jobs/${job.id}/output.mp4`;
-      const render: RenderResult = await this.timed(job.id, "render", timings, () =>
-        this.deps.renderer.render(manifest, outputKey, signal),
-      );
-
-      await this.throwIfCancelled(job.id);
-
-      await this.deps.queue.complete(job.id, {
-        outputMp4Uri: render.mp4Uri,
-        outputBytes: render.bytes,
-        outputDurationSec: render.durationSec,
-        manifestUri,
-        assetsUsed: assets.map((a) => a.assetId),
-        llmProvider: llm.name,
-        llmModel: llm.model,
-        ttsProvider: voice.name,
-        ttsVoice: voices[0]?.voice,
-        stageTimingsMs: {
-          ...timings,
-          wall: Date.now() - started,
-        },
+      await this.runRenderFromDraft({
+        job,
+        exhibition,
+        profile,
+        llm,
+        voice,
+        storyboard,
+        assets,
+        musicCategoryHint: draft.musicCategoryHint,
+        timings,
+        started,
+        signal,
       });
     } catch (err) {
       if (isJobCancelledError(err) || signal.aborted) {
-        // cancel() ya persistió status=cancelled
         return;
       }
       const message = err instanceof Error ? err.message : String(err);
-      // FFmpeg killed by abort often surfaces as non-zero exit
       const current = await this.deps.queue.get(job.id);
-      if (current?.status === "cancelled") return;
+      if (current?.status === "cancelled" || current?.status === "awaiting_review") {
+        return;
+      }
       await this.deps.queue.fail(job.id, message);
       throw err;
     } finally {
       clearJobAbort(job.id);
     }
+  }
+
+  private async runRenderPhase(input: {
+    job: ClaimedJob;
+    exhibition: Exhibition;
+    profile: VideoFormatProfile;
+    llm: LlmProvider;
+    voice: VoiceProvider;
+    timings: Record<string, number>;
+    started: number;
+    signal: AbortSignal;
+  }): Promise<void> {
+    const draft = await readJobDraft(this.deps.storage, input.job.id);
+    if (!draft) {
+      throw new Error(`Draft no encontrado para job ${input.job.id}`);
+    }
+    await this.runRenderFromDraft({
+      job: input.job,
+      exhibition: input.exhibition,
+      profile: input.profile,
+      llm: input.llm,
+      voice: input.voice,
+      storyboard: draft.storyboard,
+      assets: bindingsFromDraft(draft),
+      musicCategoryHint: draft.musicCategoryHint,
+      timings: input.timings,
+      started: input.started,
+      signal: input.signal,
+    });
+  }
+
+  private async runRenderFromDraft(input: {
+    job: ClaimedJob;
+    exhibition: Exhibition;
+    profile: VideoFormatProfile;
+    llm: LlmProvider;
+    voice: VoiceProvider;
+    storyboard: StoryboardDocument;
+    assets: SceneAssetBinding[];
+    musicCategoryHint?: StoryboardDocument["musicCategoryHint"];
+    timings: Record<string, number>;
+    started: number;
+    signal: AbortSignal;
+  }): Promise<void> {
+    const voiceGen = new VoiceGenerator(input.voice, this.deps.storage);
+    const voices = await this.timed(input.job.id, "voice", input.timings, () =>
+      voiceGen.generate(input.job.id, input.storyboard),
+    );
+
+    const subGen = new SubtitleGenerator(this.deps.storage);
+    const subtitles = await this.timed(
+      input.job.id,
+      "subtitles",
+      input.timings,
+      () => subGen.generate(input.job.id, input.storyboard, voices),
+    );
+
+    const musicSel = new MusicSelector(this.deps.music);
+    const music = await this.timed(input.job.id, "music", input.timings, () =>
+      musicSel.select(
+        input.musicCategoryHint ?? input.storyboard.musicCategoryHint,
+      ),
+    );
+
+    const composer = new SceneComposer(this.deps.storage);
+    const { manifest, manifestUri } = await this.timed(
+      input.job.id,
+      "compose",
+      input.timings,
+      () =>
+        composer.compose({
+          jobId: input.job.id,
+          storyboard: input.storyboard,
+          assets: input.assets,
+          voices,
+          subtitles,
+          music,
+          cta: input.profile.cta,
+        }),
+    );
+
+    const outputKey = `jobs/${input.job.id}/output.mp4`;
+    const render: RenderResult = await this.timed(
+      input.job.id,
+      "render",
+      input.timings,
+      () => this.deps.renderer.render(manifest, outputKey, input.signal),
+    );
+
+    await this.throwIfCancelled(input.job.id);
+
+    await this.deps.queue.complete(input.job.id, {
+      outputMp4Uri: render.mp4Uri,
+      outputBytes: render.bytes,
+      outputDurationSec: render.durationSec,
+      manifestUri,
+      assetsUsed: input.assets.map((a) => a.assetId),
+      llmProvider: input.llm.name,
+      llmModel: input.llm.model,
+      ttsProvider: input.voice.name,
+      ttsVoice: voices[0]?.voice,
+      stageTimingsMs: {
+        ...input.timings,
+        wall: Date.now() - input.started,
+      },
+    });
   }
 
   private async throwIfCancelled(jobId: string): Promise<void> {
@@ -193,6 +306,22 @@ export class PipelineOrchestrator {
     const view = await this.deps.queue.get(jobId);
     if (view?.status === "cancelled") {
       throw new JobCancelledError(jobId);
+    }
+  }
+
+  private async loadExhibition(job: ClaimedJob): Promise<Exhibition> {
+    const fromClaim = ExhibitionSchema.safeParse(job.exhibitionJson);
+    if (fromClaim.success) return fromClaim.data;
+    try {
+      const filePath = this.deps.storage.resolvePath(
+        `jobs/${job.id}/exhibition.json`,
+      );
+      const raw = await readFile(filePath, "utf8");
+      return ExhibitionSchema.parse(JSON.parse(raw) as unknown);
+    } catch {
+      throw new Error(
+        `No se pudo cargar la exhibición del job ${job.id} (memoria ni disco)`,
+      );
     }
   }
 

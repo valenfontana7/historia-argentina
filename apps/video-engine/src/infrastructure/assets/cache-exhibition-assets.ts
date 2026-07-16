@@ -1,5 +1,5 @@
 import { createWriteStream } from "node:fs";
-import { mkdir, stat } from "node:fs/promises";
+import { mkdir, readFile, stat, unlink } from "node:fs/promises";
 import path from "node:path";
 import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
@@ -19,7 +19,12 @@ export type CatalogImage = {
   credito: string;
   alt: string;
   tipo: "grabado" | "pintura" | "mapa" | "foto";
+  origenVisual?: "periodo" | "contemporanea";
 };
+
+/** Tag estable en AssetRecord para filtrar reels pre-fotográficos. */
+export const ORIGEN_CONTEMPORANEA_TAG = "origen-contemporanea";
+export const ORIGEN_PERIODO_TAG = "origen-periodo";
 
 const TIPO_MAP: Record<CatalogImage["tipo"], AssetType> = {
   grabado: "ilustracion",
@@ -31,6 +36,7 @@ const TIPO_MAP: Record<CatalogImage["tipo"], AssetType> = {
 /**
  * Descarga (o reusa cache) las imágenes de la exhibición desde el catálogo
  * y las registra en la AssetLibrary. Fallos de red no abortan el job.
+ * Los SVG de Wikimedia se piden como PNG (FFmpeg no decodifica SVG).
  */
 export async function cacheExhibitionAssets(input: {
   exhibition: Exhibition;
@@ -47,26 +53,51 @@ export async function cacheExhibitionAssets(input: {
     const meta = input.catalog[id];
     if (!meta) continue;
 
-    const ext = guessExt(meta.url);
-    const filePath = path.join(input.cacheRoot, `${id}${ext}`);
+    const resolved = resolveRasterDownload(meta.url);
+    const filePath = path.join(input.cacheRoot, `${id}${resolved.ext}`);
     try {
-      const exists = await fileExists(filePath);
+      let exists = await fileExists(filePath);
+      if (exists && (await isSvgOrCorruptRaster(filePath))) {
+        await unlinkQuiet(filePath);
+        exists = false;
+      }
+      // Cache viejo: .jpg que en realidad era SVG
+      const legacyJpg = path.join(input.cacheRoot, `${id}.jpg`);
+      if (
+        legacyJpg !== filePath &&
+        (await fileExists(legacyJpg)) &&
+        (await isSvgOrCorruptRaster(legacyJpg))
+      ) {
+        await unlinkQuiet(legacyJpg);
+      }
+
       if (!exists) {
-        await downloadToFile(meta.url, filePath);
+        await downloadToFile(resolved.url, filePath);
+        if (await isSvgOrCorruptRaster(filePath)) {
+          throw new Error(
+            `Asset ${id} sigue siendo SVG tras descarga (${resolved.url})`,
+          );
+        }
       }
 
       const dims = await probeImageSize(ffprobePath, filePath);
+      if (!dims.width || !dims.height) {
+        throw new Error(`ffprobe no pudo leer ${filePath}`);
+      }
       const orientation = orientationFromSize(dims.width, dims.height);
+      const origen = meta.origenVisual ?? "periodo";
+      const origenTag =
+        origen === "contemporanea" ? ORIGEN_CONTEMPORANEA_TAG : ORIGEN_PERIODO_TAG;
 
       const record: AssetRecord = {
         id,
         type: TIPO_MAP[meta.tipo],
         author: meta.credito,
         license: "wikimedia-commons",
-        tags: [meta.tipo, ...tokenize(meta.alt)],
+        tags: [meta.tipo, origenTag, ...tokenize(meta.alt)],
         characters: inferCharacters(input.exhibition, meta.alt),
         places: [],
-        epoch: undefined,
+        epoch: input.exhibition.periodLabel || undefined,
         weight: 1.4,
         orientation,
         width: dims.width || undefined,
@@ -115,7 +146,59 @@ function guessExt(url: string): string {
   if (clean.endsWith(".png")) return ".png";
   if (clean.endsWith(".webp")) return ".webp";
   if (clean.endsWith(".gif")) return ".gif";
+  if (clean.endsWith(".svg")) return ".svg";
   return ".jpg";
+}
+
+/** Wikimedia SVG → PNG raster (FFmpeg no tiene decoder SVG). */
+export function wikimediaSvgThumbUrl(url: string, px = 1920): string | null {
+  try {
+    const u = new URL(url);
+    if (!u.hostname.includes("upload.wikimedia.org")) return null;
+    const parts = u.pathname.split("/").filter(Boolean);
+    // wikipedia/commons/3/3e/File.svg  OR already thumb
+    const commonsIdx = parts.indexOf("commons");
+    if (commonsIdx < 0) return null;
+    if (parts[commonsIdx + 1] === "thumb") {
+      // already a thumb URL; if .svg.png keep it
+      return url;
+    }
+    const a = parts[commonsIdx + 1];
+    const b = parts[commonsIdx + 2];
+    const file = parts[commonsIdx + 3];
+    if (!a || !b || !file || !file.toLowerCase().endsWith(".svg")) return null;
+    u.pathname = `/wikipedia/commons/thumb/${a}/${b}/${file}/${px}px-${file}.png`;
+    return u.toString();
+  } catch {
+    return null;
+  }
+}
+
+function resolveRasterDownload(url: string): { url: string; ext: string } {
+  const clean = url.split("?")[0].toLowerCase();
+  if (clean.endsWith(".svg")) {
+    const thumb = wikimediaSvgThumbUrl(url, 1920);
+    if (thumb) return { url: thumb, ext: ".png" };
+  }
+  return { url, ext: guessExt(url) };
+}
+
+async function isSvgOrCorruptRaster(filePath: string): Promise<boolean> {
+  try {
+    const buf = await readFile(filePath);
+    const sample = buf.subarray(0, 256).toString("utf8").trimStart().toLowerCase();
+    return sample.startsWith("<svg") || sample.startsWith("<?xml");
+  } catch {
+    return false;
+  }
+}
+
+async function unlinkQuiet(filePath: string): Promise<void> {
+  try {
+    await unlink(filePath);
+  } catch {
+    // ignore
+  }
 }
 
 async function fileExists(p: string): Promise<boolean> {

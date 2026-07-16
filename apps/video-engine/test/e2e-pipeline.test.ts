@@ -44,6 +44,7 @@ test("pipeline E2E fake providers produce MP4 1080x1920", async () => {
     formatId: "reel",
     force: true,
     useFakeProviders: true,
+    interactive: false,
   });
 
   await engine.processOne("e2e");

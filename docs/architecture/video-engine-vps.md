@@ -59,10 +59,11 @@ O en compose, montá `./data:/data` y corrê el `find` sobre `./data/jobs`.
 
 ## Memoria
 
-- `NODE_OPTIONS=--max-old-space-size=384`
-- FFmpeg con `-threads 1`
+- `NODE_OPTIONS=--max-old-space-size=512`
+- FFmpeg con `-threads 1`, `-loglevel error` y stderr acotado (evita OOM por progress spam)
+- **`VIDEO_RENDER_FAST=1` (default en compose):** sin `gblur`/`zoompan`/`noise` — en 1 GB el craft completo puede llevar ~15 min **por escena**
 - **Un solo job** a la vez (HTTP 409 si hay otro en cola/running)
-- Encode por defecto: `veryfast` + CRF 22 (override con `VIDEO_X264_PRESET` / `VIDEO_X264_CRF` en el `.env` del engine). En 1 GB un reel ~40s puede llevar varios minutos solo en `render`.
+- Encode por defecto en fast: `ultrafast` + CRF 23 (override con `VIDEO_X264_PRESET` / `VIDEO_X264_CRF`). Craft completo: `VIDEO_RENDER_FAST=0`
 
 ## Smoke
 

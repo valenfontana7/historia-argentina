@@ -54,8 +54,8 @@ export function VideoGenerateLoading({
 
       {job?.stage === "render" && activo && (
         <p className="text-xs text-tinta-tenue">
-          El render en el VPS (1 GB) puede tardar 5–15 minutos. No regeneres
-          otro reel hasta que termine.
+          Render en curso. En PC de escritorio (craft completo) suele tardar
+          unos minutos; en VPS 1 GB usá el perfil rápido.
         </p>
       )}
 

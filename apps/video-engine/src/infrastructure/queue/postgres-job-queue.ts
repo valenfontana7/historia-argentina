@@ -2,6 +2,7 @@ import type {
   CreateJobRequest,
   JobView,
   PipelineStage,
+  ResumePhase,
   VideoFormatId,
 } from "@museoargent/video-contracts";
 import type { PrismaClient, VideoJob } from "../../generated/prisma";
@@ -20,6 +21,11 @@ function mapJob(job: VideoJob): JobView {
     job.startedAt && job.finishedAt
       ? job.finishedAt.getTime() - job.startedAt.getTime()
       : undefined;
+  const row = job as VideoJob & {
+    interactive?: boolean;
+    resumePhase?: string;
+    hasDraft?: boolean;
+  };
 
   return {
     id: job.id,
@@ -45,17 +51,23 @@ function mapJob(job: VideoJob): JobView {
     },
     createdAt: job.createdAt.toISOString(),
     updatedAt: job.updatedAt.toISOString(),
+    interactive: row.interactive !== false,
+    resumePhase: (row.resumePhase as ResumePhase | undefined) ?? "draft",
+    hasDraft: Boolean(row.hasDraft),
   };
 }
 
 function toClaimed(job: VideoJob): ClaimedJob {
+  const view = mapJob(job);
   return {
-    ...mapJob(job),
+    ...view,
     exhibitionJson: job.exhibitionJson,
     useFakeProviders: job.useFakeProviders,
     inputHash: job.inputHash,
     promptVersion: job.promptVersion,
     pipelineVersion: job.pipelineVersion,
+    interactive: view.interactive !== false,
+    resumePhase: view.resumePhase ?? "draft",
   };
 }
 
@@ -69,6 +81,7 @@ export class PostgresJobQueue implements JobQueue {
       pipelineVersion: string;
     },
   ): Promise<JobView> {
+    const interactive = request.interactive !== false;
     if (!request.force) {
       const existing = await this.prisma.videoJob.findUnique({
         where: {
@@ -84,6 +97,7 @@ export class PostgresJobQueue implements JobQueue {
         existing &&
         (existing.status === "queued" ||
           existing.status === "running" ||
+          existing.status === "awaiting_review" ||
           existing.status === "succeeded")
       ) {
         return mapJob(existing);
@@ -113,7 +127,10 @@ export class PostgresJobQueue implements JobQueue {
         force: request.force,
         useFakeProviders: Boolean(request.useFakeProviders),
         status: "queued",
-      },
+        interactive,
+        resumePhase: "draft",
+        hasDraft: false,
+      } as Parameters<PrismaClient["videoJob"]["create"]>[0]["data"],
     });
     await this.appendEvent(created.id, "info", "Job enqueued");
     return mapJob(created);
@@ -134,7 +151,9 @@ export class PostgresJobQueue implements JobQueue {
 
   async hasActiveJob(): Promise<boolean> {
     const n = await this.prisma.videoJob.count({
-      where: { status: { in: ["queued", "running"] } },
+      where: {
+        status: { in: ["queued", "running", "awaiting_review"] },
+      },
     });
     return n > 0;
   }
@@ -183,6 +202,41 @@ export class PostgresJobQueue implements JobQueue {
       },
     });
     await this.appendEvent(jobId, "info", `Stage ${stage}`, { timingMs });
+  }
+
+  async markAwaitingReview(jobId: string): Promise<JobView | null> {
+    const current = await this.prisma.videoJob.findUnique({ where: { id: jobId } });
+    if (!current) return null;
+    if (current.status === "cancelled") return mapJob(current);
+    const updated = await this.prisma.videoJob.update({
+      where: { id: jobId },
+      data: {
+        status: "awaiting_review",
+        stage: "review",
+        hasDraft: true,
+        resumePhase: "draft",
+        lockedAt: null,
+      } as Parameters<PrismaClient["videoJob"]["update"]>[0]["data"],
+    });
+    await this.appendEvent(jobId, "info", "Awaiting human review");
+    return mapJob(updated);
+  }
+
+  async approveForRender(jobId: string): Promise<JobView | null> {
+    const current = await this.prisma.videoJob.findUnique({ where: { id: jobId } });
+    if (!current) return null;
+    if (current.status !== "awaiting_review") return mapJob(current);
+    const updated = await this.prisma.videoJob.update({
+      where: { id: jobId },
+      data: {
+        status: "queued",
+        stage: "review",
+        resumePhase: "render",
+        error: null,
+      } as Parameters<PrismaClient["videoJob"]["update"]>[0]["data"],
+    });
+    await this.appendEvent(jobId, "info", "Approved for render");
+    return mapJob(updated);
   }
 
   async appendEvent(
@@ -244,7 +298,12 @@ export class PostgresJobQueue implements JobQueue {
 
   async fail(jobId: string, error: string): Promise<void> {
     const current = await this.prisma.videoJob.findUnique({ where: { id: jobId } });
-    if (!current || current.status === "cancelled" || current.status === "succeeded") {
+    if (
+      !current ||
+      current.status === "cancelled" ||
+      current.status === "succeeded" ||
+      current.status === "awaiting_review"
+    ) {
       return;
     }
     await this.prisma.videoJob.update({
@@ -262,7 +321,11 @@ export class PostgresJobQueue implements JobQueue {
   async cancel(jobId: string): Promise<JobView | null> {
     const current = await this.prisma.videoJob.findUnique({ where: { id: jobId } });
     if (!current) return null;
-    if (current.status !== "queued" && current.status !== "running") {
+    if (
+      current.status !== "queued" &&
+      current.status !== "running" &&
+      current.status !== "awaiting_review"
+    ) {
       return mapJob(current);
     }
     const updated = await this.prisma.videoJob.update({

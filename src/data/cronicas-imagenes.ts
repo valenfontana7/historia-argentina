@@ -5,12 +5,16 @@
 
 export type TipoImagenCronica = "grabado" | "pintura" | "mapa" | "foto";
 
+/** periodo (default) = obra/archivo de época; contemporanea = vista actual. */
+export type OrigenVisualImagen = "periodo" | "contemporanea";
+
 export type ImagenCronica = {
   id: string;
   url: string;
   credito: string;
   alt: string;
   tipo: TipoImagenCronica;
+  origenVisual?: OrigenVisualImagen;
 };
 
 export const imagenesCronicas: Record<string, ImagenCronica> = {
@@ -27,6 +31,7 @@ export const imagenesCronicas: Record<string, ImagenCronica> = {
     credito: "Wikimedia Commons",
     alt: "Paso de Uspallata en la cordillera de los Andes",
     tipo: "foto",
+    origenVisual: "contemporanea",
   },
   "andes-ballerini": {
     id: "andes-ballerini",
@@ -97,6 +102,7 @@ export const imagenesCronicas: Record<string, ImagenCronica> = {
     credito: "Wikimedia Commons",
     alt: "Quebrada de Humahuaca, paisaje del norte argentino",
     tipo: "foto",
+    origenVisual: "contemporanea",
   },
   "jujuy-exodo": {
     id: "jujuy-exodo",
@@ -601,6 +607,7 @@ export const imagenesCronicas: Record<string, ImagenCronica> = {
     credito: "Wikimedia Commons",
     alt: "Monumento a los huelguistas de la Patagonia rebelde",
     tipo: "foto",
+    origenVisual: "contemporanea",
   },
   "ituzaingo-batalla": {
     id: "ituzaingo-batalla",
@@ -657,6 +664,7 @@ export const imagenesCronicas: Record<string, ImagenCronica> = {
     credito: "Wikimedia Commons",
     alt: "Monumento Nacional a la Bandera en Rosario",
     tipo: "foto",
+    origenVisual: "contemporanea",
   },
   "saavedra-retrato": {
     id: "saavedra-retrato",

@@ -111,10 +111,12 @@ async function enqueueRemoto(
         exhibition: built.exhibition,
         formatId,
         force,
+        interactive: true,
         profileOverrides,
         imageCatalog: built.imageCatalog,
       }),
     });
+
     const data = (await res.json().catch(() => ({}))) as {
       id?: string;
       message?: string;
@@ -129,7 +131,10 @@ async function enqueueRemoto(
           jobs?: Array<{ id?: string; status?: string }>;
         };
         const activo = listData.jobs?.find(
-          (j) => j.status === "queued" || j.status === "running",
+          (j) =>
+            j.status === "queued" ||
+            j.status === "running" ||
+            j.status === "awaiting_review",
         );
         if (typeof activo?.id === "string") jobId = activo.id;
       } catch {

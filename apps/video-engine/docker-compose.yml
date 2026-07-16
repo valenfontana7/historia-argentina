@@ -13,7 +13,8 @@ services:
     environment:
       VIDEO_STORAGE_ROOT: /data
       VIDEO_ENGINE_PORT: "4100"
-      NODE_OPTIONS: --max-old-space-size=384
+      NODE_OPTIONS: --max-old-space-size=512
+      VIDEO_RENDER_FAST: "1"
     volumes:
       - video-data:/data
     restart: unless-stopped

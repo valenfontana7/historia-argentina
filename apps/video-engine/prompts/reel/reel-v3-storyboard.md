@@ -11,7 +11,7 @@ Contraste de planos:
 - personaje / protagonista → preferí retrato (al menos 1–2 escenas si hay characters)
 - desplazamiento / geografía → mapa
 - acto formal → documento
-- atmósfera / paisaje → pintura / fotografia (plano-general)
+- atmósfera / paisaje → pintura / ilustracion / mapa (plano-general). En eras pre-1900 NO pidas fotografia (las fotos contemporáneas del sitio se excluyen del reel); fotografia solo si la exhibición es s. XX/XXI con archivo fotográfico de época
 - detalle material → detalle
 
 shotType SOLO uno de: retrato | plano-general | detalle | mapa | documento | simbolo

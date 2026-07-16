@@ -70,6 +70,7 @@ export function exhibitionFromCronica(
       credito: meta.credito,
       alt: meta.alt,
       tipo: meta.tipo,
+      ...(meta.origenVisual ? { origenVisual: meta.origenVisual } : {}),
     };
   }
 

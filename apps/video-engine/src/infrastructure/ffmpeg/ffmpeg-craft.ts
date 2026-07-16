@@ -8,6 +8,13 @@ export const REEL_H = 1920;
 
 export type ImageOrientation = "horizontal" | "vertical" | "square";
 
+/** VPS 1 GB: por defecto rápido (sin gblur/zoompan/noise). VIDEO_RENDER_FAST=0 para craft completo. */
+export function isFastRender(): boolean {
+  const v = process.env.VIDEO_RENDER_FAST?.trim().toLowerCase();
+  if (v === "0" || v === "false" || v === "off" || v === "full") return false;
+  return true;
+}
+
 export function orientationFromSize(
   width: number,
   height: number,
@@ -21,10 +28,14 @@ export function orientationFromSize(
 
 /** Landscape ancho → letterbox blur; vertical/square → cover crop. */
 export function shouldUseBlurBackground(orientation: ImageOrientation): boolean {
+  if (isFastRender()) return false;
   return orientation === "horizontal";
 }
 
 export function buildSceneLookFilters(): string[] {
+  if (isFastRender()) {
+    return ["eq=contrast=1.06:saturation=0.95:brightness=0.01"];
+  }
   return [
     "eq=contrast=1.08:saturation=0.92:brightness=0.02",
     "vignette=PI/4",
@@ -38,7 +49,14 @@ export function buildSceneLookFilters(): string[] {
  * blurBg: fondo blur + imagen fit centrada (filter_complex labels)
  */
 export function buildCoverFilter(): string {
-  return `scale=${REEL_W}:${REEL_H}:force_original_aspect_ratio=increase:flags=lanczos,crop=${REEL_W}:${REEL_H},setsar=1`;
+  const flags = isFastRender() ? "fast_bilinear" : "lanczos";
+  return `scale=${REEL_W}:${REEL_H}:force_original_aspect_ratio=increase:flags=${flags},crop=${REEL_W}:${REEL_H},setsar=1`;
+}
+
+/** Letterbox negro (barato) para horizontales en modo fast. */
+export function buildLetterboxFilter(): string {
+  const flags = isFastRender() ? "fast_bilinear" : "lanczos";
+  return `scale=${REEL_W}:${REEL_H}:force_original_aspect_ratio=decrease:flags=${flags},pad=${REEL_W}:${REEL_H}:(ow-iw)/2:(oh-ih)/2:black,setsar=1`;
 }
 
 /** Cadena filter_complex para letterbox blur; input [0:v] → salida [framed]. */
@@ -56,6 +74,9 @@ export function buildZoompan(
   fps: number,
   intensity = 0.1,
 ): string {
+  // zoompan frame-a-frame + gblur tumba un VPS 1 GB (~15 min/escena).
+  if (isFastRender()) return "null";
+
   const frames = Math.max(1, Math.round(duration * fps));
   const i = Math.min(1, Math.max(0.04, intensity));
   const zoomMax = 1 + i * 0.9; // ~1.04–1.9, típico 1.12–1.26

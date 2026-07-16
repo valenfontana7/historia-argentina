@@ -1,4 +1,5 @@
 import type {
+  AssetRecord,
   MusicCategory,
   MusicCue,
   SceneAssetBinding,
@@ -11,12 +12,24 @@ import type { AssetLibrary, AssetRanker } from "../ports/asset-library";
 import type { MusicLibrary } from "../ports/music-library";
 import type { ObjectStorage } from "../ports/object-storage";
 import type { VoiceProvider } from "../ports/voice-provider";
+import { ORIGEN_CONTEMPORANEA_TAG } from "../../infrastructure/assets/cache-exhibition-assets";
 import { shotTypeAssetBoost } from "../../infrastructure/ffmpeg/ffmpeg-craft";
 import { splitNarrationIntoCues, toAss, toSrt, toVtt } from "./subtitle-splitter";
+
+/** Antes de 1900, excluir fotos/vistas contemporáneas del pool del reel. */
+export const CONTEMPORARY_EXCLUDE_YEAR_END = 1900;
 
 function isFixtureAssetId(id: string): boolean {
   return id.startsWith("fixture-");
 }
+
+function isContemporaryVisual(asset: AssetRecord): boolean {
+  return asset.tags.includes(ORIGEN_CONTEMPORANEA_TAG);
+}
+
+export type AssetSelectContext = {
+  yearEnd?: number;
+};
 
 export class VoiceGenerator {
   constructor(
@@ -52,11 +65,18 @@ export class AssetSelector {
   async select(
     storyboard: StoryboardDocument,
     preferredAssetIds: string[] = [],
+    context: AssetSelectContext = {},
   ): Promise<SceneAssetBinding[]> {
     const used = new Set<string>();
     const bindings: SceneAssetBinding[] = [];
     const preferred = new Set(preferredAssetIds);
-    const allVisual = await this.library.listVisual();
+    const excludeContemporary =
+      typeof context.yearEnd === "number" &&
+      context.yearEnd < CONTEMPORARY_EXCLUDE_YEAR_END;
+    const allVisualRaw = await this.library.listVisual();
+    const allVisual = excludeContemporary
+      ? allVisualRaw.filter((a) => !isContemporaryVisual(a))
+      : allVisualRaw;
     const exhibitionAssets = allVisual.filter(
       (a) => preferred.has(a.id) && !isFixtureAssetId(a.id),
     );
@@ -65,6 +85,9 @@ export class AssetSelector {
 
     for (const scene of storyboard.scenes) {
       let candidates = await this.library.search(scene.assetHint);
+      if (excludeContemporary) {
+        candidates = candidates.filter((c) => !isContemporaryVisual(c));
+      }
       if (!candidates.length) {
         candidates = [...allVisual];
       }

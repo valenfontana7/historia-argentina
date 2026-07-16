@@ -17,6 +17,7 @@ import {
 import { VideoGenerateLoading } from "./VideoGenerateLoading";
 import { VideoPreviewPane } from "./VideoPreviewPane";
 import { VideoJobHistory } from "./VideoJobHistory";
+import { ReelDraftReview } from "./ReelDraftReview";
 
 type Props = {
   cronicas: CronicaOption[];
@@ -45,7 +46,13 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [videoError, setVideoError] = useState<string | null>(null);
   const [historialAbierto, setHistorialAbierto] = useState(
-    () => !initialJobs.some((j) => j.status === "queued" || j.status === "running"),
+    () =>
+      !initialJobs.some(
+        (j) =>
+          j.status === "queued" ||
+          j.status === "running" ||
+          j.status === "awaiting_review",
+      ),
   );
   const [previewHighlight, setPreviewHighlight] = useState(false);
   const [cancelando, setCancelando] = useState(false);
@@ -67,6 +74,7 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
 
   const activo =
     selected?.status === "queued" || selected?.status === "running";
+  const enRevision = selected?.status === "awaiting_review";
   const ocupado = iniciando || esperandoJob || activo;
 
   const refreshList = useCallback(async () => {
@@ -155,7 +163,11 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
       normalizado,
       ...prev.filter((j) => j.id !== normalizado.id),
     ]);
-    setMensaje(`Job ${normalizado.id} en cola.`);
+    setMensaje(
+      normalizado.status === "awaiting_review"
+        ? `Borrador listo para revisar (${normalizado.id}).`
+        : `Job ${normalizado.id} en cola.`,
+    );
     setVideoError(null);
     setEsperandoJob(false);
     setIniciando(false);
@@ -250,7 +262,10 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
           const list = await refreshList();
           activo =
             list?.find(
-              (j) => j.status === "queued" || j.status === "running",
+              (j) =>
+                j.status === "queued" ||
+                j.status === "running" ||
+                j.status === "awaiting_review",
             ) ?? null;
         }
         if (activo) {
@@ -359,8 +374,10 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
       : "Buscando job…"
     : activo
       ? `Generando…${selected?.stage ? ` · ${selected.stage}` : ""}`
-      : "Generar reel 9:16";
-  const ctaDisabled = ocupado || !slug;
+      : enRevision
+        ? "Borrador en revisión"
+        : "Generar reel 9:16";
+  const ctaDisabled = ocupado || enRevision || !slug;
   const playable =
     selected?.status === "succeeded" && selected.hasMp4 !== false;
   const stickyDownloadUrl =
@@ -370,7 +387,8 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
     <section className="rounded-sm border border-linea bg-fondo-2 p-5">
       <h2 className="titulo-display text-xl font-semibold">Generar</h2>
       <p className="mt-2 text-sm text-tinta-suave">
-        Reel vertical 1080×1920. Elegí la crónica y generá.
+        Reel vertical 1080×1920. Generá el borrador, revisá texto e imágenes, y
+        aprobá para renderizar.
       </p>
 
       <div className="mt-5">
@@ -419,7 +437,7 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
           activo={activo}
           mensaje={mensaje}
           onCancelar={
-            selected && activo
+            selected && (activo || enRevision)
               ? () => void cancelarJob(selected)
               : undefined
           }
@@ -434,6 +452,25 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)] lg:items-start">
         <div className="space-y-6">
           {generateBlock}
+
+          {enRevision && selected && (
+            <ReelDraftReview
+              job={selected}
+              onJobUpdate={(updated) => {
+                setSelected(updated);
+                setSelectedId(updated.id);
+                setJobs((prev) => [
+                  updated,
+                  ...prev.filter((j) => j.id !== updated.id),
+                ]);
+                setMensaje("Borrador aprobado; renderizando…");
+                setError(null);
+              }}
+              onError={(message) => {
+                if (message) setError(message);
+              }}
+            />
+          )}
 
           <div ref={previewMobileRef} className="scroll-mt-20 lg:hidden">
             <VideoPreviewPane

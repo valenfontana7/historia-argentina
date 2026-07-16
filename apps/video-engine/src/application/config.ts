@@ -35,7 +35,9 @@ export function loadEngineConfig(env: NodeJS.ProcessEnv = process.env): EngineCo
     apiKey: env.VIDEO_ENGINE_API_KEY ?? "dev-video-engine-key",
     port: Number(env.VIDEO_ENGINE_PORT ?? 4100),
     storageRoot: root,
-    databaseUrl: env.VIDEO_DATABASE_URL?.trim() || env.DATABASE_URL?.trim() || undefined,
+    // Solo VIDEO_DATABASE_URL: no heredar DATABASE_URL del sitio Next
+    // (Neon sin schema VideoJob → spam de errores en el worker).
+    databaseUrl: env.VIDEO_DATABASE_URL?.trim() || undefined,
     openaiApiKey: env.OPENAI_API_KEY?.trim() || undefined,
     openaiLlmModel: env.OPENAI_LLM_MODEL ?? "gpt-5.6-terra",
     openaiTtsModel: env.OPENAI_TTS_MODEL ?? "gpt-4o-mini-tts",

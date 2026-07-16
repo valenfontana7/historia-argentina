@@ -24,6 +24,8 @@
     "video:contracts:build": "npm run build -w @museoargent/video-contracts",
     "video:engine:build": "npm run build -w @museoargent/video-engine",
     "video:engine:start": "npm run start -w @museoargent/video-engine",
+    "video:engine:desktop": "npm run start -w @museoargent/video-engine",
+    "video:tunnel": "node scripts/video-tunnel.mjs",
     "video:engine:cli": "npm run cli -w @museoargent/video-engine --",
     "video:engine:test": "npm run test -w @museoargent/video-contracts && npm run test -w @museoargent/video-engine",
     "video:prisma:generate": "npm run prisma:generate -w @museoargent/video-engine",

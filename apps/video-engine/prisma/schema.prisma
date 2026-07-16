@@ -11,6 +11,7 @@ datasource db {
 enum VideoJobStatus {
   queued
   running
+  awaiting_review
   succeeded
   failed
   cancelled
@@ -22,6 +23,7 @@ enum VideoJobStage {
   storyboard
   voice
   assets
+  review
   subtitles
   music
   compose
@@ -40,6 +42,9 @@ model VideoJob {
   exhibitionJson   Json
   force            Boolean        @default(false)
   useFakeProviders Boolean        @default(false)
+  interactive      Boolean        @default(true)
+  resumePhase      String         @default("draft")
+  hasDraft         Boolean        @default(false)
   llmProvider      String?
   llmModel         String?
   ttsProvider      String?

@@ -16,10 +16,11 @@ async function bootstrap() {
   // Workaround: allow health without key via middleware check in guard — already
   // HealthController is under APP_GUARD. Fix: exclude health in guard.
 
-  await app.listen(engine.config.port);
+  await app.listen(engine.config.port, "127.0.0.1");
   console.info(
     JSON.stringify({
       msg: "video-engine listening",
+      host: "127.0.0.1",
       port: engine.config.port,
       fakeProviders: engine.config.useFakeProvidersDefault,
     }),

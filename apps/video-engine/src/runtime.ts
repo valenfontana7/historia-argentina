@@ -3,9 +3,19 @@ import {
   DEFAULT_FORMAT_PROFILES,
   PIPELINE_VERSION,
   type CreateJobRequest,
+  type ImageCatalogEntry,
+  type JobDraft,
   type JobView,
 } from "@museoargent/video-contracts";
 import { loadEngineConfig, type EngineConfig } from "./application/config";
+import {
+  applyDraftPatch,
+  catalogItemsFromRecord,
+  readImageCatalog,
+  readJobDraft,
+  writeImageCatalog,
+  writeJobDraft,
+} from "./application/job-draft";
 import { PipelineOrchestrator } from "./application/pipeline-orchestrator";
 import type { JobQueue } from "./application/ports/job-queue";
 import { InMemoryAssetLibrary } from "./infrastructure/assets/in-memory-asset-library";
@@ -39,21 +49,15 @@ export type EngineRuntime = {
   listJobs: (limit?: number) => Promise<JobView[]>;
   hasActiveJob: () => Promise<boolean>;
   cancelJob: (id: string) => Promise<JobView | null>;
+  getDraft: (id: string) => Promise<JobDraft | null>;
+  patchDraft: (id: string, patch: unknown) => Promise<JobDraft>;
+  approveJob: (id: string) => Promise<JobView | null>;
   resolveMp4Path: (jobId: string) => Promise<string | null>;
   processOne: (workerId?: string) => Promise<boolean>;
   seed: () => Promise<void>;
   prepareExhibitionAssets: (
     exhibition: Exhibition,
-    catalog?: Record<
-      string,
-      {
-        id: string;
-        url: string;
-        credito: string;
-        alt: string;
-        tipo: "grabado" | "pintura" | "mapa" | "foto";
-      }
-    >,
+    catalog?: Record<string, ImageCatalogEntry>,
   ) => Promise<string[]>;
 };
 
@@ -142,7 +146,19 @@ export async function createEngineRuntime(
       innerQueue = new InMemoryJobQueue();
     }
   }
-  const queue: JobQueue = new PersistingJobQueue(innerQueue, storage);
+  const queue = new PersistingJobQueue(
+    innerQueue,
+    storage,
+    path.join(storageRoot, "jobs"),
+  );
+  const hydrated = await queue.hydrateFromDisk();
+  console.info(
+    JSON.stringify({
+      msg: "jobs hydrated from disk",
+      loaded: hydrated.loaded,
+      recovered: hydrated.recovered,
+    }),
+  );
 
   const musicTracks = async () => {
     const anyLib = assets as InMemoryAssetLibrary & {
@@ -182,16 +198,7 @@ export async function createEngineRuntime(
 
   const prepareExhibitionAssets = async (
     exhibition: Exhibition,
-    catalog?: Record<
-      string,
-      {
-        id: string;
-        url: string;
-        credito: string;
-        alt: string;
-        tipo: "grabado" | "pintura" | "mapa" | "foto";
-      }
-    >,
+    catalog?: Record<string, ImageCatalogEntry>,
   ) => {
     if (!catalog) return [];
     return cacheExhibitionAssets({
@@ -205,17 +212,25 @@ export async function createEngineRuntime(
   const enqueue = async (request: CreateJobRequest): Promise<JobView> => {
     const formatId = request.formatId ?? "reel";
     const profile = DEFAULT_FORMAT_PROFILES[formatId];
-    const { imageCatalog: _catalog, ...queueRequest } = request;
-    void _catalog;
+    const { imageCatalog, ...queueRequest } = request;
     const job = await queue.enqueue({
       ...queueRequest,
       formatId,
+      interactive: request.interactive !== false,
       useFakeProviders:
         request.useFakeProviders ?? config.useFakeProvidersDefault,
       inputHash: hashPayload(request.exhibition),
       promptVersion: profile.promptVersion,
       pipelineVersion: PIPELINE_VERSION,
     });
+    await storage.put(
+      `jobs/${job.id}/exhibition.json`,
+      JSON.stringify(request.exhibition, null, 2),
+      "application/json",
+    );
+    if (imageCatalog && Object.keys(imageCatalog).length > 0) {
+      await writeImageCatalog(storage, job.id, imageCatalog);
+    }
     if (request.profileOverrides) {
       await storage.put(
         `jobs/${job.id}/profile-overrides.json`,
@@ -230,6 +245,42 @@ export async function createEngineRuntime(
   const listJobs = (limit?: number) => queue.list(limit);
   const hasActiveJob = () => queue.hasActiveJob();
   const cancelJob = (id: string) => queue.cancel(id);
+
+  const getDraft = async (id: string): Promise<JobDraft | null> => {
+    const draft = await readJobDraft(storage, id);
+    if (!draft) return null;
+    if (draft.catalog.length) return draft;
+    const catalog = catalogItemsFromRecord(await readImageCatalog(storage, id));
+    return { ...draft, catalog };
+  };
+
+  const patchDraft = async (id: string, patch: unknown): Promise<JobDraft> => {
+    const job = await queue.get(id);
+    if (!job) throw new Error("Job not found");
+    if (job.status !== "awaiting_review") {
+      throw new Error("El borrador solo se edita en awaiting_review");
+    }
+    const current = await getDraft(id);
+    if (!current) throw new Error("Draft not found");
+    const next = await applyDraftPatch({
+      draft: current,
+      patch,
+      library: assets,
+    });
+    await writeJobDraft(storage, id, next);
+    return next;
+  };
+
+  const approveJob = async (id: string): Promise<JobView | null> => {
+    const job = await queue.get(id);
+    if (!job) return null;
+    if (job.status !== "awaiting_review") {
+      throw new Error("Solo se puede aprobar un job en awaiting_review");
+    }
+    const draft = await readJobDraft(storage, id);
+    if (!draft) throw new Error("Draft not found");
+    return queue.approveForRender(id);
+  };
 
   const resolveMp4Path = async (jobId: string): Promise<string | null> => {
     const job = await queue.get(jobId);
@@ -272,6 +323,9 @@ export async function createEngineRuntime(
     listJobs,
     hasActiveJob,
     cancelJob,
+    getDraft,
+    patchDraft,
+    approveJob,
     resolveMp4Path,
     processOne,
     seed,

@@ -131,6 +131,11 @@ export function VideoPreviewPane({
                     : "Sin MP4 aún"}
             </div>
           )}
+          {selected.status === "failed" && selected.error && (
+            <p className="mt-2 text-xs text-carmesi" role="alert">
+              {selected.error}
+            </p>
+          )}
         </div>
 
         <div className="w-full space-y-2 text-sm">
@@ -193,7 +198,8 @@ export function VideoPreviewPane({
 
           {(activo ||
             selected.status === "queued" ||
-            selected.status === "running") &&
+            selected.status === "running" ||
+            selected.status === "awaiting_review") &&
             onCancelar && (
               <button
                 type="button"

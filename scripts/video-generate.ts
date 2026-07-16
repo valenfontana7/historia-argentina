@@ -73,12 +73,15 @@ async function main() {
 
   await engine.seed();
 
+  // CLI one-shot: sin pausa humana (el admin usa interactive vía HTTP).
   const job = await engine.enqueue({
     exhibition,
     formatId,
     force,
+    interactive: false,
     useFakeProviders: engine.config.useFakeProvidersDefault,
     profileOverrides,
+    imageCatalog,
   });
   console.info(JSON.stringify({ msg: "job enqueued", id: job.id }));
 
