@@ -7,6 +7,7 @@ import {
   reelMediaUrl,
   type CronicaOption,
 } from "./video-admin-utils";
+import { normalizeAdminJob } from "@/lib/admin-job-normalize";
 import { VideoCronicaPicker } from "./VideoCronicaPicker";
 import {
   defaultVideoGenerateOptions,
@@ -73,8 +74,9 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
       if (!res.ok) return null;
       const data = (await res.json()) as { jobs?: AdminJob[] };
       if (data.jobs) {
-        setJobs(data.jobs);
-        return data.jobs;
+        const jobs = data.jobs.map((j) => normalizeAdminJob(j));
+        setJobs(jobs);
+        return jobs;
       }
       return null;
     } catch {
@@ -88,7 +90,7 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
         `/api/admin/reels/jobs/${encodeURIComponent(id)}`,
       );
       if (!res.ok) return null;
-      return (await res.json()) as AdminJob;
+      return normalizeAdminJob((await res.json()) as AdminJob);
     } catch {
       return null;
     }
@@ -145,10 +147,14 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
   }, [selected?.status]);
 
   async function adoptJob(job: AdminJob) {
-    setSelectedId(job.id);
-    setSelected(job);
-    setJobs((prev) => [job, ...prev.filter((j) => j.id !== job.id)]);
-    setMensaje(`Job ${job.id} en cola.`);
+    const normalizado = normalizeAdminJob(job);
+    setSelectedId(normalizado.id);
+    setSelected(normalizado);
+    setJobs((prev) => [
+      normalizado,
+      ...prev.filter((j) => j.id !== normalizado.id),
+    ]);
+    setMensaje(`Job ${normalizado.id} en cola.`);
     setVideoError(null);
     setEsperandoJob(false);
     setIniciando(false);
@@ -212,6 +218,7 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
         mensaje?: string;
         jobId?: string;
         pending?: boolean;
+        conflict?: boolean;
         slug?: string;
       };
 
@@ -231,6 +238,31 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
             updatedAt: new Date().toISOString(),
           });
         }
+        return;
+      }
+
+      // 409: ya hay un reel en el VPS — adoptar ese job en vez de mostrar error.
+      if (res.status === 409 || data.conflict) {
+        let activo: AdminJob | null = null;
+        if (data.jobId) activo = await fetchJob(data.jobId);
+        if (!activo) {
+          const list = await refreshList();
+          activo =
+            list?.find(
+              (j) => j.status === "queued" || j.status === "running",
+            ) ?? null;
+        }
+        if (activo) {
+          await adoptJob(activo);
+          setMensaje(
+            "Ya había un reel en curso en el VPS; siguiendo ese job.",
+          );
+          return;
+        }
+        setError(
+          data.mensaje ??
+            "Ya hay un reel en generación. Esperá a que termine.",
+        );
         return;
       }
 
@@ -265,17 +297,21 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
   }
 
   function regenerarDesde(job: AdminJob) {
-    setSlug(job.slug);
+    const normalizado = normalizeAdminJob(job);
+    setSlug(normalizado.slug);
     setForce(true);
-    setSelectedId(job.id);
-    setSelected(job);
-    setMensaje(`Listo para regenerar «${tituloDeSlug(cronicas, job.slug)}».`);
+    setSelectedId(normalizado.id);
+    setSelected(normalizado);
+    setMensaje(
+      `Listo para regenerar «${tituloDeSlug(cronicas, normalizado.slug)}».`,
+    );
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function seleccionarJob(job: AdminJob) {
-    setSelectedId(job.id);
-    setSelected(job);
+    const normalizado = normalizeAdminJob(job);
+    setSelectedId(normalizado.id);
+    setSelected(normalizado);
     setVideoError(null);
     requestAnimationFrame(() => {
       scrollToPreview();

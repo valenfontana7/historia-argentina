@@ -121,9 +121,25 @@ async function enqueueRemoto(
       mensaje?: string;
     };
     if (res.status === 409) {
+      // Devolver el job activo para que el admin lo adopte en vez de fallar.
+      let jobId: string | undefined;
+      try {
+        const listRes = await engineFetch("/jobs?limit=10");
+        const listData = (await listRes.json().catch(() => ({}))) as {
+          jobs?: Array<{ id?: string; status?: string }>;
+        };
+        const activo = listData.jobs?.find(
+          (j) => j.status === "queued" || j.status === "running",
+        );
+        if (typeof activo?.id === "string") jobId = activo.id;
+      } catch {
+        // sin jobId el cliente puede recuperar por lista
+      }
       return NextResponse.json(
         {
           ok: false,
+          conflict: true,
+          jobId,
           mensaje:
             data.message ??
             data.mensaje ??

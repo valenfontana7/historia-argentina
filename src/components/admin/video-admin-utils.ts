@@ -3,7 +3,11 @@ import { PIPELINE_STAGE_ORDER } from "./video-admin-types";
 
 export type CronicaOption = { slug: string; titulo: string };
 
-export function tituloDeSlug(cronicas: CronicaOption[], slug: string): string {
+export function tituloDeSlug(
+  cronicas: CronicaOption[],
+  slug: string | undefined,
+): string {
+  if (!slug) return "Sin crónica";
   return cronicas.find((c) => c.slug === slug)?.titulo ?? slug;
 }
 
@@ -22,13 +26,17 @@ export function formatearBytes(bytes?: number): string {
 }
 
 /** Nombre amigable para guardar/compartir el MP4 (iOS / desktop). */
-export function reelDownloadFilename(slug: string, jobId: string): string {
-  const safeSlug = slug
-    .toLowerCase()
-    .replace(/[^a-z0-9-_]+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 48) || "reel";
+export function reelDownloadFilename(
+  slug: string | undefined,
+  jobId: string,
+): string {
+  const safeSlug =
+    (slug ?? "reel")
+      .toLowerCase()
+      .replace(/[^a-z0-9-_]+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 48) || "reel";
   const shortId = jobId.replace(/[^a-zA-Z0-9_-]/g, "").slice(-8) || "job";
   return `museoargent-${safeSlug}-${shortId}.mp4`;
 }

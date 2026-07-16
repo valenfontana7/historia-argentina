@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import type { JobView } from "@museoargent/video-contracts";
 import { sesionAdminValida } from "@/lib/admin-auth";
+import { normalizeAdminJob } from "@/lib/admin-job-normalize";
 import { getJobFromDisk } from "@/lib/admin-video-jobs";
 import {
   engineFetch,
@@ -32,7 +34,13 @@ export async function GET(
     try {
       const res = await engineFetch(`/jobs/${encodeURIComponent(id)}`);
       const data = await res.json().catch(() => ({ error: "Invalid response" }));
-      return NextResponse.json(data, { status: res.status });
+      if (!res.ok) {
+        return NextResponse.json(data, { status: res.status });
+      }
+      return NextResponse.json(
+        normalizeAdminJob(data as JobView),
+        { status: 200 },
+      );
     } catch (err) {
       return NextResponse.json(
         {
@@ -54,8 +62,8 @@ export async function GET(
   try {
     const res = await engineFetch(`/jobs/${encodeURIComponent(id)}`);
     if (res.ok) {
-      const data = await res.json();
-      return NextResponse.json(data, { status: res.status });
+      const data = (await res.json()) as JobView;
+      return NextResponse.json(normalizeAdminJob(data), { status: res.status });
     }
   } catch {
     // engine offline

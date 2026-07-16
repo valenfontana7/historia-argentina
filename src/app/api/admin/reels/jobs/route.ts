@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import type { JobView } from "@museoargent/video-contracts";
 import { sesionAdminValida } from "@/lib/admin-auth";
+import { normalizeAdminJobs } from "@/lib/admin-job-normalize";
 import { listJobsFromDisk } from "@/lib/admin-video-jobs";
 import {
   engineFetch,
@@ -26,8 +28,17 @@ export async function GET() {
   if (usarVideoEngineRemoto()) {
     try {
       const res = await engineFetch("/jobs");
-      const data = await res.json().catch(() => ({ jobs: [] }));
-      return NextResponse.json(data, { status: res.status });
+      const data = (await res.json().catch(() => ({ jobs: [] }))) as {
+        jobs?: JobView[];
+        error?: string;
+      };
+      if (!res.ok) {
+        return NextResponse.json(data, { status: res.status });
+      }
+      return NextResponse.json(
+        { jobs: normalizeAdminJobs(data.jobs ?? []) },
+        { status: 200 },
+      );
     } catch (err) {
       return NextResponse.json(
         {

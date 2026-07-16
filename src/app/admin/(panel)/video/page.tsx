@@ -1,7 +1,27 @@
 import { requireAdminSesion } from "@/lib/admin-auth";
+import { normalizeAdminJobs } from "@/lib/admin-job-normalize";
 import { listJobsFromDisk } from "@/lib/admin-video-jobs";
 import { cronicas } from "@/content/cronicas/registro";
 import { AdminVideoPanel } from "@/components/admin/AdminVideoPanel";
+import type { JobView } from "@museoargent/video-contracts";
+import {
+  engineFetch,
+  usarVideoEngineRemoto,
+} from "@/lib/video/engine-client";
+
+async function loadInitialJobs() {
+  if (usarVideoEngineRemoto()) {
+    try {
+      const res = await engineFetch("/jobs");
+      if (!res.ok) return [];
+      const data = (await res.json()) as { jobs?: JobView[] };
+      return normalizeAdminJobs(data.jobs ?? []);
+    } catch {
+      return [];
+    }
+  }
+  return listJobsFromDisk();
+}
 
 export default async function AdminVideoPage() {
   await requireAdminSesion();
@@ -16,7 +36,7 @@ export default async function AdminVideoPage() {
     .map((c) => ({ slug: c.slug, titulo: c.titulo }))
     .sort((a, b) => a.titulo.localeCompare(b.titulo, "es"));
 
-  const jobs = await listJobsFromDisk();
+  const jobs = await loadInitialJobs();
 
   return (
     <div className="space-y-5 sm:space-y-8">
