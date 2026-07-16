@@ -19,4 +19,5 @@ if (enVercelCloud) {
 }
 
 run("npx tsx scripts/cronicas-validar.ts");
+run("npm run build -w @museoargent/video-contracts");
 run("npx next build");
