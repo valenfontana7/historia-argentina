@@ -9,6 +9,11 @@ export const maxDuration = 120;
 
 const ENQUEUE_TIMEOUT_MS = 120_000;
 
+/** Vercel (y similares) no permiten spawn + FFmpeg + disco persistente. */
+function esRuntimeServerless(): boolean {
+  return Boolean(process.env.VERCEL) || Boolean(process.env.AWS_LAMBDA_FUNCTION_NAME);
+}
+
 const FORMAT_IDS = new Set([
   "reel",
   "short",
@@ -55,9 +60,22 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, mensaje: "Crónica no encontrada." }, { status: 404 });
   }
 
+  if (esRuntimeServerless()) {
+    return NextResponse.json(
+      {
+        ok: false,
+        mensaje:
+          "La generación de reels no corre en Vercel (necesita FFmpeg, tsx y disco local). Generá en tu máquina con el panel en localhost o: npm run video:generate -- " +
+          slug,
+      },
+      { status: 501 },
+    );
+  }
+
   const root = process.cwd();
   const script = path.join(root, "scripts", "video-generate.ts");
-  const args = ["tsx", script, slug];
+  // Usar node + tsx del proyecto (evita `npx` que intenta escribir en $HOME).
+  const args = ["--import", "tsx", script, slug];
   if (body.force) args.push("--force");
 
   const formatId =
@@ -93,7 +111,12 @@ export async function POST(request: Request) {
   }
 
   try {
-    const result = await spawnUntilEnqueued("npx", args, root, childEnv);
+    const result = await spawnUntilEnqueued(
+      process.execPath,
+      args,
+      root,
+      childEnv,
+    );
     if (result.kind === "pending") {
       return NextResponse.json({ ok: true, pending: true, slug });
     }
@@ -118,7 +141,7 @@ function spawnUntilEnqueued(
   return new Promise((resolve, reject) => {
     const child = spawn(cmd, args, {
       cwd,
-      shell: true,
+      shell: false,
       env,
       detached: true,
       stdio: ["ignore", "pipe", "pipe"],
