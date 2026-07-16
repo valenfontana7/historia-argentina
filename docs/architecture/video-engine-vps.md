@@ -22,36 +22,29 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
 ## Deploy
 
-En la VPS, cloná el repo (o copiá `apps/video-engine` + `packages/video-contracts` + lockfile) y:
+En la VPS (`64.23.232.142` / root):
 
 ```bash
-cd historia-argentina
-cp apps/video-engine/.env.example apps/video-engine/.env
+# Ya desplegado en /opt/historia-argentina
+cd /opt/historia-argentina
+cp apps/video-engine/.env.example apps/video-engine/.env   # si falta
 # Editá .env: VIDEO_ENGINE_API_KEY, OPENAI_API_KEY, etc.
 
 docker compose -f apps/video-engine/docker-compose.yml up -d --build
 curl -s http://127.0.0.1:4100/health
+curl -s http://64.23.232.142:4100/health
 ```
 
-Firewall (ejemplo UFW):
+Firewall: SSH + `4100/tcp` (UFW). Swap 1G recomendado.
 
-```bash
-sudo ufw allow OpenSSH
-sudo ufw allow 4100/tcp   # o solo 80/443 si usás Caddy/nginx
-sudo ufw enable
-```
-
-TLS opcional con Caddy reverse_proxy a `localhost:4100`.
-
-## Variables en Vercel
+## Variables en Vercel (solo bridge; OpenAI vive en el VPS)
 
 | Variable | Valor |
 |----------|--------|
-| `VIDEO_ENGINE_URL` | `https://tu-vps.ejemplo.com` (sin barra final) |
+| `VIDEO_ENGINE_URL` | `http://64.23.232.142:4100` (o HTTPS si agregás Caddy) |
 | `VIDEO_ENGINE_API_KEY` | Misma key que en el `.env` del engine |
 
-El admin en producción hace `POST /api/admin/reels/generate` → Next arma Exhibition → `POST {VIDEO_ENGINE_URL}/jobs`.
-
+No hace falta `OPENAI_*` en Vercel: la generación corre solo en el worker.
 ## Retención de disco
 
 Cron semanal (borra jobs de más de 14 días):
