@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import { SiteShellWrapper } from "@/components/SiteShellWrapper";
 import { metadataSitio } from "@/lib/seo/metadata";
 import { grafoSitioJsonLd } from "@/lib/seo/jsonld";
