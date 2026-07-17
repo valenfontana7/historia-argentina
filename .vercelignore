@@ -1,0 +1,40 @@
+# Evita que `vercel deploy` local suba caches y artefactos pesados.
+# Deploys vía Git en Vercel usan el repo limpio; esto cubre la CLI.
+
+# Datos locales (jobs, renders, cache de engines) — ~GB en disco
+/data
+
+# Caches y builds locales
+/.next
+/out
+/build
+/coverage
+/.turbo
+**/*.tsbuildinfo
+
+# Dist / generated de workspaces
+/apps/video-engine/dist
+/apps/carousel-engine/dist
+/packages/video-contracts/dist
+/packages/carousel-contracts/dist
+/apps/video-engine/src/generated
+/src/generated/prisma
+.prisma
+
+# Deps
+/node_modules
+**/node_modules
+
+# Env locales (no subir secretos)
+.env
+.env.*
+!.env.example
+!.env.desktop.example
+
+# Misc
+.DS_Store
+*.pem
+.vercel
+tmp
+tmp-*
+scripts/tmp-*
