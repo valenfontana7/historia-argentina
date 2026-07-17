@@ -22,6 +22,8 @@ export async function POST(request: Request) {
     );
   }
 
+  let planLog: PlanId | "desconocido" = "desconocido";
+
   try {
     if (!process.env.MP_ACCESS_TOKEN) {
       return NextResponse.json(
@@ -50,6 +52,7 @@ export async function POST(request: Request) {
     if (plan !== "mensual" && plan !== "fundador") {
       return NextResponse.json({ ok: false, mensaje: "Plan inválido." }, { status: 400 });
     }
+    planLog = plan;
     if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       return NextResponse.json({ ok: false, mensaje: "Email inválido." }, { status: 400 });
     }
@@ -58,7 +61,7 @@ export async function POST(request: Request) {
     registrarEvento("info", "checkout_creado", { solicitudId, plan });
     return NextResponse.json({ ok: true, initPoint });
   } catch (error) {
-    registrarError("checkout_error", error, { solicitudId });
+    registrarError("checkout_error", error, { solicitudId, plan: planLog });
     if (error instanceof PlanNoDisponibleError) {
       return NextResponse.json({ ok: false, mensaje: error.message }, { status: 403 });
     }
