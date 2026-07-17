@@ -1,4 +1,10 @@
-import { MercadoPagoConfig, Preference, PreApproval, Payment } from "mercadopago";
+import {
+  MercadoPagoConfig,
+  Preference,
+  PreApproval,
+  PreApprovalPlan,
+  Payment,
+} from "mercadopago";
 import { EstadoMecenas, PlanMecenas, Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { diasDePlan, planes, type PlanId } from "@/lib/membresia.config";
@@ -96,59 +102,155 @@ export async function crearCheckout(planId: PlanId, email: string) {
   });
 
   if (planId === "mensual") {
+    const suscripcion = await crearCheckoutMensual({
+      reason: `${plan.nombre} a ${sitio.nombre}`,
+      precio,
+      moneda: plan.moneda,
+      emailNorm,
+      reference,
+    });
+    if (suscripcion) return suscripcion;
+
+    registrarEvento("warn", "checkout_mensual_fallback_preference", {
+      plan: "mensual",
+    });
+  }
+
+  return crearCheckoutPreference({
+    planId,
+    plan,
+    precio,
+    emailNorm,
+    reference,
+  });
+}
+
+async function crearCheckoutMensual(opts: {
+  reason: string;
+  precio: number;
+  moneda: "ARS";
+  emailNorm: string;
+  reference: string;
+}): Promise<{ initPoint: string; id?: string } | null> {
+  const backUrl = `${baseUrl()}/membresia/gracias`;
+  const planIdEnv = process.env.MP_PREAPPROVAL_PLAN_ID?.trim();
+
+  const persistirSuscripcion = async (id: string | undefined, initPoint: string) => {
+    await prisma.mecenas.update({
+      where: { email: opts.emailNorm },
+      data: { mpSubscriptionId: id ? String(id) : undefined },
+    });
+    return { initPoint, id };
+  };
+
+  // 1) Plan fijo en env (si lo cargaste desde el panel / preapproval_plan).
+  if (planIdEnv) {
     try {
       const preapproval = new PreApproval(clienteMp());
       const result = await preapproval.create({
         body: {
-          reason: `${plan.nombre} a ${sitio.nombre}`,
-          auto_recurring: {
-            frequency: 1,
-            frequency_type: "months",
-            transaction_amount: precio,
-            currency_id: plan.moneda,
-          },
-          payer_email: emailNorm,
-          back_url: `${baseUrl()}/membresia/gracias?email=${encodeURIComponent(emailNorm)}`,
-          // No enviar status en create: "pending" no es un status de alta válido.
-          external_reference: reference,
+          preapproval_plan_id: planIdEnv,
+          reason: opts.reason,
+          payer_email: opts.emailNorm,
+          back_url: backUrl,
+          status: "pending",
+          external_reference: opts.reference,
         },
       });
-
-      const initPoint = result.init_point;
-      if (!initPoint) throw new Error("MercadoPago no devolvió init_point.");
-
-      await prisma.mecenas.update({
-        where: { email: emailNorm },
-        data: { mpSubscriptionId: result.id ? String(result.id) : undefined },
-      });
-
-      return { initPoint, id: result.id };
+      if (!result.init_point) throw new Error("MercadoPago no devolvió init_point.");
+      registrarEvento("info", "checkout_mensual_preapproval", { id: result.id, via: "plan_env" });
+      return persistirSuscripcion(result.id, result.init_point);
     } catch (error) {
-      throw errorDesdeMp(error, "preapproval.create");
+      registrarError("checkout_mensual_preapproval_fallo", error, {
+        via: "plan_env",
+        detalle: errorDesdeMp(error, "preapproval.create").message,
+      });
     }
   }
 
+  // 2) Suscripción sin plan asociado (docs MP: status pending obligatorio).
+  try {
+    const preapproval = new PreApproval(clienteMp());
+    const result = await preapproval.create({
+      body: {
+        reason: opts.reason,
+        auto_recurring: {
+          frequency: 1,
+          frequency_type: "months",
+          transaction_amount: opts.precio,
+          currency_id: opts.moneda,
+        },
+        payer_email: opts.emailNorm,
+        back_url: backUrl,
+        status: "pending",
+        external_reference: opts.reference,
+      },
+    });
+    if (!result.init_point) throw new Error("MercadoPago no devolvió init_point.");
+    registrarEvento("info", "checkout_mensual_preapproval", { id: result.id, via: "sin_plan" });
+    return persistirSuscripcion(result.id, result.init_point);
+  } catch (error) {
+    registrarError("checkout_mensual_preapproval_fallo", error, {
+      via: "sin_plan",
+      detalle: errorDesdeMp(error, "preapproval.create").message,
+    });
+  }
+
+  // 3) Crear plan al vuelo y usar su init_point.
+  try {
+    const planApi = new PreApprovalPlan(clienteMp());
+    const plan = await planApi.create({
+      body: {
+        reason: opts.reason,
+        auto_recurring: {
+          frequency: 1,
+          frequency_type: "months",
+          transaction_amount: opts.precio,
+          currency_id: opts.moneda,
+        },
+        back_url: backUrl,
+      },
+    });
+    if (!plan.init_point) throw new Error("MercadoPago no devolvió init_point del plan.");
+    registrarEvento("info", "checkout_mensual_preapproval_plan", { id: plan.id });
+    return { initPoint: plan.init_point, id: plan.id };
+  } catch (error) {
+    registrarError("checkout_mensual_preapproval_plan_fallo", error, {
+      detalle: errorDesdeMp(error, "preapproval_plan.create").message,
+    });
+  }
+
+  return null;
+}
+
+async function crearCheckoutPreference(opts: {
+  planId: PlanId;
+  plan: (typeof planes)[PlanId];
+  precio: number;
+  emailNorm: string;
+  reference: string;
+}) {
   try {
     const preference = new Preference(clienteMp());
     const result = await preference.create({
       body: {
         items: [
           {
-            id: plan.id,
-            title: `${plan.nombre} a ${sitio.nombre}`,
-            description: plan.descripcion,
+            id: opts.plan.id,
+            title: `${opts.plan.nombre} a ${sitio.nombre}`,
+            description: opts.plan.descripcion,
             quantity: 1,
-            unit_price: precio,
-            currency_id: plan.moneda,
+            unit_price: opts.precio,
+            currency_id: opts.plan.moneda,
           },
         ],
-        payer: { email: emailNorm },
-        external_reference: reference,
-        metadata: { plan: planId, email: emailNorm },
+        payer: { email: opts.emailNorm },
+        external_reference: opts.reference,
+        metadata: { plan: opts.planId, email: opts.emailNorm },
         back_urls: {
-          success: `${baseUrl()}/membresia/gracias?email=${encodeURIComponent(emailNorm)}`,
+          success: `${baseUrl()}/membresia/gracias?email=${encodeURIComponent(opts.emailNorm)}`,
           failure: `${baseUrl()}/membresia?error=pago`,
-          pending: `${baseUrl()}/membresia/gracias?email=${encodeURIComponent(emailNorm)}`,
+          pending: `${baseUrl()}/membresia/gracias?email=${encodeURIComponent(opts.emailNorm)}`,
         },
         auto_return: "approved",
         notification_url: `${baseUrl()}/api/mp/webhook`,
@@ -159,7 +261,7 @@ export async function crearCheckout(planId: PlanId, email: string) {
     if (!initPoint) throw new Error("MercadoPago no devolvió init_point.");
 
     await prisma.mecenas.update({
-      where: { email: emailNorm },
+      where: { email: opts.emailNorm },
       data: { mpPreferenceId: result.id ? String(result.id) : undefined },
     });
 
