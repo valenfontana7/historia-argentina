@@ -130,12 +130,20 @@ async function enqueueRemoto(
         const listData = (await listRes.json().catch(() => ({}))) as {
           jobs?: Array<{ id?: string; status?: string }>;
         };
-        const activo = listData.jobs?.find(
-          (j) =>
+        const activo = listData.jobs?.find((j) => {
+          const exhibitionId = (j as { exhibitionId?: string }).exhibitionId;
+          if (
+            typeof exhibitionId === "string" &&
+            exhibitionId.startsWith("fixture:")
+          ) {
+            return false;
+          }
+          return (
             j.status === "queued" ||
             j.status === "running" ||
-            (typeof j.status === "string" && j.status.startsWith("awaiting_")),
-        );
+            (typeof j.status === "string" && j.status.startsWith("awaiting_"))
+          );
+        });
         if (typeof activo?.id === "string") jobId = activo.id;
       } catch {
         // sin jobId el cliente puede recuperar por lista

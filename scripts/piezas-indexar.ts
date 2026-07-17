@@ -6,6 +6,7 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
 import { imagenesCronicas } from "../src/data/cronicas-imagenes";
+import { ESCENAS_COMPARADOR } from "../src/data/escenas-comparador";
 
 const ROOT = join(import.meta.dirname, "..");
 const MDX_DIR = join(ROOT, "src/content/cronicas");
@@ -14,6 +15,7 @@ const OUTPUT = join(ROOT, "src/lib/piezas/exhibiciones-por-pieza-mdx.ts");
 
 const IMAGEN_ID_RE =
   /imagenId=(?:"([^"]+)"|'([^']+)'|\{`([^`]+)`\}|\{"([^"]+)"\})/g;
+const TAG_RE = /<([A-Z][A-Za-z0-9]*)/g;
 
 function extractImagenIds(text: string): string[] {
   const ids = new Set<string>();
@@ -34,13 +36,24 @@ function buildScrollyIndex(): Map<string, string> {
   return map;
 }
 
-function componentesUsadosEnMdx(text: string, scrolly: Map<string, string>): string[] {
-  const usados: string[] = [];
-  for (const match of text.matchAll(/<([A-Z][A-Za-z0-9]*)/g)) {
+/** Tags JSX del MDX: scrolly en disco y/o escenas del Comparador paramétrico. */
+function idsDesdeComponentesMdx(
+  text: string,
+  scrolly: Map<string, string>,
+): string[] {
+  const ids = new Set<string>();
+  for (const match of text.matchAll(TAG_RE)) {
     const name = match[1];
-    if (scrolly.has(name)) usados.push(name);
+    const comparador = ESCENAS_COMPARADOR[name];
+    if (comparador?.imagenId) ids.add(comparador.imagenId);
+    const ruta = scrolly.get(name);
+    if (ruta) {
+      for (const id of extractImagenIds(readFileSync(ruta, "utf8"))) {
+        ids.add(id);
+      }
+    }
   }
-  return usados;
+  return [...ids];
 }
 
 function indexarExhibicionesPorPieza(): Record<string, string[]> {
@@ -53,11 +66,8 @@ function indexarExhibicionesPorPieza(): Record<string, string[]> {
     const text = readFileSync(join(MDX_DIR, file), "utf8");
     const ids = new Set(extractImagenIds(text));
 
-    for (const componente of componentesUsadosEnMdx(text, scrolly)) {
-      const ruta = scrolly.get(componente)!;
-      for (const id of extractImagenIds(readFileSync(ruta, "utf8"))) {
-        ids.add(id);
-      }
+    for (const id of idsDesdeComponentesMdx(text, scrolly)) {
+      ids.add(id);
     }
 
     for (const id of ids) {

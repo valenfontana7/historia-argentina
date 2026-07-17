@@ -23,6 +23,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
   themeColor: "#c6a15b",
   viewportFit: "cover",
 };
@@ -52,7 +54,7 @@ export default async function AdminPanelLayout({ children }: Props) {
     <div className="flex min-h-dvh flex-col">
       <AdminNav email={sesion.email} />
       <AdminInstallPrompt />
-      <div className="mx-auto w-full max-w-5xl flex-1 px-5 py-10 pb-[max(2.5rem,env(safe-area-inset-bottom))]">
+      <div className="mx-auto w-full min-w-0 max-w-5xl flex-1 px-4 py-5 pb-[max(2.5rem,env(safe-area-inset-bottom))] sm:px-5 sm:py-10">
         {children}
       </div>
     </div>

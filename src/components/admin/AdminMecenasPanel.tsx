@@ -196,7 +196,7 @@ export function AdminMecenasPanel({
                 onChange={(e) =>
                   setPreciosEdit((prev) => ({ ...prev, mensual: e.target.value }))
                 }
-                className="w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+                className="min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
               />
               <span className="shrink-0 text-xs text-tinta-tenue">/ mes</span>
             </div>
@@ -215,7 +215,7 @@ export function AdminMecenasPanel({
                 onChange={(e) =>
                   setPreciosEdit((prev) => ({ ...prev, fundador: e.target.value }))
                 }
-                className="w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+                className="min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
               />
               <span className="shrink-0 text-xs text-tinta-tenue">/ año</span>
             </div>
@@ -225,7 +225,7 @@ export function AdminMecenasPanel({
           type="button"
           disabled={guardando === "precios"}
           onClick={guardarPrecios}
-          className="mt-4 rounded-full bg-oro px-5 py-2 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro disabled:opacity-60"
+          className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-full bg-oro px-5 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro disabled:opacity-60 sm:w-auto"
         >
           {guardando === "precios" ? "Guardando…" : "Guardar precios"}
         </button>
@@ -249,12 +249,12 @@ export function AdminMecenasPanel({
                 {habilitado ? "Visible en /membresia" : "Oculto para visitantes"}
               </p>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
               <button
                 type="button"
                 disabled={guardando === plan}
                 onClick={() => togglePlan(plan, !habilitado)}
-                className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors disabled:opacity-60 ${
+                className={`inline-flex min-h-11 w-full items-center justify-center rounded-full px-5 text-sm font-semibold transition-colors disabled:opacity-60 sm:w-auto ${
                   habilitado
                     ? "border border-carmesi/50 text-carmesi hover:bg-carmesi/10"
                     : "bg-oro text-fondo hover:bg-oro-claro"
@@ -270,7 +270,7 @@ export function AdminMecenasPanel({
                 type="button"
                 disabled={probando === plan || !emailPrueba}
                 onClick={() => probarCheckout(plan)}
-                className="rounded-full border border-oro/50 px-5 py-2 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10 disabled:opacity-60"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-oro/50 px-5 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10 disabled:opacity-60 sm:w-auto"
               >
                 {probando === plan
                   ? "Redirigiendo…"

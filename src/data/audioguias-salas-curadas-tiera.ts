@@ -14,7 +14,7 @@ const BARRANCA_YACO: AudioguiaExhibicion = {
     {
       estacion: 1,
       titulo: "La cita en el camino",
-      texto: "4 de enero de 1835: Facundo viaja a Buenos Aires. No llegará. Facundo salió de La Rioja para negociar con Rosas. El viaje era político: dos caudillos midiendo fuerzas.",
+      texto: "4 de enero de 1835: Facundo viaja a Buenos Aires. No llegará. Facundo salió de La Rioja para negociar con Rosas. El viaje era político: dos caudillos midiendo fuerzas, midiendo lealtades, midiendo miedo.",
     },
     {
       estacion: 2,
@@ -25,6 +25,11 @@ const BARRANCA_YACO: AudioguiaExhibicion = {
       estacion: 3,
       titulo: "Civilización y barbarie",
       texto: "Diez años después, Sarmiento escribirá el libro que explicará este mundo. Barranca Yaco no resolvió la disputa entre federales y unitarios. Pero mató a uno de los personajes más poderosos del interior.",
+    },
+    {
+      estacion: 4,
+      titulo: "La sombra de Rosas",
+      texto: "Quién ganó con la muerte del Tigre no es un detalle menor. La historiografía discute hasta hoy el grado de responsabilidad de Rosas en la emboscada. Lo indudable es el efecto: sin Facundo, el interior perdió un contrapeso.",
     }
   ],
 };

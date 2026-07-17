@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AdminMecenasPersonasPanel } from "@/components/admin/AdminMecenasPersonasPanel";
-import { AdminMecenasSubNav } from "@/components/admin/AdminMecenasSubNav";
 import { requireAdminSesion } from "@/lib/admin-auth";
 import { listarMecenas } from "@/lib/mecenas-admin";
 
@@ -24,8 +23,6 @@ export default async function AdminMecenasPersonasPage() {
           Listado de mecenas, alta manual y control de cortesías y vencimientos.
         </p>
       </div>
-
-      <AdminMecenasSubNav />
 
       <AdminMecenasPersonasPanel
         initialDatos={listado.datos}

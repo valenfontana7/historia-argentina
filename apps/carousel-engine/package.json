@@ -1,0 +1,34 @@
+{
+  "name": "@museoargent/carousel-engine",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "tsx src/main.ts",
+    "start:dev": "tsx watch src/main.ts",
+    "cli": "tsx src/interface/cli/cli.ts",
+    "test": "node --import tsx --test test/**/*.test.ts src/**/*.test.ts",
+    "playwright:install": "playwright install chromium"
+  },
+  "dependencies": {
+    "@museoargent/carousel-contracts": "*",
+    "@nestjs/common": "^11.1.3",
+    "@nestjs/core": "^11.1.3",
+    "@nestjs/platform-express": "^11.1.3",
+    "dotenv": "^17.4.2",
+    "playwright": "^1.53.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  }
+}

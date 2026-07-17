@@ -1,0 +1,84 @@
+{
+  "id": "fixture-cruzada",
+  "title": "La Cruzada Libertadora",
+  "locale": "es-AR",
+  "slides": [
+    {
+      "id": "s1",
+      "type": "cover",
+      "title": "La Cruzada Libertadora",
+      "subtitle": "Cuando la política se hizo guerra civil",
+      "kicker": "Historia argentina · 1955",
+      "image": {
+        "id": "cover-img",
+        "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Jos%C3%A9_de_San_Mart%C3%ADn.jpg/960px-Jos%C3%A9_de_San_Mart%C3%ADn.jpg",
+        "alt": "Retrato de San Martín",
+        "credit": "Wikimedia Commons",
+        "focusX": 0.48,
+        "focusY": 0.28
+      }
+    },
+    {
+      "id": "s2",
+      "type": "content",
+      "title": "El clima previo",
+      "body": "La Argentina de mediados de los cincuenta arrastraba una polarización profunda. Instituciones, prensa y fuerzas armadas disputaban el sentido del orden político.",
+      "image": {
+        "id": "content-img",
+        "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Cabildo_de_Buenos_Aires.jpg/960px-Cabildo_de_Buenos_Aires.jpg",
+        "alt": "Cabildo de Buenos Aires",
+        "focusX": 0.5,
+        "focusY": 0.45
+      },
+      "caption": "Documentos y proclamas circularon como armas simbólicas."
+    },
+    {
+      "id": "s3",
+      "type": "quote",
+      "quote": "No hay relato neutro cuando el poder se disputa a cañonazos.",
+      "attribution": "Sala editorial · Argent"
+    },
+    {
+      "id": "s4",
+      "type": "statistic",
+      "value": "16-S",
+      "label": "Inicio del levantamiento",
+      "context": "Septiembre de 1955 marca el quiebre abierto."
+    },
+    {
+      "id": "s5",
+      "type": "gallery",
+      "images": [
+        {
+          "id": "g1",
+          "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Casa_Rosada.jpg/960px-Casa_Rosada.jpg",
+          "alt": "Casa Rosada",
+          "focusX": 0.5,
+          "focusY": 0.4
+        },
+        {
+          "id": "g2",
+          "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Cabildo_de_Buenos_Aires.jpg/960px-Cabildo_de_Buenos_Aires.jpg",
+          "alt": "Cabildo",
+          "focusX": 0.5,
+          "focusY": 0.4
+        },
+        {
+          "id": "g3",
+          "src": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Obelisco_de_Buenos_Aires.jpg",
+          "alt": "Obelisco",
+          "focusX": 0.5,
+          "focusY": 0.35
+        }
+      ],
+      "caption": "Territorio, imagen y memoria: tres capas del mismo episodio."
+    },
+    {
+      "id": "s6",
+      "type": "ending_cta",
+      "title": "Seguí en MuseoArgent",
+      "body": "Contexto, actores y consecuencias en la sala digital.",
+      "cta": "@museoargent"
+    }
+  ]
+}

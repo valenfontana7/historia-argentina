@@ -50,5 +50,7 @@ next-env.d.ts
 /data/video-engine/
 /apps/video-engine/src/generated/
 /apps/video-engine/dist/
+/apps/carousel-engine/dist/
 /packages/video-contracts/dist/
+/packages/carousel-contracts/dist/
 /data/

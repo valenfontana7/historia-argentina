@@ -1,6 +1,7 @@
 import {
   isAwaitingStatus,
   isBusyStatus,
+  isFixtureExhibitionId,
   normalizeResumePhase,
   type CreateJobRequest,
   type JobMetrics,
@@ -136,6 +137,7 @@ export class InMemoryJobQueue implements JobQueue {
 
   async hasActiveJob(): Promise<boolean> {
     for (const job of this.jobs.values()) {
+      if (isFixtureExhibitionId(job.exhibitionId)) continue;
       if (isBusyStatus(job.status)) return true;
     }
     return false;
@@ -307,6 +309,10 @@ export class InMemoryJobQueue implements JobQueue {
     let status = orphan ? ("failed" as JobStatus) : view.status;
     // Legacy awaiting_review → awaiting_assets
     if (status === "awaiting_review") status = "awaiting_assets";
+    // Fixtures de tests no deben quedar bloqueando la cola al hidratar.
+    const dropFixture =
+      isFixtureExhibitionId(view.exhibitionId) && isBusyStatus(status);
+    if (dropFixture) status = "cancelled";
 
     const job: InternalJob = {
       id: view.id,
@@ -316,7 +322,9 @@ export class InMemoryJobQueue implements JobQueue {
       stage: view.stage,
       error: orphan
         ? "Interrumpido por reinicio del worker"
-        : view.error,
+        : dropFixture
+          ? "Fixture de test cancelado al hidratar"
+          : view.error,
       outputMp4Uri: view.outputMp4Uri,
       manifestUri: view.manifestUri,
       exhibitionJson: { id: view.exhibitionId },

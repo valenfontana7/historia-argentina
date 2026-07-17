@@ -314,3 +314,8 @@ export function isAwaitingStatus(status: JobStatus): boolean {
 export function isBusyStatus(status: JobStatus): boolean {
   return status === "queued" || status === "running" || isAwaitingStatus(status);
 }
+
+/** Jobs de tests (`fixture:…`); no deben bloquear la cola de producción. */
+export function isFixtureExhibitionId(exhibitionId: string): boolean {
+  return exhibitionId.startsWith("fixture:");
+}

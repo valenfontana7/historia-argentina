@@ -12,10 +12,9 @@
 
 <VitrinaContexto
   tipo="persona"
-  slug="juan-domingo-peron"
-  puente="Su retrato en el Panteón: el movimiento que cambió el siglo XX."
+  slug="juan-bautista-alberdi"
+  puente="Apertura, crédito y reglas: el hilo liberal que Cambiemos intentó reactivar."
 />
-
 
 <Comparador
   izquierda={<MacriPresidente />}
@@ -25,34 +24,56 @@
   inicio="derecha"
 />
 
-<Capitulo
-  numero="II"
-  titulo="Apertura y deuda"
-  bajada="2015 a 2019: apertura, gradualismo y el costo de no anclar la moneda."
-/>
-
-<Prosa>
-  Macri prometió «lluvia de inversiones» y normalización internacional. Levantó controles cambiarios, negoció con los **holdouts** del default de 2001 y apostó al crédito externo. Fue apertura con **gradualismo**: menos shock que las privatizaciones de los noventa, más deuda que ancla monetaria creíble. La inflación no cedió.
-
-  En 2018, un acuerdo con el **FMI** por 57.000 millones de dólares intentó contener la crisis. No alcanzó. La recesión profundizó la desconfianza: sin reglas claras sobre el gasto y la moneda, el ajuste llega tarde y duele igual.
-</Prosa>
-
-<FilaDeDatos>
-  <DatoGigante valor={2015} etiqueta="año del cambio" />
-  <DatoGigante valor={51} etiqueta="% de votos en el balotaje" />
-  <DatoGigante valor={2019} etiqueta="derrota electoral" />
-</FilaDeDatos>
-
-<Capitulo
-  numero="III"
-  titulo="El retrato del cambio"
-  bajada="Macri abrió la economía y cerró una era política."
-/>
-
 <IlustracionEscena
   imagenId="macri-retrato"
   pie="Mauricio Macri, presidente de la Argentina (2015 a 2019)"
   formato="retrato"
+/>
+
+<Capitulo
+  numero="II"
+  titulo="Holdouts y apertura"
+  bajada="2016: salir del default con los fondos buitre y levantar el cepo."
+/>
+
+<Prosa>
+  Macri levantó el **cepo** heredado, negoció con los **holdouts** del default de 2001 y volvió a los mercados de deuda. Prometió «lluvia de inversiones» y normalización internacional. Fue apertura con **gradualismo**: menos shock que los noventa, más crédito externo que ancla monetaria creíble.
+
+  El consumo político del «cambio» fue alto; la inflación no cedió al ritmo esperado. Sin reglas claras sobre gasto y moneda, la normalización se volvió frágil.
+</Prosa>
+
+<IlustracionEscena
+  imagenId="macri-cambiemos"
+  pie="2015: Cambiemos gana el balotaje y redefine la política argentina"
+/>
+
+<IlustracionEscena
+  imagenId="cristina-retrato"
+  pie="Doce años K: el ciclo que Cambiemos prometió cerrar"
+  formato="retrato"
+/>
+
+<FilaDeDatos>
+  <DatoGigante valor={2015} etiqueta="año del cambio" />
+  <DatoGigante valor={51} etiqueta="% de votos en el balotaje" />
+  <DatoGigante valor={2016} etiqueta="acuerdo con holdouts" />
+</FilaDeDatos>
+
+<Capitulo
+  numero="III"
+  titulo="El stand-by de 2018"
+  bajada="La corrida fuerza el regreso al FMI: el préstamo más grande de su historia."
+/>
+
+<Prosa>
+  En **2018**, una corrida cambiaria quebró el relato gradualista. El gobierno firmó un **stand-by** con el FMI por decenas de miles de millones de dólares. Para el oficialismo, era el ancla faltante; para la oposición, la confesión del fracaso.
+
+  La crónica completa está en **El stand-by de 2018**. Acá queda el quiebre: Cambiemos pasó de vender normalidad a administrar un programa del Fondo bajo recesión.
+</Prosa>
+
+<IlustracionEscena
+  imagenId="fmi-sede"
+  pie="El FMI: el acreedor del stand-by que definió el final del macrismo"
 />
 
 <CitaHistorica
@@ -63,12 +84,55 @@
 
 <Capitulo
   numero="IV"
-  titulo="El fin del ciclo"
-  bajada="2019: el peronismo vuelve. La polarización sigue."
+  titulo="Ajuste y desgaste"
+  bajada="2018 a 2019: metas, tarifas y un electorado que no perdonó."
+/>
+
+<Prosa>
+  El programa del Fondo coincidió con recesión, suba de tarifas y un dólar que no terminaba de calmarse. El gobierno defendió el acuerdo como único camino; la calle lo vivió como ajuste. La polarización que Macri había prometido bajar se reordenó en torno al Fondo y al bolsillo.
+</Prosa>
+
+<IlustracionEscena
+  imagenId="crisis-2001-diagrama"
+  pie="El fantasma de las crisis de deuda: la memoria que 2018 reactivó"
+  formato="cuadrado"
+/>
+
+<Capitulo
+  numero="V"
+  titulo="La derrota de 2019"
+  bajada="Alberto y Cristina vuelven; Cambiemos deja la Rosada."
+/>
+
+<Prosa>
+  En octubre de **2019**, **Alberto Fernández** y **Cristina Fernández** ganaron las elecciones. Macri dejó inflación alta, deuda récord y el stand-by como herencia central. El peronismo volvió con otra fórmula; la grieta, intacta.
+</Prosa>
+
+<IlustracionEscena
+  imagenId="alberto-fernandez-retrato"
+  pie="Alberto Fernández: el peronismo que volvió en 2019"
+  formato="retrato"
+/>
+
+<FilaDeDatos>
+  <DatoGigante valor={2018} etiqueta="stand-by con el FMI" />
+  <DatoGigante valor={57} etiqueta="mil millones USD (orden de magnitud)" />
+  <DatoGigante valor={2019} etiqueta="derrota electoral" />
+</FilaDeDatos>
+
+<Capitulo
+  numero="VI"
+  titulo="El fin del ciclo Cambiemos"
+  bajada="Abrir sin estabilizar del todo: la lección que quedó."
 />
 
 <Prosa fondo="papel">
-  En octubre de **2019**, **Alberto Fernández** y **Cristina Fernández** ganaron las elecciones. Macri dejó la presidencia con inflación alta, deuda récord y un país que no había encontrado el equilibrio entre apertura y disciplina monetaria.
+  Para entender la Argentina después de los K hay que leer a Macri junto a **El stand-by de 2018** y a **El acuerdo con el FMI**: el intento de abrir sin anclar del todo la moneda, el préstamo récord, y la renegociación que vino después.
 
-  Para entender la Argentina después de los K, hay que leer Macri: el intento de abrir sin estabilizar del todo, y la lección museográfica de que, en este país, el cambio político no basta si la moneda sigue sin reglas creíbles.
+  El cambio político no bastó. En este país, cuando la moneda pierde reglas creíbles, el electorado cobra — y el Fondo vuelve al relato nacional.
 </Prosa>
+
+<IlustracionEscena
+  imagenId="milei-eleccion"
+  pie="La polarización que sobrevivió a Cambiemos y abrió otra ruptura en 2023"
+/>

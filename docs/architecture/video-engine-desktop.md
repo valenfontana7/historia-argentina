@@ -104,8 +104,43 @@ El VPS (`64.23.232.142:4100`) deja de usarse para video: podés apagar el contai
 ## Rutina diaria
 
 1. `npm run video:engine:desktop`  
-2. `npm run video:tunnel` (o el túnel nombrado)  
-3. Si usás quick tunnel: actualizá `VIDEO_ENGINE_URL` en Vercel cuando cambie la URL (o pasá al túnel estable)
+2. `npm run carousel:engine:start` (necesario para `/admin/carousel`)  
+3. `npm run video:tunnel` (o el túnel nombrado) — **un solo túnel** sirve video y carousel  
+4. Si usás **quick tunnel**: cada vez que reiniciás, actualizá `VIDEO_ENGINE_URL` en Vercel (sin `/` final). Con túnel nombrado estable no hace falta.
+
+### Checklist rápido
+
+| Check | Qué esperar |
+|-------|-------------|
+| `GET ${VIDEO_ENGINE_URL}/health` | `ok` (video-engine) |
+| `GET ${VIDEO_ENGINE_URL}/carousel/health` | `{ ok, service: "carousel-engine", renderer, chromiumOk, storageRoot }` |
+| `renderer` | `"playwright"` en producción local; `"fake"` = PNG placeholder |
+| Admin `/admin/carousel` | Sin banner offline; si hay banner “fake”, instalá Chromium |
+
+Si `renderer` es `"fake"` o `chromiumOk: false`:
+
+```bash
+cd apps/carousel-engine
+npm run playwright:install
+# reiniciá carousel-engine
+```
+
+### Vars carousel (PC local)
+
+| Variable | Default / notas |
+|----------|-----------------|
+| `CAROUSEL_ENGINE_PORT` | `4120` |
+| `CAROUSEL_ENGINE_API_KEY` | Opcional; si falta, hereda `VIDEO_ENGINE_API_KEY` |
+| `CAROUSEL_STORAGE_ROOT` | `data/carousel-engine` |
+| `CAROUSEL_USE_FAKE_RENDERER` | `1` / `true` fuerza placeholders (tests) |
+| `CAROUSEL_ENGINE_URL` | Solo Next local si querés bypassear el proxy (`http://127.0.0.1:4120`) |
+| `CAROUSEL_ENGINE_UPSTREAM` | Solo video-engine: URL del carousel detrás del proxy |
+
+En **Vercel** no hace falta vars nuevas: el admin usa `VIDEO_ENGINE_URL` + `VIDEO_ENGINE_API_KEY` y el path `/carousel/*`.
+
+El video-engine expone `/carousel/*` como proxy a `http://127.0.0.1:4120`. En local, Next puede hablar directo a `:4120`.
+
+Flujo carousel: elegí crónica en `/admin/carousel` → Crear desde crónica → editar texto/focus → re-render slide → Export ZIP → borrar job.
 
 Evitá hibernar Windows a mitad de un render.
 
@@ -119,6 +154,11 @@ Solo necesitás localhost: el túnel sale hacia Cloudflare. No hace falta abrir 
 |---------|----------------|
 | `501` / engine offline en admin | Túnel caído o `VIDEO_ENGINE_URL` vieja |
 | `401` del engine | `VIDEO_ENGINE_API_KEY` distinta entre Vercel y `.env` |
+| Carousel `502` / unreachable | Falta `npm run carousel:engine:start` en la PC |
+| Banner “túnel inaccesible” | Quick tunnel caído o `VIDEO_ENGINE_URL` desactualizada |
+| Banner “carousel no responde” (video OK) | Solo falta el proceso en `:4120` |
+| Banner “renderer fake” / PNG placeholder | Falta Chromium: `npm run playwright:install` en `apps/carousel-engine` y reiniciar |
+| Carousel `401` | Carousel no heredó la key: revisá `apps/video-engine/.env` |
 | `ffmpeg failed` | `ffmpeg -version` en PATH; reinstalar Gyan.FFmpeg |
 | Job `running` eterno tras cerrar la PC | Al reiniciar el engine, hydrate marca huérfanos como `failed` |
 | OOM | Subí `NODE_OPTIONS=--max-old-space-size=4096` |

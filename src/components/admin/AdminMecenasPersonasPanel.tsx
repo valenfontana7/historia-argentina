@@ -272,7 +272,7 @@ export function AdminMecenasPersonasPanel({
         <button
           type="button"
           onClick={() => setMostrarAlta((v) => !v)}
-          className="rounded-full bg-oro px-5 py-2 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro"
+          className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-oro px-5 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro sm:w-auto"
         >
           {mostrarAlta ? "Ocultar formulario" : "Agregar mecenas"}
         </button>
@@ -292,7 +292,7 @@ export function AdminMecenasPersonasPanel({
                 required
                 value={altaForm.email}
                 onChange={(e) => setAltaForm((p) => ({ ...p, email: e.target.value }))}
-                className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+                className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
               />
             </label>
             <label className="block">
@@ -302,7 +302,7 @@ export function AdminMecenasPersonasPanel({
                 onChange={(e) =>
                   setAltaForm((p) => ({ ...p, plan: e.target.value as PlanId }))
                 }
-                className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+                className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
               >
                 <option value="mensual">{planes.mensual.nombre}</option>
                 <option value="fundador">{planes.fundador.nombre}</option>
@@ -317,7 +317,7 @@ export function AdminMecenasPersonasPanel({
                 disabled={altaForm.sinVencimiento}
                 value={altaForm.periodEnd}
                 onChange={(e) => setAltaForm((p) => ({ ...p, periodEnd: e.target.value }))}
-                className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50 disabled:opacity-50"
+                className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 disabled:opacity-50 sm:text-sm"
               />
             </label>
             <label className="flex items-center gap-2 text-sm text-tinta-suave">
@@ -360,7 +360,7 @@ export function AdminMecenasPersonasPanel({
                 onChange={(e) =>
                   setAltaForm((p) => ({ ...p, nombrePublico: e.target.value }))
                 }
-                className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+                className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
               />
             </label>
             <label className="block">
@@ -371,14 +371,14 @@ export function AdminMecenasPersonasPanel({
                 type="text"
                 value={altaForm.notasAdmin}
                 onChange={(e) => setAltaForm((p) => ({ ...p, notasAdmin: e.target.value }))}
-                className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+                className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
               />
             </label>
           </div>
           <button
             type="submit"
             disabled={guardando}
-            className="rounded-full bg-oro px-5 py-2 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro disabled:opacity-60"
+            className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-oro px-5 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro disabled:opacity-60 sm:w-auto"
           >
             {guardando ? "Creando…" : "Crear mecenas"}
           </button>
@@ -393,7 +393,7 @@ export function AdminMecenasPersonasPanel({
             value={filtroQ}
             onChange={(e) => setFiltroQ(e.target.value)}
             placeholder="ejemplo@…"
-            className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+            className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
           />
         </label>
         <label className="block">
@@ -401,7 +401,7 @@ export function AdminMecenasPersonasPanel({
           <select
             value={filtroEstado}
             onChange={(e) => setFiltroEstado(e.target.value)}
-            className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+            className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
           >
             <option value="">Todos</option>
             {ESTADOS.map((e) => (
@@ -416,7 +416,7 @@ export function AdminMecenasPersonasPanel({
           <select
             value={filtroPlan}
             onChange={(e) => setFiltroPlan(e.target.value)}
-            className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+            className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
           >
             <option value="">Todos</option>
             {PLANES.map((p) => (
@@ -431,7 +431,7 @@ export function AdminMecenasPersonasPanel({
           <select
             value={filtroExento}
             onChange={(e) => setFiltroExento(e.target.value)}
-            className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+            className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
           >
             <option value="">Todos</option>
             <option value="true">Solo cortesía</option>
@@ -440,65 +440,135 @@ export function AdminMecenasPersonasPanel({
         </label>
       </div>
 
-      <div className="overflow-x-auto rounded-sm border border-linea">
-        <table className="w-full min-w-[720px] text-left text-sm">
-          <thead className="border-b border-linea bg-fondo-2 text-xs uppercase tracking-[0.14em] text-tinta-tenue">
-            <tr>
-              <th className="px-4 py-3 font-medium">Email</th>
-              <th className="px-4 py-3 font-medium">Plan</th>
-              <th className="px-4 py-3 font-medium">Estado</th>
-              <th className="px-4 py-3 font-medium">Vence</th>
-              <th className="px-4 py-3 font-medium">Origen</th>
-              <th className="px-4 py-3 font-medium">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {datos.length === 0 ? (
-              <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-tinta-suave">
-                  No hay mecenas con estos filtros.
-                </td>
-              </tr>
-            ) : (
-              datos.map((row) => (
-                <tr key={row.id} className="border-b border-linea-suave last:border-0">
-                  <td className="px-4 py-3">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-tinta">{row.email}</span>
-                      {row.exentoFacturacion && (
-                        <span className="rounded-full bg-oro/10 px-2 py-0.5 text-[0.65rem] uppercase tracking-wider text-oro-claro">
-                          Cortesía
-                        </span>
-                      )}
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 text-tinta-suave">{labelPlan(row.plan)}</td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`inline-block rounded-full px-2.5 py-0.5 text-xs uppercase tracking-wider ${pillEstado(row.estado)}`}
-                    >
-                      {row.estado}
+      {datos.length === 0 ? (
+        <p className="rounded-sm border border-linea px-4 py-8 text-center text-sm text-tinta-suave">
+          No hay mecenas con estos filtros.
+        </p>
+      ) : (
+        <>
+          <ul className="space-y-3 md:hidden">
+            {datos.map((row) => (
+              <li
+                key={row.id}
+                className="rounded-sm border border-linea bg-fondo-2 p-4"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="break-all text-sm font-medium text-tinta">
+                    {row.email}
+                  </span>
+                  {row.exentoFacturacion && (
+                    <span className="rounded-full bg-oro/10 px-2 py-0.5 text-[0.65rem] uppercase tracking-wider text-oro-claro">
+                      Cortesía
                     </span>
-                  </td>
-                  <td className="px-4 py-3 text-tinta-suave">{formatearFecha(row.periodEnd)}</td>
-                  <td className="px-4 py-3 text-tinta-suave">
-                    {row.origen === "mercadopago" ? "MercadoPago" : "Manual"}
-                  </td>
-                  <td className="px-4 py-3">
-                    <button
-                      type="button"
-                      onClick={() => abrirEdicion(row)}
-                      className="rounded-full border border-oro/50 px-3 py-1 text-xs font-semibold text-oro-claro transition-colors hover:bg-oro/10"
-                    >
-                      Editar
-                    </button>
-                  </td>
+                  )}
+                </div>
+                <dl className="mt-3 grid grid-cols-2 gap-2 text-sm">
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.14em] text-tinta-tenue">
+                      Plan
+                    </dt>
+                    <dd className="mt-0.5 text-tinta-suave">{labelPlan(row.plan)}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.14em] text-tinta-tenue">
+                      Estado
+                    </dt>
+                    <dd className="mt-0.5">
+                      <span
+                        className={`inline-block rounded-full px-2.5 py-0.5 text-xs uppercase tracking-wider ${pillEstado(row.estado)}`}
+                      >
+                        {row.estado}
+                      </span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.14em] text-tinta-tenue">
+                      Vence
+                    </dt>
+                    <dd className="mt-0.5 text-tinta-suave">
+                      {formatearFecha(row.periodEnd)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.14em] text-tinta-tenue">
+                      Origen
+                    </dt>
+                    <dd className="mt-0.5 text-tinta-suave">
+                      {row.origen === "mercadopago" ? "MercadoPago" : "Manual"}
+                    </dd>
+                  </div>
+                </dl>
+                <button
+                  type="button"
+                  onClick={() => abrirEdicion(row)}
+                  className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-full border border-oro/50 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10"
+                >
+                  Editar
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <div className="hidden overflow-x-auto rounded-sm border border-linea md:block">
+            <table className="w-full min-w-[720px] text-left text-sm">
+              <thead className="border-b border-linea bg-fondo-2 text-xs uppercase tracking-[0.14em] text-tinta-tenue">
+                <tr>
+                  <th className="px-4 py-3 font-medium">Email</th>
+                  <th className="px-4 py-3 font-medium">Plan</th>
+                  <th className="px-4 py-3 font-medium">Estado</th>
+                  <th className="px-4 py-3 font-medium">Vence</th>
+                  <th className="px-4 py-3 font-medium">Origen</th>
+                  <th className="px-4 py-3 font-medium">Acciones</th>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+              </thead>
+              <tbody>
+                {datos.map((row) => (
+                  <tr
+                    key={row.id}
+                    className="border-b border-linea-suave last:border-0"
+                  >
+                    <td className="px-4 py-3">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-tinta">{row.email}</span>
+                        {row.exentoFacturacion && (
+                          <span className="rounded-full bg-oro/10 px-2 py-0.5 text-[0.65rem] uppercase tracking-wider text-oro-claro">
+                            Cortesía
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 text-tinta-suave">
+                      {labelPlan(row.plan)}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span
+                        className={`inline-block rounded-full px-2.5 py-0.5 text-xs uppercase tracking-wider ${pillEstado(row.estado)}`}
+                      >
+                        {row.estado}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-tinta-suave">
+                      {formatearFecha(row.periodEnd)}
+                    </td>
+                    <td className="px-4 py-3 text-tinta-suave">
+                      {row.origen === "mercadopago" ? "MercadoPago" : "Manual"}
+                    </td>
+                    <td className="px-4 py-3">
+                      <button
+                        type="button"
+                        onClick={() => abrirEdicion(row)}
+                        className="inline-flex min-h-11 items-center rounded-full border border-oro/50 px-4 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10"
+                      >
+                        Editar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
 
       {totalPaginas > 1 && (
         <div className="flex items-center justify-center gap-3">
@@ -506,7 +576,7 @@ export function AdminMecenasPersonasPanel({
             type="button"
             disabled={pagina <= 1 || cargando}
             onClick={() => void cargarListado(pagina - 1)}
-            className="rounded-full border border-linea px-4 py-2 text-sm text-tinta-suave disabled:opacity-50"
+            className="inline-flex min-h-11 items-center rounded-full border border-linea px-4 text-sm text-tinta-suave disabled:opacity-50"
           >
             Anterior
           </button>
@@ -517,7 +587,7 @@ export function AdminMecenasPersonasPanel({
             type="button"
             disabled={pagina >= totalPaginas || cargando}
             onClick={() => void cargarListado(pagina + 1)}
-            className="rounded-full border border-linea px-4 py-2 text-sm text-tinta-suave disabled:opacity-50"
+            className="inline-flex min-h-11 items-center rounded-full border border-linea px-4 text-sm text-tinta-suave disabled:opacity-50"
           >
             Siguiente
           </button>
@@ -554,7 +624,7 @@ export function AdminMecenasPersonasPanel({
                   onChange={(e) =>
                     setEditForm((p) => ({ ...p, estado: e.target.value as EstadoMecenas }))
                   }
-                  className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+                  className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
                 >
                   {ESTADOS.map((e) => (
                     <option key={e} value={e}>
@@ -574,7 +644,7 @@ export function AdminMecenasPersonasPanel({
                       esFundador: e.target.value === "fundador",
                     }))
                   }
-                  className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+                  className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
                 >
                   <option value="mensual">{planes.mensual.nombre}</option>
                   <option value="fundador">{planes.fundador.nombre}</option>
@@ -589,7 +659,7 @@ export function AdminMecenasPersonasPanel({
                   disabled={editForm.sinVencimiento}
                   value={editForm.periodEnd}
                   onChange={(e) => setEditForm((p) => ({ ...p, periodEnd: e.target.value }))}
-                  className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50 disabled:opacity-50"
+                  className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 disabled:opacity-50 sm:text-sm"
                 />
               </label>
               <label className="flex items-center gap-2 text-sm text-tinta-suave">
@@ -632,7 +702,7 @@ export function AdminMecenasPersonasPanel({
                   onChange={(e) =>
                     setEditForm((p) => ({ ...p, nombrePublico: e.target.value }))
                   }
-                  className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+                  className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
                 />
               </label>
               <label className="block sm:col-span-2">
@@ -643,23 +713,23 @@ export function AdminMecenasPersonasPanel({
                   rows={2}
                   value={editForm.notasAdmin}
                   onChange={(e) => setEditForm((p) => ({ ...p, notasAdmin: e.target.value }))}
-                  className="mt-2 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-sm text-tinta outline-none focus:border-oro/50"
+                  className="mt-2 min-h-11 w-full rounded-sm border border-linea bg-fondo px-3 py-2 text-base text-tinta outline-none focus:border-oro/50 sm:text-sm"
                 />
               </label>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <button
                 type="submit"
                 disabled={guardando}
-                className="rounded-full bg-oro px-5 py-2 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro disabled:opacity-60"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-oro px-5 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro disabled:opacity-60 sm:w-auto"
               >
                 {guardando ? "Guardando…" : "Guardar"}
               </button>
               <button
                 type="button"
                 onClick={() => setEditandoId(null)}
-                className="rounded-full border border-linea px-5 py-2 text-sm text-tinta-suave"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-linea px-5 text-sm text-tinta-suave sm:w-auto"
               >
                 Cancelar
               </button>

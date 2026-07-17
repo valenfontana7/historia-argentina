@@ -16,13 +16,18 @@
   puente="Quien devolvió la democracia: su retrato en el Panteón."
 />
 
-
 <Comparador
   izquierda={<HiperinflacionGrafico />}
   derecha={<HiperinflacionAlfonsin />}
   etiquetaIzquierda="La espiral"
   etiquetaDerecha="Alfonsín"
   inicio="izquierda"
+/>
+
+<IlustracionEscena
+  imagenId="hiperinflacion-grafico"
+  pie="Inflación e hiperinflación en Argentina, 1989 a 1990"
+  formato="cuadrado"
 />
 
 <Capitulo
@@ -37,22 +42,27 @@
   Alfonsín adelantó la entrega del mando. El **8 de julio de 1989**, cinco meses antes de terminar su mandato, dejó la presidencia. La democracia sobrevivió. El modelo económico, no.
 </Prosa>
 
+<IlustracionEscena
+  imagenId="transicion-alfonsin"
+  pie="Alfonsín: la democracia intacta, la moneda destrozada"
+  formato="retrato"
+/>
+
 <FilaDeDatos>
   <DatoGigante valor={5000} sufijo=" %" etiqueta="inflación mensual en 1989" />
-  <DatoGigante valor={1989} etiqueta="año del Rodrigazo" />
+  <DatoGigante valor={1989} etiqueta="año de la hiperinflación" />
   <DatoGigante valor={8} etiqueta="de julio: entrega anticipada" />
 </FilaDeDatos>
 
 <Capitulo
   numero="III"
-  titulo="El gráfico del colapso"
-  bajada="1989 a 1990: cuando el peso dejó de valer nada."
+  titulo="Después del Austral"
+  bajada="1985 había prometido ancla. 1989 mostró el precio de romperla."
 />
 
 <IlustracionEscena
-  imagenId="hiperinflacion-grafico"
-  pie="Inflación e hiperinflación en Argentina, 1989 a 1990"
-  formato="cuadrado"
+  imagenId="transicion-1985"
+  pie="El año del Austral: el intento que la hiperinflación sepultó"
 />
 
 <CitaHistorica
@@ -72,3 +82,9 @@
 
   **Menem** asumió con la promesa de estabilidad. La **convertibilidad** llegaría dos años después. La hiperinflación de 1989 fue el puente entre la democracia recuperada y el modelo que terminó en el corralito de 2001.
 </Prosa>
+
+<IlustracionEscena
+  imagenId="menem-1989"
+  pie="Menem asume en 1989: el peronismo vuelve sobre la crisis"
+  formato="retrato"
+/>

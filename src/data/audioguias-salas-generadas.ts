@@ -9,17 +9,22 @@ const ALSOGARAY: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Pasar el invierno",
-      texto: "1959: Alsogaray llega a Economía con una cura amarga.",
+      texto: "1959 a 1999. Alsogaray: estabilizar antes de prometer milagros.",
     },
     {
       estacion: 1,
       titulo: "Una voz minoritaria",
-      texto: "De Guido a la UCeDé: el liberalismo hecho partido, sin romanticismo.",
+      texto: "Décadas predicando lo que el peronismo y el desarrollismo rechazaban.",
     },
     {
       estacion: 2,
       titulo: "Ideas que vuelven",
-      texto: "Murió en 2005. El país siguió chocando contra la misma pared.",
+      texto: "Cada hiperinflación reabre el manual de Alsogaray.",
+    },
+    {
+      estacion: 3,
+      titulo: "Del invierno al 1 a 1",
+      texto: "Alsogaray no inventó la convertibilidad. Anticipó su obsesión.",
     }
   ],
 };
@@ -43,6 +48,11 @@ const CODIGO_CIVIL: AudioguiaExhibicion = {
       estacion: 2,
       titulo: "El legado de Vélez",
       texto: "Murió en 1875. Su código le sobrevivió generaciones.",
+    },
+    {
+      estacion: 3,
+      titulo: "La República en el detalle",
+      texto: "Sin ley civil común, la Constitución queda a mitad de camino.",
     }
   ],
 };
@@ -66,6 +76,11 @@ const CRISIS_DEL_TEQUILA: AudioguiaExhibicion = {
       estacion: 2,
       titulo: "Puente sin default",
       texto: "Del Tequila al 2001 hay un camino. No es el mismo día.",
+    },
+    {
+      estacion: 3,
+      titulo: "La lección del aviso",
+      texto: "Una ancla puede sobrevivir un shock… y fallar en el siguiente.",
     }
   ],
 };
@@ -78,17 +93,22 @@ const LEY_DE_RESIDENCIA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Poblar… y expulsar",
-      texto: "1902: el orden liberal que pedía inmigrantes también aprendió a echarlos.",
+      texto: "1902: el orden liberal también tenía policía de fronteras.",
     },
     {
       estacion: 1,
       titulo: "La herramienta del orden",
-      texto: "Libertad de comercio e inmigración… con un interruptor estatal.",
+      texto: "Huelgas, anarquismo y una ley pensada para el puerto.",
     },
     {
       estacion: 2,
       titulo: "La sombra del granero",
-      texto: "La ley sobrevivió décadas. El debate, también.",
+      texto: "Abrir el país y cerrar la protesta: dos caras del mismo orden.",
+    },
+    {
+      estacion: 3,
+      titulo: "El orden que queda",
+      texto: "La ley cambió. La pregunta sobre quién puede quedarse, no.",
     }
   ],
 };
@@ -110,8 +130,13 @@ const PLAN_AUSTRAL: AudioguiaExhibicion = {
     },
     {
       estacion: 2,
-      titulo: "Puente a la hiper",
+      titulo: "Cuando el ancla se rompe",
       texto: "Sin el Austral, el camino a 1989 se entiende a medias.",
+    },
+    {
+      estacion: 3,
+      titulo: "Puente a la hiper",
+      texto: "Un experimento monetario en una democracia joven.",
     }
   ],
 };
@@ -124,17 +149,22 @@ const PRIVATIZACIONES: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El Estado productor se vende",
-      texto: "1989 a 1999. Años noventa: empresas públicas pasan a manos privadas.",
+      texto: "1989 a 1999. Menem privatizó lo que el peronismo había estatizado.",
     },
     {
       estacion: 1,
       titulo: "Competencia y costos",
-      texto: "Eficiencia prometida, desempleo y desindustrialización en el balance.",
+      texto: "Servicios mejores para unos, despidos y vacíos para otros.",
     },
     {
       estacion: 2,
       titulo: "Separar dos reformas",
-      texto: "Privatizar no estabiliza solo. La moneda es otro capítulo.",
+      texto: "Privatizar no es lo mismo que el 1 a 1.",
+    },
+    {
+      estacion: 3,
+      titulo: "El saldo que discute el país",
+      texto: "Después del 2001, la palabra privatización volvió a ser batalla.",
     }
   ],
 };

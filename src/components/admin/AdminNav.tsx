@@ -12,9 +12,14 @@ const links = [
   { href: "/admin/mecenas", label: "Planes", match: "planes" as const },
   { href: "/admin/mecenas/personas", label: "Personas", match: "prefix" as const },
   { href: "/admin/video", label: "Video", match: "prefix" as const },
+  { href: "/admin/carousel", label: "Carousel", match: "prefix" as const },
 ] as const;
 
-function linkActivo(pathname: string, href: string, match: (typeof links)[number]["match"]): boolean {
+function linkActivo(
+  pathname: string,
+  href: string,
+  match: (typeof links)[number]["match"],
+): boolean {
   switch (match) {
     case "exact":
       return pathname === href;
@@ -29,6 +34,9 @@ function linkActivo(pathname: string, href: string, match: (typeof links)[number
   }
 }
 
+const navItemClass =
+  "inline-flex min-h-11 shrink-0 items-center rounded-full px-4 text-sm transition-colors";
+
 export function AdminNav({ email }: Props) {
   const pathname = usePathname();
 
@@ -39,19 +47,21 @@ export function AdminNav({ email }: Props) {
 
   return (
     <header className="sticky top-0 z-30 border-b border-linea bg-fondo-2/95 pt-[env(safe-area-inset-top)] backdrop-blur-sm">
-      <div className="mx-auto flex max-w-5xl flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
+      <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-2.5 sm:gap-4 sm:px-5 sm:py-3">
+        <div className="min-w-0 shrink-0 sm:max-w-[40%]">
           <p className="kicker text-[0.65rem]">Admin</p>
-          <p className="text-sm text-tinta-suave">{email}</p>
+          <p className="hidden truncate text-sm text-tinta-suave sm:block">
+            {email}
+          </p>
         </div>
-        <nav className="flex flex-wrap items-center gap-2">
+        <nav className="-mx-1 flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {links.map(({ href, label, match }) => {
             const activo = linkActivo(pathname, href, match);
             return (
               <Link
                 key={href}
                 href={href}
-                className={`rounded-full px-4 py-2 text-sm transition-colors ${
+                className={`${navItemClass} ${
                   activo
                     ? "bg-oro/15 text-oro-claro"
                     : "text-tinta-suave hover:bg-fondo hover:text-tinta"
@@ -64,7 +74,7 @@ export function AdminNav({ email }: Props) {
           <button
             type="button"
             onClick={cerrarSesion}
-            className="rounded-full px-4 py-2 text-sm text-tinta-tenue transition-colors hover:text-tinta-suave"
+            className={`${navItemClass} text-tinta-tenue hover:text-tinta-suave`}
           >
             Salir
           </button>

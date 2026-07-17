@@ -268,9 +268,10 @@ export function AdminVideoPanel({ cronicas, initialJobs }: Props) {
           activo =
             list?.find(
               (j) =>
-                j.status === "queued" ||
-                j.status === "running" ||
-                j.status.startsWith("awaiting_"),
+                !j.exhibitionId.startsWith("fixture:") &&
+                (j.status === "queued" ||
+                  j.status === "running" ||
+                  j.status.startsWith("awaiting_")),
             ) ?? null;
         }
         if (activo) {

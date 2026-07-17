@@ -13,7 +13,16 @@ export class ApiKeyGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest<Request>();
-    if (req.path === "/health" || req.url?.startsWith("/health")) {
+    const path = req.path ?? "";
+    const url = req.url ?? "";
+    const original = req.originalUrl ?? "";
+    if (
+      path === "/health" ||
+      url.startsWith("/health") ||
+      path.startsWith("/carousel") ||
+      url.startsWith("/carousel") ||
+      original.startsWith("/carousel")
+    ) {
       return true;
     }
     const header = req.header("x-api-key") ?? req.header("authorization");

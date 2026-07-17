@@ -1,0 +1,102 @@
+{
+  "id": "museum_classic",
+  "version": 1,
+  "displayName": "Museum Classic",
+  "grid": {
+    "columns": 12,
+    "baselinePx": 8
+  },
+  "margins": {
+    "unit": "profilePadding"
+  },
+  "spacing": {
+    "gapPx": 24,
+    "stackGapPx": 16,
+    "sectionGapPx": 32
+  },
+  "typeScale": {
+    "default": {
+      "display": { "sizePx": 64, "lineHeight": 1.08, "letterSpacing": "-0.02em" },
+      "title": { "sizePx": 44, "lineHeight": 1.15, "letterSpacing": "-0.01em" },
+      "subtitle": { "sizePx": 26, "lineHeight": 1.35, "letterSpacing": "0" },
+      "body": { "sizePx": 24, "lineHeight": 1.45, "letterSpacing": "0" },
+      "caption": { "sizePx": 16, "lineHeight": 1.4, "letterSpacing": "0.03em" },
+      "kicker": { "sizePx": 11, "lineHeight": 1.3, "letterSpacing": "0.28em" },
+      "stat": { "sizePx": 128, "lineHeight": 0.95, "letterSpacing": "-0.03em" },
+      "cta": { "sizePx": 18, "lineHeight": 1.2, "letterSpacing": "0.08em" }
+    },
+    "titleScale-1": {
+      "display": { "sizePx": 56, "lineHeight": 1.08, "letterSpacing": "-0.02em" },
+      "title": { "sizePx": 38, "lineHeight": 1.15, "letterSpacing": "-0.01em" }
+    },
+    "titleScale-2": {
+      "display": { "sizePx": 48, "lineHeight": 1.1, "letterSpacing": "-0.02em" },
+      "title": { "sizePx": 34, "lineHeight": 1.18, "letterSpacing": "-0.01em" }
+    },
+    "bodyCompact": {
+      "body": { "sizePx": 22, "lineHeight": 1.4, "letterSpacing": "0" }
+    },
+    "bodyCompact-2": {
+      "body": { "sizePx": 20, "lineHeight": 1.35, "letterSpacing": "0" }
+    }
+  },
+  "typographyRecomposition": [
+    "default",
+    "titleScale-1",
+    "titleScale-2",
+    "bodyCompact",
+    "bodyCompact-2"
+  ],
+  "maxLines": {
+    "cover.title": 3,
+    "cover.subtitle": 2,
+    "content.title": 3,
+    "content.body": 8,
+    "quote.quote": 6,
+    "statistic.label": 2,
+    "statistic.context": 4,
+    "gallery.caption": 2,
+    "ending_cta.title": 3,
+    "ending_cta.body": 4
+  },
+  "charBudgets": {
+    "cover.title": 56,
+    "cover.subtitle": 110,
+    "content.body": 280,
+    "quote.quote": 180,
+    "statistic.label": 48,
+    "ending_cta.title": 48
+  },
+  "slideBindings": {
+    "cover": {
+      "recipeId": "cover-hero",
+      "imageRatio": 0.78,
+      "allowedComponents": ["Kicker", "Title", "Subtitle", "Image", "Caption", "Footer", "Header"]
+    },
+    "content": {
+      "recipeId": "content-split",
+      "imageRatio": 0.52,
+      "allowedComponents": ["Title", "Paragraph", "Image", "Caption", "Footer"]
+    },
+    "quote": {
+      "recipeId": "quote-centered",
+      "imageRatio": 0,
+      "allowedComponents": ["Quote", "Label", "Divider", "Footer"]
+    },
+    "statistic": {
+      "recipeId": "statistic-focus",
+      "imageRatio": 0,
+      "allowedComponents": ["Number", "Label", "Paragraph", "Footer"]
+    },
+    "gallery": {
+      "recipeId": "gallery-grid",
+      "imageRatio": 0.72,
+      "allowedComponents": ["Image", "Caption", "Footer"]
+    },
+    "ending_cta": {
+      "recipeId": "ending-cta",
+      "imageRatio": 0,
+      "allowedComponents": ["Title", "Paragraph", "CTA", "Footer", "Badge"]
+    }
+  }
+}

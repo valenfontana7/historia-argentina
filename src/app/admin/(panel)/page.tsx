@@ -51,7 +51,7 @@ export default async function AdminDashboardPage() {
           </div>
           <Link
             href="/admin/mecenas/personas"
-            className="inline-flex rounded-full border border-oro/50 px-5 py-2 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10"
+            className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-oro/50 px-5 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10 sm:w-auto"
           >
             Ver personas
           </Link>
@@ -68,9 +68,26 @@ export default async function AdminDashboardPage() {
           </div>
           <Link
             href="/admin/video"
-            className="inline-flex rounded-full border border-oro/50 px-5 py-2 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10"
+            className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-oro/50 px-5 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10 sm:w-auto"
           >
             Abrir generador
+          </Link>
+        </div>
+      </section>
+
+      <section className="rounded-sm border border-linea bg-fondo-2 p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="titulo-display text-xl font-semibold">Carousel</h2>
+            <p className="mt-2 text-sm text-tinta-suave">
+              Carruseles PNG editoriales (Playwright + Museum Classic).
+            </p>
+          </div>
+          <Link
+            href="/admin/carousel"
+            className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-oro/50 px-5 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10 sm:w-auto"
+          >
+            Abrir carousel
           </Link>
         </div>
       </section>
@@ -88,7 +105,7 @@ export default async function AdminDashboardPage() {
           </div>
           <Link
             href="/admin/mecenas"
-            className="inline-flex rounded-full border border-oro/50 px-5 py-2 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10"
+            className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-oro/50 px-5 text-sm font-semibold text-oro-claro transition-colors hover:bg-oro/10 sm:w-auto"
           >
             Gestionar planes
           </Link>
@@ -175,7 +192,7 @@ function QuickLink({
         href={href}
         target={externo ? "_blank" : undefined}
         rel={externo ? "noopener noreferrer" : undefined}
-        className="rounded-full border border-linea px-4 py-2 text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
+        className="inline-flex min-h-11 items-center rounded-full border border-linea px-4 text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
       >
         {label}
       </Link>

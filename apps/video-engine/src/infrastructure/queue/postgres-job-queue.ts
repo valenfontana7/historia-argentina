@@ -168,6 +168,7 @@ export class PostgresJobQueue implements JobQueue {
             "awaiting_preview",
           ],
         },
+        NOT: { exhibitionId: { startsWith: "fixture:" } },
       },
     });
     return n > 0;

@@ -12,7 +12,7 @@
     "vercel-build": "node scripts/vercel-build.mjs",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "prisma generate && npm run build -w @museoargent/video-contracts",
+    "postinstall": "prisma generate && npm run build -w @museoargent/video-contracts && npm run build -w @museoargent/carousel-contracts",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
     "grafo:validar": "npx tsx scripts/grafo-validar.ts",
@@ -30,12 +30,18 @@
     "video:engine:test": "npm run test -w @museoargent/video-contracts && npm run test -w @museoargent/video-engine",
     "video:prisma:generate": "npm run prisma:generate -w @museoargent/video-engine",
     "video:export-exhibition": "npx tsx scripts/export-exhibition.ts",
-    "video:generate": "npx tsx scripts/video-generate.ts"
+    "video:generate": "npx tsx scripts/video-generate.ts",
+    "carousel:contracts:build": "npm run build -w @museoargent/carousel-contracts",
+    "carousel:engine:build": "npm run build -w @museoargent/carousel-engine",
+    "carousel:engine:start": "npm run start -w @museoargent/carousel-engine",
+    "carousel:engine:cli": "npm run cli -w @museoargent/carousel-engine --",
+    "carousel:engine:test": "npm run test -w @museoargent/carousel-contracts && npm run test -w @museoargent/carousel-engine"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
+    "@museoargent/carousel-contracts": "*",
     "@museoargent/video-contracts": "*",
     "@next/mdx": "^16.2.10",
     "@prisma/client": "^6.19.3",

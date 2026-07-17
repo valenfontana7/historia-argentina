@@ -4,27 +4,37 @@ import type { AudioguiaExhibicion } from "@/data/audioguias-salas-manual";
 const ALBERTO_FERNANDEZ: AudioguiaExhibicion = {
   cronicaSlug: "alberto-fernandez",
   titulo: "Audioguía · Alberto Fernández",
-  duracionEstimada: "7 minutos",
+  duracionEstimada: "10 minutos",
   segmentos: [
     {
       estacion: 0,
       titulo: "Frente de Todos",
-      texto: "2019 a 2023: Frente de Todos, pandemia y el retorno del peronismo. 10 de diciembre de 2019: el peronismo vuelve con Alberto y Cristina. En 2019, Alberto Fernández (ex jefe de Gabinete de Néstor Kirchner) ganó la presidencia con el Frente de Todos. Cristina Fernández fue su vicepresidenta.",
+      texto: "2019 a 2023: Frente de Todos, pandemia, FMI y la grieta que abrió la puerta a Milei. 10 de diciembre de 2019: el peronismo vuelve con Alberto y Cristina. En 2019, Alberto Fernández (ex jefe de Gabinete de Néstor Kirchner) ganó la presidencia con el Frente de Todos. Cristina Fernández fue su vicepresidenta.",
     },
     {
       estacion: 1,
-      titulo: "Pandemia e inflación",
-      texto: "2020 a 2023: COVID, deuda y una economía que no encontró rumbo. Meses después de asumir, llegó la pandemia de COVID-19. Alberto impuso una cuarentena estricta que salvó vidas pero golpeó la actividad.",
+      titulo: "Pandemia y cuarentena",
+      texto: "2020: el COVID llegó meses después de asumir y reordenó el gobierno. Meses después de asumir, llegó la pandemia de COVID-19. Alberto impuso una cuarentena estricta —una de las más largas del mundo— que salvó vidas y golpeó la actividad.",
     },
     {
       estacion: 2,
-      titulo: "El retrato del retorno",
-      texto: "Alberto intentó un peronismo de unidad en un país cada vez más dividido.",
+      titulo: "La deuda y el FMI",
+      texto: "2020 a 2022: renegociar sin oxígeno político ni reservas sobrantes. Alberto heredó una deuda externa renegociada a medias y un acuerdo con el Fondo Monetario Internacional que el macrismo había firmado en 2018. Su ministro Martín Guzmán buscó reestructurar con acreedores privados y, después, un entendimiento con el FMI que evitara un default duro.",
     },
     {
       estacion: 3,
+      titulo: "La grieta dentro del Frente",
+      texto: "2022 a 2023: Cristina tensiona, Guzmán se va, Massa llega a Economía. La fórmula que había unido al peronismo empezó a mostrarse como coalición de veto. La vicepresidenta cuestionó en público el rumbo económico.",
+    },
+    {
+      estacion: 4,
+      titulo: "La derrota de 2023",
+      texto: "El peronismo pierde el balotaje. Alberto cierra el ciclo sin reelección. En 2023 la inflación trepó a niveles que vaciaron salarios y ahorros. El oficialismo llegó al balotaje con Massa; Javier Milei lo derrotó con el 56 %.",
+    },
+    {
+      estacion: 5,
       titulo: "La puerta a Milei",
-      texto: "2023: la derrota peronista abrió una nueva etapa política. Alberto Fernández no fue un presidente menor: gobernó en pandemia, renegoció deuda y sostuvo la democracia en un contexto global turbulento. Pero no logró estabilizar la economía ni recomponer el peronismo.",
+      texto: "El legado de Alberto no se mide solo en decretos: se mide en la ruptura que vino después. Alberto Fernández gobernó en pandemia, renegoció deuda y sostuvo la democracia en un contexto global turbulento. No logró estabilizar la economía ni recomponer el peronismo.",
     }
   ],
 };
@@ -65,22 +75,50 @@ const CAMPORA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Cámpora al gobierno",
-      texto: "11 de marzo de 1973: Cámpora al gobierno, Perón a la presidencia. 11 de marzo de 1973: el peronismo vuelve a ganar elecciones. Después de 18 años de proscripción, el peronismo volvió a las urnas en 1973. Héctor José Cámpora (dentista, dirigente histórico, hombre de confianza de Perón) ganó la presidencia con una consigna que resumía todo: «Cámpora al gobierno, Perón a la presidencia».",
+      texto: "11 de marzo de 1973: Cámpora al gobierno, Perón a la presidencia. 11 de marzo de 1973: el dentista que abrió la puerta a Perón. Después de años de proscripción, el peronismo volvió a las urnas. Héctor José Cámpora ganó la presidencia en marzo de 1973 como candidato de Perón.",
     },
     {
       estacion: 1,
       titulo: "La puerta abierta",
-      texto: "1973: amnistías, liberaciones y la expectativa del 17 de octubre. Cámpora asumió con una marea popular. Liberó presos políticos.",
+      texto: "Cámpora renunció para que Perón pudiera ser elegido. En julio de 1973, Cámpora renunció. Nuevas elecciones llevaron a Perón a la Rosada.",
     },
     {
       estacion: 2,
       titulo: "El retrato del interregno",
-      texto: "Cámpora no fue un trámite. Fue la llave del retorno.",
+      texto: "Un gobierno breve con consecuencias largas.",
     },
     {
       estacion: 3,
       titulo: "Del dentista a la tormenta",
-      texto: "Cámpora abrió la puerta. Perón entró en un país en guerra. Para entender el retorno de Perón, hay que leer a Cámpora: el presidente que devolvió legitimidad electoral al peronismo y se retiró a tiempo para que el líder exiliado compitiera y ganara. Lo que vino después (violencia, Triple A, golpe de 1976) no borra lo que significó marzo de 1973: la política volvió a contar.",
+      texto: "Después de Cámpora, el retorno ya no tenía freno. Perón murió en 1974. Isabel heredó un país en llamas.",
+    }
+  ],
+};
+
+const CARAPINTADAS: AudioguiaExhibicion = {
+  cronicaSlug: "carapintadas",
+  titulo: "Audioguía · Los Carapintadas",
+  duracionEstimada: "8 minutos",
+  segmentos: [
+    {
+      estacion: 0,
+      titulo: "La democracia a prueba",
+      texto: "1987 a 1990: Semana Santa, Villa Martelli y el límite militar a la transición. 1987: oficiales pintados de negro amenazan el orden constitucional. La transición no terminó el 10 de diciembre de 1983. En Semana Santa de 1987, un grupo de militares —los carapintadas— se alzó contra el gobierno de Raúl Alfonsín.",
+    },
+    {
+      estacion: 1,
+      titulo: "Semana Santa y Villa Martelli",
+      texto: "1987 a 1988: más de un alzamiento; la sociedad responde en la calle. En abril de 1987, el foco fue Campo de Mayo. Alfonsín negoció y habló a la multitud en Plaza de Mayo: «La casa está en orden».",
+    },
+    {
+      estacion: 2,
+      titulo: "Leyes e indultos",
+      texto: "Punto Final, Obediencia Debida y el cierre que vino con Menem. Antes y después de los alzamientos, el Congreso sancionó Punto Final y Obediencia Debida: límites legales a la persecución penal. En 1989–1990, Carlos Menem indultó a condenados de la dictadura y a guerrilleros.",
+    },
+    {
+      estacion: 3,
+      titulo: "El límite del poder civil",
+      texto: "Sin golpe total, la democracia aprendió a medir su vulnerabilidad. Los carapintadas no restauraron la dictadura. Dejaron otra herida: la certeza de que, en los ochenta, el uniforme todavía podía negociar con la Constitución.",
     }
   ],
 };
@@ -102,8 +140,8 @@ const DE_LA_RUA: AudioguiaExhibicion = {
     },
     {
       estacion: 2,
-      titulo: "El retrato de la transición fallida",
-      texto: "De la Rúa no sobrevivió al modelo que prometió sostener.",
+      titulo: "La herencia del 1 a 1",
+      texto: "De la Rúa no inventó la convertibilidad. La heredó ya agrietada.",
     },
     {
       estacion: 3,
@@ -141,6 +179,34 @@ const DORREGO: AudioguiaExhibicion = {
   ],
 };
 
+const DUHALDE: AudioguiaExhibicion = {
+  cronicaSlug: "duhalde",
+  titulo: "Audioguía · Duhalde",
+  duracionEstimada: "8 minutos",
+  segmentos: [
+    {
+      estacion: 0,
+      titulo: "Después del abismo",
+      texto: "2002 a 2003: pesificación, emergencia y el puente del 2001 a Kirchner. Enero de 2002: el Congreso elige a Duhalde para gobernar la emergencia. Tras el corralito, la renuncia de De la Rúa y la rueda de presidentes, el Congreso nombró a Eduardo Duhalde. No había mandato de las urnas ni plan de campaña: había un país sin moneda creíble, sin bancos normales y con la calle en ebullición.",
+    },
+    {
+      estacion: 1,
+      titulo: "Pesificación y fin del 1 a 1",
+      texto: "2002: el peso deja de valer un dólar; la economía cambia de régimen. El gobierno impulsó la pesificación asimétrica y enterró de hecho la convertibilidad. Los depósitos y deudas se recalcularon; el tipo de cambio flotó; la inflación y la pobreza se dispararon.",
+    },
+    {
+      estacion: 2,
+      titulo: "Kosteki y Santillán",
+      texto: "26 de junio de 2002: la represión en el Puente Pueyrredón marca el límite. En junio de 2002, la policía mató a Maximiliano Kosteki y Darío Santillán en una protesta piquetera. El gobierno perdió el resto de legitimidad social que le quedaba.",
+    },
+    {
+      estacion: 3,
+      titulo: "El puente a Kirchner",
+      texto: "2003: Duhalde ordena la salida; Néstor hereda la estabilización incompleta. Duhalde no «arregló» la Argentina. Evitó que el default y la devaluación terminaran en una ruptura institucional mayor, a un costo social enorme.",
+    }
+  ],
+};
+
 const EL_43: AudioguiaExhibicion = {
   cronicaSlug: "el-43",
   titulo: "Audioguía · El 43",
@@ -169,6 +235,34 @@ const EL_43: AudioguiaExhibicion = {
   ],
 };
 
+const EL_ACUERDO_CON_EL_FMI: AudioguiaExhibicion = {
+  cronicaSlug: "el-acuerdo-con-el-fmi",
+  titulo: "Audioguía · El acuerdo con el FMI",
+  duracionEstimada: "8 minutos",
+  segmentos: [
+    {
+      estacion: 0,
+      titulo: "La herencia del stand-by",
+      texto: "2020 a 2022: la deuda heredada, Guzmán y el Fondo bajo el Frente de Todos. 2018 dejó un acuerdo con el FMI. 2019 lo convirtió en problema político. En 2018, el gobierno de Mauricio Macri firmó un acuerdo stand-by con el Fondo Monetario Internacional: el préstamo más grande de la historia del organismo (sala El stand-by de 2018). Cuando Alberto Fernández asumió en 2019, esa deuda ya no era un debate técnico.",
+    },
+    {
+      estacion: 1,
+      titulo: "Guzmán y los acreedores",
+      texto: "2020: primero la deuda privada; después, el Fondo. El ministro Martín Guzmán priorizó reestructurar con acreedores privados para ganar aire. Luego vino el entendimiento con el FMI: un programa que evitaba el default formal a cambio de metas fiscales, monetarias y de reservas que el Frente de Todos discutía en público.",
+    },
+    {
+      estacion: 2,
+      titulo: "El acuerdo como grieta",
+      texto: "Cumplir con el Fondo tensionó al Frente de Todos. Para una parte del oficialismo, el acuerdo era realismo: sin dólares no había política social posible. Para otra, era continuidad del ajuste que habían combatido.",
+    },
+    {
+      estacion: 3,
+      titulo: "Lo que el acuerdo no resolvió",
+      texto: "Evitar el default no alcanzó para estabilizar la vida cotidiana. El entendimiento con el FMI compró tiempo. No compró consenso ni bajó la inflación de un golpe.",
+    }
+  ],
+};
+
 const EL_DEFAULT: AudioguiaExhibicion = {
   cronicaSlug: "el-default",
   titulo: "Audioguía · El Default",
@@ -186,8 +280,8 @@ const EL_DEFAULT: AudioguiaExhibicion = {
     },
     {
       estacion: 2,
-      titulo: "El retrato del colapso",
-      texto: "El default fue la foto del modelo agotado.",
+      titulo: "El modelo que se quebró",
+      texto: "El default fue la foto del 1 a 1 agotado.",
     },
     {
       estacion: 3,
@@ -345,22 +439,22 @@ const FABRICAS_RECUPERADAS: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Las fábricas sin dueño",
-      texto: "2002 a 2015: cooperativas, autogestión y la economía del post-2001. 2002: los trabajadores ocupan la producción cuando el patrón desaparece. Después del 2001, cientos de empresas cerraron o abandonaron a sus empleados. En lugar de esperar, los trabajadores ocuparon las plantas y formaron cooperativas.",
+      texto: "2002 a 2015: cooperativas, autogestión y la economía del post-2001. Después del 2001, los trabajadores se quedaron con la producción. Cuando el corralito quebró empresas, muchos dueños cerraron y se fueron. En decenas de fábricas, los obreros hicieron lo contrario: ocuparon, reiniciaron y se organizaron en cooperativas.",
     },
     {
       estacion: 1,
       titulo: "De Zanon al Congreso",
-      texto: "2002 a 2015: leyes, conflictos y un modelo alternativo. Zanón en Neuquén se convirtió en símbolo: miles de obreros ceramistas recuperaron la planta y la mantuvieron en producción. Otras empresas siguieron el mismo camino: Brukman, Grissinópoli, FaSinPat.",
+      texto: "Casos emblemáticos y una pelea legal por la propiedad. Zanon, Brukman y decenas más se volvieron símbolos. La pelea no era solo económica: era jurídica.",
     },
     {
       estacion: 2,
       titulo: "El retrato de la autogestión",
-      texto: "Recuperar una fábrica fue resistir al abandono.",
+      texto: "Trabajo, asamblea y una propiedad disputada.",
     },
     {
       estacion: 3,
       titulo: "Herencia del 2001",
-      texto: "Las fábricas recuperadas no resolvieron la crisis. Mostraron otra salida. Muchas cooperativas sobrevivieron décadas. Otras cerraron por falta de mercado o crédito.",
+      texto: "No resolvieron la crisis. Mostraron otra forma de sobrevivirla. Las fábricas recuperadas no reemplazaron al capitalismo argentino. Pero dejaron una lección museográfica: cuando el Estado y el mercado fallan a la vez, la sociedad improvisó propiedad colectiva.",
     }
   ],
 };
@@ -494,8 +588,8 @@ const HIPERINFLACION: AudioguiaExhibicion = {
     },
     {
       estacion: 2,
-      titulo: "El gráfico del colapso",
-      texto: "1989 a 1990: cuando el peso dejó de valer nada.",
+      titulo: "Después del Austral",
+      texto: "1985 había prometido ancla. 1989 mostró el precio de romperla.",
     },
     {
       estacion: 3,
@@ -709,22 +803,50 @@ const LANUSSE: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "Granaderos a política",
-      texto: "1971 a 1973: el general que convocó elecciones y abrió el retorno de Perón. 1971: Lanusse reemplaza a Onganía y promete elecciones. Cuando Alejandro Lanusse asumió en 1971, la Revolución Argentina llevaba cinco años en el poder. Onganía había caído.",
+      texto: "1971 a 1973: el general que convocó elecciones y abrió el retorno de Perón. Lanusse heredó una dictadura agotada y apostó a las urnas. Alejandro Agustín Lanusse llegó a la presidencia de facto en 1971, después de Onganía y Levingston. La Revolución Argentina se deshacía: Cordobazo, guerrilla, inflación, aislamiento.",
     },
     {
       estacion: 1,
       titulo: "Hacia el retorno",
-      texto: "1971 a 1973: elecciones, fractura y la puerta a Perón. Lanusse convocó elecciones legislativas en 1971 y presidenciales en 1973. El peronismo volvió a competir.",
+      texto: "1973: las urnas abrieron la puerta a Perón. Lanusse levantó la proscripción del peronismo y convocó elecciones. Apostó a que el peronismo dividido perdería.",
     },
     {
       estacion: 2,
       titulo: "El retrato de la salida",
-      texto: "Lanusse intentó cerrar la Revolución Argentina con votos.",
+      texto: "Un general que cerró un ciclo que no pudo controlar.",
     },
     {
       estacion: 3,
       titulo: "Del 66 al 73",
-      texto: "Lanusse no evitó el horror. Abrió la puerta al retorno. Lanusse no fue un demócrata puro: fue un militar que entendió que la proscripción eterna era insostenible. Su legado es ambivalente: devolvió las urnas, pero también dejó un país más violento y más fracturado.",
+      texto: "Lanusse cierra la Revolución Argentina. Abre otra tormenta. Después de Lanusse vinieron Cámpora, Perón, Isabel, el Rodrigazo y el Proceso. La salida electoral no pacifica: reordena.",
+    }
+  ],
+};
+
+const LEGISLATIVAS_2025: AudioguiaExhibicion = {
+  cronicaSlug: "legislativas-2025",
+  titulo: "Audioguía · Las legislativas de 2025",
+  duracionEstimada: "8 minutos",
+  segmentos: [
+    {
+      estacion: 0,
+      titulo: "El referéndum del ajuste",
+      texto: "Octubre de 2025: el veredicto de medio término sobre el ajuste libertario. Octubre de 2025: la primera gran prueba electoral del gobierno de Milei. Dos años después del balotaje, Argentina volvió a las urnas. Las legislativas de octubre de 2025 no elegían presidente: elegían si el experimento libertario seguía con oxígeno político.",
+    },
+    {
+      estacion: 1,
+      titulo: "La Libertad Avanza crece",
+      texto: "LLA supera al peronismo en la comparación nacional y suma bancas clave. La Libertad Avanza obtuvo un resultado por encima de muchas proyecciones: más del 40 % en la medición nacional frente a un peronismo cerca del 31 %. El oficialismo amplió su presencia en Diputados y Senado lo suficiente para sostener vetos y negociar reformas con más margen.",
+    },
+    {
+      estacion: 2,
+      titulo: "La oposición reordenada",
+      texto: "El peronismo no desapareció: quedó obligado a reinventar su estrategia. La derrota relativa del peronismo no borró su territorialidad ni su peso en provincias. Pero el mapa nacional cambió: el eje del debate dejó de ser solo «K o anti-K» y pasó a medir si el ajuste libertario tenía o no permiso social.",
+    },
+    {
+      estacion: 3,
+      titulo: "Puerta a 2026",
+      texto: "Con más bancas, el gobierno declara el año de las reformas estructurales. El resultado de 2025 no cerró la historia: la abrió. En 2026 el oficialismo empujó una agenda de reformas laborales, tributarias y de desregulación con más músculo legislativo, todavía dependiente de aliados.",
     }
   ],
 };
@@ -737,22 +859,50 @@ const LEVINGSTON: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El general interino",
-      texto: "1970 a 1971: el general interino de la Revolución Argentina. 1970: Levingston reemplaza a Onganía en la Revolución Argentina. En junio de 1970, otro general ocupó la presidencia de facto: Roberto Marcelo Levingston. Había sido comandante del Ejército.",
+      texto: "1970 a 1971: el general interino de la Revolución Argentina. 1970: Levingston reemplaza a Onganía sin resolver la crisis. Después del Cordobazo, la Revolución Argentina necesitaba un cambio de rostro. Roberto Marcelo Levingston asumió en 1970 en lugar de Onganía.",
     },
     {
       estacion: 1,
       titulo: "Argentinización y tensión",
-      texto: "1970 a 1971: economía, conflicto y el ascenso de Lanusse. Levingston lanzó la Argentinización de empresas extranjeras y abrió conversaciones con sectores políticos. No alcanzó.",
+      texto: "Un discurso económico sin salida política. Levingston intentó un perfil más nacionalista. No alcanzó.",
     },
     {
       estacion: 2,
       titulo: "El retrato del tránsito",
-      texto: "Levingston fue el puente entre Onganía y las elecciones.",
+      texto: "Un gobierno breve entre dos estrategias militares.",
     },
     {
       estacion: 3,
       titulo: "Antes de las urnas",
-      texto: "Levingston no convocó elecciones. Lanusse sí. Para entender el retorno de Perón en 1973, hay que leer la cadena de generales: Onganía, Levingston, Lanusse. Cada uno intentó salir del callejón sin volver del todo a la democracia.",
+      texto: "Sin Levingston, el camino a Lanusse se entiende a medias. Lanusse convocaría elecciones. Cámpora ganaría.",
+    }
+  ],
+};
+
+const LEY_BASES: AudioguiaExhibicion = {
+  cronicaSlug: "ley-bases",
+  titulo: "Audioguía · La Ley Bases",
+  duracionEstimada: "8 minutos",
+  segmentos: [
+    {
+      estacion: 0,
+      titulo: "Gobernar por decreto",
+      texto: "2023 a 2024: del DNU de desregulación a la primera gran ley del gobierno de Milei. Diciembre de 2023: el DNU de desregulación abre el choque con el Congreso. Milei asumió sin mayoría propia. Su primera gran herramienta fue un decreto de necesidad y urgencia de desregulación masiva: cientos de artículos que tocaban comercio, trabajo, Estado y mercados.",
+    },
+    {
+      estacion: 1,
+      titulo: "El ómnibus",
+      texto: "Un proyecto enorme: facultades, privatizaciones, RIGI y reforma del Estado. El gobierno envió al Congreso la ley bautizada Bases y puntos de partida para la libertad de los argentinos: un ómnibus que pedía facultades delegadas, habilitaba privatizaciones, creaba incentivos a grandes inversiones y reordenaba impuestos. El nombre evocaba a Alberdi; el método era de coalición minoritaria.",
+    },
+    {
+      estacion: 2,
+      titulo: "La sanción",
+      texto: "2024: tras idas y vueltas, Diputados y Senado cierran un texto posible. Después de rechazos parciales, cambios en el Senado y una nueva votación en Diputados, el oficialismo logró su primer gran éxito legislativo: la Ley Bases y un paquete fiscal asociado. No era el proyecto maximalista del debut; era el pacto posible.",
+    },
+    {
+      estacion: 3,
+      titulo: "Lo que abrió la ley",
+      texto: "La Bases no cerró el programa: habilitó el siguiente tramo de reformas. Con la Ley Bases sancionada, el gobierno ganó herramientas y un relato: sí se puede legislar el ajuste. También ganó límites: cada reforma futura seguiría necesitando aliados.",
     }
   ],
 };
@@ -821,22 +971,22 @@ const MALVINAS_CIUDAD: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La guerra en cada barrio",
-      texto: "La guerra que llegó a cada barrio argentino en abril de 1982. Abril de 1982: Malvinas dejó de ser un mapa lejano. El 2 de abril de 1982, la dictadura desembarcó en Malvinas y movilizó al país entero. Pero la guerra no ocurrió solo en el Atlántico Sur.",
+      texto: "La guerra que llegó a cada barrio argentino en abril de 1982. Abril de 1982: Malvinas no fue solo el Atlántico Sur. Fue la Plaza. Mientras las tropas desembarcaran en las islas, en Buenos Aires la guerra se vivía en banderas, radios y multitudes. El 10 de abril de 1982, la Plaza de Mayo se llenó: la dictadura había motivo de unión… y de distracción.",
     },
     {
       estacion: 1,
       titulo: "Siempre nuestras",
-      texto: "10 de abril: la Plaza de Mayo se llena de banderas. El 10 de abril de 1982, decenas de miles de argentinos se congregaron en la Plaza de Mayo bajo el lema «Siempre nuestras». No era solo apoyo al gobierno: era una causa nacional que trascendía la dictadura.",
+      texto: "Una causa nacional profunda bajo un régimen ilegítimo. La reivindicación de soberanía no nació en 1982. El régimen la usó.",
     },
     {
       estacion: 2,
       titulo: "Dos Malvinas",
-      texto: "La del frente y la de la memoria civil.",
+      texto: "Una en el mapa. Otra en la calle.",
     },
     {
       estacion: 3,
       titulo: "De la Plaza a la democracia",
-      texto: "La herida que aceleró el fin de la dictadura. La derrota del 14 de junio llegó a cada hogar por radio y televisión. La dictadura no sobreviviría mucho más.",
+      texto: "La derrota aceleró el fin del Proceso. El 14 de junio de 1982 la rendición cerró la apuesta del régimen. Un año después, la democracia volvió.",
     }
   ],
 };
@@ -921,6 +1071,62 @@ const MORENO: AudioguiaExhibicion = {
       estacion: 3,
       titulo: "La partida que dejó un legado",
       texto: "Moreno murió en el Atlántico, pero su pensamiento siguió navegando. En enero de 1811, la Junta lo apartó del poder. Moreno partió hacia Inglaterra en la fragata George Canning.",
+    }
+  ],
+};
+
+const MUNDIAL_1978: AudioguiaExhibicion = {
+  cronicaSlug: "mundial-1978",
+  titulo: "Audioguía · Mundial 1978",
+  duracionEstimada: "8 minutos",
+  segmentos: [
+    {
+      estacion: 0,
+      titulo: "La primera estrella",
+      texto: "25 de junio de 1978: Kempes, la primera estrella y el Mundial bajo dictadura. 25 de junio de 1978: Argentina 3–1 a Países Bajos en el Monumental. El 25 de junio de 1978, en el Monumental de Buenos Aires, Argentina ganó su primer Mundial. Venció a Países Bajos 3–1 en la final, con dos goles de Mario Kempes y uno de Bertoni en el alargue.",
+    },
+    {
+      estacion: 1,
+      titulo: "Kempes y el Monumental",
+      texto: "Un delantero cordobés y una final en casa que el país no olvidaría. Kempes no era solo un goleador: era el gesto de un fútbol ofensivo que Menotti defendía como identidad. En la final, Países Bajos —la Naranja Mecánica— exigió hasta el alargue.",
+    },
+    {
+      estacion: 2,
+      titulo: "El Mundial de la dictadura",
+      texto: "1976–1983: el Proceso usó la fiesta mientras desaparecía gente. El Mundial 78 se jugó bajo la dictadura de Videla. El régimen lo usó como vidriera internacional: estadios, propaganda, «los argentinos somos derechos y humanos».",
+    },
+    {
+      estacion: 3,
+      titulo: "La estrella que abrió el camino",
+      texto: "Sin 1978 no se entiende 1986, Qatar ni el ciclo que sigue en 2026. La primera estrella no lava el horror de la dictadura. Sí funda un relato deportivo: Argentina puede ser campeón del mundo.",
+    }
+  ],
+};
+
+const MUNDIAL_1986: AudioguiaExhibicion = {
+  cronicaSlug: "mundial-1986",
+  titulo: "Audioguía · Mundial 1986",
+  duracionEstimada: "8 minutos",
+  segmentos: [
+    {
+      estacion: 0,
+      titulo: "México 86",
+      texto: "29 de junio de 1986: Maradona, Inglaterra y la segunda estrella en democracia. 29 de junio de 1986: Argentina 3–2 a Alemania Federal en el Azteca. El 29 de junio de 1986, en el Estadio Azteca de Ciudad de México, Argentina ganó su segundo Mundial. Venció a Alemania Federal 3–2 con goles de Brown, Valdano y Burruchaga; los alemanes descontaron por Rummenigge y Völler.",
+    },
+    {
+      estacion: 1,
+      titulo: "Inglaterra, el camino",
+      texto: "Cuartos de final: la Mano de Dios y el gol del siglo. Antes de la final hubo Inglaterra. En cuartos, Maradona marcó dos goles que el mundo no olvidó: la Mano de Dios y el gol del siglo, el dribling desde mitad de cancha.",
+    },
+    {
+      estacion: 2,
+      titulo: "La final contra Alemania",
+      texto: "Del 2–0 al susto: Burruchaga sella la segunda estrella. En la final, Argentina se puso 2–0. Alemania empató.",
+    },
+    {
+      estacion: 3,
+      titulo: "De Kempes a Maradona a Messi",
+      texto: "Tres copas, tres eras: dictadura, democracia y el presente mundialista. 1978 fue Kempes bajo el Proceso. 1986 fue Maradona en democracia, con Malvinas aún reciente.",
     }
   ],
 };
@@ -1037,6 +1243,62 @@ const PIQUETEROS: AudioguiaExhibicion = {
   ],
 };
 
+const REFORMA_94: AudioguiaExhibicion = {
+  cronicaSlug: "reforma-94",
+  titulo: "Audioguía · La Reforma del 94",
+  duracionEstimada: "8 minutos",
+  segmentos: [
+    {
+      estacion: 0,
+      titulo: "El pacto de Olivos",
+      texto: "1993 a 1994: Pacto de Olivos, reelección y las reglas que todavía usamos. 1993: Menem y Alfonsín acuerdan reescribir las reglas del juego. En 1993, Carlos Menem necesitaba la reelección; Raúl Alfonsín necesitaba acotar el hiperpresidencialismo menemista. Se encontraron en Olivos y cerraron un pacto: reformar la Constitución a cambio de límites, balotaje y un nuevo diseño del poder.",
+    },
+    {
+      estacion: 1,
+      titulo: "Lo que cambió el texto",
+      texto: "1994: reelección, mandato de cuatro años, balotaje, Jefe de Gabinete. La reforma acortó el mandato a cuatro años y habilitó una reelección inmediata. Introdujo el balotaje, creó la figura del Jefe de Gabinete y reordenó el Senado.",
+    },
+    {
+      estacion: 2,
+      titulo: "Reelección y legado",
+      texto: "1995: Menem vuelve a ganar bajo las reglas que él mismo impulsó. Con la Constitución nueva, Menem fue reelecto en 1995. El menemismo consolidó poder; la oposición radical quedó atada al pacto que había firmado.",
+    },
+    {
+      estacion: 3,
+      titulo: "Las reglas que todavía usamos",
+      texto: "Balotaje, reelección y Jefe de Gabinete: el diseño sigue vigente. Cada balotaje posterior —2015, 2023— ocurre bajo el diseño de 1994. Cada disputa por la reelección remite a Olivos.",
+    }
+  ],
+};
+
+const RESOLUCION_125: AudioguiaExhibicion = {
+  cronicaSlug: "resolucion-125",
+  titulo: "Audioguía · La Resolución 125",
+  duracionEstimada: "8 minutos",
+  segmentos: [
+    {
+      estacion: 0,
+      titulo: "La Resolución 125",
+      texto: "2008: el conflicto del campo que convirtió retenciones en grieta nacional. Marzo de 2008: retenciones móviles a la soja y el campo en pie de guerra. En marzo de 2008, el gobierno de Cristina Fernández impulsó la Resolución 125: un esquema de retenciones móviles a las exportaciones agrarias, especialmente la soja. El campo lo leyó como confiscación.",
+    },
+    {
+      estacion: 1,
+      titulo: "Cortes, cacerolas y Congreso",
+      texto: "Meses de paro agropecuario, desabastecimiento y polarización callejera. Productores cortaron rutas. Ciudades del interior se movilizaron.",
+    },
+    {
+      estacion: 2,
+      titulo: "El voto no positivo",
+      texto: "Julio de 2008: el Senado define; Cobos desempata en contra del oficialismo. El Ejecutivo llevó el esquema al Congreso. En el Senado, el vicepresidente Julio Cobos desempató con un «voto no positivo».",
+    },
+    {
+      estacion: 3,
+      titulo: "La grieta que quedó",
+      texto: "La 125 no fue solo retenciones: fue el ensayo general de la polarización K. Después de 2008, el kirchnerismo profundizó el relato de confrontación; el anti-kirchnerismo consolidó al «campo» como identidad política. El boom de commodities siguió, pero la confianza entre gobierno y productores quedó rota.",
+    }
+  ],
+};
+
 const REVOLUCION_DEL_PARQUE: AudioguiaExhibicion = {
   cronicaSlug: "revolucion-del-parque",
   titulo: "Audioguía · La Revolución del Parque",
@@ -1045,22 +1307,22 @@ const REVOLUCION_DEL_PARQUE: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "La Revolución del Parque",
-      texto: "26 de julio de 1890: la ciudad se levanta contra el régimen de Celman. 26 de julio de 1890: la ciudad se levanta contra Celman. En julio de 1890, Buenos Aires estalló contra el presidente Miguel Juárez Celman. La acusación era corrupción, fraude y un modelo agroexportador que enriquecía a pocos.",
+      texto: "26 de julio de 1890: la ciudad se levanta contra el régimen de Celman. Julio de 1890: la ciudad se levantó contra el régimen de Celman. En julio de 1890, civiles y militares se alzaron en el Parque de Artillería de Buenos Aires contra el gobierno de Miguel Juárez Celman. Fue la Revolución del Parque: protesta armada, crisis financiera y nacimiento de una oposición moderna.",
     },
     {
       estacion: 1,
       titulo: "Fusiles en la Plaza",
-      texto: "Celman cae. La democracia no llega todavía. La revuelta duró días. Hubo muertos.",
+      texto: "La Unión Cívica y el ejército disidente desafiaron el orden oligárquico. La crisis del Unicato y el crack bursátil alimentaron el alzamiento. Leandro N.",
     },
     {
       estacion: 2,
       titulo: "El retrato de la protesta",
-      texto: "1890: la Argentina urbana contra el régimen oligárquico.",
+      texto: "Una revolución incompleta con legado durable.",
     },
     {
       estacion: 3,
       titulo: "De Alem a Yrigoyen",
-      texto: "La revolución falló. El radicalismo nació. Alem fundó el radicalismo en la derrota. Décadas después, Yrigoyen ganaría las elecciones con voto secreto.",
+      texto: "El Parque no ganó el poder. Sembró el partido que sí lo haría. La Revolución del Parque no instaló un gobierno radical. Instaló una cultura de oposición: urnas, movilización, rechazo al fraude.",
     }
   ],
 };
@@ -1110,8 +1372,8 @@ const RODRIGAZO: AudioguiaExhibicion = {
     },
     {
       estacion: 2,
-      titulo: "El retrato del colapso",
-      texto: "Rodrigo simboliza la incapacidad del tercer peronismo.",
+      titulo: "Isabel en el filo",
+      texto: "Un gobierno sin margen: inflación, violencia y vacío de poder.",
     },
     {
       estacion: 3,
@@ -1129,22 +1391,22 @@ const SAAVEDRA: AudioguiaExhibicion = {
     {
       estacion: 0,
       titulo: "El hombre de las milicias",
-      texto: "El coronel de granaderos que comandó las milicias del 25 de Mayo. Saavedra comandó las fuerzas que hicieron posible el 25 de Mayo. El 25 de Mayo de 1810 no fue un accidente. Fue el resultado de años de conspiración, milicias criollas y un hombre que las comandaba: Cornelio Saavedra, coronel de granaderos, líder de la disidencia contra el virreinato.",
+      texto: "El coronel de granaderos que comandó las milicias del 25 de Mayo. Saavedra no era un abogado de salón: era el jefe de los Patricios. Cornelio Saavedra comandaba el regimiento de Patricios, la milicia criolla nacida en las Invasiones Inglesas. En mayo de 1810, cuando el Cabildo vaciló, las armas estaban en sus manos.",
     },
     {
       estacion: 1,
       titulo: "Presidente de la Primera Junta",
-      texto: "Saavedra encabezó el gobierno que reemplazó al virrey. Cuando el cabildo abierto votó por la Primera Junta, Saavedra fue elegido presidente. No era un radical como Moreno ni un pasivo como él mismo solía parecer: era el equilibrio entre las milicias y la elite.",
+      texto: "25 de mayo de 1810: Saavedra al frente del poder revolucionario. La Primera Junta lo eligió presidente. Moreno y Castelli empujaban más rápido; Saavedra frenaba.",
     },
     {
       estacion: 2,
       titulo: "El retrato del fundador",
-      texto: "Saavedra fue el militar que sostuvo la revolución en sus primeros meses.",
+      texto: "Sin Saavedra, Mayo es discurso. Con él, es poder.",
     },
     {
       estacion: 3,
       titulo: "El olvido del héroe",
-      texto: "Saavedra fue apartado, exiliado y borrado de la memoria oficial. Moreno lo apartó del poder. Saavedra fue enviado a Córdoba, luego arrestado, luego olvidado.",
+      texto: "Saavedra quedó a la sombra de Moreno y Belgrano. Sin él, ellos no gobernaban. La memoria escolar privilegió a los letrados. Saavedra quedó como figura secundaria.",
     }
   ],
 };
@@ -1173,6 +1435,34 @@ const SEMANA_TRAGICA: AudioguiaExhibicion = {
       estacion: 3,
       titulo: "La democracia herida",
       texto: "La Semana Trágica dejó una cicatriz que el radicalismo nunca cerró. Yrigoyen sobrevivió políticamente, fue reelecto en 1928, pero la Semana Trágica marcó su gobierno para siempre. Mostró que la Argentina moderna nació con una fractura: oligarquía porteña contra obreros, conservadores contra radicales, orden contra huelga.",
+    }
+  ],
+};
+
+const STAND_BY_2018: AudioguiaExhibicion = {
+  cronicaSlug: "stand-by-2018",
+  titulo: "Audioguía · El stand-by de 2018",
+  duracionEstimada: "8 minutos",
+  segmentos: [
+    {
+      estacion: 0,
+      titulo: "La corrida",
+      texto: "2018 a 2019: el préstamo récord del FMI bajo Macri y la herencia que siguió. 2018: el gradualismo de Cambiemos choca con el mercado. En 2018, el gobierno de Mauricio Macri enfrentó una corrida cambiaria que el gradualismo no pudo contener. La inflación seguía alta, el déficit persistía y el financiamiento externo se encareció.",
+    },
+    {
+      estacion: 1,
+      titulo: "El préstamo récord",
+      texto: "Un acuerdo stand-by por decenas de miles de millones: el más grande de la historia del FMI. El stand-by de 2018 —ampliado después— fue el mayor préstamo del organismo. A cambio, el gobierno se comprometió a metas fiscales y monetarias.",
+    },
+    {
+      estacion: 2,
+      titulo: "Ajuste sin alivio",
+      texto: "2018 a 2019: metas, recesión y un electorado que no perdonó. El programa del Fondo coincidió con recesión, tarifas y un tipo de cambio que no terminaba de estabilizarse. El gobierno defendió el acuerdo como único camino; la calle lo vivió como ajuste.",
+    },
+    {
+      estacion: 3,
+      titulo: "La herencia que sigue",
+      texto: "Sin esta sala, el acuerdo de Alberto con el FMI parece empezar de cero. El stand-by de 2018 es el prólogo necesario de El acuerdo con el FMI (2020–2022). Primero Macri pidió; después Alberto renegoció.",
     }
   ],
 };
@@ -1321,9 +1611,12 @@ export const CURADAS_TIERB_INDICE: Record<string, AudioguiaExhibicion> = {
   "alberto-fernandez": ALBERTO_FERNANDEZ,
   amia: AMIA,
   campora: CAMPORA,
+  carapintadas: CARAPINTADAS,
   "de-la-rua": DE_LA_RUA,
   dorrego: DORREGO,
+  duhalde: DUHALDE,
   "el-43": EL_43,
+  "el-acuerdo-con-el-fmi": EL_ACUERDO_CON_EL_FMI,
   "el-default": EL_DEFAULT,
   "el-facundo": EL_FACUNDO,
   "el-retorno": EL_RETORNO,
@@ -1344,22 +1637,29 @@ export const CURADAS_TIERB_INDICE: Record<string, AudioguiaExhibicion> = {
   "la-pandemia": LA_PANDEMIA,
   "la-transicion": LA_TRANSICION,
   lanusse: LANUSSE,
+  "legislativas-2025": LEGISLATIVAS_2025,
   levingston: LEVINGSTON,
+  "ley-bases": LEY_BASES,
   "ley-saenz-pena": LEY_SAENZ_PENA,
   liniers: LINIERS,
   "malvinas-ciudad": MALVINAS_CIUDAD,
   mariquita: MARIQUITA,
   massera: MASSERA,
   moreno: MORENO,
+  "mundial-1978": MUNDIAL_1978,
+  "mundial-1986": MUNDIAL_1986,
   ongania: ONGANIA,
   paraguay: PARAGUAY,
   "patagonia-rebelde": PATAGONIA_REBELDE,
   piqueteros: PIQUETEROS,
+  "reforma-94": REFORMA_94,
+  "resolucion-125": RESOLUCION_125,
   "revolucion-del-parque": REVOLUCION_DEL_PARQUE,
   rivadavia: RIVADAVIA,
   rodrigazo: RODRIGAZO,
   saavedra: SAAVEDRA,
   "semana-tragica": SEMANA_TRAGICA,
+  "stand-by-2018": STAND_BY_2018,
   "triple-a": TRIPLE_A,
   videla: VIDELA,
   "voto-femenino": VOTO_FEMENINO,

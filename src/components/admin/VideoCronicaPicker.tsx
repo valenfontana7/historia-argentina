@@ -7,8 +7,10 @@ type Props = {
   cronicas: CronicaOption[];
   slug: string;
   onSlugChange: (slug: string) => void;
-  force: boolean;
-  onForceChange: (force: boolean) => void;
+  force?: boolean;
+  onForceChange?: (force: boolean) => void;
+  /** Mostrar el toggle de forzar regeneración (reels). Default true. */
+  showForce?: boolean;
   disabled?: boolean;
 };
 
@@ -16,8 +18,9 @@ export function VideoCronicaPicker({
   cronicas,
   slug,
   onSlugChange,
-  force,
+  force = false,
   onForceChange,
+  showForce = true,
   disabled,
 }: Props) {
   const [q, setQ] = useState("");
@@ -109,31 +112,33 @@ export function VideoCronicaPicker({
         )}
       </div>
 
-      <button
-        type="button"
-        disabled={disabled}
-        onClick={() => onForceChange(!force)}
-        className={`flex min-h-11 w-full items-center gap-3 rounded-sm border px-3 py-2.5 text-left text-sm transition-colors disabled:opacity-50 ${
-          force
-            ? "border-oro/40 bg-oro/10 text-oro-claro"
-            : "border-linea bg-fondo text-tinta-suave"
-        }`}
-      >
-        <span
-          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border ${
-            force ? "border-oro bg-oro text-fondo" : "border-linea"
+      {showForce && onForceChange ? (
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={() => onForceChange(!force)}
+          className={`flex min-h-11 w-full items-center gap-3 rounded-sm border px-3 py-2.5 text-left text-sm transition-colors disabled:opacity-50 ${
+            force
+              ? "border-oro/40 bg-oro/10 text-oro-claro"
+              : "border-linea bg-fondo text-tinta-suave"
           }`}
-          aria-hidden
         >
-          {force ? "✓" : ""}
-        </span>
-        <span>
-          <span className="font-medium">Forzar regeneración</span>
-          <span className="mt-0.5 block text-xs text-tinta-tenue">
-            Ignora jobs previos de la misma crónica
+          <span
+            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border ${
+              force ? "border-oro bg-oro text-fondo" : "border-linea"
+            }`}
+            aria-hidden
+          >
+            {force ? "✓" : ""}
           </span>
-        </span>
-      </button>
+          <span>
+            <span className="font-medium">Forzar regeneración</span>
+            <span className="mt-0.5 block text-xs text-tinta-tenue">
+              Ignora jobs previos de la misma crónica
+            </span>
+          </span>
+        </button>
+      ) : null}
     </div>
   );
 }

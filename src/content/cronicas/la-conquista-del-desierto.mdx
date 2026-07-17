@@ -16,13 +16,18 @@
   puente="Paz y administración: su retrato en el Panteón."
 />
 
-
 <Comparador
   izquierda={<DesiertoFrontera />}
   derecha={<DesiertoCampana />}
   etiquetaIzquierda="El arquitecto"
   etiquetaDerecha="La columna"
   inicio="izquierda"
+/>
+
+<IlustracionEscena
+  imagenId="roca-retrato"
+  pie="Julio Argentino Roca: ministro de Guerra y arquitecto de la campaña"
+  formato="retrato"
 />
 
 <Capitulo
@@ -40,7 +45,7 @@
 <FilaDeDatos>
   <DatoGigante valor={1879} etiqueta="inicio de la campaña" />
   <DatoGigante valor={2} etiqueta="presidencias de Roca" />
-  <DatoGigante valor={1} etiqueta="Patagonia incorporada" />
+  <DatoGigante valor={15} sufijo=" M" etiqueta="hectáreas incorporadas (aprox.)" />
 </FilaDeDatos>
 
 <Capitulo
@@ -65,6 +70,23 @@
 
 <Capitulo
   numero="IV"
+  titulo="La imagen oficial"
+  bajada="Blanes pintó la ocupación como épica nacional. La realidad fue más dura."
+/>
+
+<Prosa>
+  La pintura de **Juan Manuel Blanes** —*La ocupación militar del Río Negro*— fijó en la memoria colectiva una escena de orden y grandiosidad: el ejército, la bandera, el paisaje sometido. Es la versión que el Estado quiso legar.
+
+  Frente a esa épica hay otra historia: caciques apresados, comunidades desplazadas, lenguas y territorios quebrados. Ambas lecturas conviven en esta sala porque ninguna sola alcanza.
+</Prosa>
+
+<IlustracionEscena
+  imagenId="desierto-blanes"
+  pie="La ocupación militar del Río Negro, según Juan Manuel Blanes"
+/>
+
+<Capitulo
+  numero="V"
   titulo="Progreso y memoria"
   bajada="La Argentina moderna nació con esa sombra."
 />
@@ -72,5 +94,11 @@
 <Prosa fondo="papel">
   Roca presidiría el país dos veces. La Conquista del Desierto se celebró como **progreso**: frontera segura, inmigración, exportación. También dejó una pregunta que no se cerró: ¿a qué precio —en vidas y en títulos de propiedad— se construyó el Estado nacional en el sur?
 
-  Esta crónica no resuelve el debate. Recuerda que la Patagonia argentina (su mapa, su economía, su memoria) se forjó en esos años.
+  Esta crónica no resuelve el debate. Recuerda que la Patagonia argentina (su mapa, su economía, su memoria) se forjó en esos años — y que nombres como el del cacique **Pincén** siguen siendo parte de esa disputa.
 </Prosa>
+
+<IlustracionEscena
+  imagenId="desierto-pincen"
+  pie="Cacique Pincén: la otra cara de la campaña del sur"
+  formato="retrato"
+/>

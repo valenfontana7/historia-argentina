@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AdminMecenasPanel } from "@/components/admin/AdminMecenasPanel";
-import { AdminMecenasSubNav } from "@/components/admin/AdminMecenasSubNav";
 import { requireAdminSesion } from "@/lib/admin-auth";
 import {
   emailsCreador,
@@ -29,8 +28,6 @@ export default async function AdminMecenasPage() {
           MercadoPago a precio de creador.
         </p>
       </div>
-
-      <AdminMecenasSubNav />
 
       <AdminMecenasPanel
         initialSettings={settings}
