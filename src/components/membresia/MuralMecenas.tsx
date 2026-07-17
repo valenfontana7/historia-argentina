@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { EstadoMecenas } from "@prisma/client";
 import { esErrorDbDegradado, prisma } from "@/lib/db";
 
@@ -76,9 +77,9 @@ export function MuralMecenas({
         <p className="mt-8 text-center text-sm">
           <Link
             href="/membresia"
-            className="text-oro-claro underline-offset-4 hover:underline"
+            className="group text-oro-claro underline-offset-4 hover:underline"
           >
-            Sumate vos también →
+            <EtiquetaCta>Sumate vos también</EtiquetaCta>
           </Link>
         </p>
       )}

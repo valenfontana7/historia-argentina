@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { obtenerImagenCronica } from "@/data/cronicas-imagenes";
 
 export function PanelImagenComparador({ imagenId, pie }: { imagenId: string; pie?: string }) {
@@ -36,7 +37,7 @@ export function PanelImagenComparador({ imagenId, pie }: { imagenId: string; pie
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-oro/6 via-transparent to-fondo/30 mix-blend-overlay"
       />
       <p className="pointer-events-none absolute right-4 top-4 z-20 rounded-full border border-oro/30 bg-fondo/70 px-3 py-1 text-[0.6rem] uppercase tracking-[0.16em] text-oro opacity-0 transition-opacity group-hover:opacity-100">
-        Ver pieza →
+        <EtiquetaCta>Ver pieza</EtiquetaCta>
       </p>
       {pie && (
         <p className="pointer-events-none absolute inset-x-0 bottom-14 px-5 text-center text-sm leading-relaxed text-tinta-suave">

@@ -7,6 +7,7 @@ import { obtenerImagenCronica } from "@/data/cronicas-imagenes";
 import { tierDeCronica, etiquetaTier } from "@/content/cronicas/tiers";
 import { tieneAudioguia } from "@/data/audioguias-salas";
 import { nombreTransicionExhibicion } from "@/lib/view-transitions";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 
 type Props = {
   cronica: CronicaMeta;
@@ -149,16 +150,18 @@ export function FichaExhibicion({
           <span aria-hidden>·</span>
           <span>{etiquetaTier(tier)}</span>
         </div>
-        <p className="mt-4 text-[0.65rem] uppercase tracking-[0.18em] text-oro transition-transform duration-300 group-hover:translate-x-1">
-          {exclusiva
-            ? esMecenas
-              ? anticipo
-                ? "Anticipo →"
-                : "Entrar →"
-              : anticipo
-                ? "Próximamente · Mecenas ya →"
-                : "Sala privada →"
-            : "Entrar a la sala →"}
+        <p className="mt-4 text-[0.65rem] uppercase tracking-[0.18em] text-oro">
+          <EtiquetaCta>
+            {exclusiva
+              ? esMecenas
+                ? anticipo
+                  ? "Anticipo"
+                  : "Entrar"
+                : anticipo
+                  ? "Próximamente · Mecenas ya"
+                  : "Sala privada"
+              : "Entrar a la sala"}
+          </EtiquetaCta>
         </p>
       </div>
     </TransicionLink>

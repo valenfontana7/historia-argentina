@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { useCallback, useMemo } from "react";
 import { useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
 import {
@@ -39,18 +40,18 @@ export function PortadaRetorno() {
             </p>
             <Link
               href={progresoCronica.href}
-              className="titulo-display mt-2 block text-xl font-medium text-oro-claro hover:text-oro"
+              className="group titulo-display mt-2 block text-xl font-medium text-oro-claro hover:text-oro"
             >
-              {progresoCronica.titulo} →
+              <EtiquetaCta>{progresoCronica.titulo}</EtiquetaCta>
             </Link>
           </div>
         )}
-        <ul className="mt-6 flex flex-wrap gap-3">
+        <ul className="mt-6 flex flex-wrap items-start gap-x-3 gap-y-3.5">
           {recientes.map((r) => (
-            <li key={r.href}>
+            <li key={r.href} className="max-w-full">
               <Link
                 href={r.href}
-                className="rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
+                className="inline-flex max-w-full rounded-full border border-linea px-5 py-2.5 text-sm leading-snug text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
               >
                 {r.titulo}
               </Link>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { FichaExhibicion } from "@/components/cronicas/FichaExhibicion";
 import { Reveal } from "@/components/ui/Reveal";
 import type { CronicaMeta } from "@/content/cronicas/registro";
@@ -39,9 +40,9 @@ export function SeccionCronicasEpoca({
           </div>
           <Link
             href={`/periodos/${epoca}#cronicas`}
-            className="text-sm text-oro-claro transition-colors hover:text-oro"
+            className="group text-sm text-oro-claro transition-colors hover:text-oro"
           >
-            Ver en la sala →
+            <EtiquetaCta>Ver en la sala</EtiquetaCta>
           </Link>
         </div>
       </Reveal>
@@ -58,9 +59,9 @@ export function SeccionCronicasEpoca({
         <p className="mt-6 text-center">
           <Link
             href={`/cronicas?epoca=${epoca}`}
-            className="text-sm text-oro-claro transition-colors hover:text-oro"
+            className="group text-sm text-oro-claro transition-colors hover:text-oro"
           >
-            Ver las {cronicas.length} exhibiciones de {nombreEpoca} →
+            <EtiquetaCta>{`Ver las ${cronicas.length} exhibiciones de ${nombreEpoca}`}</EtiquetaCta>
           </Link>
         </p>
       )}

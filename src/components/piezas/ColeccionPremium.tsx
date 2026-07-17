@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { TransicionLink } from "@/components/navigation/TransicionLink";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { Reveal } from "@/components/ui/Reveal";
 import {
   todasLasColeccionesPremium,
@@ -65,9 +66,9 @@ export function ColeccionPremium({ compacto = false }: Props) {
               <p className="mt-4 text-sm">
                 <Link
                   href="/piezas#coleccion-mecenas"
-                  className="text-oro-claro underline-offset-4 hover:underline"
+                  className="group text-oro-claro underline-offset-4 hover:underline"
                 >
-                  Ver las {piezas.length} piezas de esta colección →
+                  <EtiquetaCta>{`Ver las ${piezas.length} piezas de esta colección`}</EtiquetaCta>
                 </Link>
               </p>
             )}

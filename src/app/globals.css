@@ -37,6 +37,61 @@ html {
   scroll-behavior: smooth;
 }
 
+@keyframes portal-kenburns {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.08) translate(-1.5%, -1%);
+  }
+}
+
+.portal-kenburns {
+  animation: portal-kenburns 28s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portal-kenburns {
+    animation: none !important;
+  }
+}
+
+/* Profundidad falsa por puntero (desktop). Vars: --rx --ry --tx --ty */
+[data-tilt-root] {
+  --rx: 0deg;
+  --ry: 0deg;
+  --tx: 0px;
+  --ty: 0px;
+}
+
+[data-tilt-layer="back"] {
+  transform: translate3d(calc(var(--tx) * -1), calc(var(--ty) * -1), 0);
+  transition: transform 120ms ease-out;
+  will-change: transform;
+}
+
+[data-tilt-layer="front"] {
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry))
+    translate3d(var(--tx), var(--ty), 0);
+  transition: transform 120ms ease-out;
+  will-change: transform;
+}
+
+[data-tilt-layer="card"] {
+  transform: perspective(800px) rotateX(var(--rx)) rotateY(var(--ry))
+    translate3d(0, 0, 0);
+  transition: transform 140ms ease-out, box-shadow 140ms ease-out;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tilt-layer] {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 body {
   background: var(--fondo);
   color: var(--tinta);

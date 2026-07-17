@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import type { EntidadRef, EntidadTipo, NodoEntidad } from "@/lib/grafo/tipos";
 import { relacionados } from "@/lib/grafo/queries";
 import { etiquetasTipo, rutaDeNodo } from "@/lib/grafo/rutas";
@@ -36,9 +37,9 @@ export function EnlacesRelacionados({
               <li key={`${nodo.tipo}-${nodo.slug}`}>
                 <Link
                   href={rutaDeNodo(nodo)}
-                  className="rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
+                  className="group rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
                 >
-                  {nodo.titulo} →
+                  <EtiquetaCta>{nodo.titulo}</EtiquetaCta>
                 </Link>
               </li>
             ))}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { useMemo, useState } from "react";
 import { categorias } from "@/data/categorias";
 import {
@@ -44,9 +45,9 @@ export function TimelinePremium({ esMecenas }: Props) {
         </p>
         <Link
           href="/membresia"
-          className="mt-5 inline-block rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
+          className="group mt-5 inline-block rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
         >
-          Ver con Mecenas →
+          <EtiquetaCta>Ver con Mecenas</EtiquetaCta>
         </Link>
       </aside>
     );

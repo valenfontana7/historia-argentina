@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import type { NodoEntidad } from "@/lib/grafo/tipos";
 import { descubrir } from "@/lib/grafo/queries";
 import { Reveal } from "@/components/ui/Reveal";
@@ -40,9 +41,9 @@ export function ContextoTemporal({ nodo, deltaAnios = 20 }: Props) {
           <li key={e.slug}>
             <Link
               href={`/hoy/${e.slug}`}
-              className="text-sm text-tinta transition-colors hover:text-oro-claro"
+              className="group text-sm text-tinta transition-colors hover:text-oro-claro"
             >
-              {e.titulo} →
+              <EtiquetaCta>{e.titulo}</EtiquetaCta>
             </Link>
           </li>
         ))}

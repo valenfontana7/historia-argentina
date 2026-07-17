@@ -15,9 +15,9 @@ import type { Epoca } from "@/components/ui/Retrato";
 import type { AccesoCronica } from "@/content/cronicas/registro";
 
 export const metadata = construirMetadata({
-  titulo: "Exhibiciones: museo digital de historia argentina",
+  titulo: "Historias: explorar la historia argentina",
   descripcion:
-    "Salas inmersivas de la historia argentina: mapas animados, piezas del patrimonio y relatos que se recorren como una visita al museo.",
+    "Crónicas inmersivas de la historia argentina: mapas, piezas y relatos conectados. Empezá por cualquiera y seguí el hilo.",
   ruta: "/cronicas",
 });
 

@@ -21,7 +21,6 @@ export default async function TimelinesPage() {
   const anios = aniosConEventos();
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Explorar", href: "/explorar" },
     { nombre: "Timeline", href: "/timelines" },
   ];
 

@@ -1,27 +1,32 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { HeroPortada } from "@/components/HeroPortada";
-import { AvisoEfemerideSugerida } from "@/components/exploracion/AvisoEfemerideSugerida";
-import { PersonajeCard } from "@/components/PersonajeCard";
-import { RutaRecomendada } from "@/components/portada/RutaRecomendada";
-import { CronicaDelMesPortada } from "@/components/portada/CronicaDelMesPortada";
-import { PortadaRetorno } from "@/components/portada/PortadaRetorno";
-import { PuertasDeSala } from "@/components/museo/PuertasDeSala";
-import { TuVisita } from "@/components/museo/TuVisita";
-import { ExposicionesTemporales } from "@/components/museo/ExposicionesTemporales";
-import { TransicionLink } from "@/components/navigation/TransicionLink";
+import { Suspense } from "react";
+import { PortalVivo } from "@/components/exploracion/PortalVivo";
+import { SeguirRetomar } from "@/components/exploracion/SeguirRetomar";
+import { RielDescubrimiento } from "@/components/exploracion/RielDescubrimiento";
+import { Sorpresa } from "@/components/exploracion/Sorpresa";
+import { PortalSkeleton } from "@/components/exploracion/PortalSkeleton";
 import { Reveal } from "@/components/ui/Reveal";
-import { puedeVerContenidoMecenas } from "@/lib/auth";
-import { exposicionesAnticipoActivas } from "@/lib/cronicas/indice";
+import { TransicionLink } from "@/components/navigation/TransicionLink";
 import {
   formatearFechaCalendario,
   resolverEfemerideParaFecha,
 } from "@/data/efemerides";
-import { personajes } from "@/data/personajes";
 import { cronicas } from "@/content/cronicas/registro";
+import { destacadas } from "@/lib/cronicas/indice";
 import { hoyEnArgentina } from "@/lib/fechas";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { sitio } from "@/lib/site.config";
+import { todosLosNodos } from "@/lib/grafo/queries";
+import {
+  resolverGanchoPortal,
+  rielBatallas,
+  rielDestacadas,
+  rielHoy,
+  rielPareceFiccion,
+  rielPersonajes,
+  rielRecientesCronicas,
+  rielRecorridos,
+} from "@/lib/exploracion/rieles-home";
 
 export const revalidate = 3600;
 
@@ -31,156 +36,164 @@ export const metadata: Metadata = construirMetadata({
   ruta: "/",
 });
 
-const destacados = [
-  "jose-de-san-martin",
-  "eva-peron",
-  "juan-manuel-de-rosas",
-  "domingo-faustino-sarmiento",
-  "manuel-belgrano",
-  "juana-azurduy",
-  "juan-domingo-peron",
-  "raul-alfonsin",
-];
-
 function cronicaDelMes() {
+  const destacadasLista = destacadas().filter((c) => c.acceso !== "mecenas");
+  if (destacadasLista.length > 0) {
+    const mes = new Date().getMonth();
+    return destacadasLista[mes % destacadasLista.length]!;
+  }
   const mes = new Date().getMonth();
-  return cronicas[mes % cronicas.length] ?? cronicas[0];
+  return cronicas[mes % cronicas.length] ?? cronicas[0]!;
 }
 
-export default async function HomePage() {
-  const esMecenas = await puedeVerContenidoMecenas();
-  const anticipo = exposicionesAnticipoActivas();
+async function HomeContenido() {
   const { mes, dia } = hoyEnArgentina();
   const { efemeride, esExacta } = resolverEfemerideParaFecha(mes, dia);
   const fechaHoy = formatearFechaCalendario(mes, dia);
   const cronicaDestacada = cronicaDelMes();
-  const grilla = personajes.filter((p) => destacados.includes(p.slug));
   const hrefHoy = esExacta
     ? `/hoy/${efemeride.dia}`
     : `/hoy/${efemeride.dia}?sugerida=1`;
 
+  const gancho = resolverGanchoPortal({
+    efemerideTitulo: efemeride.titulo,
+    efemerideHref: hrefHoy,
+    efemerideTeaser:
+      efemeride.hook ??
+      efemeride.historia[0]?.slice(0, 160) ??
+      efemeride.fecha,
+    esExacta,
+    cronicaDestacada: {
+      slug: cronicaDestacada.slug,
+      titulo: cronicaDestacada.titulo,
+      subtitulo: cronicaDestacada.subtitulo,
+      imagenHero: cronicaDestacada.visual.imagenHero,
+    },
+  });
+
+  const nodosSorpresa = todosLosNodos().filter(
+    (n) => n.tipo === "cronica" || n.tipo === "persona" || n.tipo === "evento",
+  );
+
   return (
     <div>
-      <HeroPortada
-        cronicaSlug={cronicaDestacada.slug}
-        hoyHref={hrefHoy}
-        hoyTitulo={efemeride.titulo}
+      <PortalVivo gancho={gancho} />
+
+      <SeguirRetomar />
+
+      <RielDescubrimiento
+        titulo="Hoy en la historia"
+        subtitulo={esExacta ? fechaHoy : `Cerca de hoy · ${fechaHoy}`}
+        items={rielHoy()}
+        verMasHref={hrefHoy}
+        verMasEtiqueta="Ver el día →"
       />
 
-      <RutaRecomendada cronicaDestacadaSlug={cronicaDestacada.slug} />
+      <RielDescubrimiento
+        titulo="Historias que parecen ficción"
+        subtitulo="Momentos tan improbables que cuestan creer."
+        items={rielPareceFiccion()}
+        verMasHref="/categorias/tragedias"
+      />
 
-      <PortadaRetorno />
+      <RielDescubrimiento
+        titulo="Personajes"
+        subtitulo="Rostros que abren épocas enteras."
+        items={rielPersonajes()}
+        verMasHref="/panteon"
+        verMasEtiqueta="Ver todos →"
+      />
 
-      <TuVisita />
+      <RielDescubrimiento
+        titulo="Momentos épicos"
+        subtitulo="Batallas y giros que cambiaron el mapa."
+        items={rielBatallas()}
+        verMasHref="/categorias/batallas"
+      />
 
-      {anticipo.length > 0 && (
-        <section className="border-b border-linea-suave bg-fondo-2">
-          <div className="mx-auto max-w-6xl px-5 py-12">
-            <ExposicionesTemporales
-              exposiciones={anticipo}
-              esMecenas={esMecenas}
-            />
-          </div>
-        </section>
-      )}
+      <RielDescubrimiento
+        titulo="Recorridos cortos"
+        subtitulo="Dejá que te guíen. Tres a siete pasos."
+        items={rielRecorridos()}
+        verMasHref="/recorridos"
+      />
 
-      {/* Pieza del día */}
-      <section className="border-y border-linea-suave bg-fondo">
-        <div className="mx-auto max-w-6xl px-5 py-16">
-          {!esExacta && (
-            <div className="mb-8">
-              <AvisoEfemerideSugerida
-                fechaConsultada={fechaHoy}
-                fechaEfemeride={efemeride.fecha}
-              />
-            </div>
-          )}
-          <TransicionLink href={hrefHoy} className="group block">
-            <div className="flex flex-col gap-8 sm:flex-row sm:items-center">
-              <Reveal className="shrink-0">
-                <p className="kicker">
-                  {esExacta ? "La pieza del día" : "Pieza del día sugerida"}
-                </p>
-                <p className="titulo-display mt-2 text-5xl font-semibold leading-none text-oro sm:text-7xl">
-                  {efemeride.anio}
-                </p>
-                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-tinta-tenue">
-                  {efemeride.fecha}
-                </p>
-              </Reveal>
-              <Reveal
-                delay={0.1}
-                className="sm:border-l sm:border-linea sm:pl-10"
-              >
-                <h2 className="titulo-display max-w-xl text-3xl font-semibold leading-tight transition-colors group-hover:text-oro-claro">
-                  {efemeride.titulo}
-                </h2>
-                <p className="mt-3 max-w-xl text-sm leading-relaxed text-tinta-suave">
-                  {efemeride.historia[0].slice(0, 180)}…
-                </p>
-                <p className="mt-4 text-xs uppercase tracking-[0.2em] text-oro transition-transform duration-300 group-hover:translate-x-1.5">
-                  Ver en la vitrina →
-                </p>
-              </Reveal>
-            </div>
-          </TransicionLink>
-        </div>
-      </section>
+      <RielDescubrimiento
+        titulo="Para no perderse"
+        items={rielDestacadas()}
+        verMasHref="/cronicas"
+        verMasEtiqueta="Todas las historias →"
+      />
 
-      <PuertasDeSala />
-
-      <CronicaDelMesPortada cronica={cronicaDestacada} />
-
-      <section className="border-y border-linea-suave bg-fondo-2">
-        <div className="mx-auto max-w-6xl px-5 py-14 text-center">
-          <Reveal>
-            <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-10">
-              <Link
-                href="/recorridos"
-                className="text-sm text-oro-claro underline-offset-4 transition-colors hover:underline"
-              >
-                Visitas guiadas →
-              </Link>
-              <Link
-                href="/panteon"
-                className="text-sm text-oro-claro underline-offset-4 transition-colors hover:underline"
-              >
-                Galería de retratos →
-              </Link>
-              <Link
-                href="/explorar"
-                className="text-sm text-oro-claro underline-offset-4 transition-colors hover:underline"
-              >
-                Plano del museo →
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pb-24 pt-10">
+      <section className="mx-auto max-w-6xl px-5 py-10 sm:py-14">
         <Reveal>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
-            <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">
-              Rostros del museo
-            </h2>
-            <div className="filete w-full" />
-            <Link
-              href="/panteon"
-              className="shrink-0 text-xs uppercase tracking-[0.2em] text-tinta-suave transition-colors hover:text-oro-claro sm:ml-0"
-            >
-              Ver galería →
-            </Link>
-          </div>
+          <Sorpresa
+            nodos={nodosSorpresa}
+            variante="bloque"
+            etiqueta="Mostrame otra"
+          />
         </Reveal>
-        <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
-          {grilla.slice(0, 4).map((personaje, i) => (
-            <Reveal key={personaje.slug} delay={(i % 4) * 0.07}>
-              <PersonajeCard personaje={personaje} />
-            </Reveal>
-          ))}
+      </section>
+
+      <RielDescubrimiento
+        titulo="Lo último"
+        items={rielRecientesCronicas()}
+        verMasHref="/cronicas"
+      />
+
+      <section className="border-t border-linea-suave bg-fondo-2">
+        <div className="mx-auto max-w-6xl px-5 py-16">
+          <Reveal>
+            <p className="kicker">Seguí el hilo</p>
+            <h2 className="titulo-display mt-3 text-3xl font-medium text-oro sm:text-4xl">
+              El universo no termina acá
+            </h2>
+          </Reveal>
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            <TransicionLink
+              href={`/timelines/${efemeride.anio}`}
+              className="group rounded-sm border border-linea bg-fondo px-5 py-6 transition-colors hover:border-oro/45"
+            >
+              <p className="text-[0.6rem] uppercase tracking-[0.2em] text-oro">
+                Línea de tiempo
+              </p>
+              <p className="titulo-display mt-2 text-xl transition-colors group-hover:text-oro-claro">
+                Argentina en {efemeride.anio}
+              </p>
+            </TransicionLink>
+            <TransicionLink
+              href="/lugares"
+              className="group rounded-sm border border-linea bg-fondo px-5 py-6 transition-colors hover:border-oro/45"
+            >
+              <p className="text-[0.6rem] uppercase tracking-[0.2em] text-oro">
+                Mapa
+              </p>
+              <p className="titulo-display mt-2 text-xl transition-colors group-hover:text-oro-claro">
+                Lugares de la historia
+              </p>
+            </TransicionLink>
+            <TransicionLink
+              href="/explorar"
+              className="group rounded-sm border border-linea bg-fondo px-5 py-6 transition-colors hover:border-oro/45"
+            >
+              <p className="text-[0.6rem] uppercase tracking-[0.2em] text-oro">
+                Mostrame otra
+              </p>
+              <p className="titulo-display mt-2 text-xl transition-colors group-hover:text-oro-claro">
+                Una historia al azar
+              </p>
+            </TransicionLink>
+          </div>
         </div>
       </section>
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={<PortalSkeleton />}>
+      <HomeContenido />
+    </Suspense>
   );
 }

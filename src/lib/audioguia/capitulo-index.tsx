@@ -28,6 +28,12 @@ export function CapituloIndexProvider({ children }: { children: ReactNode }) {
 
 export function useCapituloIndex(): number | null {
   const getNext = useContext(CapituloIndexContext);
+  // Cachear por instancia: getNext muta un contador; en Strict Mode
+  // React re-renderiza sin desmontar y un segundo getNext rompería la hidratación.
+  const indexRef = useRef<number | null>(null);
   if (!getNext) return null;
-  return getNext();
+  if (indexRef.current === null) {
+    indexRef.current = getNext();
+  }
+  return indexRef.current;
 }

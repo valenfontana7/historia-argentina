@@ -67,7 +67,7 @@ export const METADATA_SALAS = {
   titulo: "Salas permanentes: historia argentina",
   descripcion: DESCRIPCION_SALAS,
 } as const;
-export const TITULO_EXHIBICIONES_SALA = "Exhibiciones de esta sala";
+export const TITULO_EXHIBICIONES_SALA = "Historias de esta época";
 export const KICKER_SALA = "Sala";
 export const OG_KICKER_SALA = "Sala";
 
@@ -89,14 +89,14 @@ export function etiquetaEstacionesVisita(cantidad: number): string {
   return `${cantidad} ${cantidad === 1 ? "estación" : "estaciones"}`;
 }
 
-export const TITULO_EXHIBICIONES_PROTAGONIZADAS = "Exhibiciones protagonizadas";
-export const TITULO_RETRATOS_RELACIONADOS = "Retratos relacionados";
+export const TITULO_EXHIBICIONES_PROTAGONIZADAS = "Historias de esta figura";
+export const TITULO_RETRATOS_RELACIONADOS = "Personajes relacionados";
 export const KICKER_COLECCION = "Colección";
 export const MIGA_COLECCIONES = "Colecciones";
 export function tituloExhibicionesColeccion(nombre: string): string {
   return `Exhibiciones de la colección «${nombre}»`;
 }
-export const CTA_VER_SALA_EPOCA = "Ver la sala de la época →";
+export const CTA_VER_SALA_EPOCA = "Ver la época →";
 
 /** Puerta de sala privada (SoftGate museográfico). */
 export const KICKER_SALA_PRIVADA = "Sala privada";

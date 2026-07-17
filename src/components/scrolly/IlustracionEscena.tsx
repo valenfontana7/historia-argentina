@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { Reveal } from "@/components/ui/Reveal";
 import { obtenerImagenCronica } from "@/data/cronicas-imagenes";
 
@@ -47,26 +48,28 @@ export function IlustracionEscena({
           fill
           unoptimized
           sizes="(max-width: 768px) 100vw, 960px"
-          className="object-cover sepia-[0.35] contrast-[1.08] brightness-[0.85] transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+          className="object-cover sepia-[0.3] contrast-[1.05] brightness-[0.75] transition-transform duration-700 ease-out group-hover:scale-[1.02]"
           onError={() => setError(true)}
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-fondo via-fondo/20 to-fondo/40"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-fondo via-fondo/35 to-fondo/30"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-oro/8 via-transparent to-fondo/30 mix-blend-overlay"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-fondo from-25% via-fondo/85 to-transparent"
         />
         <p className="pointer-events-none absolute right-4 top-4 z-20 rounded-full border border-oro/30 bg-fondo/70 px-3 py-1 text-[0.6rem] uppercase tracking-[0.16em] text-oro opacity-0 transition-opacity group-hover:opacity-100">
-          Ver pieza →
+          <EtiquetaCta>Ver pieza</EtiquetaCta>
         </p>
         {(pie || imagen.credito) && (
-          <figcaption className="absolute inset-x-0 bottom-0 z-10 px-5 pb-4 pt-20">
+          <figcaption className="absolute inset-x-0 bottom-0 z-10 px-5 pb-4 pt-10 sm:pb-5">
             {pie && (
-              <p className="text-sm leading-relaxed text-tinta-suave">{pie}</p>
+              <p className="text-sm font-medium leading-relaxed text-[#f0e8d8] drop-shadow-[0_1px_10px_rgba(0,0,0,0.9)] sm:text-base">
+                {pie}
+              </p>
             )}
-            <p className="mt-1 text-[0.6rem] uppercase tracking-[0.2em] text-tinta-tenue opacity-80 sm:opacity-0 sm:transition-opacity sm:group-hover:opacity-100">
+            <p className="mt-1.5 text-[0.6rem] uppercase tracking-[0.18em] text-[#cfc5b0] drop-shadow-[0_1px_6px_rgba(0,0,0,0.85)] sm:opacity-90 sm:transition-opacity sm:group-hover:opacity-100">
               {imagen.credito}
             </p>
           </figcaption>

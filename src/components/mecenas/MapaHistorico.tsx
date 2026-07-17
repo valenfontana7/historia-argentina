@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FlechaCta } from "@/components/ui/FlechaCta";
 import {
   BaseMapaConoSur,
   BrújulaDecorativa,
@@ -74,9 +75,10 @@ export function MapaHistorico({ interactivo = true, esMecenas = false }: Props) 
               {interactivo ? (
                 <Link
                   href={`/lugares/${p.lugar.slug}`}
-                  className="block text-sm transition-colors hover:text-oro"
+                  className="group inline-flex items-center gap-2 text-sm transition-colors hover:text-oro"
                 >
-                  {contenido} →
+                  {contenido}
+                  <FlechaCta className="opacity-75 transition-[transform,opacity] duration-300 ease-out group-hover:translate-x-0.5 group-hover:opacity-100" />
                 </Link>
               ) : (
                 <span className="block text-sm text-tinta-suave">{contenido}</span>
@@ -87,7 +89,8 @@ export function MapaHistorico({ interactivo = true, esMecenas = false }: Props) 
       </ul>
       {!interactivo && !esMecenas && (
         <p className="border-t border-linea bg-fondo-3 px-4 py-3 text-center text-xs text-tinta-tenue">
-          Mapa completo disponible para mecenas →{" "}
+          Mapa completo disponible para mecenas{" "}
+          <FlechaCta className="inline-block align-middle opacity-75" />{" "}
           <Link href="/membresia" className="text-oro-claro hover:text-oro">
             Hacete mecenas
           </Link>

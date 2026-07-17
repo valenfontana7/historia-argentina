@@ -53,12 +53,22 @@ export function adaptarEvento(efemeride: Efemeride): NodoEntidad {
   ];
   if (catSlug) relaciones.push({ tipo: "categoria", slug: catSlug });
 
+  let imagen: string | undefined;
+  for (const slug of efemeride.relacionados) {
+    const retrato = obtenerImagenPersonaje(slug);
+    if (retrato) {
+      imagen = retrato.url;
+      break;
+    }
+  }
+
   return {
     tipo: "evento",
     slug: efemeride.dia,
     titulo: efemeride.titulo,
     resumen: efemeride.historia[0] ?? "",
     url: `${sitio.url}/hoy/${efemeride.dia}`,
+    imagen,
     anio: efemeride.anio,
     categorias: catSlug ? [catSlug] : undefined,
     relaciones,

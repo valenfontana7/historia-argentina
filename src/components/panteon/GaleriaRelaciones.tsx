@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { TransicionLink } from "@/components/navigation/TransicionLink";
 import { obtenerImagenPersonaje } from "@/data/personajes-imagenes";
 import type { Personaje } from "@/data/personajes";
@@ -97,7 +98,7 @@ export function ListaVitrinasPanteon({ titulo, items }: ListaVitrinasProps) {
                 <p className="mt-1 text-xs text-tinta-tenue">{item.meta}</p>
               )}
               <p className="mt-auto pt-4 text-[0.65rem] uppercase tracking-[0.16em] text-tinta-tenue group-hover:text-oro">
-                Entrar →
+                <EtiquetaCta>Entrar</EtiquetaCta>
               </p>
             </Link>
           </li>

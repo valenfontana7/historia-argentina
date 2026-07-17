@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import Image from "next/image";
 import { MigasDePan } from "@/components/seo/MigasDePan";
 import { Reveal } from "@/components/ui/Reveal";
@@ -29,7 +30,6 @@ export default function PiezasPage() {
   const piezas = todasLasPiezas();
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Explorar", href: "/explorar" },
     { nombre: "La colección", href: "/piezas" },
   ];
 
@@ -113,10 +113,10 @@ export default function PiezasPage() {
 
         <Reveal className="mt-16 text-center">
           <Link
-            href="/explorar"
-            className="text-sm text-oro-claro underline-offset-4 hover:underline"
+            href="/"
+            className="group text-sm text-oro-claro underline-offset-4 hover:underline"
           >
-            Volver al plano del museo →
+            <EtiquetaCta>Seguir descubriendo</EtiquetaCta>
           </Link>
         </Reveal>
       </div>

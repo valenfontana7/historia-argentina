@@ -90,21 +90,21 @@ export function Comparador({
           </span>
         </div>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex justify-between gap-3 p-3">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex items-end justify-between gap-2 p-2 sm:gap-3 sm:p-3">
           <span
-            className={`max-w-[46%] rounded-full px-3 py-1.5 text-xs uppercase leading-snug tracking-[0.14em] backdrop-blur transition-colors sm:text-[0.65rem] sm:tracking-[0.18em] ${
+            className={`max-w-[44%] truncate rounded-sm px-2 py-1 text-[0.55rem] uppercase tracking-[0.12em] backdrop-blur-md transition-colors sm:max-w-[46%] sm:rounded-full sm:px-3 sm:py-1.5 sm:text-[0.65rem] sm:tracking-[0.18em] ${
               viendoIzquierda
-                ? "bg-oro/20 text-oro-claro ring-1 ring-oro/50"
-                : "bg-fondo/80 text-tinta-tenue"
+                ? "bg-oro/25 text-oro-claro ring-1 ring-oro/50"
+                : "bg-fondo/85 text-tinta-tenue"
             }`}
           >
             {etiquetaIzquierda}
           </span>
           <span
-            className={`max-w-[46%] rounded-full px-3 py-1.5 text-right text-xs uppercase leading-snug tracking-[0.14em] backdrop-blur transition-colors sm:text-[0.65rem] sm:tracking-[0.18em] ${
+            className={`max-w-[44%] truncate rounded-sm px-2 py-1 text-right text-[0.55rem] uppercase tracking-[0.12em] backdrop-blur-md transition-colors sm:max-w-[46%] sm:rounded-full sm:px-3 sm:py-1.5 sm:text-[0.65rem] sm:tracking-[0.18em] ${
               viendoDerecha
-                ? "bg-oro/20 text-oro-claro ring-1 ring-oro/50"
-                : "bg-fondo/80 text-tinta-tenue"
+                ? "bg-oro/25 text-oro-claro ring-1 ring-oro/50"
+                : "bg-fondo/85 text-tinta-tenue"
             }`}
           >
             {etiquetaDerecha}

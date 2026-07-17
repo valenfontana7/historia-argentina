@@ -67,7 +67,7 @@ export function MapaMaipu() {
   return (
     <>
     <div ref={envoltorio} className="relative" style={{ height: `${etapas.length * 120}vh` }}>
-      <div className="sticky top-0 flex h-svh flex-col overflow-hidden bg-[#080b10]">
+      <div className="sticky top-0 flex h-svh flex-col overflow-hidden bg-[#080b10] pb-16 lg:pb-0" data-scrolly-mapa>
         <div className="relative min-h-0 flex-1 px-3 pt-3 sm:px-6 sm:pt-5">
           <BaseMapaMaipu>
             <g data-capa-maip="0">
@@ -121,12 +121,12 @@ export function MapaMaipu() {
         </div>
 
         <div className="relative shrink-0 border-t border-linea-suave bg-fondo/90 px-4 py-5 backdrop-blur-md sm:px-8">
-          <div className="relative mx-auto min-h-[7rem] max-h-[40vh] max-w-2xl overflow-y-auto sm:min-h-[9.5rem] sm:max-h-none">
+          <div className="relative mx-auto grid max-w-2xl">
             {etapas.map((etapa, i) => (
               <div
                 key={etapa.nombre}
                 data-ficha-mapa={i}
-                className="absolute inset-0 flex flex-col justify-center"
+                className="col-start-1 row-start-1 flex flex-col justify-center px-0.5 py-1"
               >
                 <p className="text-[0.65rem] uppercase tracking-[0.24em] text-tinta-tenue">
                   Etapa {i + 1} de {etapas.length} · {etapa.fecha}

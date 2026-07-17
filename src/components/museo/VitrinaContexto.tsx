@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { obtenerImagenPersonaje } from "@/data/personajes-imagenes";
 import { obtenerPieza } from "@/lib/piezas/indice";
 import { obtenerNodo } from "@/lib/grafo/queries";
@@ -47,7 +48,7 @@ export function VitrinaContexto({ tipo, slug, puente }: Props) {
               <p className="mt-2 text-sm italic text-tinta-tenue">{puente}</p>
             )}
             <p className="mt-3 text-[0.65rem] uppercase tracking-[0.16em] text-oro">
-              Ver la pieza →
+              <EtiquetaCta>Ver la pieza</EtiquetaCta>
             </p>
           </div>
         </div>
@@ -93,7 +94,7 @@ export function VitrinaContexto({ tipo, slug, puente }: Props) {
             <p className="mt-2 text-sm italic text-tinta-tenue">{puente}</p>
           )}
           <p className="mt-3 text-[0.65rem] uppercase tracking-[0.16em] text-oro">
-            Descubrir →
+            <EtiquetaCta>Descubrir</EtiquetaCta>
           </p>
         </div>
       </div>

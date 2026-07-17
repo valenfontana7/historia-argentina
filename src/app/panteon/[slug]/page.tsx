@@ -263,9 +263,11 @@ export default async function PersonajePage({ params }: Props) {
           }))}
         />
 
-        {salidas.length > 0 && (
-          <SalidasDeSala salidas={salidas} tituloExhibicion={personaje.nombre} />
-        )}
+        <SalidasDeSala
+          salidas={salidas}
+          origen={nodo ?? { tipo: "persona", slug }}
+          tituloExhibicion={personaje.nombre}
+        />
 
         <section className="mt-28">
           <Reveal>

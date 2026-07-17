@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { Reveal } from "@/components/ui/Reveal";
 import { TransicionLink } from "@/components/navigation/TransicionLink";
 import {
@@ -10,39 +11,35 @@ import {
 
 type Props = {
   slug: string;
+  /** @deprecated Ya no se usa en el título; se conserva por callers legacy. */
   tituloExhibicion?: string;
 };
 
-export function PiezasDeSala({ slug, tituloExhibicion }: Props) {
+export function PiezasDeSala({ slug }: Props) {
   const piezas = piezasDeExhibicion(slug);
   if (piezas.length === 0) return null;
 
   return (
     <section
-      className="mx-auto max-w-6xl px-5 py-16"
-      aria-label="Piezas de esta sala"
+      className="mx-auto max-w-6xl px-5 py-6 sm:py-8"
+      aria-label="Objetos de esta historia"
     >
       <Reveal>
-        <p className="kicker">Patrimonio visual</p>
-        <h2 className="titulo-display mt-4 text-2xl font-medium text-oro sm:text-3xl">
-          {tituloExhibicion
-            ? `Piezas de «${tituloExhibicion}»`
-            : "Piezas de esta sala"}
-        </h2>
+        <p className="kicker">Objetos</p>
       </Reveal>
-      <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {piezas.map((pieza, i) => (
-          <Reveal key={pieza.id} delay={i * 0.05}>
+          <Reveal key={pieza.id} delay={i * 0.04}>
             <PiezaMiniCard pieza={pieza} />
           </Reveal>
         ))}
       </ul>
-      <Reveal className="mt-8">
+      <Reveal className="mt-4">
         <Link
           href="/piezas"
-          className="text-sm text-oro-claro transition-colors hover:text-oro"
+          className="group text-xs text-tinta-tenue transition-colors hover:text-oro-claro"
         >
-          Ver toda la colección →
+          <EtiquetaCta>Ver más objetos</EtiquetaCta>
         </Link>
       </Reveal>
     </section>
@@ -53,24 +50,24 @@ function PiezaMiniCard({ pieza }: { pieza: Pieza }) {
   return (
     <TransicionLink
       href={`/piezas/${pieza.id}`}
-      className="group flex gap-4 overflow-hidden rounded-sm border border-linea bg-fondo-2 p-3 transition-colors hover:border-oro/40"
+      className="group flex gap-3 overflow-hidden rounded-sm border border-linea/80 bg-fondo-2/80 p-2.5 transition-colors hover:border-oro/35"
     >
-      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-sm bg-fondo-3">
+      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-sm bg-fondo-3">
         <Image
           src={pieza.url}
           alt=""
           fill
           unoptimized
-          sizes="80px"
-          className="object-cover sepia-[0.35] transition-transform duration-500 group-hover:scale-105"
+          sizes="56px"
+          className="object-cover sepia-[0.3] transition-transform duration-500 group-hover:scale-105"
           aria-hidden
         />
       </div>
-      <div className="min-w-0 flex-1 py-1">
-        <p className="text-[0.6rem] uppercase tracking-[0.18em] text-oro">
+      <div className="min-w-0 flex-1 py-0.5">
+        <p className="text-[0.55rem] uppercase tracking-[0.16em] text-oro">
           {ETIQUETAS_TIPO_PIEZA[pieza.tipo]}
         </p>
-        <p className="mt-1 line-clamp-2 text-sm leading-snug text-tinta transition-colors group-hover:text-oro-claro">
+        <p className="mt-0.5 line-clamp-2 text-xs leading-snug text-tinta-suave transition-colors group-hover:text-oro-claro">
           {pieza.alt}
         </p>
       </div>

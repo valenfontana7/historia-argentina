@@ -103,7 +103,11 @@ export default async function PiezaPage({ params }: Props) {
           />
         )}
       </div>
-      {salidas.length > 0 && <SalidasDeSala salidas={salidas} tituloExhibicion={pieza.alt} />}
+      <SalidasDeSala
+        salidas={salidas}
+        origen={nodo ?? { tipo: "pieza", slug: id }}
+        tituloExhibicion={pieza.alt}
+      />
     </article>
   );
 }

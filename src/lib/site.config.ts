@@ -14,7 +14,7 @@ export const sitio = {
   nombre: "Argent",
   lema: "Historia argentina para explorar",
   descripcion:
-    "Crónicas para leer con el scroll, fichas de personajes y una historia del día. Un museo digital de historia argentina, gratis y en español.",
+    "Un motor de exploración histórica: crónicas inmersivas, personajes, días y conexiones. Descubrí algo increíble en segundos — gratis y en español.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "") || URL_DEFAULT,
   redes: {

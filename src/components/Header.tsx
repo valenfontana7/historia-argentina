@@ -1,15 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { MarcaSitio } from "@/components/portada/MarcaSitio";
 
-const ENLACES_BASE = [
-  { href: "/explorar", etiqueta: "Explorar" },
-  { href: "/recorridos", etiqueta: "Visitas guiadas" },
-  { href: "/cronicas", etiqueta: "Exhibiciones" },
-  { href: "/panteon", etiqueta: "Retratos" },
-  { href: "/lugares", etiqueta: "Mapas" },
+const PRIMARIOS = [
+  { href: "/", etiqueta: "Descubrir" },
   { href: "/hoy", etiqueta: "Hoy" },
 ] as const;
 
@@ -19,18 +16,23 @@ type Props = {
 
 export function Header({ esMecenas }: Props) {
   const [menuAbierto, setMenuAbierto] = useState(false);
+  const [portalListo, setPortalListo] = useState(false);
+  const botonRef = useRef<HTMLButtonElement>(null);
+  const primerLinkRef = useRef<HTMLAnchorElement>(null);
+  const navId = useId();
 
-  const enlaces = useMemo(
-    () => [
-      ...ENLACES_BASE,
-      esMecenas
-        ? ({ href: "/mecenas", etiqueta: "Tu museo", mecenas: true } as const)
-        : ({ href: "/membresia", etiqueta: "Mecenas", mecenas: false } as const),
-    ],
-    [esMecenas],
-  );
+  useEffect(() => {
+    setPortalListo(true);
+  }, []);
 
-  const cerrarMenu = useCallback(() => setMenuAbierto(false), []);
+  const cerrarMenu = useCallback(() => {
+    setMenuAbierto(false);
+    window.setTimeout(() => botonRef.current?.focus(), 0);
+  }, []);
+
+  const abrirMenu = useCallback(() => {
+    setMenuAbierto(true);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuAbierto ? "hidden" : "";
@@ -42,99 +44,160 @@ export function Header({ esMecenas }: Props) {
   useEffect(() => {
     if (!menuAbierto) return;
 
+    const id = window.setTimeout(() => {
+      primerLinkRef.current?.focus();
+    }, 0);
+
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") cerrarMenu();
+      if (e.key === "Escape") {
+        e.preventDefault();
+        cerrarMenu();
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.clearTimeout(id);
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [menuAbierto, cerrarMenu]);
 
-  return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-linea-suave bg-fondo/70 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-        <MarcaSitio mostrarLema tamano="md" onClick={cerrarMenu} />
+  const mecenasHref = esMecenas ? "/mecenas" : "/membresia";
+  const mecenasEtiqueta = esMecenas ? "Tu espacio" : "Mecenas";
+  const mecenasAyuda = esMecenas
+    ? "Seguí donde lo dejaste"
+    : "Apoyá Argent";
 
-        <nav className="hidden items-center gap-6 text-sm lg:flex" aria-label="Principal">
-          {enlaces.map((enlace) => (
-            <Link
-              key={enlace.href}
-              href={enlace.href}
-              className="inline-flex items-center gap-1.5 text-tinta-suave transition-colors hover:text-oro-claro"
-              aria-label={"mecenas" in enlace && enlace.mecenas ? "Sesión de mecenas activa" : undefined}
-            >
-              {"mecenas" in enlace && enlace.mecenas && (
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-celeste" aria-hidden />
-              )}
-              {enlace.etiqueta}
-            </Link>
-          ))}
-        </nav>
+  const overflowMobile = [
+    {
+      href: "/recorridos",
+      etiqueta: "Recorrido guiado",
+      ayuda: "Te llevamos paso a paso",
+    },
+    {
+      href: "/explorar",
+      etiqueta: "Mostrame otra",
+      ayuda: "Una historia al azar",
+    },
+    {
+      href: mecenasHref,
+      etiqueta: mecenasEtiqueta,
+      ayuda: mecenasAyuda,
+    },
+  ] as const;
 
+  const menuPortal =
+    portalListo &&
+    menuAbierto &&
+    createPortal(
+      <div className="lg:hidden" role="presentation">
+        {/* Portal a body: evita que backdrop-blur del header atrape el fixed */}
         <button
           type="button"
-          className="flex min-h-11 min-w-11 items-center justify-center rounded-sm text-tinta-suave transition-colors hover:text-oro-claro lg:hidden"
-          aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={menuAbierto}
-          aria-controls="nav-mobile"
-          onClick={() => setMenuAbierto((v) => !v)}
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-2xl"
+          aria-label="Cerrar menú"
+          onClick={cerrarMenu}
+        />
+        <nav
+          id={navId}
+          className="fixed inset-0 z-[110] flex flex-col bg-fondo px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-20"
+          aria-label="Más opciones"
         >
-          <span className="sr-only">{menuAbierto ? "Cerrar menú" : "Abrir menú"}</span>
-          {menuAbierto ? (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path
-                d="M6 6l12 12M18 6L6 18"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          ) : (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path
-                d="M4 7h16M4 12h16M4 17h16"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          )}
-        </button>
-      </div>
-
-      {menuAbierto && (
-        <>
-          <button
-            type="button"
-            className="fixed inset-0 top-16 z-40 bg-fondo/80 backdrop-blur-sm lg:hidden"
-            aria-label="Cerrar menú"
-            onClick={cerrarMenu}
-          />
-          <nav
-            id="nav-mobile"
-            className="fixed inset-x-0 top-16 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-linea-suave bg-fondo-2 px-5 py-4 lg:hidden"
-            aria-label="Principal"
+          <p className="kicker text-oro" id={`${navId}-titulo`}>
+            Más
+          </p>
+          <ul
+            className="mt-10 flex flex-1 flex-col justify-center gap-2"
+            aria-labelledby={`${navId}-titulo`}
           >
-            <ul className="flex flex-col">
-              {enlaces.map((enlace) => (
-                <li key={enlace.href}>
-                  <Link
-                    href={enlace.href}
-                    className="flex min-h-11 items-center gap-2 text-base text-tinta-suave transition-colors hover:text-oro-claro"
-                    onClick={cerrarMenu}
-                    aria-label={"mecenas" in enlace && enlace.mecenas ? "Sesión de mecenas activa" : undefined}
-                  >
-                    {"mecenas" in enlace && enlace.mecenas && (
-                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-celeste" aria-hidden />
-                    )}
+            {overflowMobile.map((enlace, i) => (
+              <li key={enlace.href}>
+                <Link
+                  ref={i === 0 ? primerLinkRef : undefined}
+                  href={enlace.href}
+                  className="group flex min-h-[4.75rem] flex-col justify-center border-b border-linea/50 px-1 py-5 transition-colors last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-oro focus-visible:ring-offset-4 focus-visible:ring-offset-fondo"
+                  onClick={cerrarMenu}
+                >
+                  <span className="titulo-display text-3xl font-semibold text-tinta transition-colors group-hover:text-oro-claro">
                     {enlace.etiqueta}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                  </span>
+                  <span className="mt-2 text-base text-tinta-suave">
+                    {enlace.ayuda}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>,
+      document.body,
+    );
+
+  return (
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 border-b border-linea-suave/60 bg-fondo/50 backdrop-blur-md ${
+          menuAbierto ? "z-[120]" : "z-50"
+        }`}
+      >
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+          <MarcaSitio mostrarLema tamano="md" onClick={cerrarMenu} />
+
+          <nav className="hidden items-center gap-7 text-sm lg:flex" aria-label="Principal">
+            {PRIMARIOS.map((enlace) => (
+              <Link
+                key={enlace.href}
+                href={enlace.href}
+                className="text-tinta-suave transition-colors hover:text-oro-claro"
+              >
+                {enlace.etiqueta}
+              </Link>
+            ))}
+            <Link
+              href={mecenasHref}
+              className="inline-flex items-center gap-1.5 text-tinta-suave transition-colors hover:text-oro-claro"
+              aria-label={esMecenas ? "Sesión de mecenas activa" : undefined}
+            >
+              {esMecenas && (
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-celeste" aria-hidden />
+              )}
+              {mecenasEtiqueta}
+            </Link>
           </nav>
-        </>
-      )}
-    </header>
+
+          <button
+            ref={botonRef}
+            type="button"
+            className="flex min-h-11 min-w-11 items-center justify-center rounded-sm text-tinta-suave transition-colors hover:text-oro-claro lg:hidden"
+            aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={menuAbierto}
+            aria-controls={navId}
+            onClick={() => (menuAbierto ? cerrarMenu() : abrirMenu())}
+          >
+            <span className="sr-only">{menuAbierto ? "Cerrar menú" : "Abrir menú"}</span>
+            {menuAbierto ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M6 6l12 12M18 6L6 18"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M4 7h16M4 12h16M4 17h16"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
+      </header>
+      {menuPortal}
+    </>
   );
 }

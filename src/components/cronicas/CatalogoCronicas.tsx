@@ -7,6 +7,7 @@ import { FiltrosCronicas } from "@/components/cronicas/FiltrosCronicas";
 import { SeccionCronicasEpoca } from "@/components/cronicas/SeccionCronicasEpoca";
 import { RecientementeVisitado } from "@/components/engagement/RecientementeVisitado";
 import { Reveal } from "@/components/ui/Reveal";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import type { CronicaMeta } from "@/content/cronicas/registro";
 import type { Epoca } from "@/components/ui/Retrato";
 import {
@@ -183,15 +184,15 @@ export function CatalogoCronicas({
                 <Link
                   key={r.slug}
                   href={`/recorridos/${r.slug}`}
-                  className="rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
+                  className="group rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
                 >
-                  {r.titulo} →
+                  <EtiquetaCta>{r.titulo}</EtiquetaCta>
                 </Link>
               ))}
             </div>
             <p className="mt-6">
-              <Link href="/recorridos" className="text-sm text-oro-claro hover:text-oro">
-                Ver todas las visitas guiadas →
+              <Link href="/recorridos" className="group text-sm text-oro-claro hover:text-oro">
+                <EtiquetaCta>Ver todas las visitas guiadas</EtiquetaCta>
               </Link>
             </p>
           </Reveal>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { useCallback, useState } from "react";
 import type { Pieza } from "@/lib/piezas/indice";
 import { ETIQUETAS_TIPO_PIEZA } from "@/lib/piezas/indice";
@@ -62,17 +63,23 @@ export function VisorPieza({ pieza }: Props) {
           <p className="text-[0.6rem] uppercase tracking-[0.2em] text-tinta-tenue">
             Exhibiciones donde aparece
           </p>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {pieza.exhibiciones.map((slug) => (
-              <li key={slug}>
-                <Link
-                  href={`/cronicas/${slug}`}
-                  className="rounded-full border border-linea px-4 py-2 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
-                >
-                  {slug.replace(/-/g, " ")} →
-                </Link>
-              </li>
-            ))}
+          <ul className="mt-3 flex flex-wrap gap-x-2 gap-y-3">
+            {pieza.exhibiciones.map((slug) => {
+              const etiqueta = slug.replace(/-/g, " ");
+              const capitalizada =
+                etiqueta.charAt(0).toUpperCase() + etiqueta.slice(1);
+
+              return (
+                <li key={slug}>
+                  <Link
+                    href={`/cronicas/${slug}`}
+                    className="group inline-flex rounded-full border border-linea px-4 py-2 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
+                  >
+                    <EtiquetaCta>{capitalizada}</EtiquetaCta>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

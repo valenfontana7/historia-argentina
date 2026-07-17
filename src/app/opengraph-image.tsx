@@ -45,7 +45,7 @@ export default function Image() {
             textAlign: "center",
           }}
         >
-          {"Exhibiciones, retratos y la pieza del día."}
+          {"Historias, personajes y el día de hoy."}
         </div>
       </div>
     ),

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import {
   esLugarPreview,
 } from "@/data/lugares-preview";
@@ -58,9 +59,9 @@ export default async function LugaresPage() {
               </p>
               <Link
                 href="/membresia"
-                className="mt-5 inline-block rounded-full bg-oro px-6 py-3 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro"
+                className="group mt-5 inline-block rounded-full bg-oro px-6 py-3 text-sm font-semibold text-fondo transition-colors hover:bg-oro-claro"
               >
-                Ver membresía Mecenas →
+                <EtiquetaCta>Ver membresía Mecenas</EtiquetaCta>
               </Link>
             </div>
           </Reveal>
@@ -100,9 +101,9 @@ export default async function LugaresPage() {
             </p>
             <Link
               href="/membresia"
-              className="mt-4 inline-block text-sm text-oro-claro hover:text-oro"
+              className="group mt-4 inline-block text-sm text-oro-claro hover:text-oro"
             >
-              Ver el mapa completo con Mecenas →
+              <EtiquetaCta>Ver el mapa completo con Mecenas</EtiquetaCta>
             </Link>
           </Reveal>
         )}

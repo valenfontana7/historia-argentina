@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { TransicionLink } from "@/components/navigation/TransicionLink";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import type { PasoRecorrido } from "@/data/recorridos";
 import { etiquetasTipo, rutaDeNodo } from "@/lib/grafo/rutas";
 import type { NodoEntidad } from "@/lib/grafo/tipos";
@@ -44,19 +45,19 @@ export function RecorridoPasos({ pasos, tituloRecorrido }: Props) {
                   </p>
                 )}
 
-                <div className="overflow-hidden rounded-sm border border-linea bg-fondo-2 transition-colors hover:border-oro/35">
+                <div className="group overflow-hidden rounded-sm border border-linea bg-fondo-2 transition-colors hover:border-oro/35">
                   {nodo.imagen && (
-                    <div className="relative aspect-[21/9] bg-fondo-3">
+                    <div className="relative aspect-[16/9] bg-fondo-3 sm:aspect-[21/9]">
                       <Image
                         src={nodo.imagen}
                         alt=""
                         fill
                         unoptimized
                         sizes="800px"
-                        className="object-cover opacity-45 sepia-[0.25]"
+                        className="object-cover object-top opacity-70 sepia-[0.12] transition-transform duration-700 group-hover:scale-[1.02]"
                         aria-hidden
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-fondo-2 via-fondo/40 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-fondo-2 via-fondo/35 to-transparent" />
                     </div>
                   )}
 
@@ -77,9 +78,9 @@ export function RecorridoPasos({ pasos, tituloRecorrido }: Props) {
                     </p>
                     <TransicionLink
                       href={rutaDeNodo(nodo)}
-                      className="mt-6 inline-block rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
+                      className="group mt-6 inline-block rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
                     >
-                      Entrar →
+                      <EtiquetaCta>Entrar</EtiquetaCta>
                     </TransicionLink>
                   </div>
                 </div>

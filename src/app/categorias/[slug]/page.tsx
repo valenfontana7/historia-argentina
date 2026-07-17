@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { notFound } from "next/navigation";
 import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { GridCronicas } from "@/components/cronicas/GridCronicas";
@@ -112,7 +113,7 @@ export default async function CategoriaPage({ params }: Props) {
                       {e.titulo}
                     </p>
                     <p className="mt-auto pt-4 text-[0.65rem] uppercase tracking-[0.16em] text-tinta-tenue group-hover:text-oro">
-                      Ver vitrina →
+                      <EtiquetaCta>Ver vitrina</EtiquetaCta>
                     </p>
                   </Link>
                 </li>
@@ -129,18 +130,20 @@ export default async function CategoriaPage({ params }: Props) {
                 <Link
                   key={p.slug}
                   href={`/panteon/${p.slug}`}
-                  className="rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
+                  className="group rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
                 >
-                  {p.nombre} →
+                  <EtiquetaCta>{p.nombre}</EtiquetaCta>
                 </Link>
               ))}
             </div>
           </Reveal>
         )}
 
-        {salidas.length > 0 && (
-          <SalidasDeSala salidas={salidas} tituloExhibicion={cat.nombre} />
-        )}
+        <SalidasDeSala
+          salidas={salidas}
+          origen={nodo ?? { tipo: "categoria", slug }}
+          tituloExhibicion={cat.nombre}
+        />
       </div>
     </article>
   );

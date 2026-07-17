@@ -19,11 +19,11 @@ export function rutaDeNodo(nodo: NodoEntidad): string {
 }
 
 export const etiquetasTipo: Record<EntidadTipo, string> = {
-  persona: "Retrato",
+  persona: "Personaje",
   evento: "Acontecimiento",
-  cronica: "Exhibición",
+  cronica: "Historia",
   lugar: "Lugar",
-  periodo: "Sala",
-  categoria: "Colección",
-  pieza: "Pieza",
+  periodo: "Época",
+  categoria: "Tema",
+  pieza: "Objeto",
 };

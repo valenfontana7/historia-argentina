@@ -22,10 +22,10 @@ export function ContinuarExplorando({
 
   const tituloSeccion =
     titulo ??
-    ("titulo" in origen ? tituloExploracionDesde(origen) : "Seguí explorando");
+    ("titulo" in origen ? tituloExploracionDesde(origen) : "Conectado con");
 
   return (
-    <section className="mt-28">
+    <section className="mt-28" aria-label="Seguí explorando">
       <Reveal>
         <div className="flex items-center gap-6">
           <h2 className="titulo-display shrink-0 text-2xl font-medium text-oro">

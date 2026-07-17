@@ -14,10 +14,22 @@ type DatoGiganteProps = {
   etiqueta: string;
 };
 
+/** Años calendarios del relato: sin separador de miles. Cantidades sí (es-AR). */
+function esAnioCalendario(valor: number): boolean {
+  return Number.isInteger(valor) && valor >= 1400 && valor <= 2100;
+}
+
+function formatearCifra(n: number, comoAnio: boolean): string {
+  const entero = Math.round(n);
+  if (comoAnio) return String(entero);
+  return entero.toLocaleString("es-AR");
+}
+
 /** Cifra enorme que cuenta desde cero cuando entra al viewport. */
 export function DatoGigante({ valor, prefijo = "", sufijo = "", etiqueta }: DatoGiganteProps) {
   const contenedor = useRef<HTMLDivElement>(null);
   const numero = useRef<HTMLSpanElement>(null);
+  const comoAnio = esAnioCalendario(valor);
 
   useGSAP(
     () => {
@@ -29,12 +41,12 @@ export function DatoGigante({ valor, prefijo = "", sufijo = "", etiqueta }: Dato
         scrollTrigger: { trigger: contenedor.current, start: "top 80%" },
         onUpdate: () => {
           if (numero.current) {
-            numero.current.textContent = Math.round(objetivo.n).toLocaleString("es-AR");
+            numero.current.textContent = formatearCifra(objetivo.n, comoAnio);
           }
         },
       });
     },
-    { scope: contenedor },
+    { scope: contenedor, dependencies: [valor, comoAnio] },
   );
 
   return (

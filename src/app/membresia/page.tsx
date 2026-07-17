@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { redirect } from "next/navigation";
 import { CheckoutForm } from "@/components/membresia/CheckoutForm";
 import {
@@ -76,8 +77,42 @@ export default async function MembresiaPage() {
         <h2 className="titulo-display text-center text-2xl font-semibold">
           Gratis vs Mecenas
         </h2>
-        <div className="mt-8 overflow-x-auto rounded-sm border border-linea bg-fondo-2">
-          <table className="w-full min-w-[32rem] text-left text-sm">
+
+        {/* Mobile: una card por aspecto, sin scroll horizontal */}
+        <ul className="mt-8 space-y-3 md:hidden">
+          {COMPARATIVA_MEMBRESIA.map((fila) => (
+            <li
+              key={fila.aspecto}
+              className="rounded-sm border border-linea bg-fondo-2 px-4 py-4"
+            >
+              <p className="text-[0.65rem] uppercase tracking-[0.18em] text-tinta-tenue">
+                {fila.aspecto}
+              </p>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <div>
+                  <p className="text-[0.55rem] uppercase tracking-[0.16em] text-tinta-tenue">
+                    Gratis
+                  </p>
+                  <p className="mt-1 text-sm leading-snug text-tinta-suave">
+                    {fila.gratis}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[0.55rem] uppercase tracking-[0.16em] text-oro">
+                    Mecenas
+                  </p>
+                  <p className="mt-1 text-sm leading-snug text-oro-claro">
+                    {fila.mecenas}
+                  </p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        {/* Desktop: tabla completa */}
+        <div className="mt-8 hidden overflow-hidden rounded-sm border border-linea bg-fondo-2 md:block">
+          <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-linea text-[0.65rem] uppercase tracking-[0.18em] text-tinta-tenue">
                 <th className="px-5 py-4 font-medium">Qué incluye</th>
@@ -87,8 +122,13 @@ export default async function MembresiaPage() {
             </thead>
             <tbody>
               {COMPARATIVA_MEMBRESIA.map((fila) => (
-                <tr key={fila.aspecto} className="border-b border-linea-suave last:border-0">
-                  <td className="px-5 py-3.5 font-medium text-tinta">{fila.aspecto}</td>
+                <tr
+                  key={fila.aspecto}
+                  className="border-b border-linea-suave last:border-0"
+                >
+                  <td className="px-5 py-3.5 font-medium text-tinta">
+                    {fila.aspecto}
+                  </td>
                   <td className="px-5 py-3.5 text-tinta-suave">{fila.gratis}</td>
                   <td className="px-5 py-3.5 text-oro-claro">{fila.mecenas}</td>
                 </tr>
@@ -108,9 +148,9 @@ export default async function MembresiaPage() {
             </p>
             <Link
               href="/membresia/acceder"
-              className="mt-6 inline-block text-sm text-oro-claro underline-offset-4 hover:underline"
+              className="group mt-6 inline-block text-sm text-oro-claro underline-offset-4 hover:underline"
             >
-              Ya soy mecenas →
+              <EtiquetaCta>Ya soy mecenas</EtiquetaCta>
             </Link>
           </div>
         ) : (

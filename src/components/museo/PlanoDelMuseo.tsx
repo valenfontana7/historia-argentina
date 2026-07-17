@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TransicionLink } from "@/components/navigation/TransicionLink";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { Reveal } from "@/components/ui/Reveal";
 import { ORDEN_EPOCAS, conteoPorEpoca } from "@/lib/cronicas/indice";
 import { periodos } from "@/data/periodos";
@@ -81,7 +82,7 @@ export function PlanoDelMuseo() {
                     {periodo.descripcion}
                   </p>
                   <p className="mt-4 text-[0.65rem] uppercase tracking-[0.16em] text-oro">
-                    {count} exhibiciones · Entrar →
+                    <EtiquetaCta>{`${count} exhibiciones · Entrar`}</EtiquetaCta>
                   </p>
                 </TransicionLink>
               </Reveal>

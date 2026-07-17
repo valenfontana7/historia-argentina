@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { notFound } from "next/navigation";
 import { EscenaHero } from "@/components/scrolly/EscenaHero";
-import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
+import { PuertasDelUniverso } from "@/components/exploracion/PuertasDelUniverso";
 import { ExhibicionConAudioguia } from "@/components/museo/ExhibicionConAudioguia";
 import { PiezasDeSala } from "@/components/piezas/PiezasDeSala";
 import { CtaMecenas } from "@/components/membresia/CtaMecenas";
@@ -10,7 +11,6 @@ import { SoftGate } from "@/components/membresia/SoftGate";
 import { BarraProgresoLectura } from "@/components/engagement/BarraProgresoLectura";
 import { RegistrarVisita } from "@/components/engagement/RegistrarVisita";
 import { BotonCompartir } from "@/components/BotonCompartir";
-import { MigasDePan } from "@/components/seo/MigasDePan";
 import {
   cronicas,
   cargadores,
@@ -72,7 +72,7 @@ export default async function CronicaPage({ params }: Props) {
 
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Exhibiciones", href: "/cronicas" },
+    { nombre: "Historias", href: "/cronicas" },
     { nombre: cronica.titulo, href: rutaCronica },
   ];
 
@@ -104,7 +104,7 @@ export default async function CronicaPage({ params }: Props) {
         kicker={kickerHero}
         titulo={cronica.titulo}
         subtitulo={cronica.subtitulo}
-        meta={`${cronica.periodo} · ${cronica.duracion}${audioguia && mostrarContenido ? " · Con audioguía" : ""}`}
+        meta={`${cronica.periodo} · ${cronica.duracion}`}
         variante={cronica.visual.varianteHero}
         imagenHero={cronica.visual.imagenHero}
       />
@@ -114,41 +114,37 @@ export default async function CronicaPage({ params }: Props) {
           <ExhibicionConAudioguia audioguia={audioguia}>
             <Contenido />
           </ExhibicionConAudioguia>
-          <PiezasDeSala slug={cronica.slug} tituloExhibicion={cronica.titulo} />
-          <div className="mx-auto max-w-2xl px-5 py-10">
-            <CtaMecenas />
-          </div>
-          <SalidasDeSala salidas={salidas} tituloExhibicion={cronica.titulo} />
-          <footer className="mx-auto max-w-6xl px-5 pb-28 pt-6">
-            <div className="filete mb-10" />
-            <MigasDePan migajas={migajas} />
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
+
+          <PuertasDelUniverso
+            salidas={salidas}
+            origen={nodo ?? { tipo: "cronica", slug }}
+            tituloOrigen={cronica.titulo}
+            mostrarSiguiente={false}
+          />
+
+          <footer className="mx-auto max-w-6xl px-5 pb-2 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
               <Link
                 href={`/panteon/${cronica.protagonista.slug}`}
-                className="rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
+                className="group text-tinta-suave transition-colors hover:text-oro-claro"
               >
-                {cronica.protagonista.etiqueta} →
+                <EtiquetaCta>{cronica.protagonista.etiqueta}</EtiquetaCta>
               </Link>
               <BotonCompartir
                 titulo={cronica.titulo}
                 texto={cronica.subtitulo}
                 ruta={rutaCronica}
                 utmCampaign="cronica"
+                discreto
               />
-              <Link
-                href="/cronicas"
-                className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
-              >
-                Plano de exhibiciones
-              </Link>
-              <Link
-                href="/explorar"
-                className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
-              >
-                Explorar el museo →
-              </Link>
             </div>
           </footer>
+
+          <PiezasDeSala slug={cronica.slug} />
+
+          <div className="mx-auto max-w-2xl px-5 py-8 pb-28">
+            <CtaMecenas compacto />
+          </div>
         </>
       ) : (
         <SoftGate

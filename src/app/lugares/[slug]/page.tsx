@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { notFound } from "next/navigation";
 import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { BotonCompartir } from "@/components/BotonCompartir";
@@ -91,16 +92,18 @@ export default async function LugarPage({ params }: Props) {
           <Reveal className="mt-10">
             <Link
               href={`/periodos/${lugar.periodo}`}
-              className="text-sm text-oro-claro underline decoration-oro/30 underline-offset-2 hover:text-oro"
+              className="group text-sm text-oro-claro underline decoration-oro/30 underline-offset-2 hover:text-oro"
             >
-              {CTA_VER_SALA_EPOCA}
+              <EtiquetaCta>{CTA_VER_SALA_EPOCA}</EtiquetaCta>
             </Link>
           </Reveal>
         )}
 
-        {salidas.length > 0 && (
-          <SalidasDeSala salidas={salidas} tituloExhibicion={lugar.nombre} />
-        )}
+        <SalidasDeSala
+          salidas={salidas}
+          origen={nodo ?? { tipo: "lugar", slug }}
+          tituloExhibicion={lugar.nombre}
+        />
       </div>
     </article>
   );

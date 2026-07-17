@@ -37,6 +37,7 @@ import {
   CaserosUrquiza,
 } from "@/components/scrolly/EscenasCongresoCaseros";
 import { Prosa } from "@/components/scrolly/Prosa";
+import { PuertaMidStory } from "@/components/exploracion/PuertaMidStory";
 
 /** Escenas con mapas SVG artesanales (tier A). El resto vive en escenasComparadorMdx. */
 const escenasMapaIlustrado = {
@@ -89,6 +90,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ...escenasComparadorMdx,
     Prosa,
     VitrinaContexto,
+    PuertaMidStory,
     ...components,
   };
 }

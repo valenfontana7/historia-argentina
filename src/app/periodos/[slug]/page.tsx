@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { notFound } from "next/navigation";
 import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { ProgresoSala } from "@/components/museo/ProgresoSala";
@@ -100,9 +101,9 @@ export default async function PeriodoPage({ params }: Props) {
                   {enlace ? (
                     <Link
                       href={enlace.href}
-                      className="text-sm text-tinta-suave transition-colors hover:text-oro-claro"
+                      className="group text-sm text-tinta-suave transition-colors hover:text-oro-claro"
                     >
-                      {enlace.etiqueta} →
+                      <EtiquetaCta>{enlace.etiqueta}</EtiquetaCta>
                     </Link>
                   ) : (
                     <span className="text-sm text-tinta-suave">{evento}</span>
@@ -141,17 +142,19 @@ export default async function PeriodoPage({ params }: Props) {
             </div>
             {delPeriodo.length > 8 && (
               <p className="mt-8 text-center">
-                <Link href="/panteon" className="text-sm text-oro-claro hover:text-oro">
-                  Ver todos en el Panteón →
+                <Link href="/panteon" className="group text-sm text-oro-claro hover:text-oro">
+                  <EtiquetaCta>Ver todos en el Panteón</EtiquetaCta>
                 </Link>
               </p>
             )}
           </section>
         )}
 
-        {salidas.length > 0 && (
-          <SalidasDeSala salidas={salidas} tituloExhibicion={periodo.nombre} />
-        )}
+        <SalidasDeSala
+          salidas={salidas}
+          origen={nodo ?? { tipo: "periodo", slug }}
+          tituloExhibicion={periodo.nombre}
+        />
       </div>
     </article>
   );

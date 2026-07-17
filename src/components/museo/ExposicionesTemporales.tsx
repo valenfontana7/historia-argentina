@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { TransicionLink } from "@/components/navigation/TransicionLink";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import type { CronicaMeta } from "@/content/cronicas/registro";
 import { formatearFechaPublica } from "@/lib/cronicas/acceso";
 import { Reveal } from "@/components/ui/Reveal";
@@ -52,16 +53,16 @@ export function ExposicionesTemporales({ exposiciones, esMecenas = false }: Prop
               {esMecenas ? (
                 <TransicionLink
                   href={`/cronicas/${c.slug}`}
-                  className="mt-5 inline-block text-sm font-medium text-oro-claro transition-colors hover:text-oro"
+                  className="group mt-5 inline-block text-sm font-medium text-oro-claro transition-colors hover:text-oro"
                 >
-                  Entrar antes que nadie →
+                  <EtiquetaCta>Entrar antes que nadie</EtiquetaCta>
                 </TransicionLink>
               ) : (
                 <Link
                   href="/membresia"
-                  className="mt-5 inline-block text-sm font-medium text-oro-claro transition-colors hover:text-oro"
+                  className="group mt-5 inline-block text-sm font-medium text-oro-claro transition-colors hover:text-oro"
                 >
-                  Hacete mecenas para el anticipo →
+                  <EtiquetaCta>Hacete mecenas para el anticipo</EtiquetaCta>
                 </Link>
               )}
             </article>

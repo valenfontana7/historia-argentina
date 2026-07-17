@@ -8,6 +8,8 @@ type BotonCompartirProps = {
   ruta: string;
   /** Campaña UTM para tracking de shares */
   utmCampaign?: string;
+  /** Link de texto, sin píldoras primarias. */
+  discreto?: boolean;
 };
 
 export function BotonCompartir({
@@ -15,6 +17,7 @@ export function BotonCompartir({
   texto,
   ruta,
   utmCampaign = "share",
+  discreto = false,
 }: BotonCompartirProps) {
   const [copiado, setCopiado] = useState(false);
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -56,6 +59,18 @@ export function BotonCompartir({
     window.open(`https://wa.me/?text=${msg}`, "_blank", "noopener,noreferrer");
     setMenuAbierto(false);
   };
+
+  if (discreto) {
+    return (
+      <button
+        type="button"
+        onClick={compartirNativo}
+        className="text-tinta-tenue transition-colors hover:text-oro-claro"
+      >
+        {copiado ? "Enlace copiado ✓" : "Compartir"}
+      </button>
+    );
+  }
 
   return (
     <div ref={contenedor} className="relative inline-flex w-full flex-wrap justify-center gap-2 sm:w-auto">

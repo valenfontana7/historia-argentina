@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { notFound } from "next/navigation";
 import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { ContextoTemporal } from "@/components/exploracion/ContextoTemporal";
@@ -81,13 +82,18 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
     efemeride.relacionados.includes(c.protagonista.slug),
   );
 
+  const rutaActual = `/hoy/${dia}`;
+  const hrefHoySinQuery = hrefDiaActual.split("?")[0] ?? hrefDiaActual;
+  // Evitar href duplicado cuando la página es la efeméride de hoy (rompe keys en migas).
   const migajas = [
     { nombre: "Inicio", href: "/" },
-    { nombre: "Hoy", href: hrefDiaActual },
+    ...(hrefHoySinQuery !== rutaActual
+      ? [{ nombre: "Hoy", href: hrefDiaActual }]
+      : []),
     ...(catSlug
       ? [{ nombre: efemeride.categoria, href: `/categorias/${catSlug}` }]
       : []),
-    { nombre: efemeride.titulo, href: `/hoy/${dia}` },
+    { nombre: efemeride.titulo, href: rutaActual },
   ];
 
   const jsonLd = [
@@ -188,9 +194,9 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
               <Link
                 key={p.slug}
                 href={`/panteon/${p.slug}`}
-                className="rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
+                className="group rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
               >
-                {p.nombre} →
+                <EtiquetaCta>{p.nombre}</EtiquetaCta>
               </Link>
             ))}
           </div>
@@ -199,15 +205,15 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
 
       {cronicasRel.length > 0 && (
         <Reveal className="mt-14">
-          <p className="kicker">Exhibiciones relacionadas</p>
+          <p className="kicker">Historias relacionadas</p>
           <div className="mt-5 flex flex-wrap gap-3">
             {cronicasRel.map((c) => (
               <Link
                 key={c.slug}
                 href={`/cronicas/${c.slug}`}
-                className="rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
+                className="group rounded-full border border-linea px-5 py-2.5 text-sm text-tinta-suave transition-colors hover:border-oro/50 hover:text-oro-claro"
               >
-                {c.titulo} →
+                <EtiquetaCta>{c.titulo}</EtiquetaCta>
               </Link>
             ))}
           </div>
@@ -223,9 +229,9 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
         />
         <Link
           href="/recorridos"
-          className="rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
+          className="group rounded-full border border-linea px-6 py-3 text-sm text-tinta-suave transition-colors hover:border-oro/40 hover:text-oro-claro"
         >
-          Seguir un recorrido →
+          <EtiquetaCta>Seguir un recorrido</EtiquetaCta>
         </Link>
       </Reveal>
 
@@ -234,7 +240,7 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
           <div className="grid grid-cols-1 gap-4 border-t border-linea-suave pt-8 sm:grid-cols-2">
             <Link href={`/hoy/${navegacion.anterior.dia}`} className="group">
               <p className="text-xs uppercase tracking-[0.2em] text-tinta-tenue">
-                ← {navegacion.anterior.fecha}
+                <EtiquetaCta>{`← ${navegacion.anterior.fecha}`}</EtiquetaCta>
               </p>
               <p className="mt-2 line-clamp-2 text-sm leading-snug text-tinta-suave transition-colors group-hover:text-oro-claro">
                 {navegacion.anterior.titulo}
@@ -242,7 +248,7 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
             </Link>
             <Link href={`/hoy/${navegacion.siguiente.dia}`} className="group sm:text-right">
               <p className="text-xs uppercase tracking-[0.2em] text-tinta-tenue">
-                {navegacion.siguiente.fecha} →
+                <EtiquetaCta>{navegacion.siguiente.fecha}</EtiquetaCta>
               </p>
               <p className="mt-2 line-clamp-2 text-sm leading-snug text-tinta-suave transition-colors group-hover:text-oro-claro">
                 {navegacion.siguiente.titulo}
@@ -252,9 +258,11 @@ export default async function EfemeridePage({ params, searchParams }: Props) {
         </Reveal>
       )}
 
-      {salidas.length > 0 && (
-        <SalidasDeSala salidas={salidas} tituloExhibicion={efemeride.titulo} />
-      )}
+      <SalidasDeSala
+        salidas={salidas}
+        origen={nodo ?? { tipo: "evento", slug: dia }}
+        tituloExhibicion={efemeride.titulo}
+      />
 
       <RecientementeVisitado excluirHref={`/hoy/${dia}`} />
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
 import { obtenerProgresoSalas } from "@/lib/engagement/visita";
 import type { Epoca } from "@/components/ui/Retrato";
@@ -36,9 +37,9 @@ export function ProgresoSala({ epoca }: Props) {
           {!completa && (
             <Link
               href="/cronicas"
-              className="shrink-0 text-sm text-oro-claro transition-colors hover:text-oro"
+              className="group shrink-0 text-sm text-oro-claro transition-colors hover:text-oro"
             >
-              Completar sala →
+              <EtiquetaCta>Completar sala</EtiquetaCta>
             </Link>
           )}
         </div>

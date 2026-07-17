@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { notFound } from "next/navigation";
 import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
 import { FrisoTemporal } from "@/components/timeline/FrisoTemporal";
@@ -107,9 +108,9 @@ export default async function TimelineAnioPage({ params }: Props) {
                 <Link
                   key={a}
                   href={`/timelines/${a}`}
-                  className="text-oro-claro hover:text-oro"
+                  className="group text-oro-claro hover:text-oro"
                 >
-                  {a} →
+                  <EtiquetaCta>{String(a)}</EtiquetaCta>
                 </Link>
               ))}
             </div>
@@ -117,9 +118,11 @@ export default async function TimelineAnioPage({ params }: Props) {
         )}
       </div>
 
-      {salidas.length > 0 && (
-        <SalidasDeSala salidas={salidas} tituloExhibicion={`Argentina en ${num}`} />
-      )}
+      <SalidasDeSala
+        salidas={salidas}
+        origen={nodoEvento}
+        tituloExhibicion={`Argentina en ${num}`}
+      />
     </article>
   );
 }

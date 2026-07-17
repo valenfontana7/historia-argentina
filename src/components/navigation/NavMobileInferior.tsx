@@ -5,18 +5,58 @@ import { usePathname } from "next/navigation";
 import { useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
 import { obtenerRecientes } from "@/lib/engagement/storage";
 
-const ENLACES = [
-  { href: "/explorar", etiqueta: "Plano", match: (p: string) => p === "/explorar" || p.startsWith("/periodos") || p.startsWith("/categorias") },
-  { href: "/cronicas", etiqueta: "Visita", match: (p: string) => p.startsWith("/cronicas") || p.startsWith("/recorridos") },
-  { href: "/hoy", etiqueta: "Hoy", match: (p: string) => p.startsWith("/hoy") },
-] as const;
-
 export function NavMobileInferior() {
   const pathname = usePathname();
   const recientes = useStorageSnapshot(obtenerRecientes, []);
-  const enCurso = recientes.find((r) => r.tipo === "cronica");
+  const enCurso = recientes.find((r) => r.tipo === "cronica") ?? recientes[0];
 
   if (pathname.startsWith("/admin")) return null;
+
+  const items = enCurso
+    ? ([
+        {
+          href: "/",
+          etiqueta: "Descubrir",
+          icono: "✧",
+          activo: pathname === "/",
+        },
+        {
+          href: enCurso.href,
+          etiqueta: "Continuar",
+          icono: "◎",
+          activo:
+            (pathname === enCurso.href ||
+              pathname.startsWith("/cronicas") ||
+              pathname.startsWith("/recorridos")) &&
+            !pathname.startsWith("/hoy"),
+        },
+        {
+          href: "/hoy",
+          etiqueta: "Hoy",
+          icono: "☀",
+          activo: pathname.startsWith("/hoy"),
+        },
+      ] as const)
+    : ([
+        {
+          href: "/",
+          etiqueta: "Descubrir",
+          icono: "✧",
+          activo: pathname === "/",
+        },
+        {
+          href: "/explorar",
+          etiqueta: "Mostrame otra",
+          icono: "✦",
+          activo: false,
+        },
+        {
+          href: "/hoy",
+          etiqueta: "Hoy",
+          icono: "☀",
+          activo: pathname.startsWith("/hoy"),
+        },
+      ] as const);
 
   return (
     <nav
@@ -24,32 +64,23 @@ export function NavMobileInferior() {
       aria-label="Navegación principal"
     >
       <ul className="mx-auto flex max-w-lg items-stretch justify-around px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2">
-        {ENLACES.map(({ href, etiqueta, match }) => {
-          const activo = match(pathname);
-          const destino =
-            etiqueta === "Visita" && enCurso ? enCurso.href : href;
-
-          return (
-            <li key={href} className="flex-1">
-              <Link
-                href={destino}
-                className={`flex min-h-11 flex-col items-center justify-center gap-0.5 rounded-sm px-2 text-[0.65rem] uppercase tracking-[0.14em] transition-colors ${
-                  activo
-                    ? "text-oro"
-                    : "text-tinta-tenue hover:text-oro-claro"
-                }`}
-                aria-current={activo ? "page" : undefined}
-              >
-                <span className="text-base leading-none" aria-hidden>
-                  {etiqueta === "Plano" && "◫"}
-                  {etiqueta === "Visita" && "◎"}
-                  {etiqueta === "Hoy" && "☀"}
-                </span>
-                {etiqueta}
-              </Link>
-            </li>
-          );
-        })}
+        {items.map(({ href, etiqueta, icono, activo }) => (
+          <li key={etiqueta} className="flex-1">
+            <Link
+              href={href}
+              prefetch
+              className={`flex min-h-11 flex-col items-center justify-center gap-0.5 rounded-sm px-2 text-[0.65rem] uppercase tracking-[0.14em] transition-colors ${
+                activo ? "text-oro" : "text-tinta-tenue hover:text-oro-claro"
+              }`}
+              aria-current={activo ? "page" : undefined}
+            >
+              <span className="text-base leading-none" aria-hidden>
+                {icono}
+              </span>
+              {etiqueta}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );

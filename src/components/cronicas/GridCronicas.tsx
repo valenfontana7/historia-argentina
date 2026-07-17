@@ -11,7 +11,7 @@ type Props = {
 
 export function GridCronicas({
   cronicas,
-  titulo = "Exhibiciones",
+  titulo = "Historias",
   esMecenas = false,
   id = "cronicas",
 }: Props) {

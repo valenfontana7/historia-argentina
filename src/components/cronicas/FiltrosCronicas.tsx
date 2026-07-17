@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import type { Epoca } from "@/components/ui/Retrato";
@@ -166,8 +167,8 @@ export function FiltrosCronicas({ conteoPorEpoca }: Props) {
 
           {filtrosActivos > 0 && (
             <p>
-              <Link href="/cronicas" className="text-sm text-oro-claro hover:text-oro">
-                Limpiar filtros →
+              <Link href="/cronicas" className="group text-sm text-oro-claro hover:text-oro">
+                <EtiquetaCta>Limpiar filtros</EtiquetaCta>
               </Link>
             </p>
           )}

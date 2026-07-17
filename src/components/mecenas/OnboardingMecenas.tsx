@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { useMemo } from "react";
 import { useEsCliente, useStorageSnapshot } from "@/lib/engagement/client-storage-sync";
 import { notificarCambioStorage } from "@/lib/engagement/storage-events";
@@ -124,9 +125,9 @@ export function OnboardingMecenas({
                   <Link
                     href={item.href}
                     onClick={() => marcar(item.id)}
-                    className="rounded-full border border-oro/40 px-4 py-2 text-xs text-oro-claro transition-colors hover:bg-oro/10"
+                    className="group rounded-full border border-oro/40 px-4 py-2 text-xs text-oro-claro transition-colors hover:bg-oro/10"
                   >
-                    Ir →
+                    <EtiquetaCta>Ir</EtiquetaCta>
                   </Link>
                   {!hecho && (
                     <button

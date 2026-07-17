@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { useCallback, useState } from "react";
 import {
   ANIO_MAX,
@@ -119,9 +120,9 @@ export function TimelineExplorer({ anioInicial = 1810 }: Props) {
                 <li key={e.slug}>
                   <Link
                     href={`/hoy/${e.slug}`}
-                    className="text-sm text-tinta-suave transition-colors hover:text-oro-claro"
+                    className="group text-sm text-tinta-suave transition-colors hover:text-oro-claro"
                   >
-                    {e.titulo} →
+                    <EtiquetaCta>{e.titulo}</EtiquetaCta>
                   </Link>
                 </li>
               ))}
@@ -156,9 +157,9 @@ export function TimelineExplorer({ anioInicial = 1810 }: Props) {
       <div className="mt-8 flex flex-wrap gap-3">
         <Link
           href={`/timelines/${anio}`}
-          className="rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
+          className="group rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro transition-colors hover:bg-oro/10"
         >
-          Ver {anio} completo →
+          <EtiquetaCta>{`Ver ${anio} completo`}</EtiquetaCta>
         </Link>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { redirect } from "next/navigation";
 import { ColeccionesGuardadas } from "@/components/mecenas/ColeccionesGuardadas";
 import { OnboardingMecenas } from "@/components/mecenas/OnboardingMecenas";
@@ -111,8 +112,8 @@ export default async function MecenasPage() {
               <p className="mt-4 max-w-xl text-sm leading-relaxed text-tinta-suave">
                 {exposicion.subtitulo}
               </p>
-              <p className="mt-8 text-sm font-medium text-oro-claro transition-transform group-hover:translate-x-1">
-                Entrar a la sala →
+              <p className="mt-8 text-sm font-medium text-oro-claro">
+                <EtiquetaCta>Entrar a la sala</EtiquetaCta>
               </p>
             </div>
           </TransicionLink>
@@ -182,9 +183,9 @@ export default async function MecenasPage() {
           <p className="mt-6 text-center">
             <Link
               href="/piezas#coleccion-mecenas"
-              className="text-sm text-oro-claro underline-offset-4 hover:underline"
+              className="group text-sm text-oro-claro underline-offset-4 hover:underline"
             >
-              Ver la colección completa →
+              <EtiquetaCta>Ver la colección completa</EtiquetaCta>
             </Link>
           </p>
         </section>

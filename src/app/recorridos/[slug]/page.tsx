@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { notFound } from "next/navigation";
 import { FichaExhibicion } from "@/components/cronicas/FichaExhibicion";
 import { SalidasDeSala } from "@/components/museo/SalidasDeSala";
@@ -17,6 +19,7 @@ import {
 import { puedeVerContenidoMecenas } from "@/lib/auth";
 import { resolverNodo } from "@/lib/grafo/queries";
 import { obtenerSalidasPagina } from "@/lib/grafo/obtener-salidas-pagina";
+import { imagenDeRecorrido } from "@/lib/recorridos/imagen";
 import { construirMetadata } from "@/lib/seo/metadata";
 import { migajasJsonLd } from "@/lib/seo/jsonld";
 import { CTA_VER_TODAS_VISITAS, MIGA_VISITAS_GUIADAS } from "@/lib/copy";
@@ -50,6 +53,7 @@ export default async function RecorridoPage({ params }: Props) {
   const mecenas = await puedeVerContenidoMecenas();
   const premium = esRecorridoMecenas(recorrido);
   const desbloqueado = !premium || mecenas;
+  const cover = imagenDeRecorrido(recorrido);
 
   const pasos = recorrido.pasos
     .map((paso) => {
@@ -76,31 +80,54 @@ export default async function RecorridoPage({ params }: Props) {
   const audioguia = obtenerAudioguia(slug);
 
   return (
-    <article className="pb-28 pt-32">
+    <article className="pb-28">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(migajasJsonLd(migajas)) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(migajasJsonLd(migajas)),
+        }}
       />
-      <div className="mx-auto max-w-4xl px-5">
-        <MigasDePan migajas={migajas} />
-        <Reveal>
-          <p className="kicker">
-            {recorrido.duracion} · {pasos.length} estaciones
-            {premium && " · Visita exclusiva mecenas"}
-            {audioguia && desbloqueado && " · Con audioguía"}
-          </p>
-          <h1 className="titulo-display mt-4 text-4xl font-semibold leading-tight sm:text-5xl">
-            {recorrido.titulo}
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-tinta-suave">
-            {recorrido.subtitulo}
-          </p>
-        </Reveal>
 
+      <div className="relative isolate overflow-hidden border-b border-linea-suave">
+        {cover && (
+          <div className="absolute inset-0">
+            <Image
+              src={cover}
+              alt=""
+              fill
+              unoptimized
+              priority
+              sizes="100vw"
+              className="object-cover object-[center_30%] opacity-[0.45] sepia-[0.15] contrast-[1.05] brightness-[0.7]"
+              aria-hidden
+            />
+            <div className="absolute inset-0 bg-linear-to-b from-fondo/80 via-fondo/55 to-fondo" />
+            <div className="absolute inset-0 bg-linear-to-t from-fondo via-transparent to-fondo/40" />
+          </div>
+        )}
+        <div className="relative mx-auto max-w-4xl px-5 pb-12 pt-32">
+          <MigasDePan migajas={migajas} />
+          <Reveal>
+            <p className="kicker text-oro">
+              {recorrido.duracion} · {pasos.length} estaciones
+              {premium && " · Visita exclusiva mecenas"}
+              {audioguia && desbloqueado && " · Con audioguía"}
+            </p>
+            <h1 className="titulo-display mt-4 text-4xl font-semibold leading-tight sm:text-5xl">
+              {recorrido.titulo}
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg text-tinta-suave">
+              {recorrido.subtitulo}
+            </p>
+          </Reveal>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-4xl px-5">
         {previewCronicas.length > 0 && (
           <section className="mt-12">
             <Reveal>
-              <p className="kicker">Exhibiciones de la visita</p>
+              <p className="kicker">Historias de la visita</p>
             </Reveal>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {previewCronicas.map((cronica, i) => (
@@ -120,18 +147,19 @@ export default async function RecorridoPage({ params }: Props) {
               slug={slug}
               audioguia={audioguia}
             />
-            {salidas.length > 0 && (
-              <SalidasDeSala
-                salidas={salidas}
-                tituloExhibicion={recorrido.titulo}
-              />
-            )}
+            <SalidasDeSala
+              salidas={salidas}
+              origen={ultimoNodo}
+              tituloExhibicion={recorrido.titulo}
+            />
           </>
         ) : (
           <div className="mt-16">
             {pasos[0] && (
               <Reveal>
-                <p className="text-xs uppercase tracking-[0.25em] text-oro">Probá el primer paso</p>
+                <p className="text-xs uppercase tracking-[0.25em] text-oro">
+                  Probá el primer paso
+                </p>
                 {pasos[0].paso.puente && (
                   <p className="mt-2 text-sm italic text-tinta-tenue">
                     {pasos[0].paso.puente}
@@ -154,9 +182,9 @@ export default async function RecorridoPage({ params }: Props) {
         <Reveal className="mt-16 text-center">
           <Link
             href="/recorridos"
-            className="text-sm text-oro-claro transition-colors hover:text-oro"
+            className="group text-sm text-oro-claro transition-colors hover:text-oro"
           >
-            {CTA_VER_TODAS_VISITAS}
+            <EtiquetaCta>{CTA_VER_TODAS_VISITAS}</EtiquetaCta>
           </Link>
         </Reveal>
       </div>

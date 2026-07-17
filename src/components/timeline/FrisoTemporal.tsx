@@ -3,6 +3,7 @@ import type { NodoEntidad } from "@/lib/grafo/tipos";
 import { rutaDeNodo } from "@/lib/grafo/rutas";
 import { Reveal } from "@/components/ui/Reveal";
 import { TransicionLink } from "@/components/navigation/TransicionLink";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { obtenerImagenPersonaje } from "@/data/personajes-imagenes";
 
 type Props = {
@@ -59,7 +60,7 @@ export function FrisoTemporal({ anio, eventos, personajes }: Props) {
                             {evento.resumen}
                           </p>
                           <p className="mt-4 text-[0.65rem] uppercase tracking-[0.16em] text-tinta-tenue group-hover:text-oro">
-                            Ver vitrina →
+                            <EtiquetaCta>Ver vitrina</EtiquetaCta>
                           </p>
                         </TransicionLink>
                       </Reveal>

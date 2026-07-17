@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { redirect } from "next/navigation";
 import { Reveal } from "@/components/ui/Reveal";
 import { obtenerMecenasActivo, obtenerSesion } from "@/lib/auth";
@@ -55,12 +56,12 @@ export default async function CartaMecenasPage() {
       <div className="mt-10 flex flex-wrap gap-4">
         <Link
           href="/lugares"
-          className="rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro hover:bg-oro/10"
+          className="group rounded-full border border-oro/50 px-6 py-3 text-sm text-oro-claro hover:bg-oro/10"
         >
-          Abrir el mapa completo →
+          <EtiquetaCta>Abrir el mapa completo</EtiquetaCta>
         </Link>
-        <Link href="/mecenas" className="text-sm text-tinta-suave hover:text-oro-claro">
-          ← Tu museo
+        <Link href="/mecenas" className="group text-sm text-tinta-suave hover:text-oro-claro">
+          <EtiquetaCta>← Tu museo</EtiquetaCta>
         </Link>
       </div>
     </article>

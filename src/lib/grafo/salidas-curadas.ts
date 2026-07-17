@@ -14,19 +14,19 @@ function puenteAutomatico(origen: NodoEntidad, destino: NodoEntidad): string {
   const tipo = etiquetasTipo[destino.tipo];
   switch (destino.tipo) {
     case "cronica":
-      return `Otra exhibición de la misma época: ${destino.titulo}`;
+      return `Otra historia conectada: ${destino.titulo}`;
     case "persona":
-      return `Un retrato del Panteón: ${destino.titulo}`;
+      return `Conocé a ${destino.titulo}`;
     case "evento":
-      return `Un acontecimiento relacionado: ${destino.titulo}`;
+      return `¿Qué pasó?: ${destino.titulo}`;
     case "lugar":
-      return `Un lugar de la historia: ${destino.titulo}`;
+      return `El lugar donde ocurrió: ${destino.titulo}`;
     case "periodo":
-      return `La sala de ${destino.titulo}`;
+      return `Explorá la época: ${destino.titulo}`;
     case "categoria":
-      return `Colección temática: ${destino.titulo}`;
+      return `Más sobre ${destino.titulo}`;
     case "pieza":
-      return `Pieza de la colección: ${destino.titulo}`;
+      return `Un objeto de la época: ${destino.titulo}`;
     default: {
       const _exhaustive: never = destino.tipo;
       return `${tipo}: ${destino.titulo}`;
@@ -37,19 +37,19 @@ function puenteAutomatico(origen: NodoEntidad, destino: NodoEntidad): string {
 function etiquetaTipoDestino(tipo: EntidadTipo): string {
   switch (tipo) {
     case "cronica":
-      return "Exhibición";
+      return "Historia";
     case "persona":
-      return "Retrato";
+      return "Personaje";
     case "evento":
       return "Acontecimiento";
     case "lugar":
       return "Lugar";
     case "periodo":
-      return "Sala";
+      return "Época";
     case "categoria":
-      return "Colección";
+      return "Tema";
     case "pieza":
-      return "Pieza";
+      return "Objeto";
     default: {
       const _exhaustive: never = tipo;
       return _exhaustive;

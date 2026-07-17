@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MagicLinkForm } from "@/components/membresia/MagicLinkForm";
@@ -149,9 +150,9 @@ export function GraciasPostPago({ emailInicial }: Props) {
       {tieneSesion && (
         <Link
           href="/mecenas"
-          className="inline-block text-sm text-oro-claro underline-offset-4 hover:underline"
+          className="group inline-block text-sm text-oro-claro underline-offset-4 hover:underline"
         >
-          Ir a tu museo →
+          <EtiquetaCta>Ir a tu museo</EtiquetaCta>
         </Link>
       )}
     </div>

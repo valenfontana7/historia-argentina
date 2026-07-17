@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EtiquetaCta } from "@/components/ui/FlechaCta";
 import { Reveal } from "@/components/ui/Reveal";
 import { periodos } from "@/data/periodos";
 import { construirMetadata } from "@/lib/seo/metadata";
@@ -62,7 +63,7 @@ export default function PeriodosPage() {
                   </p>
                 </div>
                 <span className="shrink-0 text-oro opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
-                  Entrar a la sala →
+                  <EtiquetaCta>Entrar a la sala</EtiquetaCta>
                 </span>
               </Link>
             </Reveal>
