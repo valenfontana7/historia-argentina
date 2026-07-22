@@ -101,7 +101,7 @@ export function PortalVivo({ gancho }: Props) {
           {gancho.titulo}
         </h1>
         <p
-          className="mt-3 line-clamp-3 max-w-xl text-sm leading-relaxed text-tinta-suave sm:mx-auto sm:mt-5 sm:line-clamp-none sm:text-lg"
+          className="mt-3 max-w-xl text-sm leading-relaxed text-tinta-suave sm:mx-auto sm:mt-5 sm:text-lg"
           data-portal-anim
         >
           {gancho.misterio}

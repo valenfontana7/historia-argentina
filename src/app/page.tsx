@@ -11,6 +11,7 @@ import {
   formatearFechaCalendario,
   resolverEfemerideParaFecha,
 } from "@/data/efemerides";
+import { teaserDeEfemeride } from "@/data/efemerides-narrativa";
 import { cronicas } from "@/content/cronicas/registro";
 import { destacadas } from "@/lib/cronicas/indice";
 import { hoyEnArgentina } from "@/lib/fechas";
@@ -58,10 +59,7 @@ async function HomeContenido() {
   const gancho = resolverGanchoPortal({
     efemerideTitulo: efemeride.titulo,
     efemerideHref: hrefHoy,
-    efemerideTeaser:
-      efemeride.hook ??
-      efemeride.historia[0]?.slice(0, 160) ??
-      efemeride.fecha,
+    efemerideTeaser: teaserDeEfemeride(efemeride),
     esExacta,
     cronicaDestacada: {
       slug: cronicaDestacada.slug,

@@ -10,6 +10,7 @@ import { obtenerNodo } from "@/lib/grafo/queries";
 import type { NodoEntidad } from "@/lib/grafo/tipos";
 import { rutaDeNodo } from "@/lib/grafo/rutas";
 import type { Efemeride } from "@/data/efemerides";
+import { teaserDeEfemeride } from "@/data/efemerides-narrativa";
 import { imagenDeRecorrido } from "@/lib/recorridos/imagen";
 
 export type ItemRiel = {
@@ -182,7 +183,7 @@ export function rielHoy(limite = 6): ItemRiel[] {
     return {
       href: `/hoy/${e.dia}`,
       titulo: e.titulo,
-      teaser: e.hook ?? e.historia[0]?.slice(0, 120) ?? e.fecha,
+      teaser: teaserDeEfemeride(e, 140),
       imagen: imagenDeEfemeride(e),
       meta: String(e.anio),
       kicker: e.fecha,

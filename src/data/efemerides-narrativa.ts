@@ -1,4 +1,4 @@
-import type { CitaEfemeride } from "@/data/efemerides";
+import type { CitaEfemeride, Efemeride } from "@/data/efemerides";
 
 /** Capa narrativa editorial para efemérides prioritarias (hook / giro / cita). */
 export type NarrativaEfemeride = {
@@ -6,6 +6,23 @@ export type NarrativaEfemeride = {
   giro: string;
   cita?: CitaEfemeride;
 };
+
+/** Teaser para portales/rieles: hook editorial, o primer párrafo sin cortar a mitad de palabra. */
+export function teaserDeEfemeride(e: Efemeride, max = 200): string {
+  const hook = e.hook ?? narrativaEfemerides[e.dia]?.hook;
+  if (hook) return hook;
+
+  const base = e.historia[0]?.trim();
+  if (!base) return e.fecha;
+  if (base.length <= max) return base;
+
+  const corte = base.slice(0, max);
+  const ultimoEspacio = corte.lastIndexOf(" ");
+  const limpio = (
+    ultimoEspacio > Math.floor(max * 0.55) ? corte.slice(0, ultimoEspacio) : corte
+  ).replace(/[\s.,;:…-]+$/u, "");
+  return `${limpio}…`;
+}
 
 export const narrativaEfemerides: Record<string, NarrativaEfemeride> = {
   "31-de-enero": {
