@@ -13,9 +13,18 @@ export function RielCarrusel({ items }: { items: ItemRiel[] }) {
   function actualizarControles() {
     const rail = railRef.current;
     if (!rail) return;
-    const maxScrollLeft = rail.scrollWidth - rail.clientWidth;
-    setPuedeIrAtras(rail.scrollLeft > EDGE_TOLERANCE);
-    setPuedeIrAdelante(maxScrollLeft > EDGE_TOLERANCE && rail.scrollLeft < maxScrollLeft - EDGE_TOLERANCE);
+    const firstCard = rail.firstElementChild as HTMLElement | null;
+    const lastCard = rail.lastElementChild as HTMLElement | null;
+    if (!firstCard || !lastCard) {
+      setPuedeIrAtras(false);
+      setPuedeIrAdelante(false);
+      return;
+    }
+    const railBounds = rail.getBoundingClientRect();
+    const firstCardBounds = firstCard.getBoundingClientRect();
+    const lastCardBounds = lastCard.getBoundingClientRect();
+    setPuedeIrAtras(firstCardBounds.left < railBounds.left - EDGE_TOLERANCE);
+    setPuedeIrAdelante(lastCardBounds.right > railBounds.right + EDGE_TOLERANCE);
   }
 
   useEffect(() => {
