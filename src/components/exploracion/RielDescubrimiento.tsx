@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ItemRiel } from "@/lib/exploracion/rieles-home";
-import { TarjetaUniverso } from "@/components/exploracion/TarjetaUniverso";
+import { RielCarrusel } from "@/components/exploracion/RielCarrusel";
 import { Reveal } from "@/components/ui/Reveal";
 import { EtiquetaCta } from "@/components/ui/FlechaCta";
 
@@ -47,13 +47,8 @@ export function RielDescubrimiento({
         </Reveal>
       </div>
 
-      <div
-        className="mt-6 flex gap-3 overflow-x-auto px-5 pb-2 scroll-smooth snap-x snap-mandatory sm:gap-4 sm:px-[max(1.25rem,calc((100vw-72rem)/2+1.25rem))]"
-        style={{ scrollbarWidth: "none" }}
-      >
-        {items.map((item, i) => (
-          <TarjetaUniverso key={`${item.href}-${i}`} item={item} />
-        ))}
+      <div className="mt-6">
+        <RielCarrusel items={items} />
       </div>
     </section>
   );
