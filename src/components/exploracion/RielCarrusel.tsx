@@ -5,6 +5,7 @@ import type { ItemRiel } from "@/lib/exploracion/rieles-home";
 import { TarjetaUniverso } from "@/components/exploracion/TarjetaUniverso";
 
 export function RielCarrusel({ items }: { items: ItemRiel[] }) {
+  const EDGE_TOLERANCE = 24;
   const railRef = useRef<HTMLDivElement>(null);
   const [puedeIrAtras, setPuedeIrAtras] = useState(false);
   const [puedeIrAdelante, setPuedeIrAdelante] = useState(false);
@@ -13,8 +14,8 @@ export function RielCarrusel({ items }: { items: ItemRiel[] }) {
     const rail = railRef.current;
     if (!rail) return;
     const maxScrollLeft = rail.scrollWidth - rail.clientWidth;
-    setPuedeIrAtras(rail.scrollLeft > 1);
-    setPuedeIrAdelante(rail.scrollLeft < maxScrollLeft - 1);
+    setPuedeIrAtras(rail.scrollLeft > EDGE_TOLERANCE);
+    setPuedeIrAdelante(maxScrollLeft > EDGE_TOLERANCE && rail.scrollLeft < maxScrollLeft - EDGE_TOLERANCE);
   }
 
   useEffect(() => {
