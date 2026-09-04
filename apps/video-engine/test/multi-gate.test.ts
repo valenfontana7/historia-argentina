@@ -2,6 +2,11 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { createEngineRuntime } from "../src/runtime";
 import { ExhibitionSchema } from "@museoargent/video-contracts";
+import path from "node:path";
+
+process.env.VIDEO_STORAGE_ROOT = path.join(process.cwd(), ".tmp", `video-engine-test-${process.pid}`);
+process.env.FFMPEG_PATH = "";
+process.env.FFPROBE_PATH = "";
 import {
   readPreviewState,
   writePreviewState,

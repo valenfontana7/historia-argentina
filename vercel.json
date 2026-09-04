@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/admin/editorial/discover",
+      "schedule": "0 10 * * *"
+    }
+  ]
+}

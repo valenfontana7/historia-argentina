@@ -1,5 +1,7 @@
 import {
   VERTICAL_1080x1920,
+  ExhibitionSchema,
+  type BrandId,
   type MusicCue,
   type SceneAssetBinding,
   type StoryboardDocument,
@@ -11,8 +13,8 @@ import {
 import type { ObjectStorage } from "../ports/object-storage";
 import { motionIntensityForScene } from "../../infrastructure/ffmpeg/ffmpeg-craft";
 import {
-  VIDEO_BRAND,
   defaultVideoCta,
+  videoBrandFor,
   videoBrandLogoPath,
 } from "../../branding/video-brand";
 
@@ -28,7 +30,9 @@ export class SceneComposer {
     music: MusicCue;
     cta?: string;
   }): Promise<{ manifest: VideoManifest; manifestUri: string }> {
-    const cta = input.cta?.trim() || defaultVideoCta();
+    const brandId = await this.brandIdForJob(input.jobId);
+    const brand = videoBrandFor(brandId);
+    const cta = input.cta?.trim() || defaultVideoCta(brandId);
     const scenes = input.storyboard.scenes.map((scene, sceneIndex) => {
       const binding = input.assets.find((a) => a.scene === scene.scene);
       if (!binding) {
@@ -91,7 +95,7 @@ export class SceneComposer {
         ? input.voices[0].fileUri
         : await this.concatPlaceholder(input.jobId, input.voices);
 
-    const logoPath = videoBrandLogoPath();
+    const logoPath = videoBrandLogoPath(brandId);
     const manifest: VideoManifest = {
       version: 1,
       format: VERTICAL_1080x1920,
@@ -108,32 +112,26 @@ export class SceneComposer {
         ? { format: "ass" as const, uri: input.subtitles.assUri }
         : { format: "srt" as const, uri: input.subtitles.srtUri },
       branding: {
-        endCardDurationSec: VIDEO_BRAND.endCardDurationSec,
+        endCardDurationSec: brand.endCardDurationSec,
         layers: [
           {
             id: "brand-bg",
             kind: "solid",
-            color: VIDEO_BRAND.colors.bg,
+            color: brand.colors.bg,
           },
-          {
-            id: "brand-logo",
-            kind: "image",
-            uri: `file://${logoPath}`,
-            y: VIDEO_BRAND.logoY,
-            width: VIDEO_BRAND.logoSize,
-            height: VIDEO_BRAND.logoSize,
-          },
+          { id: "brand-accent", kind: "solid", color: brand.colors.accent, opacity: 0 },
+          ...(logoPath ? [{ id: "brand-logo", kind: "image" as const, uri: `file://${logoPath}`, y: brand.logoY, width: brand.logoSize, height: brand.logoSize }] : []),
           {
             id: "brand-text",
             kind: "text",
-            text: VIDEO_BRAND.displayName,
+            text: brand.displayName,
             fontSize: 72,
             y: 900,
           },
           {
             id: "brand-handle",
             kind: "text",
-            text: VIDEO_BRAND.handle,
+            text: brand.handle,
             fontSize: 40,
             y: 990,
           },
@@ -147,7 +145,7 @@ export class SceneComposer {
           {
             id: "brand-url",
             kind: "text",
-            text: VIDEO_BRAND.urlLabel,
+            text: brand.urlLabel,
             fontSize: 28,
             y: 1220,
           },
@@ -161,6 +159,15 @@ export class SceneComposer {
       "application/json",
     );
     return { manifest, manifestUri };
+  }
+
+  private async brandIdForJob(jobId: string): Promise<BrandId> {
+    try {
+      const raw = await this.storage.get(`jobs/${jobId}/exhibition.json`);
+      return ExhibitionSchema.parse(JSON.parse(raw.toString("utf8"))).brandId ?? "museoargent";
+    } catch {
+      return "museoargent";
+    }
   }
 
   private async concatPlaceholder(

@@ -17,6 +17,10 @@ import {
 } from "../src/infrastructure/ffmpeg/reel-fonts";
 import { access } from "node:fs/promises";
 
+// These assertions exercise the full craft path even when the developer .env
+// defaults the VPS runtime to fast mode.
+process.env.VIDEO_RENDER_FAST = "0";
+
 test("orientationFromSize clasifica landscape/vertical/square", () => {
   assert.equal(orientationFromSize(1920, 1080), "horizontal");
   assert.equal(orientationFromSize(1080, 1920), "vertical");

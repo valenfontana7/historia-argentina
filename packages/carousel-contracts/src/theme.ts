@@ -7,6 +7,7 @@ export const ThemeIdSchema = z.enum([
   "museum",
   "editorial",
   "premium",
+  "labrechahoy_editorial",
 ]);
 
 export type ThemeId = z.infer<typeof ThemeIdSchema>;

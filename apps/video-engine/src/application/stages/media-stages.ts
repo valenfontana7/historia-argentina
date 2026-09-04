@@ -1,5 +1,6 @@
 import type {
   AssetRecord,
+  BrandId,
   MusicCategory,
   MusicCue,
   SceneAssetBinding,
@@ -7,6 +8,7 @@ import type {
   SubtitleDocument,
   VoiceTrack,
 } from "@museoargent/video-contracts";
+import { ExhibitionSchema } from "@museoargent/video-contracts";
 import { InsufficientAssetScoreError } from "../../domain/errors";
 import type { AssetLibrary, AssetRanker } from "../ports/asset-library";
 import type { MusicLibrary } from "../ports/music-library";
@@ -15,6 +17,7 @@ import type { VoiceProvider } from "../ports/voice-provider";
 import { ORIGEN_CONTEMPORANEA_TAG } from "../../infrastructure/assets/cache-exhibition-assets";
 import { shotTypeAssetBoost } from "../../infrastructure/ffmpeg/ffmpeg-craft";
 import { splitNarrationIntoCues, toAss, toSrt, toVtt } from "./subtitle-splitter";
+import { videoBrandFor } from "../../branding/video-brand";
 
 /** Antes de 1900, excluir fotos/vistas contemporáneas del pool del reel. */
 export const CONTEMPORARY_EXCLUDE_YEAR_END = 1900;
@@ -40,10 +43,14 @@ export class VoiceGenerator {
   async generateOne(
     jobId: string,
     scene: StoryboardDocument["scenes"][number],
+    brandId?: BrandId,
   ): Promise<VoiceTrack> {
+    const brand = videoBrandFor(brandId ?? (await this.brandIdForJob(jobId)));
     const key = `jobs/${jobId}/voice/scene-${scene.scene}.mp3`;
     return this.voice.synthesize({
       text: scene.narration,
+      voice: brand.ttsVoice,
+      instructions: brand.ttsInstructions,
       outputUri: key,
       scene: scene.scene,
     });
@@ -53,11 +60,21 @@ export class VoiceGenerator {
     jobId: string,
     storyboard: StoryboardDocument,
   ): Promise<VoiceTrack[]> {
+    const brandId = await this.brandIdForJob(jobId);
     const tracks: VoiceTrack[] = [];
     for (const scene of storyboard.scenes) {
-      tracks.push(await this.generateOne(jobId, scene));
+      tracks.push(await this.generateOne(jobId, scene, brandId));
     }
     return tracks;
+  }
+
+  private async brandIdForJob(jobId: string): Promise<BrandId> {
+    try {
+      const raw = await this.storage.get(`jobs/${jobId}/exhibition.json`);
+      return ExhibitionSchema.parse(JSON.parse(raw.toString("utf8"))).brandId ?? "museoargent";
+    } catch {
+      return "museoargent";
+    }
   }
 }
 

@@ -24,6 +24,7 @@ export class OpenAiVoiceProvider implements VoiceProvider {
   async synthesize(input: {
     text: string;
     voice?: string;
+    instructions?: string;
     outputUri: string;
     scene?: number;
   }): Promise<VoiceTrack> {
@@ -33,7 +34,9 @@ export class OpenAiVoiceProvider implements VoiceProvider {
       voice: voice as "alloy",
       input: input.text,
       response_format: "mp3",
-      ...(this.instructions ? { instructions: this.instructions } : {}),
+      ...(input.instructions ?? this.instructions
+        ? { instructions: input.instructions ?? this.instructions }
+        : {}),
     });
     const buffer = Buffer.from(await response.arrayBuffer());
     const outPath = this.storage.resolvePath(input.outputUri);

@@ -6,6 +6,7 @@ export const TemplateIdSchema = z.enum([
   "museum_documentary",
   "museum_dark",
   "museum_premium",
+  "labrecha_data",
 ]);
 
 export type TemplateId = z.infer<typeof TemplateIdSchema>;

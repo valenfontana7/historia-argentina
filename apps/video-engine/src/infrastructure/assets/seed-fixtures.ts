@@ -37,9 +37,13 @@ function silentWav(durationSec: number, sampleRate = 8000): Buffer {
 
 async function hasFfmpeg(bin: string): Promise<boolean> {
   return new Promise((resolve) => {
-    const child = spawn(bin, ["-version"], { stdio: "ignore" });
-    child.on("error", () => resolve(false));
-    child.on("close", (code) => resolve(code === 0));
+    try {
+      const child = spawn(bin, ["-version"], { stdio: "ignore", windowsHide: true });
+      child.on("error", () => resolve(false));
+      child.on("close", (code) => resolve(code === 0));
+    } catch {
+      resolve(false);
+    }
   });
 }
 

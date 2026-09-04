@@ -27,8 +27,19 @@ export const AssetRefSchema = z.object({
 });
 
 export const ExhibitionSourceSchema = z.object({
-  type: z.enum(["cronica", "manual", "efemeride"]),
+  type: z.enum(["cronica", "manual", "efemeride", "editorial_story"]),
   externalId: z.string().min(1),
+});
+
+export const BrandIdSchema = z.enum(["museoargent", "labrechahoy"]);
+export type BrandId = z.infer<typeof BrandIdSchema>;
+
+export const EditorialContextSchema = z.object({
+  storyId: z.string().min(1).optional(),
+  angleId: z.string().min(1).optional(),
+  variantId: z.string().min(1).optional(),
+  claims: z.array(z.string()).default([]),
+  sourceNotes: z.array(z.string()).default([]),
 });
 
 export const ExhibitionSchema = z.object({
@@ -47,6 +58,8 @@ export const ExhibitionSchema = z.object({
   documents: z.array(DocumentRefSchema).default([]),
   images: z.array(AssetRefSchema).default([]),
   source: ExhibitionSourceSchema,
+  brandId: BrandIdSchema.optional(),
+  editorialContext: EditorialContextSchema.optional(),
 });
 
 export type EntityRef = z.infer<typeof EntityRefSchema>;
@@ -56,3 +69,4 @@ export type DocumentRef = z.infer<typeof DocumentRefSchema>;
 export type AssetRef = z.infer<typeof AssetRefSchema>;
 export type ExhibitionSource = z.infer<typeof ExhibitionSourceSchema>;
 export type Exhibition = z.infer<typeof ExhibitionSchema>;
+export type EditorialContext = z.infer<typeof EditorialContextSchema>;

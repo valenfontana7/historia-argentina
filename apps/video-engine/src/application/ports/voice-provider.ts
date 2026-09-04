@@ -5,6 +5,7 @@ export interface VoiceProvider {
   synthesize(input: {
     text: string;
     voice?: string;
+    instructions?: string;
     outputUri: string;
     scene?: number;
   }): Promise<VoiceTrack>;

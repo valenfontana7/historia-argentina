@@ -13,6 +13,7 @@ const links = [
   { href: "/admin/mecenas/personas", label: "Personas", match: "prefix" as const },
   { href: "/admin/video", label: "Video", match: "prefix" as const },
   { href: "/admin/carousel", label: "Carousel", match: "prefix" as const },
+  { href: "/admin/editorial", label: "Editorial", match: "prefix" as const },
 ] as const;
 
 function linkActivo(

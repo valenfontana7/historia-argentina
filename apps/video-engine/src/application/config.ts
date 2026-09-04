@@ -1,4 +1,5 @@
 import { resolveFfmpegBinaries } from "../infrastructure/ffmpeg/resolve-binaries";
+import path from "node:path";
 import { loadRepoEnv } from "./load-env";
 import {
   DEFAULT_TTS_INSTRUCTIONS,
@@ -49,6 +50,13 @@ export function loadEngineConfig(env: NodeJS.ProcessEnv = process.env): EngineCo
   restorePinned(env, "VIDEO_USE_FAKE_PROVIDERS", pinnedFake);
   restorePinned(env, "OPENAI_API_KEY", pinnedOpenAi);
   restorePinned(env, "VIDEO_DATABASE_URL", pinnedDb);
+
+  // Tests must never inherit a developer's OneDrive/project storage path.
+  // Keep each process isolated and writable, while production continues to use
+  // the explicitly configured VIDEO_STORAGE_ROOT.
+  if (env.NODE_ENV === "test" || process.argv.some((arg) => arg.includes("--test"))) {
+    env.VIDEO_STORAGE_ROOT = path.join(process.cwd(), ".tmp", `video-engine-test-${process.pid}`);
+  }
 
   const root = env.VIDEO_STORAGE_ROOT ?? "data/video-engine";
   const bins = resolveFfmpegBinaries(env);

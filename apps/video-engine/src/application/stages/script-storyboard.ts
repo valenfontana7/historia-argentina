@@ -10,6 +10,7 @@ import {
   type VideoFormatProfile,
 } from "@museoargent/video-contracts";
 import type { LlmProvider } from "../ports/llm-provider";
+import { videoBrandFor } from "../../branding/video-brand";
 
 export type LlmGenOptions = {
   memory?: EditorialMemory | null;
@@ -48,17 +49,20 @@ export class ScriptGenerator {
     profile: VideoFormatProfile,
     options: LlmGenOptions = {},
   ): Promise<ScriptDocument> {
-    const system = await loadPrompt(
+    const baseSystem = await loadPrompt(
       this.promptsRoot,
       profile.id,
       profile.promptVersion,
       "script",
     );
+    const brand = videoBrandFor(exhibition.brandId ?? "museoargent");
+    const system = `${baseSystem}\n\nBRAND_ROLE: ${brand.promptRole}`;
     const parts = [
       `FORMAT: ${profile.id}`,
       `TARGET_DURATION_SEC: ${profile.targetDurationSec}`,
       `TONE: ${options.memory?.preferredTone ?? profile.tone}`,
       `CTA: ${profile.cta}`,
+      `BRAND: ${brand.id}`,
       `PACE: ${profile.narrativePace}`,
       `EXHIBITION_JSON: ${JSON.stringify(exhibition)}`,
       memoryPromptBlock(options.memory),
@@ -179,12 +183,12 @@ async function loadPrompt(
 
 function defaultPrompt(kind: "script" | "storyboard"): string {
   if (kind === "script") {
-    return `Sos el guionista de MuseoArgent. Generá un guion estructurado en escenas para video vertical.
-No inventes hechos. Usá solo la exhibición. Incluí CTA al final.
+    return `Sos un guionista editorial argentino. Generá un guion estructurado en escenas para video vertical.
+No inventes hechos. Usá sólo la exhibición y sus fuentes. Separá hechos de análisis e incluí el CTA al final.
 Si hay EDITORIAL_MEMORY_JSON, respetá notes, bannedWords y preferredTone.
-Respondé solo con el schema.`;
+Respondé sólo con el schema.`;
   }
-  return `Sos el director de storyboard de MuseoArgent. Para cada escena del guion definí plano, motion, transición y assetHint.
+  return `Sos un director de storyboard editorial. Para cada escena del guion definí plano, motion, transición y assetHint.
 No inventes assets: solo hints de tipo/tags.
 Si hay EDITORIAL_MEMORY_JSON, respetá notes, bannedWords, preferredTone y preferredAssetIds en assetHint.
 Respondé solo con el schema.`;

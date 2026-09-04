@@ -35,7 +35,13 @@
     "carousel:engine:build": "npm run build -w @museoargent/carousel-engine",
     "carousel:engine:start": "npm run start -w @museoargent/carousel-engine",
     "carousel:engine:cli": "npm run cli -w @museoargent/carousel-engine --",
-    "carousel:engine:test": "npm run test -w @museoargent/carousel-contracts && npm run test -w @museoargent/carousel-engine"
+    "carousel:engine:test": "npm run test -w @museoargent/carousel-contracts && npm run test -w @museoargent/carousel-engine",
+    "editorial:test": "node --import tsx --test src/lib/editorial/editorial.test.ts src/lib/editorial/discovery/discovery.test.ts src/lib/editorial/autopilot/autopilot.test.ts src/lib/editorial/autopilot/normalize.test.ts",
+    "editorial:test:integration": "node --import tsx scripts/editorial-integration-test.ts",
+    "editorial:smoke": "node --import tsx scripts/editorial-smoke.ts",
+    "editorial:demo": "node --import tsx scripts/editorial-demo.ts",
+    "editorial:discover": "node --import tsx scripts/editorial-discover.ts",
+    "editorial:autopilot": "node --import tsx scripts/editorial-autopilot.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

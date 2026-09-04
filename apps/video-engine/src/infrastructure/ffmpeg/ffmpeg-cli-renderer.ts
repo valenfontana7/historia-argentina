@@ -363,7 +363,9 @@ export class FfmpegCliRenderer implements FfmpegRenderer {
     const logoLayer = layers.find((l) => l.id === "brand-logo");
     const logoSize = logoLayer?.width ?? VIDEO_BRAND.logoSize;
     const logoY = logoLayer?.y ?? VIDEO_BRAND.logoY;
-    const oro = VIDEO_BRAND.colors.oro.replace("#", "0x");
+    const oro =
+      layers.find((l) => l.id === "brand-accent")?.color?.replace("#", "0x") ??
+      VIDEO_BRAND.colors.accent.replace("#", "0x");
 
     let logoPath: string | null = null;
     if (logoLayer?.uri) {

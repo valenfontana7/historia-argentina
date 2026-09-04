@@ -252,6 +252,7 @@ export const JobViewSchema = z.object({
   hasDraft: z.boolean().optional(),
   interactive: z.boolean().optional(),
   resumePhase: ResumePhaseSchema.optional(),
+  useFakeProviders: z.boolean().optional(),
 });
 
 export type JobStatus = z.infer<typeof JobStatusSchema>;

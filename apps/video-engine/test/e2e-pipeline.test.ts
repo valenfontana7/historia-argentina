@@ -2,6 +2,11 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { createEngineRuntime } from "../src/runtime";
 import { ExhibitionSchema } from "@museoargent/video-contracts";
+import path from "node:path";
+
+process.env.VIDEO_STORAGE_ROOT = path.join(process.cwd(), ".tmp", `video-engine-test-${process.pid}`);
+process.env.FFMPEG_PATH = "";
+process.env.FFPROBE_PATH = "";
 
 test("pipeline E2E fake providers produce MP4 1080x1920", async () => {
   process.env.VIDEO_USE_FAKE_PROVIDERS = "true";

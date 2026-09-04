@@ -29,21 +29,21 @@ enum EstadoMecenas {
 }
 
 model Mecenas {
-  id               String        @id @default(cuid())
-  email            String        @unique
-  plan             PlanMecenas
-  estado           EstadoMecenas @default(pendiente)
-  esFundador       Boolean       @default(false)
-  nombrePublico    String?
-  mostrarCredito   Boolean       @default(true)
-  mpPaymentId      String?
-  mpSubscriptionId String?
-  mpPreferenceId   String?
-  periodEnd        DateTime?
-  exentoFacturacion Boolean      @default(false)
-  notasAdmin       String?
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
+  id                String        @id @default(cuid())
+  email             String        @unique
+  plan              PlanMecenas
+  estado            EstadoMecenas @default(pendiente)
+  esFundador        Boolean       @default(false)
+  nombrePublico     String?
+  mostrarCredito    Boolean       @default(true)
+  mpPaymentId       String?
+  mpSubscriptionId  String?
+  mpPreferenceId    String?
+  periodEnd         DateTime?
+  exentoFacturacion Boolean       @default(false)
+  notasAdmin        String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
 
   @@index([email])
   @@index([estado])
@@ -71,12 +71,371 @@ model VotoCronicaFundador {
 }
 
 model WebhookMercadoPago {
-  id          String   @id @default(cuid())
-  requestId   String   @unique
+  id          String    @id @default(cuid())
+  requestId   String    @unique
   tipo        String?
   recursoId   String?
-  recibidoEn  DateTime @default(now())
+  recibidoEn  DateTime  @default(now())
   procesadoEn DateTime?
 
   @@index([recibidoEn])
+}
+
+enum EditorialStoryStatus {
+  discovered
+  triaged
+  researching
+  angle_proposed
+  rejected
+  archived
+}
+
+enum EditorialDiscoverySource {
+  macro
+  rss
+  web
+  efemeride
+  grafo
+  manual
+}
+
+enum EditorialAutopilotStatus {
+  none
+  queued
+  generating
+  ready
+  failed
+}
+
+enum EditorialSourceType {
+  official
+  primary
+  secondary
+  internal
+  manual
+}
+
+enum ClaimClassification {
+  fact
+  context
+  interpretation
+  opinion
+}
+
+enum ClaimVerificationStatus {
+  pending
+  verified
+  disputed
+  rejected
+}
+
+enum EvidenceRelation {
+  supports
+  contradicts
+  contextualizes
+}
+
+enum EditorialBrand {
+  museoargent
+  labrechahoy
+}
+
+enum BrandAngleStatus {
+  proposed
+  approved
+  needs_revision
+  rejected
+}
+
+enum ContentVariantFormat {
+  article
+  reel
+  carousel
+  story
+  x_post
+  audiovisual_script
+  description_cta
+}
+
+enum ContentVariantStatus {
+  drafted
+  fact_check_pending
+  fact_checked
+  production_ready
+  rendered
+  final_review
+  approved
+  published
+  needs_revision
+  rejected
+}
+
+enum EditorialAssetKind {
+  image
+  video
+  audio
+  document
+  chart
+}
+
+enum EditorialAssetOrigin {
+  uploaded
+  generated
+  linked
+}
+
+enum MediaOutputStatus {
+  requested
+  queued
+  rendering
+  succeeded
+  failed
+}
+
+enum ReviewTargetType {
+  story
+  claim
+  angle
+  variant
+  media
+}
+
+enum ReviewDecisionKind {
+  submit
+  approve
+  reject
+  request_changes
+  verify
+  publish
+}
+
+enum PublicationStatus {
+  planned
+  published
+  corrected
+  retracted
+}
+
+model EditorialStory {
+  id                  String                    @id @default(cuid())
+  title               String
+  summary             String                    @db.Text
+  slug                String                    @unique
+  status              EditorialStoryStatus      @default(discovered)
+  tags                String[]                  @default([])
+  detectedAt          DateTime                  @default(now())
+  eventDate           DateTime?
+  score               Int?
+  scoreBreakdown      Json?
+  scoreOverride       Int?
+  scoreOverrideReason String?
+  discoverySource     EditorialDiscoverySource  @default(manual)
+  discoveryMeta       Json?
+  dedupeKey           String?                   @unique
+  autopilotStatus     EditorialAutopilotStatus  @default(none)
+  autopilotError      String?                   @db.Text
+  suggestedBrands     EditorialBrand[]          @default([])
+  createdByEmail      String
+  updatedByEmail      String?
+  createdAt           DateTime                  @default(now())
+  updatedAt           DateTime                  @updatedAt
+  sources             EditorialSource[]
+  claims              EditorialClaim[]
+  angles              BrandAngle[]
+  assets              EditorialAsset[]
+  revisions           EditorialRevision[]
+
+  @@index([status, updatedAt])
+  @@index([autopilotStatus, score])
+}
+
+model EditorialSource {
+  id          String              @id @default(cuid())
+  storyId     String
+  type        EditorialSourceType
+  title       String
+  url         String?
+  publisher   String?
+  publishedAt DateTime?
+  accessedAt  DateTime            @default(now())
+  isPrimary   Boolean             @default(false)
+  notes       String?             @db.Text
+  story       EditorialStory      @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  evidence    ClaimEvidence[]
+
+  @@index([storyId, accessedAt])
+}
+
+model EditorialClaim {
+  id             String                  @id @default(cuid())
+  storyId        String
+  text           String                  @db.Text
+  classification ClaimClassification
+  verification   ClaimVerificationStatus @default(pending)
+  importance     Int                     @default(3)
+  notes          String?                 @db.Text
+  story          EditorialStory          @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  evidence       ClaimEvidence[]
+  variants       VariantClaim[]
+
+  @@index([storyId, verification])
+}
+
+model ClaimEvidence {
+  id       String           @id @default(cuid())
+  claimId  String
+  sourceId String
+  relation EvidenceRelation @default(supports)
+  quote    String?          @db.Text
+  claim    EditorialClaim   @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  source   EditorialSource  @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@unique([claimId, sourceId])
+}
+
+model BrandAngle {
+  id             String           @id @default(cuid())
+  storyId        String
+  brand          EditorialBrand
+  status         BrandAngleStatus @default(proposed)
+  thesis         String           @db.Text
+  audience       String
+  tone           String
+  exclusions     String[]         @default([])
+  briefJson      Json
+  decisionReason String?          @db.Text
+  version        Int              @default(1)
+  score          Int?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  story          EditorialStory   @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  variants       ContentVariant[]
+
+  @@unique([storyId, brand])
+  @@index([brand, status])
+}
+
+model ContentVariant {
+  id             String               @id @default(cuid())
+  angleId        String
+  format         ContentVariantFormat
+  status         ContentVariantStatus @default(drafted)
+  version        Int                  @default(1)
+  title          String
+  body           String               @db.Text
+  cta            String?
+  contentJson    Json?
+  sourceNotes    String?              @db.Text
+  createdByEmail String
+  updatedByEmail String?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  angle          BrandAngle           @relation(fields: [angleId], references: [id], onDelete: Cascade)
+  claims         VariantClaim[]
+  mediaOutputs   MediaOutput[]
+  reviews        ReviewDecision[]
+  publications   Publication[]
+  revisions      EditorialRevision[]
+
+  @@unique([angleId, format, version])
+  @@index([status, updatedAt])
+}
+
+model VariantClaim {
+  variantId String
+  claimId   String
+  variant   ContentVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  claim     EditorialClaim @relation(fields: [claimId], references: [id], onDelete: Cascade)
+
+  @@id([variantId, claimId])
+}
+
+model EditorialAsset {
+  id        String               @id @default(cuid())
+  storyId   String
+  kind      EditorialAssetKind
+  origin    EditorialAssetOrigin
+  uri       String
+  title     String?
+  altText   String?
+  metadata  Json?
+  createdAt DateTime             @default(now())
+  story     EditorialStory       @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@index([storyId, kind])
+}
+
+model MediaOutput {
+  id          String            @id @default(cuid())
+  variantId   String
+  engine      String
+  jobId       String?
+  status      MediaOutputStatus @default(requested)
+  uri         String?
+  manifestUri String?
+  error       String?           @db.Text
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  variant     ContentVariant    @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([variantId, status])
+}
+
+model EditorialRevision {
+  id           String           @id @default(cuid())
+  storyId      String?
+  variantId    String?
+  targetType   ReviewTargetType
+  targetId     String
+  version      Int
+  snapshotJson Json
+  actorEmail   String
+  createdAt    DateTime         @default(now())
+  story        EditorialStory?  @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  variant      ContentVariant?  @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@unique([targetType, targetId, version])
+  @@index([targetId, createdAt])
+}
+
+model ReviewDecision {
+  id             String             @id @default(cuid())
+  targetType     ReviewTargetType
+  targetId       String
+  decision       ReviewDecisionKind
+  previousStatus String?
+  newStatus      String
+  targetVersion  Int
+  note           String?            @db.Text
+  actorEmail     String
+  createdAt      DateTime           @default(now())
+  variantId      String?
+  variant        ContentVariant?    @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([targetType, targetId, createdAt])
+}
+
+model Publication {
+  id          String              @id @default(cuid())
+  variantId   String
+  channel     String
+  externalId  String?
+  url         String
+  publishedAt DateTime?
+  status      PublicationStatus   @default(planned)
+  variant     ContentVariant      @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  metrics     PublicationMetric[]
+
+  @@unique([variantId, channel])
+}
+
+model PublicationMetric {
+  id            String      @id @default(cuid())
+  publicationId String
+  metric        String
+  value         Float
+  observedAt    DateTime    @default(now())
+  publication   Publication @relation(fields: [publicationId], references: [id], onDelete: Cascade)
+
+  @@index([publicationId, observedAt])
 }
